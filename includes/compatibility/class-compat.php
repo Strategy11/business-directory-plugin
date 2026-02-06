@@ -9,6 +9,7 @@ class WPBDP_Compat {
 	public function __construct() {
 		$this->workarounds_for_wp_bugs();
 		$this->load_integrations();
+        $this->priority_adjustment();
 
 		if ( wpbdp_get_option( 'disable-cpt' ) ) {
 			self::cpt_compat_mode();
@@ -39,7 +40,7 @@ class WPBDP_Compat {
 			new WPBDP_Custom_Permalink_Integration();
 		}
 
-		if ( class_exists( 'acf' ) && 'Bold Move' === wp_get_theme()->Name ) {
+		if ( class_exists( 'acf' ) && 'Bold Move' === wp_get_theme()->get( 'Name' ) ) {
 			require_once WPBDP_PATH . 'includes/compatibility/class-acf-boldmove-compat.php';
 			new WPBDP_ACF_Compat();
 		}
@@ -61,7 +62,12 @@ class WPBDP_Compat {
 		// WP Fusion and WooCommerce Invalid nonce.
 		if ( defined( 'WP_FUSION_VERSION' ) && class_exists( 'WooCommerce' ) ) {
 			add_filter(
-                 'wpf_skip_auto_login', array( $this , 'wp_fusion_skip_auto_login'), 20 );
+                'wpf_skip_auto_login', array( $this, 'wp_fusion_skip_auto_login' ), 20 );
+		}
+
+		// Delete Elementor element caching for shortcodes.
+		if ( class_exists( 'Elementor\Core\Base\Document' ) ) {
+			add_action( 'template_redirect', array( $this, 'prevent_shortcodes_elementor_element_cache' ) );
 		}
 	}
 
@@ -118,6 +124,7 @@ class WPBDP_Compat {
 	 * Skip WP Fusion auto login .
 	 *
 	 * @param bool $skip_auto_login skip auto login.
+	 *
 	 * @return bool
 	 */
 	public function wp_fusion_skip_auto_login( $skip_auto_login ) {
@@ -126,4 +133,39 @@ class WPBDP_Compat {
 		}
 		return $skip_auto_login;
 	}
+
+	/**
+	 * Checks if the current post content has a BD shortcode and deletes the Elementor cache.
+	 * 
+	 * @since 6.4.10
+	 *
+	 * @return void
+	 */
+	public function prevent_shortcodes_elementor_element_cache() {
+		global $post, $wpbdp;
+
+		if ( ! $post ) {
+			return;
+		}
+
+		$cache_key  = Elementor\Core\Base\Document::CACHE_META_KEY;
+		$shortcodes = get_shortcode_regex( array_keys( $wpbdp->shortcodes->get_shortcodes() ) );
+
+		if ( preg_match( "/$shortcodes/", $post->post_content ) ) {
+		    delete_post_meta( $post->ID, $cache_key );
+		}
+	}
+
+    /**
+     * Adjust the priority of the addtoany_content_priority filter.
+     * 
+     * @return void
+     */
+    private function priority_adjustment() {
+        // AddToAny Social Share
+        add_filter(
+            'addtoany_content_priority', function () {
+            return 1100;
+        }, 100);
+    }
 }

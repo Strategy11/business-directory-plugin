@@ -3,7 +3,7 @@
 class WPBDP_FieldTypes_Twitter extends WPBDP_Form_Field_Type {
 
 	public function __construct() {
-		parent::__construct( _x( 'Social Site (Twitter handle)', 'form-fields api', 'business-directory-plugin' ) );
+		parent::__construct( __( 'X / Twitter follow', 'business-directory-plugin' ) );
 	}
 
 	public function get_id() {
@@ -36,7 +36,7 @@ class WPBDP_FieldTypes_Twitter extends WPBDP_Form_Field_Type {
 	public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
 		// twitter fields are rendered as normal textfields
 		global $wpbdp;
-		return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra, $field_settings );
+		return $wpbdp->form_fields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra, $field_settings );
 	}
 
 	public function get_supported_associations() {
@@ -64,12 +64,16 @@ class WPBDP_FieldTypes_Twitter extends WPBDP_Form_Field_Type {
 		$html .= '<div class="social-field twitter twitter-handle">';
 		$html .= sprintf(
 			'<a href="https://twitter.com/%s" class="twitter-follow-button" data-show-count="%s" data-lang="%s">Follow @%s</a>',
-			$value,
+			esc_attr( $value ),
 			! empty( $field->data( 'show_count' ) ) ? 'true' : 'false',
 			substr( get_bloginfo( 'language' ), 0, 2 ),
 			$value
 		);
-		$html .= '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
+		$html .= '<script>' .
+			'!function(d,s,id){' .
+			'var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";' .
+			'fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");' .
+			'</script>';
 		$html .= '</div>';
 
 		return $html;
@@ -89,10 +93,10 @@ class WPBDP_FieldTypes_Twitter extends WPBDP_Form_Field_Type {
 
 	/**
 	 * @since 5.5.10
+	 *
+	 * @return void|WP_Error
 	 */
 	public function process_field_settings( &$field ) {
 		$field->set_data( 'show_count', isset( $_POST['field']['show_count'] ) ? (bool) intval( $_POST['field']['show_count'] ) : false );
 	}
-
 }
-

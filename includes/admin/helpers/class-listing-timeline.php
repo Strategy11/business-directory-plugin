@@ -1,6 +1,7 @@
 <?php
 /**
  * @package WPBDP/Includes/Admin/Helpers/Listing timeline
+ *
  * @since 5.0
  */
 
@@ -187,5 +188,4 @@ class WPBDP__Listing_Timeline {
 
 		return $item;
 	}
-
 }

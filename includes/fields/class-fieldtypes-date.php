@@ -1,6 +1,7 @@
 <?php
 /**
  * @package WPBDP\FieldTypes\Date
+ *
  * @since 3.6.5
  */
 class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
@@ -50,6 +51,9 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
 		return self::render_admin_settings( $settings );
 	}
 
+	/**
+	 * @return void|WP_Error
+	 */
 	public function process_field_settings( &$field ) {
 		if ( ! isset( $_POST['field']['x_date_format'] ) ) {
 			return;
@@ -114,7 +118,7 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
 	}
 
 	public function date_to_storage_format( &$field, $value ) {
-		if ( '' === $value ) {
+		if ( '' === $value || null === $value ) {
 			return '';
 		}
 
@@ -279,5 +283,4 @@ class WPBDP_FieldTypes_Date extends WPBDP_FieldTypes_TextField {
 
 		return $field->data( 'date_format' );
 	}
-
 }

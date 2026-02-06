@@ -23,7 +23,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 		// render textareas as textfields when searching
 		if ( $context == 'search' ) {
 			global $wpbdp;
-			return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra, $field_settings );
+			return $wpbdp->form_fields->get_field_type( 'textfield' )->render_field_inner( $field, $value, $context, $extra, $field_settings );
 		}
 
 		// @since 5.5.12
@@ -98,7 +98,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 		$settings = array(
 			'drag_drop_upload' => false,
 			'media_buttons'    => false,
-			'quicktags'        => ( (bool) $field->data( 'wysiwyg_images' ) ) ? true : false,
+			'quicktags'        => (bool) $field->data( 'wysiwyg_images' ),
 		);
 
 		// Trick _WP_Editors into generating the array of TinyMCE and QuickTags
@@ -187,7 +187,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 		return array( 'title', 'excerpt', 'content', 'meta' );
 	}
 
-	public function render_field_settings( &$field = null, $association = null ) {
+	public function render_field_settings( &$field = null, $association = null ) { // phpcs:ignore SlevomatCodingStandard.Complexity
 		$settings = array();
 
 		$settings['allow_html'][] = _x( 'Allow HTML input for this field?', 'form-fields admin', 'business-directory-plugin' );
@@ -196,7 +196,14 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 		$settings['allow_iframes'][] = _x( 'Allow IFRAME tags in content?', 'form-fields admin', 'business-directory-plugin' );
 		$settings['allow_iframes'][] =
 			'<div class="iframe-confirm wpbdp-note warning">' .
-			'<p>' . _x( 'Enabling iframe support in your listings can allow users to execute arbitrary scripts on a page if they want, which can possibly infect your site with malware. We do NOT recommend using this setting UNLESS you are posting the listings yourself and have sole control over the content. Are you sure you want to enable this?', 'admin form-fields', 'business-directory-plugin' ) . '</p>' .
+			'<p>' .
+			_x(
+				// phpcs:ignore SlevomatCodingStandard.Files.LineLength
+				'Enabling iframe support in your listings can allow users to execute arbitrary scripts on a page if they want, which can possibly infect your site with malware. We do NOT recommend using this setting UNLESS you are posting the listings yourself and have sole control over the content. Are you sure you want to enable this?',
+				'admin form-fields',
+				'business-directory-plugin'
+			) .
+			'</p>' .
 			'<a href="#" class="button no">' . esc_html__( 'No', 'business-directory-plugin' ) . '</a> ' .
 			'<a href="#" class="button button-primary yes">' . esc_html__( 'Yes', 'business-directory-plugin' ) . '</a>' .
 			'</div>' .
@@ -213,16 +220,29 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
 			$desc                         = __( 'Warning: Users can use this feature to get around your image limits in plans.', 'business-directory-plugin' );
 			$settings['wysiwyg_images'][] = esc_html__( 'Allow images in HTML?', 'business-directory-plugin' );
-			$settings['wysiwyg_images'][] = '<input type="checkbox" value="1" name="field[wysiwyg_images]" ' . ( $field && $field->data( 'wysiwyg_images' ) ? ' checked="checked"' : '' ) . ' /> <span class="description">' . esc_html( $desc ) . '</span>';
+			$settings['wysiwyg_images'][] = '<input type="checkbox" value="1" name="field[wysiwyg_images]" ' .
+				( $field && $field->data( 'wysiwyg_images' ) ? ' checked="checked"' : '' ) . ' /> ' .
+				'<span class="description">' . esc_html( $desc ) . '</span>';
 
 			$desc                        = _x( '<b>Advanced users only!</b> Unless you\'ve been told to change this, don\'t switch it unless you know what you\'re doing.', 'form-fields admin', 'business-directory-plugin' );
 			$settings['allow_filters'][] = _x( 'Apply "the_content" filter before displaying this field?', 'form-fields admin', 'business-directory-plugin' );
 			$settings['allow_filters'][] = '<input type="checkbox" value="1" name="field[allow_filters]" ' . ( $field && $field->data( 'allow_filters' ) ? ' checked="checked"' : '' ) . ' /> <span class="description">' . $desc . '</span>';
 
 			$settings['excerpt_override'][] = _x( 'Use shortened version of Description field as excerpt', 'form-fields admin', 'business-directory-plugin' );
-			$settings['excerpt_override'][] = '<input type="radio" value="1" name="field[excerpt_override]" ' . ( $field && 1 === $field->data( 'excerpt_override' ) ? ' checked="checked"' : '' ) . '/>' . _x( 'Enable always (override the Short Description given with a shortened Long Description)', 'form-fields admin', 'business-directory-plugin' ) . '<br/>
-                                               <input type="radio" value="2" name="field[excerpt_override]" ' . ( $field && 2 === $field->data( 'excerpt_override' ) ? ' checked="checked"' : '' ) . '/>' . _x( 'Enable conditionally (override ONLY when Short Description is empty with a shortened Long Description)', 'form-fields admin', 'business-directory-plugin' ) . '<br/>
-                                               <input type="radio" value="0" name="field[excerpt_override]" ' . ( $field && ! in_array( $field->data( 'excerpt_override' ), array( 1, 2 ) ) ? ' checked="checked"' : '' ) . '/>' . _x( 'Disable (use the Short Description all the time, empty or not)', 'form-fields admin', 'business-directory-plugin' );
+			$settings['excerpt_override'][] = '<input type="radio" value="1" name="field[excerpt_override]" ' .
+				( $field && 1 === $field->data( 'excerpt_override' ) ? ' checked="checked"' : '' ) .
+				'/>' .
+				_x( 'Enable always (override the Short Description given with a shortened Long Description)', 'form-fields admin', 'business-directory-plugin' ) .
+				'<br/>' .
+				'<input type="radio" value="2" name="field[excerpt_override]" ' .
+				( $field && 2 === $field->data( 'excerpt_override' ) ? ' checked="checked"' : '' ) .
+				'/>' .
+				_x( 'Enable conditionally (override ONLY when Short Description is empty with a shortened Long Description)', 'form-fields admin', 'business-directory-plugin' ) .
+				'<br/>' .
+				'<input type="radio" value="0" name="field[excerpt_override]" ' .
+				( $field && ! in_array( $field->data( 'excerpt_override' ), array( 1, 2 ) ) ? ' checked="checked"' : '' ) .
+				'/>' .
+				_x( 'Disable (use the Short Description all the time, empty or not)', 'form-fields admin', 'business-directory-plugin' );
 
 			$desc                     = _x( 'Truncates the description field to the value set here. To display all of the description, set to 0.', 'form-fields admin', 'business-directory-plugin' );
 			$settings['max_length'][] = _x( 'Number of Characters from Short Description/Excerpt to Display in List View (only)', 'form-fields admin', 'business-directory-plugin' );
@@ -237,6 +257,9 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 		return self::render_admin_settings( $settings );
 	}
 
+	/**
+	 * @return void|WP_Error
+	 */
 	public function process_field_settings( &$field ) {
 		$field->set_data( 'allow_html', isset( $_POST['field']['allow_html'] ) ? (bool) intval( $_POST['field']['allow_html'] ) : false );
 		$field->set_data( 'allow_iframes', isset( $_POST['field']['allow_iframes'] ) ? (bool) intval( $_POST['field']['allow_iframes'] ) : false );
@@ -247,7 +270,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 		$field->set_data( 'wysiwyg_images', isset( $_POST['field']['wysiwyg_images'] ) ? (bool) intval( $_POST['field']['wysiwyg_images'] ) : false );
 		$field->set_data( 'excerpt_override', isset( $_POST['field']['excerpt_override'] ) ? intval( $_POST['field']['excerpt_override'] ) : 0 ); // Input var okay.
 		$field->set_data( 'auto_excerpt', isset( $_POST['field']['auto_excerpt'] ) ? (bool) intval( $_POST['field']['auto_excerpt'] ) : false );
-		$field->set_data( 'word_count', ( in_array( 'word_number', $field->get_validators() ) && isset( $_POST['field']['word_count'] ) ) ? intval( $_POST['field']['word_count'] ) : 0 );
+		$field->set_data( 'word_count', in_array( 'word_number', $field->get_validators() ) && isset( $_POST['field']['word_count'] ) ? intval( $_POST['field']['word_count'] ) : 0 );
 	}
 
 	public function store_field_value( &$field, $post_id, $value ) {
@@ -347,12 +370,10 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 			if ( ! $field->data( 'allow_html' ) ) {
 				$value = nl2br( $value );
 			}
+		} elseif ( $field->data( 'allow_html' ) ) {
+			$value = wpautop( $value );
 		} else {
-			if ( $field->data( 'allow_html' ) ) {
-				$value = wpautop( $value );
-			} else {
-				$value = nl2br( $value );
-			}
+			$value = nl2br( $value );
 		}
 
 		return $value;
@@ -411,7 +432,7 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
 		$content_field = array_filter(
 			$fields,
-			function( $f ) {
+			function ( $f ) {
 				return 'content' === $f->get_association();
 			}
 		);
@@ -439,6 +460,4 @@ class WPBDP_FieldTypes_TextArea extends WPBDP_Form_Field_Type {
 
 		return $fields;
 	}
-
 }
-

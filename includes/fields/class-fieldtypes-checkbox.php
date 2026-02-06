@@ -87,7 +87,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 			$html .= esc_attr( $label );
 			$html .= '</label></div>';
 
-			$i++;
+			++$i;
 		}
 
 		if ( '1' == $field->data( 'allow_select_all' ) ) {
@@ -128,7 +128,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 		$settings['select_all'][] = _x( 'Include "Select all"?', 'form-fields admin', 'business-directory-plugin' );
 
 		$content  = '<label>';
-		$content .= '<input name="field[allow_select_all]" value="1" type="checkbox" ' . ( ( $field && '1' == $field->data( 'allow_select_all' ) ) ? 'checked="checked"' : '' ) . '/>';
+		$content .= '<input name="field[allow_select_all]" value="1" type="checkbox" ' . ( $field && '1' == $field->data( 'allow_select_all' ) ? 'checked="checked"' : '' ) . '/>';
 		$content .= _x( 'Display "Select all" option among options above.', 'form-fields admin', 'business-directory-plugin' );
 		$content .= '</label>';
 
@@ -137,6 +137,9 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 		return self::render_admin_settings( $settings );
 	}
 
+	/**
+	 * @return void|WP_Error
+	 */
 	public function process_field_settings( &$field ) {
 		if ( ! isset( $_POST['field']['x_options'] ) ) {
 			return;
@@ -176,7 +179,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 				$value = array( $value );
 			}
 
-			$value = implode( "\t", array_filter( $value, 'strlen' ) );
+			$value = implode( "\t", wpbdp_array_filter( $value ) );
 		}
 
 		parent::store_field_value( $field, $post_id, $value );
@@ -240,7 +243,12 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 	 * @since 3.4.1
 	 */
 	public function convert_csv_input( &$field, $input = '', $import_settings = array() ) {
-		if ( 'meta' != $field->get_association() ) {
+		if ( 'tags' === $field->get_association() ) {
+			$input = str_replace( ';', ',', $input );
+			return array_map( 'trim', explode( ',', $input ) );
+		}
+
+		if ( 'meta' !== $field->get_association() ) {
 			return $this->convert_input( $field, $input );
 		}
 
@@ -285,10 +293,10 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 	 * Don't count the hidden field value.
 	 *
 	 * @since 6.2.5
+	 *
 	 * @return bool
 	 */
 	public function is_empty_value( $value ) {
 		return empty( array_filter( (array) $value ) );
 	}
 }
-

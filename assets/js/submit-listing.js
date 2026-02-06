@@ -39,6 +39,7 @@ jQuery(function($) {
                 setTimeout(function() {
                     if ( this.field_type === 'select2' && $.fn.selectWoo ) {
                         self.field.selectWoo({placeholder: wpbdpSubmitListingL10n.categoriesPlaceholderTxt});
+                        document.body.classList.add( 'wpbdp-has-select2' );
                     }
                 } );
             }
@@ -140,7 +141,7 @@ jQuery(function($) {
 
             if ( 'none' === categories || 'all' === categories ) {
                 if ( 'select2' === this.field_type ) {
-                    this.field.find( 'option' ).each(function(i, v) {
+                    this.field.find( 'option' ).each(function() {
                         if ( true === $( this ).data( 'keep_disabled' ) ) {
                             // $( this ).prop( 'disabled', true );
                         } else {
@@ -375,11 +376,16 @@ jQuery(function($) {
 					handler: 'submit_listing__load_form'
 				};
 
-			
 			self.ajax( data, function( res ) {
 				if ( typeof res.form !== 'undefined' ) {
 					self.$submit.html( res.form );
 					this.plan_handling(); // Trigger a plan reset.
+
+                    const selectFields = $( '.wpbdp-js-select2' );
+                    if ( selectFields.length > 0 && $.fn.selectWoo ) {
+                        selectFields.selectWoo();
+                        document.body.classList.add( 'wpbdp-has-select2' );
+                    }
 				}
 			} );
 		},
@@ -416,7 +422,6 @@ jQuery(function($) {
 
         refresh: function(data) {
             var sections = data.sections;
-            var messages = data.messages;
 
             var current_sections = this.$form.find( '.wpbdp-submit-listing-section' );
             current_sections.hide();

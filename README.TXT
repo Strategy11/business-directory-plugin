@@ -1,19 +1,19 @@
 === Business Directory Plugin - Easy Listing Directories for WordPress ===
 Contributors: businessdirectoryplugin, sswells, srwells
 Tags: business directory, listings, directory plugin, staff directory, member directory, company directory, team directory, chamber of commerce business directory, church directory, address book, contact directory, local business directory, listings directory, link directory
-Requires at least: 4.8
-Requires PHP: 5.6
-Tested up to: 6.3.1
-Stable tag: 6.3.10
+Requires at least: 5.9
+Requires PHP: 7.4
+Tested up to: 6.9
+Stable tag: 6.4.21
 License: GPLv2 or later
 
-The best WordPress Business Directory Plugin. Build an easy team directory, member directory, staff directory, church directory, and more.
+The easy Business Directory Plugin for WordPress. Build an easy team directory, member directory, staff directory, church directory, and more.
 
 == Description ==
 
 Business Directory Plugin is the perfect solution for professionals who are looking for a simple directory website builder for WordPress! If you're not tech savvy, no worries. You can quickly get started by installing this simple plugin. It doesn't require any developer knowledge whatsoever on your end.
 
-== The Best Business Directory Plugin for WordPress ==
+== Business Directory Plugin for WordPress ==
 You've found the most popular, versatile, and easy to use WordPress directory plugin available. Increase interaction on your WordPress site, improve customer retention and add a generate revenue with our WordPress business directory plugin!
 
 Our easy WordPress directory plugin allows you to take the listings you want and build a local directory, simple directory of providers, a real estate listings site, a Yellow-Pages directory, a Yelp clone with review sections, an address book directory, a book review site (like Goodreads), and much more.
@@ -42,7 +42,7 @@ See all WordPress listing plugin [features](https://businessdirectoryplugin.com/
 * Fully customizable form fields to submit listings
 * Upload images per listing, allow restricted numbers of images based on plan
 * Lots of image options: drag and drop image uploads, easy image ordering, primary image settings, thumbnail sizing and more
-* Accept paid or free listings with Authorize.net
+* Accept paid or free listings with Stripe
 * Full support for recurring payments
 * Allow for featured/sticky listings for an upgrade fee
 * Widgets for Featured, Latest and Random listings, and a Search widget.
@@ -158,76 +158,70 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
-= 6.3.10 =
-* New: Add more detail in the Recaptcha validation message for editors or higher for help debugging. Any error code and V3 score will be shown.
-* Security: It was possible for a logged in "contributor" user to delete an admin listing.
-* Fix: Sticky listings weren't showing at the top when shown using a shortcode or a category page.
-* Fix: Sticky listings were always in the same order, regardless of settings
-* Fix: If a private field is switched to a type that doesn't have privacy options, show the option so it can be turned off.
+= 6.4.21 =
+* Enhancement: Added backend validation for the fields
+* Fix: PHP Notices
+* Fix: Bug with HTML tags in email templates
+* Fix: Bug when importing tags into a checkbox field
+* Fix: Security Vulnerabilities
 
-= 6.3.8 =
-* New: Add quick links to support and docs in the admin notification area.
-* New: When sorting by rating, consider the rating count in addition to the average so listings with more ratings will be higher if they have the same average.
-* Fix: Some sites were getting 404 errors on the single listing page.
-* Fix: In Avada theme, listings were showing twice.
-* Fix: A few updates for PHP 8.2 deprecation messages.
-* Fix: When using a checkbox for categories, it wasn't being correctly required when submiting a new listing.
-* Fix: CSV import was failing when there was an 'enter' in a field.
-* Fix: A conflict with the Custom Start Date plugin with Woocommerce was causing an "Invalid Nonce" error.
+= 6.4.20 =
+* Enhancement: Security improvements
+* Fix: Issue with long export URLs
 
-= 6.3.7 =
-* Fix: Listing titles in taxonomy pages with The7 theme.
-* Fix: Image sorting with Classic editor plugin.
-* Fix: Image upload bug while editing the listing.
-* Fix: Show the correct number of allowed images to upload after changing the plan in admin meta boxes.
+= 6.4.19 =
+* Fix: Security Vulnerability
 
-= 6.3.6 =
-* Fix: Listing titles in taxonomy pages were showing in the sidebar
-* Fix: The admin listing tables had misaligned pagination
-* Fix: The fields on the contact form were not using consistent sizing
-* Fix: German translation for "Your message has been sent".
+= 6.4.18 =
+* New: Dashboard inbox
+* Fix: Downloading export files shows the CSV contents instead of downloading the file
+* Fix: PHP deprecation notice on shortcodes
+* Fix: Issue when some add-ons are used and then deactivated
 
-= 6.3.5 =
-* Hide content that might be added by other plugins on BD admin pages.
-* Fix: Only load widget and BD theme CSS when needed.
-* Fix: Revert a change from previous release that shows the URL instead of label.
+= 6.4.17 =
+* Fix: Fix: Issue with the license validating process
 
-= 6.3.4 =
-* New: Add 'wpbdp_button_class' hook for adding a button class to match existing buttons.
-* New: Better match Divi buttons out of the box.
-* Fix: Resolve a conflict with RankMath.
-* Fix: Expired listings on recurring plans was not renewable.
-* Fix: The Claim Listings settings link made following links unclickable.
-* Fix: Icons now work with URL fields.
-* Fix: Strings with 'listings' that are translated with _n can now be customized.
-* Fix: Fail more gracefully when a CSV file fails to upload.
-* Fix: Fail more gracefully when a logged out user has no available plans.
-* Refactor the CSS for base elements.
+= 6.4.16 =
+* New: Added the 'promoted-first' parameter to the 'businessdirectory-latest-listings' shortcode to allow users to disable the promoted first mechanism.
+* New: Placeholder value to required select fields.
+* Fix: Duplicated form fields in the activation process on PHP 8.1.
+* Fix: Phone field being registered as text field in the installation process.
+* Fix: PHP 8.2 notices
 
-= 6.3.3 =
-* Fix: Listing titles were not always showing.
-* Fix: Resolve some CSS issues on the single page.
-* Fix: The BD sidebar didn't fill the page in cases where the WP admin nav was short.
+= 6.4.15 =
+* Fix: Vulnerability when submitting a new listing
 
-= 6.3.2 =
-* Update: Users with the Editor role can manage listings in the admin area.
-* New: The default theme styles are now minified.
-* Fix: Editors, Authors, and Contributors see the navigation sidebar now.
-* Fix: Editors were getting an extra link in the admin menu that led to a 404 page.
-* Fix: On some sites, admin pages were timing out when loading the menu icons.
-* Fix: Listing titles were not always showing in the Enfold theme.
-* Dev/update: All PHP codes are beautified.
+= 6.4.14 =
+* Fix: Fatal error with translated websites
 
-= 6.3.1 =
-* Update: The "Add New Listing" button on the backend was redirecting to the front end, but now it remains in the backend.
-* Fix: The Download Premium notice stays dismissed after the click.
+= 6.4.13 =
+* Fix: Enqueue error for csv import
 
-= 6.3 =
-* New: New payments made in test mode will now show as test payments. Any new test payments will be excluded from the plan stats.
-* New: The sample CSV file for imports can now be downloaded to use as a template.
-* New: Use the front-end form to submit listings for admins too.
-* New: When editing a listing in the admin area without a plan selected, make it clear that the plan is missing and automatically scroll to the plan setting.
-* Fix: Resolve the PHP 8 error when uploading some attachments.
-* Fix: When a BD theme is installed without a license, show a more clear message instead of "Invalid".
+= 6.4.12 =
+* Fix: Bug with the non-meta multiselect and radio buttons listing fields
+* Fix: Bug with the "Start Import" button
+
+= 6.4.11 =
+* A bug with the front end listing submission form
+
+= 6.4.10 =
+* New: Filter to control whether the pagination is loaded in the listings wrapper or outside of it
+* New: Import file size validation
+* Enhancement: Improved sorting to exclude whitespaces
+* Fix: Prevent Elementor Element Caching on our shortcodes
+* Fix: WPML translation issue with Multiselect or Radio field types
+
+= 6.4.9 =
+* New: Added Stripe payment gateway
+
+= 6.4.8 =
+* Fix: Issue with the redirect chain for the new login redirect feature
+
+= 6.4.7 =
+* New: A new option was added to set a redirect URL for the login process. Now the users can be redirected to any page after logging in.
+* Fix: Issue with the caching mechanism for listings when using Elementor
+* Fix: 2 PHP notices when using PHP 8.4
+* Fix: A PHP warning on the email templates page
+* Fix: The label for the upgrade button now shows "Install Now" if the user already has access to the add-on
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>

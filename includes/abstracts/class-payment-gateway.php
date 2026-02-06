@@ -121,6 +121,11 @@ abstract class WPBDP__Payment_Gateway {
 		return 'form' === $this->get_integration_method() || $payment->amount === '0.00';
 	}
 
+	/**
+	 * @param object $payment
+	 *
+	 * @return void
+	 */
 	public function save_billing_data( $payment ) {
 		$form = $_POST;
 
@@ -171,7 +176,10 @@ abstract class WPBDP__Payment_Gateway {
 	}
 
 	public function cancel_subscription( $listing, $subscription ) {
-		$message = __( "There was an unexpected error trying to cancel your subscription. Please contact the website's administrator mentioning this problem. The administrator should be able to cancel your subscription contacting the payment processor directly.", 'business-directory-plugin' );
-		throw new Exception( $message );
+		$message = __(
+			'There was an unexpected error canceling your subscription. Please contact the website administrator and they should be able to cancel your subscription by contacting the payment processor directly.',
+			'business-directory-plugin'
+		);
+		throw new Exception( esc_html( $message ) );
 	}
 }

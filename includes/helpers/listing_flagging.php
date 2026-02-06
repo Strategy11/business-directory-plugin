@@ -21,7 +21,7 @@ class WPBDP__Listing_Flagging {
 	}
 
 	public static function is_flagged( $listing_id ) {
-		return ( 1 == get_post_meta( $listing_id, '_wpbdp_flagged', true ) );
+		return 1 == get_post_meta( $listing_id, '_wpbdp_flagged', true );
 	}
 
 	public static function user_has_flagged( $listing_id, $user_id ) {
@@ -57,7 +57,6 @@ class WPBDP__Listing_Flagging {
 		}
 
 		return wp_list_pluck( $flagging_data, $key );
-
 	}
 
 	public static function add_flagging( $listing_id, $data ) {
@@ -84,10 +83,8 @@ class WPBDP__Listing_Flagging {
 			if ( empty( $data['reason'] ) ) {
 				return new WP_Error( 'missing_data', _x( 'Report reason is required to save a report', 'flag listing', 'business-directory-plugin' ) );
 			}
-		} else {
-			if ( empty( $data['comments'] ) ) {
+		} elseif ( empty( $data['comments'] ) ) {
 				return new WP_Error( 'missing_data', _x( 'Report comment is required to save a report', 'flag listing', 'business-directory-plugin' ) );
-			}
 		}
 
 		if ( ! isset( $data['date'] ) ) {
@@ -103,7 +100,6 @@ class WPBDP__Listing_Flagging {
 		do_action( 'wpbdp_listing_maybe_flagging_notice', WPBDP_Listing::get( $listing_id ), $data );
 
 		return true;
-
 	}
 
 	public static function remove_flagging( $listing_id, $meta_pos = 'all' ) {
@@ -127,5 +123,4 @@ class WPBDP__Listing_Flagging {
 		delete_post_meta( $listing_id, '_wpbdp_flagged_data' );
 		update_post_meta( $listing_id, '_wpbdp_flagged', 0 );
 	}
-
 }

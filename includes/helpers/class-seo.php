@@ -14,5 +14,4 @@ class WPBDP_SEO {
 		$listing = WPBDP_Listing::get( $listing_id );
 		return $listing->get_field_value( 'excerpt' );
 	}
-
 }

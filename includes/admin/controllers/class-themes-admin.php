@@ -9,11 +9,9 @@ class WPBDP_Themes_Admin {
 	private $outdated_themes = array();
 
 	function __construct( &$api, $licensing ) {
-		$this->api             = $api;
-		$this->licensing       = $licensing;
-		$this->outdated_themes = $this->find_outdated_themes();
+		$this->api       = $api;
+		$this->licensing = $licensing;
 
-		add_filter( 'wpbdp_admin_menu_badge_number', array( &$this, 'admin_menu_badge_count' ) );
 		add_action( 'wpbdp_admin_menu', array( &$this, 'admin_menu' ) );
 		add_filter( 'wpbdp_admin_menu_reorder', array( &$this, 'admin_menu_move_themes_up' ) );
 
@@ -30,9 +28,12 @@ class WPBDP_Themes_Admin {
 	}
 
 	function admin_menu( $slug ) {
+		$this->outdated_themes = $this->find_outdated_themes();
+
 		$count = count( $this->outdated_themes );
 
 		if ( $count ) {
+			add_filter( 'wpbdp_admin_menu_badge_number', array( &$this, 'admin_menu_badge_count' ) );
 			$count_html = ' <span class="update-plugins"><span class="plugin-count">' . number_format_i18n( $count ) . '</span></span>';
 		} else {
 			$count_html = '';
@@ -42,7 +43,7 @@ class WPBDP_Themes_Admin {
 			$slug,
 			_x( 'Directory Themes', 'themes', 'business-directory-plugin' ),
 			__( 'Themes', 'business-directory-plugin' ) . $count_html,
-			'administrator',
+			'manage_options',
 			'wpbdp-themes',
 			array( &$this, 'dispatch' )
 		);
@@ -92,7 +93,7 @@ class WPBDP_Themes_Admin {
 	}
 
 	function set_active_theme() {
-		if ( ! current_user_can( 'administrator' ) ) {
+		if ( ! wpbdp_user_is_admin() ) {
 			wp_die();
 		}
 
@@ -103,7 +104,8 @@ class WPBDP_Themes_Admin {
 		}
 
 		if ( ! $this->api->set_active_theme( $theme_id ) ) {
-			wp_die( sprintf( _x( 'Could not change the active theme to "%s".', 'themes', 'business-directory-plugin' ), $theme_id ) );
+			wp_die(
+				esc_html( sprintf( _x( 'Could not change the active theme to "%s".', 'themes', 'business-directory-plugin' ), $theme_id ) ) );
 		}
 
 		wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=1' ) );
@@ -111,14 +113,14 @@ class WPBDP_Themes_Admin {
 	}
 
 	function create_suggested_fields() {
-		if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( wpbdp_get_var( array( 'param' => '_wpnonce' ) ), 'create_suggested_fields' ) ) {
+		if ( ! wpbdp_user_is_admin() || ! wp_verify_nonce( wpbdp_get_var( array( 'param' => '_wpnonce' ) ), 'create_suggested_fields' ) ) {
 			wp_die();
 		}
 
 		$missing = $this->api->missing_suggested_fields();
 
 		global $wpbdp;
-		$wpbdp->formfields->create_default_fields( $missing );
+		$wpbdp->form_fields->create_default_fields( $missing );
 
 		wp_safe_redirect( admin_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' ) );
 		exit;
@@ -224,7 +226,7 @@ class WPBDP_Themes_Admin {
 	function upload_theme() {
 		$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
 
-		if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( $nonce, 'upload theme zip' ) ) {
+		if ( ! wpbdp_user_is_admin() || ! wp_verify_nonce( $nonce, 'upload theme zip' ) ) {
 			wp_die();
 		}
 
@@ -292,7 +294,7 @@ class WPBDP_Themes_Admin {
 		$theme_id = wpbdp_get_var( array( 'param' => 'theme_id' ), 'post' );
 		$nonce    = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
 
-		if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( $nonce, 'delete theme ' . $theme_id ) ) {
+		if ( ! wpbdp_user_is_admin() || ! wp_verify_nonce( $nonce, 'delete theme ' . $theme_id ) ) {
 			wp_die();
 		}
 
@@ -313,12 +315,8 @@ class WPBDP_Themes_Admin {
 			$removed = WPBDP_FS::rmdir( $path );
 		}
 
-		if ( $removed ) {
-			wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=4&deleted=' . $theme_id ) );
-		} else {
-			wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=5&deleted=' . $theme_id ) );
-		}
-
+		$message = $removed ? 4 : 5;
+		wp_redirect( admin_url( 'admin.php?page=wpbdp-themes&message=' . $message . '&deleted=' . $theme_id ) );
 		exit;
 	}
 
@@ -328,7 +326,12 @@ class WPBDP_Themes_Admin {
 		}
 
 		echo '<div class="wpbdp-theme-license-required-row">';
-		echo str_replace( '<a>', '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-themes&v=licenses' ) ) . '">', _x( 'Activate your <a>license key</a> to use this theme.', 'themes', 'business-directory-plugin' ) );
+		printf(
+			/* translators: %1$s is the opening <a> tag, %2$s is the closing </a> tag */
+			esc_html__( 'Activate your %1$slicense key%2$s to use this theme.', 'business-directory-plugin' ),
+			'<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp-themes&v=licenses' ) ) . '">',
+			'</a>'
+		);
 		echo '</div>';
 	}
 
@@ -359,10 +362,14 @@ class WPBDP_Themes_Admin {
 	// Theme update process. {{
 
 	public function _update_theme() {
+		if ( empty( $this->outdated_themes ) ) {
+			$this->outdated_themes = $this->find_outdated_themes();
+		}
+
 		$nonce    = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
 		$theme_id = wpbdp_get_var( array( 'param' => 'theme' ), 'request' );
 
-		if ( ! current_user_can( 'administrator' ) || ! wp_verify_nonce( $nonce, 'update theme ' . $theme_id ) ) {
+		if ( ! wpbdp_user_is_admin() || ! wp_verify_nonce( $nonce, 'update theme ' . $theme_id ) ) {
 			die();
 		}
 

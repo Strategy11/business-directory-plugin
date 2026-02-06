@@ -13,6 +13,7 @@ class WPBDP_Admin_Listings {
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'add_metaboxes' ) );
 		add_action( 'wpbdp_admin_notices', array( $this, 'no_plan_edit_notice' ) );
+		add_action( 'wpbdp_admin_notices', array( $this, 'show_field_validation_errors' ) );
 
 		add_action( 'manage_' . WPBDP_POST_TYPE . '_posts_columns', array( &$this, 'modify_columns' ) );
 		add_action( 'manage_' . WPBDP_POST_TYPE . '_posts_custom_column', array( &$this, 'listing_column' ), 10, 2 );
@@ -174,7 +175,54 @@ class WPBDP_Admin_Listings {
 		}
 
 		if ( ! $listing->has_fee_plan() ) {
-			wpbdp_admin_message( _x( 'This listing doesn\'t have a plan assigned. This is required in order to determine the features available to this listing, as well as handling renewals.', 'admin listings', 'business-directory-plugin' ), 'error' );
+			wpbdp_admin_message(
+				_x( 'This listing doesn\'t have a plan assigned. This is required in order to determine the features available to this listing, as well as handling renewals.', 'admin listings', 'business-directory-plugin' ),
+				'error'
+			);
+		}
+	}
+
+	/**
+	 * Display field validation errors stored in transient.
+	 *
+	 * @since 6.4.21
+	 */
+	public function show_field_validation_errors() {
+		if ( ! function_exists( 'get_current_screen' ) ) {
+			return;
+		}
+
+		$screen = get_current_screen();
+
+		if ( ! $screen || WPBDP_POST_TYPE !== $screen->id ) {
+			return;
+		}
+
+		global $post;
+
+		if ( ! $post ) {
+			return;
+		}
+
+		$transient_key     = 'wpbdp_field_validation_errors_' . $post->ID . '_' . get_current_user_id();
+		$validation_errors = get_transient( $transient_key );
+
+		if ( ! $validation_errors ) {
+			return;
+		}
+
+		delete_transient( $transient_key );
+
+		$error_messages = array();
+
+		foreach ( $validation_errors as $details ) {
+			foreach ( $details['errors'] as $error ) {
+				$error_messages[] = $error;
+			}
+		}
+
+		foreach ( $error_messages as $error ) {
+			wpbdp_admin_message( $error, 'error' );
 		}
 	}
 
@@ -231,6 +279,8 @@ class WPBDP_Admin_Listings {
 	public function _metabox_listing_info( $post ) {
 		require_once WPBDP_PATH . 'includes/admin/helpers/class-listing-information-metabox.php';
 		$metabox = new WPBDP__Admin__Metaboxes__Listing_Information( $post->ID );
+
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $metabox->render();
 	}
 
@@ -238,11 +288,14 @@ class WPBDP_Admin_Listings {
 		require_once WPBDP_PATH . 'includes/admin/helpers/class-listing-timeline.php';
 		$timeline = new WPBDP__Listing_Timeline( $post->ID );
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $timeline->render();
 	}
 
 	public function _metabox_listing_owner( $post ) {
 		$this->listing_owner->set_listing_id( $post->ID );
+
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $this->listing_owner->render_metabox();
 	}
 
@@ -250,6 +303,7 @@ class WPBDP_Admin_Listings {
 		require_once WPBDP_PATH . 'includes/admin/helpers/class-listing-flagging-metabox.php';
 		$flagging_metabox = new WPBDP__Admin__Metaboxes__Listing_Flagging( $post->ID );
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $flagging_metabox->render();
 	}
 
@@ -264,7 +318,7 @@ class WPBDP_Admin_Listings {
 			// Insert category and expiration date after title.
 			if ( 'title' == $c_key ) {
 				$new_columns['title']           = $c_label;
-				$new_columns['category']        = _x( 'Categories', 'admin', 'business-directory-plugin' );
+				$new_columns['category']        = __( 'Categories', 'business-directory-plugin' );
 				$new_columns['expiration_date'] = __( 'Expires on', 'business-directory-plugin' );
 				continue;
 			}
@@ -286,7 +340,8 @@ class WPBDP_Admin_Listings {
 
 	function listing_column( $column, $post_id ) {
 		if ( ! method_exists( $this, 'listing_column_' . $column ) ) {
-			return do_action( 'wpbdp_admin_directory_column_' . $column, $post_id );
+			do_action( 'wpbdp_admin_directory_column_' . $column, $post_id );
+			return;
 		}
 
 		call_user_func( array( &$this, 'listing_column_' . $column ), $post_id );
@@ -295,9 +350,18 @@ class WPBDP_Admin_Listings {
 	function listing_column_category( $post_id ) {
 		$terms = wp_get_post_terms( $post_id, WPBDP_CATEGORY_TAX );
 		foreach ( $terms as $i => $term ) {
-			printf( '<a href="%s">%s</a>', get_term_link( $term->term_id, WPBDP_CATEGORY_TAX ), $term->name );
+			$term_link = get_term_link( $term->term_id, WPBDP_CATEGORY_TAX );
+			if ( is_wp_error( $term_link ) ) {
+				continue;
+			}
 
-			if ( ( $i + 1 ) != count( $terms ) ) {
+			printf(
+				'<a href="%s">%s</a>',
+				esc_url( $term_link ),
+				esc_html( $term->name )
+			);
+
+			if ( $i + 1 != count( $terms ) ) {
 				echo ', ';
 			}
 		}
@@ -308,9 +372,9 @@ class WPBDP_Admin_Listings {
 		$exp_date = $listing->get_expiration_date();
 
 		if ( $exp_date ) {
-			echo date_i18n( get_option( 'date_format' ), strtotime( $exp_date ) );
+			echo esc_html( date_i18n( get_option( 'date_format' ), strtotime( $exp_date ) ) );
 		} else {
-			echo _x( 'Never', 'admin listings', 'business-directory-plugin' );
+			esc_html_e( 'Never', 'business-directory-plugin' );
 		}
 	}
 
@@ -321,13 +385,13 @@ class WPBDP_Admin_Listings {
 		$attributes = array();
 
 		if ( ! $plan ) {
-			$attributes['no-fee-plan'] = '<span class="wpbdp-tag wpbdp-listing-attr-no-fee-plan">' . _x( 'No Plan', 'listing attribute', 'business-directory-plugin' ) . '</span>';
+			$attributes['no-fee-plan'] = '<span class="wpbdp-tag wpbdp-listing-attr-no-fee-plan">' . esc_html_x( 'No Plan', 'listing attribute', 'business-directory-plugin' ) . '</span>';
 		}
 
 		$listing_status = $listing->get_status();
 
 		if ( ! in_array( $listing_status, array( 'unknown', 'legacy', 'complete' ) ) ) {
-			$attributes['listing-status'] = '<span class="wpbdp-tag wpbdp-listing-status-' . $listing_status . '">' . $listing->get_status_label() . '</span>';
+			$attributes['listing-status'] = '<span class="wpbdp-tag wpbdp-listing-status-' . esc_attr( $listing_status ) . '">' . $listing->get_status_label() . '</span>';
 		}
 
 		foreach ( $listing->get_flags() as $f ) {
@@ -340,20 +404,20 @@ class WPBDP_Admin_Listings {
 			}
 
 			if ( $plan->is_recurring ) {
-				$attributes['recurring'] = '<span class="wpbdp-tag wpbdp-listing-attr-recurring">' . _x( 'Recurring', 'admin listings', 'business-directory-plugin' ) . '</span>';
+				$attributes['recurring'] = '<span class="wpbdp-tag wpbdp-listing-attr-recurring">' . esc_html_x( 'Recurring', 'admin listings', 'business-directory-plugin' ) . '</span>';
 			}
 
 			if ( 0.0 == $plan->fee_price ) {
-				$attributes['free'] = '<span class="wpbdp-tag wpbdp-listing-attr-free">' . _x( 'Free', 'admin listings', 'business-directory-plugin' ) . '</span>';
+				$attributes['free'] = '<span class="wpbdp-tag wpbdp-listing-attr-free">' . esc_html_x( 'Free', 'admin listings', 'business-directory-plugin' ) . '</span>';
 			} elseif ( 'pending_payment' != $listing->get_status() ) {
 				$latest_payment = $listing->get_latest_payment();
 
-				$attributes['payment'] = '<span class="wpbdp-tag wpbdp-listing-attr-payment-not-found">' . _x( 'Payment Not Found', 'admin listings', 'business-directory-plugin' ) . '</span>';
+				$attributes['payment'] = '<span class="wpbdp-tag wpbdp-listing-attr-payment-not-found">' . esc_html_x( 'Payment Not Found', 'admin listings', 'business-directory-plugin' ) . '</span>';
 				if ( $latest_payment && $latest_payment->status ) {
-					$attributes['payment']  = '<span class="wpbdp-tag wpbdp-listing-attr-payment-' . $latest_payment->status . '">';
+					$attributes['payment']  = '<span class="wpbdp-tag wpbdp-listing-attr-payment-' . esc_attr( $latest_payment->status ) . '">';
 					$attributes['payment'] .= sprintf(
-						_x( 'Payment %s', 'admin listings', 'business-directory-plugin' ),
-						$latest_payment->get_status_label( $latest_payment->status )
+						esc_html__( 'Payment %s', 'business-directory-plugin' ),
+						esc_html( $latest_payment->get_status_label( $latest_payment->status ) )
 					);
 					$attributes['payment'] .= '</span>';
 				}
@@ -361,12 +425,13 @@ class WPBDP_Admin_Listings {
 		}
 
 		if ( count( WPBDP__Listing_Flagging::get_flagging_meta( $listing->get_id() ) ) ) {
-			$attributes['reported'] = '<span class="wpbdp-tag wpbdp-listing-attr-reported">' . _x( 'Reported', 'admin listings', 'business-directory-plugin' ) . '</span>';
+			$attributes['reported'] = '<span class="wpbdp-tag wpbdp-listing-attr-reported">' . esc_html_x( 'Reported', 'admin listings', 'business-directory-plugin' ) . '</span>';
 		}
 
 		$attributes = apply_filters( 'wpbdp_admin_directory_listing_attributes', $attributes, $listing );
 
 		foreach ( $attributes as $attr ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo $attr;
 		}
 	}
@@ -375,8 +440,8 @@ class WPBDP_Admin_Listings {
 	// }}}
 	// {{{ List views.
 	function listing_views( $views ) {
-		if ( ! current_user_can( 'administrator' ) && ! current_user_can( 'editor' ) ) {
-			if ( current_user_can( 'contributor' ) && isset( $views['mine'] ) ) {
+		if ( ! wpbdp_user_can_edit() ) {
+			if ( wpbdp_user_can_access_backend() && isset( $views['mine'] ) ) {
 				return array( $views['mine'] );
 			}
 
@@ -406,7 +471,7 @@ class WPBDP_Admin_Listings {
 
 			$count = number_format_i18n( $count );
 
-			$current_class                         = ( ! empty( $_GET['listing_status'] ) && $status_id == $_GET['listing_status'] ) ? 'current' : '';
+			$current_class                         = ! empty( $_GET['listing_status'] ) && $status_id == $_GET['listing_status'] ? 'current' : '';
 			$views[ 'wpbdp-status-' . $status_id ] = "<a href='" . remove_query_arg(
 				array( 'post_status', 'author', 'all_posts', 'wpbdmfilter' ),
 				add_query_arg(
@@ -423,7 +488,17 @@ class WPBDP_Admin_Listings {
 			global $wpdb;
 
 			$post_statuses_string = "'publish', 'draft', 'pending'";
-			$count                = absint( $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(p.ID) FROM {$wpdb->posts} p LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id WHERE p.post_type = %s AND p.post_status IN ({$post_statuses_string}) AND pm.meta_key = %s AND pm.meta_value = %d", WPBDP_POST_TYPE, '_wpbdp_flagged', 1 ) ) );
+			$count                = absint(
+				$wpdb->get_var(
+					$wpdb->prepare(
+						"SELECT COUNT(p.ID) FROM {$wpdb->posts} p LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id " .
+						"WHERE p.post_type = %s AND p.post_status IN ({$post_statuses_string}) AND pm.meta_key = %s AND pm.meta_value = %d",
+						WPBDP_POST_TYPE,
+						'_wpbdp_flagged',
+						1
+					)
+				)
+			);
 
 			if ( $count > 0 ) {
 				$status            = wpbdp_get_var( array( 'param' => 'listing_status' ), 'request' );
@@ -492,7 +567,7 @@ class WPBDP_Admin_Listings {
 			return $actions;
 		}
 
-		if ( current_user_can( 'contributor' ) && ! current_user_can( 'administrator' ) ) {
+		if ( wpbdp_user_can_access_backend() && ! wpbdp_user_is_admin() ) {
 			if ( wpbdp_user_can( 'edit', $post->ID ) ) {
 				$actions['edit'] = sprintf(
 					'<a href="%s">%s</a>',
@@ -506,7 +581,7 @@ class WPBDP_Admin_Listings {
 			}
 		}
 
-		if ( ! current_user_can( 'administrator' ) ) {
+		if ( ! wpbdp_user_is_admin() ) {
 			return $actions;
 		}
 
@@ -541,14 +616,29 @@ class WPBDP_Admin_Listings {
 			return;
 		}
 
-		$fields = wpbdp_get_form_fields( array( 'association' => 'meta' ) );
+		$validation_errors = array();
+		$fields            = wpbdp_get_form_fields( array( 'association' => 'meta' ) );
 		foreach ( $fields as $field ) {
 			if ( isset( $_POST['listingfields'][ $field->get_id() ] ) ) {
-				$value = $field->value_from_POST();
+				$value        = $field->value_from_POST();
+				$field_errors = array();
+
+				if ( ! $field->validate( $value, $field_errors ) ) {
+					$validation_errors[ $field->get_id() ] = array(
+						'label'  => $field->get_label(),
+						'errors' => $field_errors,
+					);
+					continue;
+				}
+
 				$field->store_value( $post_id, $value );
 			} else {
 				$field->store_value( $post_id, $field->convert_input( null ) );
 			}
+		}
+
+		if ( $validation_errors ) {
+			set_transient( 'wpbdp_field_validation_errors_' . $post_id . '_' . get_current_user_id(), $validation_errors, 60 );
 		}
 
 		$listing = wpbdp_get_listing( $post_id );
@@ -652,7 +742,7 @@ class WPBDP_Admin_Listings {
 	}
 
 	public function _add_bulk_actions() {
-		if ( ! current_user_can( 'administrator' ) ) {
+		if ( ! wpbdp_user_is_admin() ) {
 			return;
 		}
 
@@ -667,9 +757,9 @@ class WPBDP_Admin_Listings {
 						'sep1'              => '–',
 						'renewlisting'      => _x( 'Renew listings', 'admin actions', 'business-directory-plugin' ),
 						'change-to-expired' => _x( 'Set listings as "Expired"', 'admin actions', 'business-directory-plugin' ),
-										  /*
-										   Disabled as per https://github.com/drodenbaugh/BusinessDirectoryPlugin/issues/3279. */
-										  /*'approve-payments' => _x( 'Approve pending payments', 'admin actions', 'business-directory-plugin' ),*/
+											/*
+											Disabled as per https://github.com/drodenbaugh/BusinessDirectoryPlugin/issues/3279. */
+											/*'approve-payments' => _x( 'Approve pending payments', 'admin actions', 'business-directory-plugin' ),*/
 					);
 
 					if ( wpbdp_get_option( 'enable-key-access' ) ) {
@@ -682,19 +772,25 @@ class WPBDP_Admin_Listings {
 					echo '<script>';
 
 					foreach ( $bulk_actions as $action => $text ) {
-						echo sprintf(
+						$action_url = add_query_arg( 'wpbdmaction', $action, admin_url( 'edit.php?post_type=wpbdp_listing' ) );
+
+						if ( 0 !== strpos( $action, 'sep' ) ) {
+							$action_url = wp_nonce_url( $action_url, 'wpbdp_handle_action_' . $action );
+						}
+
+						printf(
 							'jQuery(\'select[name="%s"]\').append(\'<option value="%s" data-uri="%s">%s</option>\');',
 							'action',
-							'listing-' . $action,
-							esc_url( add_query_arg( 'wpbdmaction', $action, admin_url( 'edit.php?post_type=wpbdp_listing' ) ) ),
-							$text
+							'listing-' . esc_attr( $action ),
+							esc_url( $action_url ),
+							esc_html( $text )
 						);
-						echo sprintf(
+						printf(
 							'jQuery(\'select[name="%s"]\').append(\'<option value="%s" data-uri="%s">%s</option>\');',
 							'action2',
-							'listing-' . $action,
-							esc_url( add_query_arg( 'wpbdmaction', $action, admin_url( 'edit.php?post_type=wpbdp_listing' ) ) ),
-							$text
+							'listing-' . esc_attr( $action ),
+							esc_url( $action_url ),
+							esc_html( $text )
 						);
 					}
 
@@ -704,21 +800,34 @@ class WPBDP_Admin_Listings {
 		}
 	}
 
+	/**
+	 * 'contributors' should still use the frontend to add listings
+	 * (editors, authors and admins are allowed to add things directly)
+	 * This is kind of hacky but is the best we can do atm, there aren't hooks to change add links
+	 */
 	public function _fix_new_links() {
-		// 'contributors' should still use the frontend to add listings (editors, authors and admins are allowed to add things directly)
-		// XXX: this is kind of hacky but is the best we can do atm, there aren't hooks to change add links
-		if ( current_user_can( 'contributor' ) && isset( $_GET['post_type'] ) && $_GET['post_type'] == WPBDP_POST_TYPE ) {
+		$post_type = wpbdp_get_var( array( 'param' => 'post_type' ) );
+		if ( ! wpbdp_user_can_access_backend() && $post_type === WPBDP_POST_TYPE ) {
 			echo '<script>';
-			echo sprintf( 'jQuery(\'a.add-new-h2\').attr(\'href\', \'%s\');', wpbdp_get_page_link( 'add-listing' ) );
+			printf( 'jQuery(\'a.add-new-h2\').attr(\'href\', \'%s\');', esc_url_raw( wpbdp_get_page_link( 'add-listing' ) ) );
 			echo '</script>';
 		}
 	}
 
 	public function ajax_clear_payment_history() {
+		WPBDP_App_Helper::permission_check();
+		if ( ! check_ajax_referer( 'wpbdp_ajax', 'nonce', false ) ) {
+			wp_send_json_error( array( 'error' => __( 'Invalid nonce.', 'business-directory-plugin' ) ) );
+		}
+
 		$listing_id = wpbdp_get_var( array( 'param' => 'listing_id' ), 'post' );
 
 		if ( ! $listing_id ) {
 			wp_send_json_error();
+		}
+
+		if ( ! wpbdp_user_can( 'edit', $listing_id ) ) {
+			wp_send_json_error( array( 'error' => __( 'You are not allowed to delete the payment history of this listing.', 'business-directory-plugin' ) ) );
 		}
 
 		$listing = wpbdp_get_listing( $listing_id );
@@ -739,7 +848,7 @@ class WPBDP_Admin_Listings {
 	 */
 	public function ajax_assign_plan_to_listing() {
 		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
-		if ( ! current_user_can( 'edit_posts' ) ) {
+		if ( ! wpbdp_user_can_access_backend() ) {
 			wp_send_json_error();
 		}
 
@@ -792,7 +901,6 @@ class WPBDP_Admin_Listings {
 		);
 
 		return $tags;
-
 	}
 
 	/**

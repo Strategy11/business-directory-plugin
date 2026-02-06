@@ -11,7 +11,8 @@
 
 	if ( $title_type === true ) {
 		$original_title_type = $title_type;
-		$title_type = 'h1';
+
+		$title_type  = 'h1';
 		$class_name .= ' show-listing-title';
 	}
 	?>

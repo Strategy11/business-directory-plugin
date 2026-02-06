@@ -28,15 +28,22 @@ class WPBDP_CSVImportAdmin {
 	}
 
 	function enqueue_scripts() {
-		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-
 		wp_enqueue_script(
 			'wpbdp-admin-import-js',
-			WPBDP_ASSETS_URL . 'js/admin-csv-import' . $min . '.js',
+			WPBDP_ASSETS_URL . 'js/admin-csv-import.min.js',
 			array( 'wpbdp-admin-js', 'jquery-ui-autocomplete' ),
 			WPBDP_VERSION,
 			true
 		);
+
+		$max_file_size = ini_get( 'upload_max_filesize' );
+
+		$import_meta_data = array( 
+			'maxFileSize' => wp_convert_hr_to_bytes( $max_file_size ),
+			'error_label' => sprintf( __( 'The file exceeds the maximum file size of %s', 'business-directory-plugin' ), $max_file_size ),
+		);
+
+		wp_localize_script( 'wpbdp-admin-import-js', 'wpbdp_admin_import', $import_meta_data );
 
 		wp_enqueue_style(
 			'wpbdp-admin-import-css',
@@ -47,11 +54,9 @@ class WPBDP_CSVImportAdmin {
 	}
 
 	function ajax_csv_import() {
-		global $wpbdp;
+		WPBDP_App_Helper::permission_check( 'manage_options' );
 
-		if ( ! current_user_can( 'administrator' ) ) {
-			die();
-		}
+		global $wpbdp;
 
 		$import_id = wpbdp_get_var(
 			array(
@@ -103,9 +108,16 @@ class WPBDP_CSVImportAdmin {
 	}
 
 	public function ajax_autocomplete_user() {
+		WPBDP_App_Helper::permission_check();
+
+		if ( ! check_ajax_referer( 'wpbdp_ajax', 'nonce', false ) ) {
+			wp_die();
+		}
+
 		$term  = wpbdp_get_var( array( 'param' => 'term' ), 'request' );
 		$users = get_users( array( 'search' => "*{$term}*" ) );
 
+		$return = array();
 		foreach ( $users as $user ) {
 			$return[] = array(
 				'label' => "{$user->display_name} ({$user->user_login})",
@@ -191,7 +203,7 @@ class WPBDP_CSVImportAdmin {
 		echo '<h3 style="margin-top:1em">' . __( 'Example CSV Import File', 'business-directory-plugin' ) . '</h3>';
 
 		echo '<textarea class="wpbdp-csv-import-example" rows="20">';
-		echo $this->example_csv_content();
+		echo esc_html( $this->example_csv_content() );
 		echo '</textarea>';
 
 		echo wpbdp_admin_footer();
@@ -201,11 +213,12 @@ class WPBDP_CSVImportAdmin {
 	 * Generate a sample CS file for download.
 	 *
 	 * @since 5.3
+	 *
 	 * @return void
 	 */
 	public function download_example_csv() {
 		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
-		if ( ! current_user_can( 'edit_posts' ) ) {
+		if ( ! wpbdp_user_can_access_backend() ) {
 			wp_send_json_error();
 		}
 
@@ -225,6 +238,7 @@ class WPBDP_CSVImportAdmin {
 
 	/**
 	 * @since 5.3
+	 *
 	 * @return string
 	 */
 	private function example_csv_content() {
@@ -323,17 +337,16 @@ class WPBDP_CSVImportAdmin {
 		$import_dir = $this->get_imports_dir();
 
 		if ( $import_dir && ! is_dir( $import_dir ) ) {
-			@mkdir( $import_dir, 0777 );
+			wp_mkdir_p( $import_dir );
 		}
 
 		$files = array();
 
-		if ( ! $import_dir || ! is_dir( $import_dir ) || ! is_writable( $import_dir ) ) {
+		if ( ! $import_dir || ! is_dir( $import_dir ) || ! wp_is_writable( $import_dir ) ) {
 			wpbdp_admin_message(
 				sprintf(
-					_x(
+					__(
 						'A valid temporary directory with write permissions is required for CSV imports to function properly. Your server is using "%s" but this path does not seem to be writable. Please consult with your host.',
-						'csv import',
 						'business-directory-plugin'
 					),
 					$import_dir
@@ -430,10 +443,10 @@ class WPBDP_CSVImportAdmin {
 	}
 
 	/**
+	 * @since 5.11
+	 *
 	 * @param string $type   'csv' or 'image'
 	 * @param array $sources
-	 *
-	 * @since 5.11
 	 */
 	private function add_file_to_sources( $type, &$sources ) {
 		$file = wpbdp_get_var( array( 'param' => $type . '-file-local' ), 'post' );

@@ -146,7 +146,7 @@ class WPBDP__DB__Model {
 
 	public function &__get( $name ) {
 		if ( ! $this->is_valid_attr( $name ) ) {
-			throw new Exception( 'Invalid attribute: ' . $name );
+			throw new Exception( 'Invalid attribute: ' . esc_html( $name ) );
 		}
 
 		if ( method_exists( $this, 'get_' . $name ) ) {
@@ -165,7 +165,7 @@ class WPBDP__DB__Model {
 
 	public function __set( $name, $value ) {
 		if ( ! $this->is_valid_attr( $name ) ) {
-			throw new Exception( 'Invalid attribute: ' . $name );
+			throw new Exception( 'Invalid attribute: ' . esc_html( $name ) );
 		}
 
 		if ( method_exists( $this, 'set_' . $name ) ) {
@@ -245,7 +245,7 @@ class WPBDP__DB__Model {
 		$pk    = self::get_model_info( $this, 'primary_key' );
 		$where = array( $pk => $this->_attrs[ $pk ] );
 
-		$res = ( false !== $wpdb->delete( self::get_model_info( $this, 'table_name' ), $where ) );
+		$res = false !== $wpdb->delete( self::get_model_info( $this, 'table_name' ), $where );
 
 		if ( $res ) {
 			$this->after_delete();
@@ -323,5 +323,4 @@ class WPBDP__DB__Model {
 		$cache[ $classname ] = $info;
 		return $key ? $info[ $key ] : $info;
 	}
-
 }

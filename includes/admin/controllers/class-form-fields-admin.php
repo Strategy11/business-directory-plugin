@@ -4,6 +4,11 @@
  */
 class WPBDP_FormFieldsAdmin {
 
+	public $api;
+
+	public $admin;
+	public $messages = array();
+
 	public function __construct() {
 		$this->api   = wpbdp_formfields_api();
 		$this->admin = wpbdp()->admin;
@@ -21,7 +26,7 @@ class WPBDP_FormFieldsAdmin {
 			return;
 		}
 
-		if ( $missing = $wpbdp->formfields->get_missing_required_fields() ) {
+		if ( $missing = $wpbdp->form_fields->get_missing_required_fields() ) {
 			if ( count( $missing ) > 1 ) {
 				$message = sprintf( _x( '<b>Business Directory Plugin</b> requires fields with the following associations in order to work correctly: <b>%s</b>.', 'admin', 'business-directory-plugin' ), join( ', ', $missing ) );
 			} else {
@@ -137,8 +142,8 @@ class WPBDP_FormFieldsAdmin {
 	private function preview_form() {
 		require_once WPBDP_INC . 'controllers/pages/class-submit-listing.php';
 
-		$html  = '';
-		$html .= wpbdp_admin_header(
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wpbdp_admin_header(
 			array(
 				'title'   => __( 'Form Preview', 'business-directory-plugin' ),
 				'id'      => 'formfields-preview',
@@ -150,21 +155,23 @@ class WPBDP_FormFieldsAdmin {
 				),
 			)
 		);
-		$html .= '<div id="wpbdp-submit-listing" class="wpbdp-listing-form-preview wpbdp-submit-page">';
-		$html .= wpbdp_admin_notices();
-		$html .= wpbdp_capture_action( 'wpbdp_admin_form_fields_before_preview' );
+		echo '<div id="wpbdp-submit-listing" class="wpbdp-listing-form-preview wpbdp-submit-page">';
+		echo wpbdp_admin_notices(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wpbdp_capture_action( 'wpbdp_admin_form_fields_before_preview' );
 
 		require_once WPBDP_INC . 'helpers/class-dummy-listing.php';
 		$listing = new WPBDP__Dummy_Listing();
 		do_action( 'wpbdp_preview_form_setup_listing', $listing );
 
-		$html .= WPBDP__Views__Submit_Listing::preview_form( $listing );
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo WPBDP__Views__Submit_Listing::preview_form( $listing );
 
-		$html .= wpbdp_capture_action( 'wpbdp_admin_form_fields_after_preview' );
-		$html .= '</div>';
-		$html .= wpbdp_admin_footer();
-
-		echo $html;
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wpbdp_capture_action( 'wpbdp_admin_form_fields_after_preview' );
+		echo '</div>';
+		echo wpbdp_admin_footer();
 	}
 
 	/* field list */
@@ -184,7 +191,7 @@ class WPBDP_FormFieldsAdmin {
 	 */
 	private function check_permission( $action ) {
 		$nonce = array( 'nonce' => $action );
-		WPBDP_App_Helper::permission_check( 'manage_categories', $nonce );
+		WPBDP_App_Helper::permission_check( 'manage_options', $nonce );
 	}
 
 	private function process_field_form() {
@@ -223,15 +230,14 @@ class WPBDP_FormFieldsAdmin {
 		}
 
 		if ( ! wpbdp_get_option( 'override-email-blocking' ) && $field->has_validator( 'email' ) && ( $field->display_in( 'excerpt' ) || $field->display_in( 'listing' ) ) ) {
-			$msg = _x(
-				'<b>Important</b>: Since the "<a>Display email address fields publicly?</a>" setting is disabled, display settings below will not be honored and this field will not be displayed on the frontend. If you want e-mail addresses to show on the frontend, you can <a>enable public display of e-mails</a>.',
-				'form-fields admin',
-				'business-directory-plugin'
-			);
-			$msg = str_replace(
-				'<a>',
+			$msg = sprintf(
+				_x(
+					'Important: Since "display email address fields publicly" is off, this field will not be displayed on the frontend. If you want email addresses to show on the frontend, you can %1$senable public display of emails%2$s.',
+					'form-fields admin',
+					'business-directory-plugin'
+				),
 				'<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings&tab=email' ) ) . '">',
-				$msg
+				'</a>'
 			);
 			wpbdp_admin_message( $msg, 'notice-error is-dismissible', array( 'dismissible-id' => 'public_emails' ) );
 		}
@@ -253,9 +259,9 @@ class WPBDP_FormFieldsAdmin {
 	/**
 	 * Get a list of field settings that should be hidden.
 	 *
-	 * @param object $field WPBDP_Form_Field
-	 *
 	 * @since 5.8.3
+	 *
+	 * @param object $field WPBDP_Form_Field
 	 */
 	private function hidden_fields_for_type( $field ) {
 		$mapping = $field->get_association();
@@ -303,9 +309,9 @@ class WPBDP_FormFieldsAdmin {
 	 * Handle field delete.
 	 * This handles the re-usable action to delete a form field.
 	 *
-	 * @param object $field The field to delete
-	 *
 	 * @since 5.18
+	 *
+	 * @param object $field The field to delete
 	 */
 	private function handle_field_delete( $field ) {
 
@@ -343,8 +349,8 @@ class WPBDP_FormFieldsAdmin {
 
 		global $wpbdp;
 
-		if ( $missing = $wpbdp->formfields->get_missing_required_fields() ) {
-			$wpbdp->formfields->create_default_fields( $missing );
+		if ( $missing = $wpbdp->form_fields->get_missing_required_fields() ) {
+			$wpbdp->form_fields->create_default_fields( $missing );
 			$this->admin->messages[] = _x( 'Required fields created successfully.', 'form-fields admin', 'business-directory-plugin' );
 		}
 
@@ -355,7 +361,7 @@ class WPBDP_FormFieldsAdmin {
 		global $wpbdp;
 
 		// Before starting, check if we need to update tags.
-		$wpbdp->formfields->maybe_correct_tags();
+		$wpbdp->form_fields->maybe_correct_tags();
 
 		$special_tags = array(
 			'title'    => __( 'Title', 'business-directory-plugin' ),

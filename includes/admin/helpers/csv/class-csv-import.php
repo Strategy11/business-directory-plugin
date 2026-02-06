@@ -111,9 +111,9 @@ class WPBDP_CSV_Import {
 			$line_data = $this->get_current_line( $file );
 
 			$file->next();
-			$n++;
+			++$n;
 			$this->current_line = $file->key();
-			$this->processed_lines++;
+			++$this->processed_lines;
 
 			if ( count( $line_data ) < 2 && empty( $line_data[0] ) ) {
 				continue;
@@ -130,12 +130,15 @@ class WPBDP_CSV_Import {
 					);
 				}
 
-				$this->rejected++;
+				++$this->rejected;
 				continue;
 			}
 
 			$result = $this->import_row( $listing_data );
-			@set_time_limit( 0 );
+
+			if ( function_exists( 'set_time_limit' ) ) {
+				@set_time_limit( 0 );
+			}
 
 			if ( is_wp_error( $result ) ) {
 				foreach ( $result->get_error_messages() as $e ) {
@@ -146,11 +149,11 @@ class WPBDP_CSV_Import {
 					);
 				}
 
-				$this->rejected++;
+				++$this->rejected;
 				continue;
 			}
 
-			$this->imported++;
+			++$this->imported;
 		}
 
 		$file = null;
@@ -166,7 +169,7 @@ class WPBDP_CSV_Import {
 	private function get_current_line( $file ) {
 		$line = $file->current();
 		if ( empty( $line ) ) {
-			return [];
+			return array();
 		}
 		return $line;
 	}
@@ -351,7 +354,7 @@ class WPBDP_CSV_Import {
 		foreach ( $files as $file ) {
 			$uploaded_type = strtolower( pathinfo( $file['filename'], PATHINFO_EXTENSION ) );
 			if ( ! in_array( $uploaded_type, $allowed, true ) ) {
-				 @unlink( $file['filename'] );
+				@unlink( $file['filename'] );
 			}
 		}
 	}
@@ -424,14 +427,16 @@ class WPBDP_CSV_Import {
 
 		foreach ( $required_fields as $rf ) {
 			if ( ! in_array( $rf->get_short_name(), $fields_in_header, true ) ) {
-				throw new Exception( sprintf( 'Required header column "%s" missing', $rf->get_short_name() ) );
+				throw new Exception(
+					sprintf( 'Required header column "%s" missing', esc_html( $rf->get_short_name() ) )
+				);
 			}
 		}
 
 		$this->header = array();
 
 		global $wpbdp;
-		$short_names = $wpbdp->formfields->get_short_names();
+		$short_names = $wpbdp->form_fields->get_short_names();
 		foreach ( $fields_in_header as $short_name ) {
 			$field_id = 0;
 
@@ -481,14 +486,14 @@ class WPBDP_CSV_Import {
 			$state[ $key ] = $this->{$key};
 		}
 
+		// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions
 		if ( false === file_put_contents( $this->state_file, serialize( $state ) ) ) {
 			throw new Exception( 'Could not write persistent data' );
 		}
 	}
 
 	private function import_row( $data ) {
-		global $wpdb;
-		global $wpbdp;
+		global $wpdb, $wpbdp;
 
 		if ( $this->settings['test-import'] ) {
 			return;
@@ -526,7 +531,7 @@ class WPBDP_CSV_Import {
 
 					$errors[] = $message;
 				} else {
-					$errors[] = sprintf( _x( 'Could not create listing category "%s"', 'admin csv-import', 'business-directory-plugin' ), $c['name'] );
+					$errors[] = sprintf( __( 'Could not create listing category "%s"', 'business-directory-plugin' ), $c['name'] );
 				}
 			}
 
@@ -554,6 +559,7 @@ class WPBDP_CSV_Import {
 		}
 
 		// Handle fields.
+		$fields = $data['fields'];
 		foreach ( $fields as $field_id => $field_data ) {
 			$f = wpbdp_get_form_field( $field_id );
 
@@ -587,7 +593,21 @@ class WPBDP_CSV_Import {
 			}
 		}
 
-		// Insert or update listing.
+		$listing = $this->insert_or_update_listing( $state, $data, $meta, $listing_id );
+
+		$error = $this->get_listing_error( $listing, $errors );
+		if ( $error ) {
+			return $error;
+		}
+
+		$this->save_acceptance_date( $listing, $data, $meta );
+		$this->save_thumbnail( $listing, $state );
+		$this->add_payment_log( $listing );
+
+		return $listing->get_id();
+	}
+
+	private function insert_or_update_listing( $state, $data, $meta, $listing_id ) {
 		$listing_data                  = (array) $state;
 		$listing_data['listing_id']    = $listing_id;
 		$listing_data['append_images'] = $this->settings['append-images'];
@@ -619,6 +639,10 @@ class WPBDP_CSV_Import {
 
 		$listing = wpbdp_save_listing( $listing_data, true, 'csv-import' );
 
+		return $listing;
+	}
+
+	private function get_listing_error( $listing, $errors ) {
 		if ( is_wp_error( $listing ) ) {
 			$errors = array_merge( $errors, $listing->get_error_messages() );
 		}
@@ -633,6 +657,10 @@ class WPBDP_CSV_Import {
 			return $error;
 		}
 
+		return false;
+	}
+
+	private function save_acceptance_date( $listing, $data, $meta ) {
 		if ( ! empty( $data['terms_and_conditions_acceptance_date'] ) ) {
 			update_post_meta( $listing->get_id(), '_wpbdp_tos_acceptance_date', $data['terms_and_conditions_acceptance_date'] );
 			if ( empty( $meta['sequence_id'] ) ) {
@@ -645,11 +673,15 @@ class WPBDP_CSV_Import {
 				);
 			}
 		}
+	}
 
+	private function save_thumbnail( $listing, $state ) {
 		if ( ! empty( $state->images ) && ! empty( $state->images[0] ) ) {
 			$listing->set_thumbnail_id( $state->images[0] );
 		}
+	}
 
+	private function add_payment_log( $listing ) {
 		$payment = $listing->get_latest_payment();
 
 		// A payment record created in the last minute means the plan of an existing
@@ -668,11 +700,9 @@ class WPBDP_CSV_Import {
 				)
 			);
 		}
-
-		return $listing->get_id();
 	}
 
-	private function sanitize_and_validate_row( $data ) {
+	private function sanitize_and_validate_row( $data ) { // phpcs:ignore SlevomatCodingStandard.Complexity
 		global $wpbdp;
 
 		$errors = array();
@@ -719,7 +749,7 @@ class WPBDP_CSV_Import {
 				case 'username':
 					if ( $this->settings['assign-listings-to-user'] && $value ) {
 						if ( ! username_exists( $value ) ) {
-							$errors[] = sprintf( _x( 'Username "%s" does not exist', 'admin csv-import', 'business-directory-plugin' ), $value );
+							$errors[] = sprintf( __( 'Username "%s" does not exist', 'business-directory-plugin' ), $value );
 						} else {
 							$meta['username'] = $value;
 						}
@@ -780,7 +810,7 @@ class WPBDP_CSV_Import {
 					}
 
 					if ( $field->is_required() && $field->is_empty_value( $value ) ) {
-						$errors[] = sprintf( _x( 'Missing required field: %s', 'admin csv-import', 'business-directory-plugin' ), $column );
+						$errors[] = sprintf( __( 'Missing required field: %s', 'business-directory-plugin' ), $column );
 						break;
 					}
 
@@ -821,7 +851,7 @@ class WPBDP_CSV_Import {
 			}
 
 			if ( ! $this->settings['create-missing-categories'] ) {
-				$errors[] = sprintf( _x( 'Listing category "%s" does not exist', 'admin csv-import', 'business-directory-plugin' ), $csv_category );
+				$errors[] = sprintf( __( 'Listing category "%s" does not exist', 'business-directory-plugin' ), $csv_category );
 				continue;
 			}
 
@@ -873,6 +903,7 @@ class WPBDP_CSV_Import {
 			return false;
 		}
 		$media_id = WPBDP_Utils::attach_image_to_media_library( $upload );
+		// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions
 		rename( $filepath . '.backup', $filepath );
 		return $media_id;
 	}

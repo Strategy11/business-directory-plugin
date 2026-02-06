@@ -7,6 +7,7 @@
 	],
 	"plugins": [ "@wordpress", "jsdoc", "react-hooks" ],
 	"rules": {
+		"object-curly-spacing": [ "error", "always" ],
 		"import/order": [
 			"error",
 			{

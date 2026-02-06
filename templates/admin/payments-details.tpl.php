@@ -3,7 +3,7 @@ wpbdp_admin_header(
 	array(
 		'title'   => sprintf(
 			__( 'Payment %s', 'business-directory-plugin' ),
-			( $payment && $payment->id ) ? '#' . $payment->id : __( 'Not Found', 'business-directory-plugin' )
+			$payment && $payment->id ? '#' . $payment->id : __( 'Not Found', 'business-directory-plugin' )
 		),
 		'id'      => 'payments-details',
 		'buttons' => array(
@@ -197,7 +197,7 @@ $hide_text_field = $payment->gateway && $payment->listing->has_subscription() ? 
 						<div class="inside">
 							<div class="wpbdp-admin-box">
 								<div id="wpbdp-payment-notes">
-									<div class="no-notes" style="<?php echo ( $payment->payment_notes ) ? 'display: none;' : ''; ?>">
+									<div class="no-notes" style="<?php echo $payment->payment_notes ? 'display: none;' : ''; ?>">
 										<?php esc_html_e( 'No notes.', 'business-directory-plugin' ); ?>
 									</div>
 									<?php

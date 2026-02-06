@@ -36,12 +36,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="wpbdp-card plugin-card-<?php echo esc_attr( $slug ); ?> wpbdp-no-thumb wpbdp-addon-<?php echo esc_attr( $addon['status']['type'] ); ?>">
 				<?php if ( strtotime( $addon['released'] ) > strtotime( '-90 days' ) ) : ?>
 					<div class="wpbdp-ribbon">
-						<span><?php esc_attr_e( 'New', 'business-directory-plugin' ); ?></span>
+						<span><?php esc_html_e( 'New', 'business-directory-plugin' ); ?></span>
 					</div>
 				<?php endif; ?>
 				<div class="wpbdp-grid">
 					<span class="wpbdp2 wpbdp-card-module-icon wpbdp-admin-module-icon ">
-						<img src="<?php echo esc_attr( $addon['icons']['1x'] ); ?>" alt="" />
+						<img src="<?php echo esc_url( $addon['icons']['1x'] ); ?>" alt="" />
 					</span>
 					<div class="<?php echo esc_attr( $addon['status']['type'] === 'active' ? 'wpbdp10' : 'wpbdp7' ); ?>">
 						<h2 class="wpbdp-plugin-card-title">

@@ -24,7 +24,7 @@ class WPBDP_Installer {
 	public function install() {
 		global $wpdb;
 
-		if ( version_compare( self::DB_VERSION, $this->installed_version, '=' ) ) {
+		if ( version_compare( self::DB_VERSION, $this->installed_version ?? '', '=' ) ) {
 			return;
 		}
 
@@ -40,7 +40,7 @@ class WPBDP_Installer {
 			// Create default category.
 			wp_insert_term( _x( 'General', 'default category name', 'business-directory-plugin' ), WPBDP_CATEGORY_TAX );
 
-			$wpbdp->formfields->create_default_fields();
+			$wpbdp->form_fields->create_default_fields();
 			$wpbdp->settings->set_new_install_settings();
 
 			add_option( 'wpbdp-show-drip-pointer', 1 );
@@ -59,8 +59,14 @@ class WPBDP_Installer {
 				)
 			);
 			$fee->save();
+
+			// Record first activation timestamp.
+			// This is used to determine if a user is within their first 30 days.
+			if ( false === get_option( 'wpbdp_first_activation' ) ) {
+				update_option( 'wpbdp_first_activation', time(), false );
+			}
 		} else {
-			throw new Exception( "Table {$wpdb->prefix}wpbdp_form_fields was not created!" );
+			throw new Exception( esc_html( "Table {$wpdb->prefix}wpbdp_form_fields was not created!" ) );
 		}
 
 		update_option( 'wpbdp-db-version', self::DB_VERSION );
@@ -70,8 +76,9 @@ class WPBDP_Installer {
 	 * Builds the SQL queries (without running them) used to create all of the required database tables for BD.
 	 * Calls the `wpbdp_database_schema` filter that allows plugins to modify the schema.
 	 *
-	 * @return array An associative array of (non prefixed)table => SQL items.
 	 * @since 3.3
+	 *
+	 * @return array An associative array of (non prefixed)table => SQL items.
 	 */
 	public function get_database_schema() {
 		global $wpdb;
@@ -152,7 +159,15 @@ class WPBDP_Installer {
             flags varchar(255) NOT NULL DEFAULT ''
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
 
-		$schema['logs'] = "CREATE TABLE {$wpdb->prefix}wpbdp_logs (
+		$schema['logs'] = $this->logs_schema();
+
+		return apply_filters( 'wpbdp_database_schema', $schema );
+	}
+
+	private function logs_schema() {
+		global $wpdb;
+
+		return "CREATE TABLE {$wpdb->prefix}wpbdp_logs (
             id bigint(20) PRIMARY KEY  AUTO_INCREMENT,
             object_id bigint(20) NULL DEFAULT 0,
             rel_object_id bigint(20) NULL DEFAULT 0,
@@ -163,8 +178,6 @@ class WPBDP_Installer {
             message text CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
             data longblob NULL
         ) DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
-
-		return apply_filters( 'wpbdp_database_schema', $schema );
 	}
 
 	public function update_database_schema() {
@@ -233,7 +246,7 @@ class WPBDP_Installer {
 		$file = WPBDP_PATH . 'includes/admin/upgrades/migrations/migration-' . str_replace( 'WPBDP__Migrations__', '', $classname ) . '.php';
 
 		if ( ! file_exists( $file ) ) {
-			throw new Exception( "Can't load migration class: $file." );
+			throw new Exception( esc_html( "Can't load migration class: $file." ) );
 		}
 
 		require_once $file;
@@ -275,10 +288,10 @@ class WPBDP_Installer {
 
 	public function get_pending_migrations() {
 		$current_version = strval( $this->installed_version );
-		$current_version = ( false === strpos( $current_version, '.' ) ) ? $current_version . '.0' : $current_version;
+		$current_version = false === strpos( $current_version, '.' ) ? $current_version . '.0' : $current_version;
 
 		$latest_version = strval( self::DB_VERSION );
-		$latest_version = ( false === strpos( $latest_version, '.' ) ) ? $latest_version . '.0' : $latest_version;
+		$latest_version = false === strpos( $latest_version, '.' ) ? $latest_version . '.0' : $latest_version;
 
 		$migrations = array();
 

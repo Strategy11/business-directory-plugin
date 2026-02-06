@@ -11,7 +11,7 @@
 .wpbdp-clearfix::after,
 .cf::before,
 .cf::after {
-	content: " "; /* 1 */
+	content: ' '; /* 1 */
 	display: table; /* 2 */
 }
 
@@ -21,7 +21,55 @@
 	clear: both;
 }
 
-// Hidden helper class
+.wpbdp-clear {
+	clear: both;
+}
+
+// Screen Reader Only.
+.wpbdp-sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect( 0, 0, 0, 0 );
+	white-space: nowrap;
+	border-width: 0;
+}
+
+// Toggle Visibility Helper Classes
 .wpbdp-hidden {
 	display: none;
+}
+
+.wpbdp-hidden-force {
+	display: none !important;
+}
+
+.wpbdp-show-on-mobile {
+	display: none !important;
+
+	@media ( max-width: 560px ) {
+		display: inline !important;
+	}
+}
+
+@media ( max-width: 560px ) {
+	.wpbdp-hide-on-mobile {
+		display: none !important;
+	}
+}
+
+.wpbdp-flex {
+	display: flex;
+	align-items: center;
+	gap: @padding-md;
+
+	&.listing-actions {
+		> span,
+		> a {
+			margin-left: 0;
+		}
+	}
 }

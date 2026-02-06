@@ -11,6 +11,10 @@ class WPBDP__Modules {
 	}
 
 	private function register_modules() {
+		if ( $this->should_unload_stripe_module() ) {
+			$this->unload_stripe_addon();
+		}
+
 		// Allow modules to register themselves with this class.
 		do_action( 'wpbdp_load_modules', $this );
 
@@ -33,6 +37,43 @@ class WPBDP__Modules {
 				$this->valid[] = $mod->id;
 			}
 		}
+	}
+
+	/**
+	 * If Stripe Connect is set-up (in BD Lite), unload the Stripe module (the add-on).
+	 *
+	 * @since 6.4.9
+	 *
+	 * @return bool
+	 */
+	private function should_unload_stripe_module() {
+		if ( ! has_action( 'wpbdp_load_modules', array( 'WPBDP__Stripe', 'load' ) ) ) {
+			// Stripe module (add-on) not found, nothing to unload.
+			return false;
+		}
+
+		$connect_test_is_setup = WPBDPStrpConnectHelper::stripe_connect_is_setup( 'test' );
+		$connect_live_is_setup = WPBDPStrpConnectHelper::stripe_connect_is_setup( 'live' );
+
+		if ( $connect_test_is_setup && $connect_live_is_setup ) {
+			// Always unload if both Stripe Connect modes are connected.
+			return true;
+		}
+
+		$settings = new WPBDP__Settings();
+		return ! $settings->legacy_stripe_settings_exist();
+	}
+
+	/**
+	 * Prevent the Stripe module (add-on) from loading.
+	 * This is called Stripe Lite is configured, to prevent conflicts with having two stripe gateways.
+	 *
+	 * @since 6.4.9
+	 *
+	 * @return void
+	 */
+	private function unload_stripe_addon() {
+		remove_action( 'wpbdp_load_modules', array( 'WPBDP__Stripe', 'load' ), 10 );
 	}
 
 	/**
@@ -76,9 +117,9 @@ class WPBDP__Modules {
 	/**
 	 * Get module information.
 	 *
-	 * @param string $module_id The module id.
-	 *
 	 * @since 5.16
+	 *
+	 * @param string $module_id The module id.
 	 *
 	 * @return bool|object Returns false if module is not loaded. Returns an object if loaded
 	 */

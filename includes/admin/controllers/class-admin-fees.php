@@ -4,6 +4,8 @@
  */
 class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 
+	public $api;
+
 	function __construct() {
 		parent::__construct();
 		$this->api = $this->wpbdp->fees;
@@ -65,10 +67,11 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	 * Get a list of gateways that aren't currently being used.
 	 *
 	 * @since 6.0
+	 *
+	 * @return array
 	 */
 	private function available_gateways() {
 		$modules = array(
-			array( 'stripe', 'stripe-payment-module', 'Stripe' ),
 			array( 'paypal', 'paypal-gateway-module', 'PayPal' ),
 			array( 'payfast', 'payfast-payment-module', 'PayFast' ),
 		);
@@ -83,13 +86,16 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 			}
 		}
 
-		if ( ! wpbdp_payments_possible() ) {
-			$gateways[] = array(
-				'',
-				'authorize-net-payment-module',
-				'Authorize.net',
-				'link' => admin_url( 'admin.php?page=wpbdp_settings&tab=payment' ),
-				'cta'  => __( 'Set Up', 'business-directory-plugin' ),
+		if ( ! $modules_obj->is_loaded( 'stripe' ) && ! WPBDPStrpConnectHelper::stripe_connect_is_setup( 'live' ) ) {
+			array_unshift(
+				$gateways,
+				array(
+					'stripe',
+					'stripe-payment-module',
+					'Stripe',
+					'link' => admin_url( 'admin.php?page=wpbdp_settings&tab=payment&subtab=gateway_stripe' ),
+					'cta'  => __( 'Set Up', 'business-directory-plugin' ),
+				)
 			);
 		}
 
@@ -107,7 +113,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	private function insert_or_update_fee( $mode ) {
 		if ( ! empty( $_POST ) ) {
 			$nonce = array( 'nonce' => 'wpbdp-fees' );
-			WPBDP_App_Helper::permission_check( 'edit_posts', $nonce );
+			WPBDP_App_Helper::permission_check( wpbdp_backend_minimim_role(), $nonce );
 		}
 
 		if ( ! empty( $_POST['fee'] ) ) {
@@ -199,7 +205,9 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 			$message . ' ' .
 			sprintf(
 				__( '%1$sClick here to update image limits%2$s of %3$s existing listings.', 'business-directory-plugin' ),
-				'<a class="wpbdp-update-plan-listings wpbdp-admin-ajax" data-confirm="' . esc_attr__( 'Update listing image limits?', 'business-directory-plugin' ) . '" data-target=".wpbdp-plan-updated" data-ajax="' . esc_attr( $data ) . '" href="#">',
+				'<a class="wpbdp-update-plan-listings wpbdp-admin-ajax" ' .
+					'data-confirm="' . esc_attr__( 'Update listing image limits?', 'business-directory-plugin' ) . '" ' .
+					'data-target=".wpbdp-plan-updated" data-ajax="' . esc_attr( $data ) . '" href="#">',
 				'</a>',
 				$total_listings
 			),
@@ -213,7 +221,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	 * @since 5.15.3
 	 */
 	public function ajax_update_listing_plan() {
-		WPBDP_App_Helper::permission_check( 'edit_posts' );
+		WPBDP_App_Helper::permission_check();
 		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
 
 		$plan_id = wpbdp_get_var(
@@ -238,9 +246,9 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	 * Update the listing images.
 	 * This updates all listings that have the same fee id.
 	 *
-	 * @param object $fee The fee
-	 *
 	 * @since 5.15.3
+	 *
+	 * @param object $fee The fee
 	 */
 	private function update_listing_images( $fee ) {
 		global $wpdb;
@@ -294,7 +302,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 		$fee = $this->get_or_die();
 
 		if ( $fee->delete() ) {
-			wpbdp_admin_message( sprintf( _x( 'Plan "%s" deleted.', 'fees admin', 'business-directory-plugin' ), $fee->label ) );
+			wpbdp_admin_message( sprintf( __( 'Plan "%s" deleted.', 'business-directory-plugin' ), $fee->label ) );
 		}
 
 		return $this->_redirect( 'index' );
@@ -312,5 +320,4 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 		}
 		return $this->_redirect( 'index' );
 	}
-
 }

@@ -3,7 +3,7 @@
 **/node_modules/**
 **/vendor/**
 **/vendors/**
-assets/**/*min*
+assets/**/*min.js
 bin/*
 languages/*
 themes/**/*min*

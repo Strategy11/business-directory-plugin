@@ -41,6 +41,8 @@ final class WPBDP {
 	public $recaptcha;
 	public $compat;
 	public $rewrite;
+	public $admin;
+	public $privacy;
 
 	public function __construct() {
 		$this->_db_version = get_option( 'wpbdp-db-version', null );
@@ -53,7 +55,7 @@ final class WPBDP {
 	}
 
 	private function setup_constants() {
-		define( 'WPBDP_VERSION', '6.3.10' );
+		define( 'WPBDP_VERSION', '6.4.21' );
 
 		define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
 		define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -84,6 +86,7 @@ final class WPBDP {
 		require_once WPBDP_INC . 'licensing.php';
 
 		require_once WPBDP_INC . 'form-fields.php';
+		require_once WPBDP_INC . 'models/form-fields-validation.php';
 		require_once WPBDP_INC . 'payment.php';
 		require_once WPBDP_PATH . 'includes/class-payment-gateways.php';
 		require_once WPBDP_INC . 'installer.php';
@@ -127,6 +130,8 @@ final class WPBDP {
 		}
 
 		require_once WPBDP_INC . 'helpers/class-access-keys-sender.php';
+
+		WPBDPStrpHooksController::load_hooks();
 	}
 
 	/**
@@ -223,7 +228,7 @@ final class WPBDP {
 		do_action( 'wpbdp_modules_loaded' );
 
 		do_action_ref_array( 'wpbdp_register_settings', array( &$this->settings ) );
-		do_action( 'wpbdp_register_fields', $this->formfields );
+		do_action( 'wpbdp_register_fields', $this->form_fields );
 		do_action( 'wpbdp_modules_init' );
 
 		$this->listings = new WPBDP_Listings_API();
@@ -338,6 +343,7 @@ final class WPBDP {
 	 * @deprecated 5.13.2
 	 *
 	 * @param  array $plugins
+	 *
 	 * @return array $plugins
 	 */
 	public function run_ajax_compat_mode( $plugins ) {
@@ -348,12 +354,12 @@ final class WPBDP {
 	/**
 	 * Check if this is a BD plugin.
 	 *
-	 * @param string $plugin
-	 *
 	 * @since 5.12.1
 	 * @deprecated 5.13.2
 	 *
-	 * @return boolean
+	 * @param string $plugin
+	 *
+	 * @return bool
 	 */
 	private function keep_only_bd_plugins( $plugin ) {
 		_deprecated_function( __METHOD__, '5.13.2' );
@@ -382,6 +388,16 @@ final class WPBDP {
 	}
 
 	public function plugin_activation() {
+		require_once WPBDP_INC . 'admin/controllers/class-onboarding-wizard.php';
+
+		if ( get_transient( WPBDP_Onboarding_Wizard::TRANSIENT_NAME ) !== 'no' ) {
+			set_transient(
+				WPBDP_Onboarding_Wizard::TRANSIENT_NAME,
+				WPBDP_Onboarding_Wizard::TRANSIENT_VALUE,
+				60
+			);
+		}
+
 		add_action( 'shutdown', 'flush_rewrite_rules' );
 		wpbdp_delete_page_ids_cache();
 	}
@@ -398,12 +414,30 @@ final class WPBDP {
 		$add_links = array();
 
 		if ( ! WPBDP_Admin_Education::is_installed( 'premium' ) ) {
-			$add_links[] = '<a href="' . esc_url( wpbdp_admin_upgrade_link( 'plugin-row' ) ) . '" target="_blank" rel="noopener" style="color:#1da867" class="wpbdp-upgrade-link"><b>' . esc_html__( 'Upgrade to Premium', 'business-directory-plugin' ) . '</b></a>';
+			$add_links[] = $this->get_plugin_upgrade_action_link();
 		}
 
 		$add_links['settings'] = '<a href="' . esc_url( admin_url( 'admin.php?page=wpbdp_settings' ) ) . '">' . esc_html__( 'Settings', 'business-directory-plugin' ) . '</a>';
 
 		return array_merge( $add_links, $links );
+	}
+
+	/**
+	 * Get the link for the upgrade CTA on the plugins page.
+	 *
+	 * @since 6.4.18
+	 *
+	 * @return string
+	 */
+	private function get_plugin_upgrade_action_link() {
+		WPBDP_Admin::setup_sales_api();
+		$utm_medium = 'plugin-row';
+		$cta_url    = WPBDP_Sales_API::get_best_sale_cta_link( 'plugin_page_cta_link', $utm_medium ) ?? wpbdp_admin_upgrade_link( $utm_medium );
+		$cta_text   = WPBDP_Sales_API::get_best_sale_value( 'plugin_page_cta_text' ) ?? __( 'Upgrade to Premium', 'business-directory-plugin' );
+
+		return '<a href="' . esc_url( $cta_url ) . '" target="_blank" rel="noopener" style="color:#1da867" class="wpbdp-upgrade-link">' .
+			'<b>' . esc_html( $cta_text ) . '</b>' .
+		'</a>';
 	}
 
 	public function is_plugin_page() {
@@ -465,7 +499,6 @@ final class WPBDP {
 		return false;
 	}
 
-	// TODO: better validation.
 	public function ajax_listing_submit_image_upload() {
 		$res = new WPBDP_AJAX_Response();
 
@@ -473,6 +506,19 @@ final class WPBDP {
 
 		if ( ! $listing_id ) {
 			return $res->send_error();
+		}
+		
+		if ( ! check_ajax_referer( 'listing-' . $listing_id . '-image-upload', '_wpnonce', false ) ) {
+			return $res->send_error( __( 'Security check failed. Please refresh the page and try again.', 'business-directory-plugin' ) );
+		}
+		
+		$listing = WPBDP_Listing::get( $listing_id );
+		if ( ! $listing ) {
+			return $res->send_error( __( 'Invalid listing', 'business-directory-plugin' ) );
+		}
+		
+		if ( ! wpbdp_user_is_admin() && ! $listing->owned_by_user( get_current_user_id() ) ) {
+			return $res->send_error( __( 'You do not have permission to upload images to this listing', 'business-directory-plugin' ) );
 		}
 
 		$content_range = wpbdp_get_server_value( 'HTTP_CONTENT_RANGE' );
@@ -489,16 +535,15 @@ final class WPBDP {
 		$files  = wpbdp_flatten_files_array( isset( $_FILES['images'] ) ? $_FILES['images'] : array() );
 		$errors = array();
 
-		$listing         = WPBDP_Listing::get( $listing_id );
 		$slots_available = 0;
 		$plan            = $listing->get_fee_plan();
 		if ( ! $plan ) {
-			return $res->send_error( _x( 'Please select a plan before uploading images to the listing', 'listing image upload', 'business-directory-plugin' ) );
+			return $res->send_error( __( 'Please select a plan before uploading images to the listing', 'business-directory-plugin' ) );
 		}
 
 		$slots_available = absint( $plan->fee_images ) - absint( $_POST['images_count'] );
 		if ( 0 >= $slots_available ) {
-			return $res->send_error( _x( 'Can not upload any more images for this listing.', 'listing image upload', 'business-directory-plugin' ) );
+			return $res->send_error( __( 'Can not upload any more images for this listing.', 'business-directory-plugin' ) );
 		} elseif ( $slots_available < count( $files ) ) {
 			return $res->send_error(
 				sprintf(
@@ -569,7 +614,7 @@ final class WPBDP {
 			$res->add( 'uploadErrors', $error_msg );
 		}
 
-		$res->add( 'is_admin', current_user_can( 'administrator' ) );
+		$res->add( 'is_admin', wpbdp_user_is_admin() );
 		$res->add( 'slots_available', $slots_available );
 		$res->add( 'attachmentIds', $attachments );
 		$res->add( 'html', $html );
@@ -605,6 +650,10 @@ final class WPBDP {
 			$res->send_error();
 		}
 
+		if ( ! wpbdp_user_can( 'edit', $listing_id ) ) {
+			$res->send_error();
+		}
+
 		// Remove from images list.
 		$listing->remove_image( $image_id );
 
@@ -635,6 +684,11 @@ final class WPBDP {
 
 		if ( ! wp_verify_nonce( $nonce, 'listing-' . $listing_id . '-image-from-media' ) ) {
 			$json_data['errors'] = esc_html__( 'Could not verify the image upload request. If problem persists contact site admin.', 'business-directory-plugin' );
+			wp_send_json_error( $json_data );
+		}
+
+		if ( ! wpbdp_user_can( 'edit', $listing_id ) ) {
+			$json_data['errors'] = esc_html__( 'You do not have permission to update this listing.', 'business-directory-plugin' );
 			wp_send_json_error( $json_data );
 		}
 
@@ -674,7 +728,7 @@ final class WPBDP {
 	public function frontend_manual_upgrade_msg() {
 		wp_enqueue_style( 'wpbdp-base-css' );
 
-		if ( current_user_can( 'administrator' ) ) {
+		if ( wpbdp_user_is_admin() ) {
 			return wpbdp_render_msg(
 				str_replace(
 					'<a>',
@@ -694,5 +748,4 @@ final class WPBDP {
 	public function get_db_version() {
 		return $this->_db_version;
 	}
-
 }

@@ -61,6 +61,9 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 		return self::render_admin_settings( $settings );
 	}
 
+	/**
+	 * @return void|WP_Error
+	 */
 	public function process_field_settings( &$field ) {
 		if ( array_key_exists( 'x_display_caption', $_POST['field'] ) ) {
 			$display_caption = (bool) intval( $_POST['field']['x_display_caption'] );
@@ -303,6 +306,16 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 			die;
 		}
 
+		$post_status = get_post_status( $listing_id );
+		if ( ! $post_status ) {
+			die;
+		}
+
+		// If its an auto-draft there is no point in running the check.
+		if ( 'auto-draft' !== $post_status && ! wpbdp_user_can( 'edit', $listing_id ) ) {
+			die;
+		}
+
 		$element = wpbdp_get_var(
 			array(
 				'param'   => 'element',
@@ -345,14 +358,22 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 				echo '</div>';
 
 				echo '<script>';
-				echo sprintf( 'window.parent.WPBDP.fileUpload.finishUpload(%d, %d, "%s");', $field_id, esc_js( $media_id ), esc_js( $element ) );
+				printf(
+					'window.parent.WPBDP.fileUpload.finishUpload(%d, %d, "%s");',
+					absint( $field_id ),
+					esc_js( $media_id ),
+					esc_js( $element )
+				);
 				echo '</script>';
 			} else {
 				print wp_kses_post( $errors );
 			}
 		}
 
-		echo sprintf( '<script>document.onload = function() { window.parent.WPBDP.fileUpload.resizeIFrame(%d) };</script>', $field_id );
+		printf(
+			'<script>document.onload = function() { window.parent.WPBDP.fileUpload.resizeIFrame(%d) };</script>',
+			absint( $field_id )
+		);
 
 		exit;
 	}
@@ -461,4 +482,3 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 		return array( $image, $caption );
 	}
 }
-

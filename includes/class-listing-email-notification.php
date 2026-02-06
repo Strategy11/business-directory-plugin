@@ -137,7 +137,7 @@ class WPBDP__Listing_Email_Notification {
 	/**
 	 * @param string     $event         Event identifier.
 	 * @param string     $relative_time Number of days before or after the event occurred.
-	 * @param object|int $listing       An instance of WPBDP_Listing.
+	 * @param int|object $listing       An instance of WPBDP_Listing.
 	 * @param bool       $force_resend  Whether to resend already sent notifications or not.
 	 */
 	public function send_notices( $event, $relative_time, $listing, $force_resend = false ) {
@@ -234,7 +234,7 @@ class WPBDP__Listing_Email_Notification {
 			$admin_email = new WPBDP_Email();
 
 			// translators: [%s] is the name of the blog.
-			$admin_email->subject = sprintf( _x( '[%s] New listing notification', 'notify email', 'business-directory-plugin' ), get_bloginfo( 'name' ) );
+			$admin_email->subject = sprintf( __( '[%s] New listing notification', 'business-directory-plugin' ), get_bloginfo( 'name' ) );
 			$admin_email->to[]    = get_bloginfo( 'admin_email' );
 
 			if ( wpbdp_get_option( 'admin-notifications-cc' ) ) {
@@ -302,7 +302,7 @@ class WPBDP__Listing_Email_Notification {
 		$email = new WPBDP_Email();
 
 		// translators: [%s] is the name of the blog.
-		$email->subject = sprintf( _x( '[%s] Listing edit notification', 'notify email', 'business-directory-plugin' ), get_bloginfo( 'name' ) );
+		$email->subject = sprintf( __( '[%s] Listing edit notification', 'business-directory-plugin' ), get_bloginfo( 'name' ) );
 		$email->to[]    = get_bloginfo( 'admin_email' );
 
 		if ( wpbdp_get_option( 'admin-notifications-cc' ) ) {
@@ -317,10 +317,11 @@ class WPBDP__Listing_Email_Notification {
 	/**
 	 * Sent when a listing is renewed.
 	 *
+	 * @since 5.0.6
+	 *
 	 * @param object $listing   An instance of WPBDP_Listing.
 	 * @param object $payment   A payment object.
 	 * @param string $context   This parameter is not used.
-	 * @since 5.0.6
 	 */
 	public function listing_renewal_email( $listing, $payment = null, $context = '' ) {
 		// Notify admin.
@@ -373,7 +374,7 @@ class WPBDP__Listing_Email_Notification {
 			$admin_email = new WPBDP_Email();
 
 			// translators: %s is the name of the blog.
-			$admin_email->subject = sprintf( _x( '[%s] Reported listing notification', 'notify email', 'business-directory-plugin' ), get_bloginfo( 'name' ) );
+			$admin_email->subject = sprintf( __( '[%s] Reported listing notification', 'business-directory-plugin' ), get_bloginfo( 'name' ) );
 			$admin_email->to[]    = get_bloginfo( 'admin_email' );
 
 			if ( wpbdp_get_option( 'admin-notifications-cc' ) ) {
@@ -420,7 +421,7 @@ class WPBDP__Listing_Email_Notification {
 			$admin_email = new WPBDP_Email();
 
 			// translators: [%s] is the name of the blog.
-			$admin_email->subject = sprintf( _x( '[%s] New payment notification', 'notify email', 'business-directory-plugin' ), get_bloginfo( 'name' ) );
+			$admin_email->subject = sprintf( __( '[%s] New payment notification', 'business-directory-plugin' ), get_bloginfo( 'name' ) );
 			$admin_email->to[]    = get_bloginfo( 'admin_email' );
 
 			if ( wpbdp_get_option( 'admin-notifications-cc' ) ) {

@@ -1,181 +1,208 @@
-jQuery(function( $ ) {
-    var csvimport = {};
+/**
+ * WordPress dependencies
+ */
+import domReady from '@wordpress/dom-ready';
 
-    csvimport.CSV_Import = function() {
-        this.import_id = $( '#wpbdp-csv-import-state' ).attr( 'data-import-id' );
+/**
+ * Internal dependencies
+ */
+import initializeCsvImportValidation from './admin-csv-import/initializeCsvImportValidation';
 
-        this.in_progress = false;
-        this.canceled = false;
+domReady( () => {
+	initializeCsvImportValidation();
+} );
 
-        this.processed_rows = 0;
-        this.total_rows = 0;
-        this.imported_rows = 0;
-        this.rejected_rows = 0;
-        this.warnings = [];
+jQuery( function ( $ ) {
+	const csvimport = {};
 
-        this.$state = $( '#wpbdp-csv-import-state' );
-        this.$success = $( '#wpbdp-csv-import-summary' );
-        this.$progress_bar = new WPBDP_Admin.ProgressBar( $( '.import-progress' ) );
+	csvimport.CSV_Import = function () {
+		this.import_id = $( '#wpbdp-csv-import-state' ).attr(
+			'data-import-id'
+		);
 
-        this._setup_events();
-    };
+		this.in_progress = false;
+		this.canceled = false;
 
-    $.extend( csvimport.CSV_Import.prototype, {
-        _setup_events: function() {
-            var t = this;
+		this.processed_rows = 0;
+		this.total_rows = 0;
+		this.imported_rows = 0;
+		this.rejected_rows = 0;
+		this.warnings = [];
 
-            $( 'a.cancel-import' ).on( 'click', function(e) {
-                e.preventDefault();
-                t.cancel();
-            });
+		this.$state = $( '#wpbdp-csv-import-state' );
+		this.$success = $( '#wpbdp-csv-import-summary' );
+		this.$progress_bar = new WPBDP_Admin.ProgressBar(
+			$( '.import-progress' )
+		);
 
-            $( 'a.resume-import' ).on( 'click', function(e) {
-                e.preventDefault();
-                t.start_or_resume();
-            });
-        },
+		this._setup_events();
+	};
 
-        _advance: function() {
-            var t = this;
+	$.extend( csvimport.CSV_Import.prototype, {
+		_setup_events() {
+			const t = this;
 
-            if ( ! t.in_progress )
-                return;
+			$( 'a.cancel-import' ).on( 'click', function ( e ) {
+				e.preventDefault();
+				t.cancel();
+			} );
 
-            if ( t.in_progress && t.canceled ) {
-                t.in_progress = false;
-            }
+			$( 'a.resume-import' ).on( 'click', function ( e ) {
+				e.preventDefault();
+				t.start_or_resume();
+			} );
+		},
 
-            $.ajax({
-                url: ajaxurl,
-                type: 'POST',
-                dataType: 'json',
-                data: { 'action': 'wpbdp-csv-import', 'import_id': t.import_id },
-                success: function( res ) {
-                    if ( ! res || ! res.success )
-                        return t._fatal_error( res.error );
+		_advance() {
+			const t = this;
 
-                    t.processed_rows = res.data.progress;
-                    t.total_rows = res.data.total;
-                    t.imported_rows = res.data.imported;
-                    t.rejected_rows = res.data.rejected;
-                    t.$progress_bar.set( t.processed_rows, t.total_rows );
+			if ( ! t.in_progress ) return;
 
-                    if ( res.data.done ) {
-                        t.in_progress = false;
-                        t.warnings = res.data.warnings;
-                        t._show_success_screen();
-                    } else {
-                        t._advance();
-                    }
+			if ( t.in_progress && t.canceled ) {
+				t.in_progress = false;
+			}
 
-                },
-                error: function() {
-                    return t._fatal_error();
-                }
-            });
-        },
+			$.ajax( {
+				url: ajaxurl,
+				type: 'POST',
+				dataType: 'json',
+				data: { action: 'wpbdp-csv-import', import_id: t.import_id },
+				success( res ) {
+					if ( ! res || ! res.success )
+						return t._fatal_error( res.error );
 
-        _show_success_screen: function() {
-            var t = this;
+					t.processed_rows = res.data.progress;
+					t.total_rows = res.data.total;
+					t.imported_rows = res.data.imported;
+					t.rejected_rows = res.data.rejected;
+					t.$progress_bar.set( t.processed_rows, t.total_rows );
 
-            t.$state.fadeOut( function() {
-                t.$state.remove();
+					if ( res.data.done ) {
+						t.in_progress = false;
+						t.warnings = res.data.warnings;
+						t._show_success_screen();
+					} else {
+						t._advance();
+					}
+				},
+				error() {
+					return t._fatal_error();
+				},
+			} );
+		},
 
-                t.$success.find( '.placeholder-imported-rows' ).html( t.imported_rows );
-                t.$success.find( '.placeholder-rejected-rows' ).html( t.rejected_rows );
+		_show_success_screen() {
+			const t = this;
 
-                if ( 0 == t.warnings.length ) {
-                    t.$success.find( '.no-warnings' ).show();
-                    t.$success.fadeIn( 'fast' );
-                    return;
-                }
+			t.$state.fadeOut( function () {
+				t.$state.remove();
 
-                var $warnings_table = t.$success.find( '.wpbdp-csv-import-warnings tbody' );
-                var $template_row = $warnings_table.find( '.row-template' );
+				t.$success
+					.find( '.placeholder-imported-rows' )
+					.html( t.imported_rows );
+				t.$success
+					.find( '.placeholder-rejected-rows' )
+					.html( t.rejected_rows );
 
-                $.each( t.warnings, function( i, v ) {
-                    var $r = $template_row.clone();
+				if ( 0 == t.warnings.length ) {
+					t.$success.find( '.no-warnings' ).show();
+					t.$success.fadeIn( 'fast' );
+					return;
+				}
 
-                    $r.find( '.col-line-no' ).html( v.line );
-                    $r.find( '.col-line-content' ).html( v.content );
-                    $r.find( '.col-warning' ).html( v.error );
-                    $warnings_table.append( $r.show() );
-                } );
+				const $warnings_table = t.$success.find(
+					'.wpbdp-csv-import-warnings tbody'
+				);
+				const $template_row = $warnings_table.find( '.row-template' );
 
-                t.$success.find( '.with-warnings' ).show();
-                t.$success.find( '.wpbdp-csv-import-warnings' ).show();
-                t.$success.fadeIn( 'fast' );
-            } );
-        },
+				$.each( t.warnings, function ( i, v ) {
+					const $r = $template_row.clone();
 
-        _fatal_error: function( msg ) {
-            var t = this;
+					$r.find( '.col-line-no' ).html( v.line );
+					$r.find( '.col-line-content' ).html( v.content );
+					$r.find( '.col-warning' ).html( v.error );
+					$warnings_table.append( $r.show() );
+				} );
 
-            var $fatal_error = $( '#wpbdp-csv-import-fatal-error' );
-            var $with_reason = $fatal_error.find( '.with-reason' );
-            var $no_reason = $fatal_error.find( '.no-reason' );
+				t.$success.find( '.with-warnings' ).show();
+				t.$success.find( '.wpbdp-csv-import-warnings' ).show();
+				t.$success.fadeIn( 'fast' );
+			} );
+		},
 
-            if ( msg ) {
-                $with_reason.html( $with_reason.html().replace( '%s', msg ) ).show();
-            } else {
-                $no_reason.show();
-            }
+		_fatal_error( msg ) {
+			const t = this;
 
-            $fatal_error.show();
-            $( 'html, body' ).animate( { scrollTop: 0 }, 'medium' );
+			const $fatal_error = $( '#wpbdp-csv-import-fatal-error' );
+			const $with_reason = $fatal_error.find( '.with-reason' );
+			const $no_reason = $fatal_error.find( '.no-reason' );
 
-            t.cancel();
-        },
+			if ( msg ) {
+				$with_reason
+					.html( $with_reason.html().replace( '%s', msg ) )
+					.show();
+			} else {
+				$no_reason.show();
+			}
 
-        start_or_resume: function() {
-            if ( this.in_progress || this.canceled )
-                return;
+			$fatal_error.show();
+			$( 'html, body' ).animate( { scrollTop: 0 }, 'medium' );
 
-            this.in_progress = true;
+			t.cancel();
+		},
 
-            $( 'a.resume-import' ).css( 'opacity', '0.4' );
-            $( '.status-msg .not-started' ).hide();
-            $( '.status-msg .in-progress' ).show();
+		start_or_resume() {
+			if ( this.in_progress || this.canceled ) return;
 
-            this._advance();
-        },
+			this.in_progress = true;
 
-        cancel: function() {
-            var t = this;
+			$( 'a.resume-import' ).css( 'opacity', '0.4' );
+			$( '.status-msg .not-started' ).hide();
+			$( '.status-msg .in-progress' ).show();
 
-            t.canceled = true;
-            $( '.canceled-import' ).show();
-            t.$state.remove();
+			this._advance();
+		},
 
-            // Try to clean up.
-            $.ajax({
-                url: ajaxurl,
-                type: 'POST',
-                dataType: 'json',
-                data: { 'action': 'wpbdp-csv-import', 'import_id': t.import_id, 'cleanup': 1 }
-            });
-        }
-    } );
+		cancel() {
+			const t = this;
+
+			t.canceled = true;
+			$( '.canceled-import' ).show();
+			t.$state.remove();
+
+			// Try to clean up.
+			$.ajax( {
+				url: ajaxurl,
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					action: 'wpbdp-csv-import',
+					import_id: t.import_id,
+					cleanup: 1,
+				},
+			} );
+		},
+	} );
 
 	// Import example page.
-	$( 'a.wpbdp-example-csv' ).on( 'click', function(e) {
+	$( 'a.wpbdp-example-csv' ).on( 'click', function ( e ) {
 		e.preventDefault();
-		$.ajax({
+		$.ajax( {
 			url: ajaxurl,
 			type: 'POST',
 			data: {
-				'action': 'wpbdp-example-csv',
-				'nonce': wpbdp_global.nonce
+				action: 'wpbdp-example-csv',
+				nonce: wpbdp_global.nonce,
 			},
-			success: function( res ) {
-				var link = document.createElement( 'a' );
-				var fileData = ['\ufeff'+res];
+			success( res ) {
+				const link = document.createElement( 'a' );
+				const fileData = [ '\ufeff' + res ];
 
-				var fileObject = new Blob( fileData, {
-					type: 'text/csv;charset=utf-8;'
-				});
+				const fileObject = new Blob( fileData, {
+					type: 'text/csv;charset=utf-8;',
+				} );
 
-				var url = URL.createObjectURL( fileObject );
+				const url = URL.createObjectURL( fileObject );
 				link.href = url;
 				link.download = 'bd-example.csv';
 
@@ -183,80 +210,104 @@ jQuery(function( $ ) {
 				document.body.appendChild( link );
 				link.click();
 				document.body.removeChild( link );
+			},
+		} );
+	} );
+
+	// Import progress page.
+	if ( $( '#wpbdp-csv-import-state' ).length > 0 ) {
+		const import_in_page = new csvimport.CSV_Import();
+		return;
+	}
+
+	// Import config. page.
+	$( '.wpbdp-page-csv-import .file-local-selection a.toggle-selection' ).on(
+		'click',
+		function ( e ) {
+			e.preventDefault();
+			const $files = $( this ).siblings( 'ul' );
+			$files.toggle();
+
+			if ( ! $files.is( ':visible' ) )
+				$files.find( 'input[type="radio"]' ).prop( 'checked', false );
+		}
+	);
+
+	$( '.wpbdp-page-csv-import' ).on(
+		'change',
+		'.file-local-selection input[type="radio"]',
+		function ( e ) {
+			const sel = $( this ).filter( ':checked' ).val();
+
+			if ( '' == sel ) {
+				$( this ).prop( 'checked', false );
+				$( this ).parents( '.file-local-selection' ).hide();
 			}
-		});
-	});
+		}
+	);
 
-    // Import progress page.
-    if ( $( '#wpbdp-csv-import-state' ).length > 0 ) {
-        var import_in_page = new csvimport.CSV_Import();
-        return;
-    }
+	// Default User field in Import config. page.
+	( function () {
+		let $form = $( 'form#wpbdp-csv-import-form' ),
+			$use_default_user_checkbox = $form.find(
+				'input.use-default-listing-user'
+			),
+			$default_user_field;
 
-    // Import config. page.
-    $( '.wpbdp-page-csv-import .file-local-selection a.toggle-selection' ).on( 'click', function(e) {
-        e.preventDefault();
-        var $files = $( this ).siblings( 'ul' );
-        $files.toggle();
-
-        if ( ! $files.is(':visible') )
-            $files.find( 'input[type="radio"]' ).prop( 'checked', false );
-    });
-
-	$( '.wpbdp-page-csv-import' ).on( 'change', '.file-local-selection input[type="radio"]', function(e) {
-        var sel = $(this).filter(':checked').val();
-
-        if ( "" == sel ) {
-            $(this).prop( 'checked', false );
-            $(this).parents( '.file-local-selection' ).hide();
-        }
-    });
-
-    // Default User field in Import config. page.
-    (function() {
-        var $form = $( 'form#wpbdp-csv-import-form' ),
-            $use_default_user_checkbox = $form.find( 'input.use-default-listing-user' ),
-            $default_user_field;
-
-		$form.on( 'change', 'input.assign-listings-to-user', function(e){
-            if ( $(this).is(':checked') ) {
-                $form.find( '.default-user-selection' ).show();
-            } else {
-                $form.find( '.default-user-selection' ).hide();
-            }
+		$form.on( 'change', 'input.assign-listings-to-user', function ( e ) {
+			if ( $( this ).is( ':checked' ) ) {
+				$form.find( '.default-user-selection' ).show();
+			} else {
+				$form.find( '.default-user-selection' ).hide();
+			}
 
 			$use_default_user_checkbox.trigger( 'change' );
-		});
+		} );
 		$( 'input.assign-listings-to-user' ).trigger( 'change' );
 
-		$( document ).on( 'change', $use_default_user_checkbox, function(){
-            if ( $(this).is(':checked') ) {
-                $form.find( 'select.default-user, input.default-user' ).closest( 'tr' ).show();
-            } else {
-                $form.find( 'select.default-user, input.default-user' ).closest( 'tr' ).hide();
-            }
-		});
+		$( document ).on( 'change', $use_default_user_checkbox, function () {
+			if ( $( this ).is( ':checked' ) ) {
+				$form
+					.find( 'select.default-user, input.default-user' )
+					.closest( 'tr' )
+					.show();
+			} else {
+				$form
+					.find( 'select.default-user, input.default-user' )
+					.closest( 'tr' )
+					.hide();
+			}
+		} );
 		$use_default_user_checkbox.trigger( 'change' );
 
-        function update_textfield_value( event, ui ) {
-            event.preventDefault();
+		/**
+		 *
+		 * @param event
+		 * @param ui
+		 */
+		function update_textfield_value( event, ui ) {
+			event.preventDefault();
 
-            if ( typeof ui.item == 'undefined' ) {
-                return;
-            }
+			if ( typeof ui.item === 'undefined' ) {
+				return;
+			}
 
-            $default_user_field.val( ui.item.label );
-            $default_user_field.siblings( '#' + $default_user_field.attr( 'data-hidden-field' ) )
-                .val( ui.item.value );
-        }
+			$default_user_field.val( ui.item.label );
+			$default_user_field
+				.siblings(
+					'#' + $default_user_field.attr( 'data-hidden-field' )
+				)
+				.val( ui.item.value );
+		}
 
-        $default_user_field = $form.find( '.wpbdp-user-autocomplete' ).autocomplete({
-            source: ajaxurl + '?action=wpbdp-autocomplete-user',
-            delay: 500,
-            minLength: 2,
-            select: update_textfield_value,
-            focus: update_textfield_value
-        });
-    })();
-
-});
+		$default_user_field = $form
+			.find( '.wpbdp-user-autocomplete' )
+			.autocomplete( {
+				source: ajaxurl + '?action=wpbdp-autocomplete-user',
+				delay: 500,
+				minLength: 2,
+				select: update_textfield_value,
+				focus: update_textfield_value,
+			} );
+	} )();
+} );

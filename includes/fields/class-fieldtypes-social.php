@@ -3,6 +3,7 @@
  * Field to Handle Social Networks
  *
  * @package BDP/Includes/Fields/Social
+ *
  * @since 5.3.5
  */
 
@@ -18,17 +19,18 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 		'Youtube',
 		'Pinterest',
 		'Instagram',
+		'Tiktok',
 		'Tumblr',
-		'reddit',
-		'Other',
+		'Reddit',
 		'Flickr',
+		'Other',
 	);
 
 	/**
 	 * WPBDP_FieldTypes_Social constructor.
 	 */
 	public function __construct() {
-		parent::__construct( _x( 'Social Site (Other)', 'form-fields api', 'business-directory-plugin' ) );
+		parent::__construct( _x( 'Social Site (Any)', 'form-fields api', 'business-directory-plugin' ) );
 	}
 
 	public function get_id() {
@@ -59,7 +61,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 			$content .= sprintf(
 				'<option value="%s" %s>%s</option>',
 				$order,
-				( $field && $field->data( 'display_order' ) === $order ) ? 'selected' : '',
+				$field && $field->data( 'display_order' ) === $order ? 'selected' : '',
 				$text
 			);
 		}
@@ -72,12 +74,15 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 		return self::render_admin_settings( $settings );
 	}
 
+	/**
+	 * @return void|WP_Error
+	 */
 	public function process_field_settings( &$field ) {
 		$order = isset( $_POST['field']['display_order'] ) ? sanitize_text_field( wp_unslash( $_POST['field']['display_order'] ) ) : 'icon_first';
 		$field->set_data( 'display_order', $order );
 	}
 
-	public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
+	public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) { // phpcs:ignore SlevomatCodingStandard
 		if ( 'search' === $context ) {
 			return '';
 		}
@@ -136,6 +141,12 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 			);
 
 			foreach ( $this->social_types as $type ) {
+				$sanitized_type = sanitize_title_with_dashes( $type );
+				$label          = $type;
+				if ( strpos( $type, 'Twitter' ) !== false ) {
+					$sanitized_type = 'x-twitter';
+					$label          = __( 'X (formerly Twitter)', 'business-directory-plugin' );
+				}
 				$css_classes = array(
 					'wpbdp-inner-social-field-option',
 					'wpbdp-inner-social-field-option-' . esc_attr( strtolower( $type ) ),
@@ -148,8 +159,8 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 					implode( ' ', $css_classes ),
 					'listingfields[' . $field->get_id() . '][type]',
 					$type,
-					( ! empty( $value['type'] ) && $type === $value['type'] ) ? 'checked="checked"' : '',
-					'Other' === $type ? $type : '<i class="fab fa-' . esc_attr( strtolower( $type ) ) . '"></i> ' . esc_html( $type )
+					! empty( $value['type'] ) && $type === $value['type'] ? 'checked="checked"' : '',
+					'Other' === $type ? $type : '<i class="fab fa-' . esc_attr( $sanitized_type ) . '"></i> ' . esc_html( $label )
 				);
 			}
 
@@ -197,7 +208,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 				admin_url( 'admin-ajax.php' )
 			);
 
-			$show_it     = ( ! empty( $value['type'] ) && 'Other' === $value['type'] ) ? '' : ' style="display:none"';
+			$show_it     = ! empty( $value['type'] ) && 'Other' === $value['type'] ? '' : ' style="display:none"';
 			$icon_input .= '<div class="wpbdp-upload-widget" ' . $show_it . '>';
 			$icon_input .= sprintf(
 				'<iframe class="wpbdp-upload-iframe" name="upload-iframe-%d" id="wpbdp-upload-iframe-%d" src="%s" scrolling="no" seamless="seamless" border="0" frameborder="0"></iframe>',
@@ -215,7 +226,6 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 		$html = '<div class="wpbdp-grid">' . $html . '</div>';
 
 		return $html;
-
 	}
 
 	public function get_supported_associations() {
@@ -276,6 +286,9 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 			$icon .= '</span>';
 		}
 
+		if ( $text === 'Twitter' ) {
+			$text = __( 'X (formerly Twitter)', 'business-directory-plugin' );
+		}
 		$text = '<span class="social-text">' . esc_html( $text ) . '</span>';
 
 		switch ( $field->data( 'display_order' ) ) {

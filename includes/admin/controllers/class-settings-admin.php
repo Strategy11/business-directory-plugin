@@ -16,7 +16,6 @@ class WPBDP__Settings_Admin {
 		add_action( 'wpbdp_action_reset-default-settings', array( &$this, 'settings_reset_defaults' ) );
 
 		add_action( 'wp_ajax_wpbdp-file-upload', array( $this, '_ajax_file_upload' ) );
-		add_action( 'wp_ajax_nopriv_wpbdp-file-upload', array( $this, '_ajax_file_upload' ) );
 
 		add_filter( 'wpbdp_setting_type_pro_license', array( &$this, 'no_license' ), 20, 2 );
 	}
@@ -143,7 +142,7 @@ class WPBDP__Settings_Admin {
 	public function section_header_callback( $section ) {
 		if ( ! empty( $section['desc'] ) ) {
 			echo '<p class="wpbdp-setting-description wpbdp-settings-section-description">';
-			echo $section['desc'];
+			echo wp_kses_post( $section['desc'] );
 			echo '</p>';
 		}
 	}
@@ -254,6 +253,7 @@ class WPBDP__Settings_Admin {
 
 	public function setting_missing_callback( $setting, $value ) {
 		if ( has_filter( 'wpbdp_setting_type_' . $setting['type'] ) ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo apply_filters( 'wpbdp_setting_type_' . $setting['type'], $setting, $value );
 		} else {
 			echo 'Callback Missing';
@@ -269,7 +269,7 @@ class WPBDP__Settings_Admin {
 	}
 
 	public function setting_textarea_callback( $setting, $value ) {
-		echo '<textarea id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" placeholder="' . ( ! empty( $setting['placeholder'] ) ? esc_attr( $setting['placeholder'] ) : '' ) . '">';
+		echo '<textarea id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" placeholder="' . ( ! empty( $setting['placeholder'] ) ? esc_attr( $setting['placeholder'] ) : '' ) . '">';
 		echo esc_textarea( $value );
 		echo '</textarea>';
 	}
@@ -302,10 +302,10 @@ class WPBDP__Settings_Admin {
 	/**
 	 * Render checkbox input hmtl.
 	 *
-	 * @param array $setting The setting of the field.
-	 * @param int $value The input value.
-	 *
 	 * @since 6.0
+	 *
+	 * @param array $setting The setting of the field.
+	 * @param int   $value   The input value.
 	 *
 	 * @return void
 	 */
@@ -320,11 +320,11 @@ class WPBDP__Settings_Admin {
 	/**
 	 * Render settings input label.
 	 *
+	 * @since 6.0
+	 *
 	 * @param array $setting The setting of the field.
 	 * @param string $tag The element tag. Defaults to "label".
 	 * @param string $class The element tag class. Defaults to empty.
-	 *
-	 * @since 6.0
 	 *
 	 * @return void
 	 */
@@ -340,20 +340,23 @@ class WPBDP__Settings_Admin {
 				'<label for="' . esc_attr( $setting['label_for'] ) . '">' .
 				wp_kses_post( $setting['name'] ) .
 				'</label>' .
-				$tooltip .
+				$tooltip . // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				'</div>';
 			return;
 		}
 
-		echo '<' . $tag . ' class="' . esc_attr( $class ) . '">' . wp_kses_post( $setting['name'] ) . $tooltip . '</' . $tag . '>';
+		echo '<' . esc_attr( $tag ) . ' class="' . esc_attr( $class ) . '">' .
+			wp_kses_post( $setting['name'] ) .
+			$tooltip . // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			'</' . esc_attr( $tag ) . '>';
 	}
 
 	/**
 	 * Render settings input description.
 	 *
-	 * @param array $setting The setting of the field.
-	 *
 	 * @since 6.0
+	 *
+	 * @param array $setting The setting of the field.
 	 *
 	 * @return void
 	 */
@@ -384,7 +387,7 @@ class WPBDP__Settings_Admin {
 			return;
 		}
 
-		echo '<br/>' . __( 'Valid placeholders:', 'business-directory-plugin' );
+		echo '<br/>' . esc_html__( 'Valid placeholders:', 'business-directory-plugin' );
 		foreach ( $setting['placeholders'] as $pholder => $desc ) {
 			echo '<br/><span class="placeholder" data-placeholder="' . esc_attr( $pholder ) . '">';
 			echo '<span class="placeholder-code">[' . esc_html( $pholder ) . ']</span> - ';
@@ -412,9 +415,11 @@ class WPBDP__Settings_Admin {
 		echo '<div class="wpbdp-settings-radio-options">';
 		foreach ( $setting['options'] as $option_value => $option_label ) {
 			echo '<div class="wpbdp-settings-radio-option">';
-			echo '<input type="radio" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $option_value ) . '" ' . checked( $option_value, $value, false ) . ' id="wpbdp-settings-' . $setting['id'] . '-radio-' . $option_value . '" />';
-			echo '<label for="wpbdp-settings-' . $setting['id'] . '-radio-' . $option_value . '">';
-			echo $option_label;
+			echo '<input type="radio" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $option_value ) . '" ' .
+				checked( $option_value, $value, false ) .
+				' id="wpbdp-settings-' . esc_attr( $setting['id'] . '-radio-' . $option_value ) . '" />';
+			echo '<label for="wpbdp-settings-' . esc_attr( $setting['id'] . '-radio-' . $option_value ) . '">';
+			echo wp_kses_post( $option_label );
 			echo '</label>';
 			echo '</div>';
 		}
@@ -439,29 +444,32 @@ class WPBDP__Settings_Admin {
 
 		$value = (array) $value;
 
-		echo '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . '][]" value="" />';
-
-		echo '<div class="wpbdp-settings-multicheck-options wpbdp-grid">';
-		$n = 0;
+		$html  = '<input type="hidden" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . '][]" value="" />';
+		$html .= '<div class="wpbdp-settings-multicheck-options wpbdp-grid">';
+		$n     = 0;
 		foreach ( $setting['options'] as $option_value => $option_label ) {
-			echo '<div class="wpbdp-settings-multicheck-option wpbdp-settings-multicheck-option-no-' . absint( $n ) . '">';
-			echo '<input type="checkbox" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . '][]" id="wpbdp-' . esc_attr( $setting['id'] . '-checkbox-no-' . $n ) . '" value="' . esc_attr( $option_value ) . '" ' . checked( in_array( $option_value, $value ), true, false ) . ' />';
-			echo '<label for="wpbdp-' . esc_attr( $setting['id'] . '-checkbox-no-' . $n ) . '">';
-			echo esc_html( $option_label );
-			echo '</label>';
-			echo '</div>';
-
-			$n++;
+			$html .= '<div class="wpbdp-settings-multicheck-option wpbdp-settings-multicheck-option-no-' . absint( $n ) . ' wpbdp-' . esc_attr( $option_value ) . '">';
+			$html .= '<input type="checkbox" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . '][]" ' .
+				'id="wpbdp-' . esc_attr( $setting['id'] . '-checkbox-no-' . $n ) . '" ' .
+				'value="' . esc_attr( $option_value ) . '" ' .
+				checked( in_array( $option_value, $value ), true, false ) .
+				' />';
+			$html .= '<label for="wpbdp-' . esc_attr( $setting['id'] . '-checkbox-no-' . $n ) . '">';
+			$html .= esc_html( $option_label );
+			$html .= '</label>';
+			$html .= '</div>';
+			++$n;
 		}
+		$html .= '</div>';
 
-		echo '</div>';
+		echo $html;
 	}
 
 	/**
 	 * Render the select dropdown.
 	 *
-	 * @param array $setting The setting of the current input.
-	 * @param string|array $value The selected value
+	 * @param array        $setting The setting of the current input.
+	 * @param array|string $value   The selected value
 	 */
 	public function setting_select_callback( $setting, $value ) {
 		if ( empty( $setting['options'] ) ) {
@@ -470,7 +478,7 @@ class WPBDP__Settings_Admin {
 
 		$multiple = ! empty( $setting['multiple'] );
 
-		echo '<select id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']' . ( $multiple ? '[]' : '' ) . '" ' . ( $multiple ? 'multiple="multiple"' : '' ) . '>';
+		echo '<select id="' . esc_attr( $setting['id'] ) . '" name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']' . ( $multiple ? '[]' : '' ) . '" ' . ( $multiple ? 'multiple="multiple"' : '' ) . '>';
 		foreach ( $setting['options'] as $option_value => $option_label ) {
 			if ( $multiple ) {
 				$selected = in_array( $option_value, $value );
@@ -478,7 +486,7 @@ class WPBDP__Settings_Admin {
 				$selected = ( $option_value == $value );
 			}
 
-			echo '<option value="' . $option_value . '" ' . selected( $selected, true, false ) . '>' . $option_label . '</option>';
+			echo '<option value="' . esc_attr( $option_value ) . '" ' . selected( $selected, true, false ) . '>' . esc_html( $option_label ) . '</option>';
 		}
 		echo '</select>';
 	}
@@ -514,49 +522,49 @@ class WPBDP__Settings_Admin {
 	 * @since 6.0
 	 */
 	private function setting_input_text_html( $setting, $value ) {
-		echo '<input type="' . esc_attr( $setting['type'] ) . '" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '"';
+		echo '<input type="' . esc_attr( $setting['type'] ) . '" id="' . esc_attr( $setting['id'] ) . '"' .
+			' name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" value="' . esc_attr( $value ) . '"';
 
 		if ( ! empty( $setting['placeholder'] ) ) {
 			echo ' placeholder="' . esc_attr( $setting['placeholder'] ) . '"';
 		}
 
 		if ( isset( $setting['min'] ) ) {
-			echo ' min="' . $setting['min'] . '"';
+			echo ' min="' . esc_attr( $setting['min'] ) . '"';
 		}
 
 		if ( isset( $setting['step'] ) ) {
-			echo ' step="' . $setting['step'] . '"';
+			echo ' step="' . esc_attr( $setting['step'] ) . '"';
 		}
 
 		if ( isset( $setting['max'] ) ) {
-			echo ' max="' . $setting['max'] . '"';
+			echo ' max="' . esc_attr( $setting['max'] ) . '"';
 		}
 		echo '/>';
 	}
 
 	public function setting_file_callback( $setting, $value ) {
-		$html  = '';
-		$html .= sprintf(
+		printf(
 			'<input id="%s" type="hidden" name="wpbdp_settings[%s]" value="%s" />',
-			$setting['id'],
-			$setting['id'],
-			$value
+			esc_attr( $setting['id'] ),
+			esc_attr( $setting['id'] ),
+			esc_attr( $value )
 		);
 
-		$html .= '<div class="preview">';
+		echo '<div class="preview">';
 		if ( $value ) {
-			$html .= wp_get_attachment_image( $value, 'wpbdp-thumb', false );
+			echo wp_get_attachment_image( $value, 'wpbdp-thumb', false );
 		}
 
-		$html .= sprintf(
+		printf(
 			'<a href="http://google.com" class="delete" onclick="return WPBDP.fileUpload.deleteUpload(\'%s\', \'%s\');" style="%s">%s</a>',
-			$setting['id'],
-			'wpbdp_settings[' . $setting['id'] . ']',
+			esc_attr( $setting['id'] ),
+			'wpbdp_settings[' . esc_attr( $setting['id'] ) . ']',
 			empty( $value ) ? 'display: none;' : '',
-			_x( 'Remove', 'admin settings', 'business-directory-plugin' )
+			esc_html_x( 'Remove', 'admin settings', 'business-directory-plugin' )
 		);
 
-		$html .= '</div>';
+		echo '</div>';
 
 		$nonce    = wp_create_nonce( 'wpbdp-file-upload-' . $setting['id'] );
 		$ajax_url = add_query_arg(
@@ -569,20 +577,22 @@ class WPBDP__Settings_Admin {
 			admin_url( 'admin-ajax.php' )
 		);
 
-		$html .= '<div class="wpbdp-upload-widget">';
-		$html .= sprintf(
+		echo '<div class="wpbdp-upload-widget">';
+		printf(
 			'<iframe class="wpbdp-upload-iframe" name="upload-iframe-%s" id="wpbdp-upload-iframe-%s" src="%s" scrolling="no" seamless="seamless" border="0" frameborder="0"></iframe>',
-			$setting['id'],
-			$setting['id'],
-			$ajax_url
+			esc_attr( $setting['id'] ),
+			esc_attr( $setting['id'] ),
+			esc_url( $ajax_url )
 		);
-		$html .= '</div>';
-
-		echo $html;
+		echo '</div>';
 	}
 
 	public function setting_url_callback( $setting, $value ) {
-		echo '<input type="url" id="' . $setting['id'] . '" name="wpbdp_settings[' . $setting['id'] . ']" value="' . esc_attr( $value ) . '" placeholder="' . ( ! empty( $setting['placeholder'] ) ? esc_attr( $setting['placeholder'] ) : '' ) . '" />';
+		echo '<input type="url" id="' . esc_attr( $setting['id'] ) . '" ' .
+			'name="wpbdp_settings[' . esc_attr( $setting['id'] ) . ']" ' .
+			'value="' . esc_attr( $value ) . '" ' .
+			'placeholder="' . ( ! empty( $setting['placeholder'] ) ? esc_attr( $setting['placeholder'] ) : '' ) . '" ' .
+			'/>';
 	}
 
 	public function setting_color_callback( $setting, $value ) {
@@ -599,10 +609,16 @@ class WPBDP__Settings_Admin {
 		$this->setting_text_callback( $setting, $value );
 	}
 
+	/**
+	 * @param array $setting
+	 * @param mixed $value
+	 *
+	 * @return void
+	 */
 	public function setting_email_template_callback( $setting, $value ) {
 		if ( ! is_array( $value ) ) {
 			$value = array(
-				'subject' => $setting['default']['subject'],
+				'subject' => is_array( $setting['default'] ) && isset( $setting['default']['subject'] ) ? $setting['default']['subject'] : '',
 				'body'    => $value,
 			);
 		}
@@ -635,10 +651,15 @@ class WPBDP__Settings_Admin {
 	 * @since 6.0.1
 	 */
 	private function get_upgrade_message() {
+		WPBDP_Admin::setup_sales_api();
+		$utm_medium = 'licenses_tab';
+		$cta_url    = WPBDP_Sales_API::get_best_sale_cta_link( 'build_more_cta_link	', $utm_medium ) ?? wpbdp_admin_upgrade_link( $utm_medium );
+		$cta_text   = WPBDP_Sales_API::get_best_sale_value( 'build_more_cta_text' ) ?? __( 'Upgrade Now', 'business-directory-plugin' );
+
 		$html  = '<div class="wpbdp_upgrade_to_pro">';
 		$html .= '<h3>' . esc_html__( 'Build more powerful directories', 'business-directory-plugin' ) . '</h3>';
 		$html .= '<p>' . esc_html__( 'Add category images, maps, filter by location, payment gateways, and more.', 'business-directory-plugin' ) . '</p>';
-		$html .= '<p><a href="' . esc_url( wpbdp_admin_upgrade_link( 'licenses_tab' ) ) . '" target="_blank" rel="noopener" class="button-primary">' . esc_html__( 'Upgrade Now', 'business-directory-plugin' ) . '</a></p>';
+		$html .= '<p><a href="' . esc_url( $cta_url ) . '" target="_blank" rel="noopener" class="button-primary">' . esc_html( $cta_text ) . '</a></p>';
 		$html .= '<a href="' . esc_url( wpbdp_admin_upgrade_link( 'licenses_purchased', 'knowledge-base/installation-guide/' ) ) . '">' . esc_html__( 'Already purchased?', 'business-directory-plugin' ) . '</a>';
 		$html .= '</div>';
 		$html .= '<style>#save-changes{display:none}</style>';
@@ -665,7 +686,7 @@ class WPBDP__Settings_Admin {
 	public function setting_expiration_notices_callback( $setting, $value ) {
 		?>
 <div class="wpbdp-settings-expiration-notices">
-	<button id="wpbdp-settings-expiration-notices-add-btn" class="button"><?php _ex( 'Add notice', 'expiration notices', 'business-directory-plugin' ); ?></button>
+	<button id="wpbdp-settings-expiration-notices-add-btn" class="button"><?php esc_html_e( 'Add notice', 'business-directory-plugin' ); ?></button>
 
 	<div id="wpbdp-settings-expiration-notices-add">
 		<?php
@@ -684,7 +705,7 @@ class WPBDP__Settings_Admin {
 	</div>
 
 		<?php if ( ! $value ) : ?>
-	<p class="wpbdp-no-items"><?php _ex( 'No notices configured.', 'expiration notices', 'business-directory-plugin' ); ?></p>
+	<p class="wpbdp-no-items"><?php esc_html_e( 'No notices configured.', 'business-directory-plugin' ); ?></p>
 	<?php endif; ?>
 
 		<?php
@@ -734,12 +755,12 @@ class WPBDP__Settings_Admin {
 		}
 
 		if ( 'renewal' == $event ) {
-			$summary = sprintf( _x( 'Sent when a listing (%s) is renewed.', 'expiration notices', 'business-directory-plugin' ), $recurring_modifier );
+			$summary = sprintf( __( 'Sent when a listing (%s) is renewed.', 'business-directory-plugin' ), $recurring_modifier );
 		}
 
 		if ( 'expiration' == $event ) {
 			if ( '0 days' == $relative_time ) {
-				$summary = sprintf( _x( 'Sent when a listing (%s) expires.', 'expiration notices', 'business-directory-plugin' ), $recurring_modifier );
+				$summary = sprintf( __( 'Sent when a listing (%s) expires.', 'business-directory-plugin' ), $recurring_modifier );
 			} else {
 				$relative_time_parts  = explode( ' ', $relative_time );
 				$relative_time_number = (int) trim( str_replace( array( '+', '-' ), '', $relative_time_parts[0] ) );
@@ -759,10 +780,10 @@ class WPBDP__Settings_Admin {
 
 				if ( $relative_time[0] == '+' ) {
 					/* translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g. non-recuring only) */
-					$summary = sprintf( _x( 'Sent %1$s before a listing (%2$s) expires.', 'expiration notices', 'business-directory-plugin' ), $relative_time_h, $recurring_modifier );
+					$summary = sprintf( __( 'Sent %1$s before a listing (%2$s) expires.', 'business-directory-plugin' ), $relative_time_h, $recurring_modifier );
 				} else {
 					/* translators: 1: relative time (e.g. 3 days), 2: recurring modifier (e.g. non-recuring only) */
-					$summary = sprintf( _x( 'Sent %1$s after a listing (%2$s) expires.', 'expiration notices', 'business-directory-plugin' ), $relative_time_h, $recurring_modifier );
+					$summary = sprintf( __( 'Sent %1$s after a listing (%2$s) expires.', 'business-directory-plugin' ), $relative_time_h, $recurring_modifier );
 				}
 			}
 		}
@@ -770,7 +791,7 @@ class WPBDP__Settings_Admin {
 		ob_start();
 		?>
 <div class="wpbdp-expiration-notice-email-schedule-summary wpbdp-setting-description">
-		<?php echo $summary; ?>
+		<?php echo esc_html( $summary ); ?>
 </div>
 		<?php
 		return ob_get_clean();
@@ -791,13 +812,28 @@ class WPBDP__Settings_Admin {
 				foreach ( array( '+', '-' ) as $sign ) {
 					switch ( $unit ) {
 						case 'days':
-							$label = sprintf( '+' == $sign ? _nx( '%d day before expiration', '%d days before expiration', $i, 'expiration notices', 'business-directory-plugin' ) : _nx( '%d day after expiration', '%d days after expiration', $i, 'expiration notices', 'business-directory-plugin' ), $i );
+							$label = sprintf(
+								'+' == $sign ?
+								_nx( '%d day before expiration', '%d days before expiration', $i, 'expiration notices', 'business-directory-plugin' ) :
+								_nx( '%d day after expiration', '%d days after expiration', $i, 'expiration notices', 'business-directory-plugin' ),
+								$i
+							);
 							break;
 						case 'weeks':
-							$label = sprintf( '+' == $sign ? _nx( '%d week before expiration', '%d weeks before expiration', $i, 'expiration notices', 'business-directory-plugin' ) : _nx( '%d week after expiration', '%d weeks after expiration', $i, 'expiration notices', 'business-directory-plugin' ), $i );
+							$label = sprintf(
+								'+' == $sign ?
+								_nx( '%d week before expiration', '%d weeks before expiration', $i, 'expiration notices', 'business-directory-plugin' ) :
+								_nx( '%d week after expiration', '%d weeks after expiration', $i, 'expiration notices', 'business-directory-plugin' ),
+								$i
+							);
 							break;
 						case 'months':
-							$label = sprintf( '+' == $sign ? _nx( '%d month before expiration', '%d months before expiration', $i, 'expiration notices', 'business-directory-plugin' ) : _nx( '%d month after expiration', '%d months after expiration', $i, 'expiration notices', 'business-directory-plugin' ), $i );
+							$label = sprintf(
+								'+' == $sign ?
+								_nx( '%d month before expiration', '%d months before expiration', $i, 'expiration notices', 'business-directory-plugin' ) :
+								_nx( '%d month after expiration', '%d months after expiration', $i, 'expiration notices', 'business-directory-plugin' ),
+								$i
+							);
 							break;
 					}
 
@@ -824,31 +860,43 @@ class WPBDP__Settings_Admin {
 		ob_start();
 		?>
 	<tr>
-		<th scope="row"><label for="<?php echo $uid; ?>-listings"><?php _ex( 'Applies to', 'expiration notices', 'business-directory-plugin' ); ?></label></th>
+		<th scope="row">
+			<label for="<?php echo esc_attr( $uid ); ?>-listings">
+				<?php esc_html_e( 'Applies to', 'business-directory-plugin' ); ?>
+			</label>
+		</th>
 		<td>
-			<select id="<?php echo $uid; ?>-listings" name="<?php echo $name; ?>[listings]">
-				<option value="non-recurring" <?php selected( 'non-recurring', $notice['listings'] ); ?>><?php _ex( 'Non-recurring listings', 'expiration notices', 'business-directory-plugin' ); ?></option>
-				<option value="recurring" <?php selected( 'recurring', $notice['listings'] ); ?>><?php _ex( 'Recurring listings', 'expiration notices', 'business-directory-plugin' ); ?></option>
-				<option value="both" <?php selected( 'both', $notice['listings'] ); ?>><?php _ex( 'Recurring and non-recurring listings', 'expiration notices', 'business-directory-plugin' ); ?></option>
+			<select id="<?php echo esc_attr( $uid ); ?>-listings" name="<?php echo esc_attr( $name ); ?>[listings]">
+				<option value="non-recurring" <?php selected( 'non-recurring', $notice['listings'] ); ?>>
+					<?php esc_html_e( 'Non-recurring listings', 'business-directory-plugin' ); ?>
+				</option>
+				<option value="recurring" <?php selected( 'recurring', $notice['listings'] ); ?>>
+					<?php esc_html_e( 'Recurring listings', 'business-directory-plugin' ); ?>
+				</option>
+				<option value="both" <?php selected( 'both', $notice['listings'] ); ?>>
+					<?php esc_html_e( 'Recurring and non-recurring listings', 'business-directory-plugin' ); ?>
+				</option>
 			</select>
 		</td>
 	</tr>
 	<tr>
-		<th scope="row"><label for="<?php echo $uid; ?>-relative-time-and-event"><?php _ex( 'When to send?', 'expiration notices', 'business-directory-plugin' ); ?></label></th>
+		<th scope="row"><label for="<?php echo esc_attr( $uid ); ?>-relative-time-and-event"><?php esc_html_e( 'When to send?', 'business-directory-plugin' ); ?></label></th>
 		<td>
-			<input type="hidden" value="<?php echo $notice['event']; ?>" class="stored-notice-event" />
-			<input type="hidden" value="<?php echo ! empty( $notice['relative_time'] ) ? $notice['relative_time'] : ''; ?>" class="stored-notice-relative-time" />
+			<input type="hidden" value="<?php echo esc_attr( $notice['event'] ); ?>" class="stored-notice-event" />
+			<input type="hidden" value="<?php echo ! empty( $notice['relative_time'] ) ? esc_attr( $notice['relative_time'] ) : ''; ?>" class="stored-notice-relative-time" />
 
-			<input type="hidden" name="<?php echo $name; ?>[event]" value="<?php echo $notice['event']; ?>" class="notice-event" />
-			<input type="hidden" name="<?php echo $name; ?>[relative_time]" value="<?php echo ! empty( $notice['relative_time'] ) ? $notice['relative_time'] : ''; ?>" class="notice-relative-time" />
+			<input type="hidden" name="<?php echo esc_attr( $name ); ?>[event]" value="<?php echo esc_attr( $notice['event'] ); ?>" class="notice-event" />
+			<input type="hidden" name="<?php echo esc_attr( $name ); ?>[relative_time]" value="<?php echo ! empty( $notice['relative_time'] ) ? esc_attr( $notice['relative_time'] ) : ''; ?>" class="notice-relative-time" />
 
-			<select id="<?php echo $uid; ?>-relative-time-and-event" class="relative-time-and-event">
+			<select id="<?php echo esc_attr( $uid ); ?>-relative-time-and-event" class="relative-time-and-event">
 				<?php foreach ( $this->setting_expiration_notices_schedule() as $item ) : ?>
 					<?php if ( 'renewal' == $item[0] ) : ?>
-					<option value="<?php echo $item[0]; ?>,<?php echo $item[1]; ?>" <?php selected( $item[0], $notice['event'] ); ?>><?php echo $item[2]; ?></option>
+					<option value="<?php echo esc_attr( $item[0] . ',' . $item[1] ); ?>" <?php selected( $item[0], $notice['event'] ); ?>>
 					<?php else : ?>
-					<option value="<?php echo $item[0]; ?>,<?php echo $item[1]; ?>" <?php selected( $item[0] == $notice['event'] && ! empty( $notice['relative_time'] ) && $item[1] == $notice['relative_time'], true ); ?>><?php echo $item[2]; ?></option>
+					<option value="<?php echo esc_attr( $item[0] . ',' . $item[1] ); ?>" <?php selected( $item[0] == $notice['event'] && ! empty( $notice['relative_time'] ) && $item[1] == $notice['relative_time'], true ); ?>>
 					<?php endif; ?>
+						<?php echo esc_html( $item[2] ); ?>
+					</option>
 				<?php endforeach; ?>
 			</select>
 		</td>
@@ -913,6 +961,8 @@ class WPBDP__Settings_Admin {
 	}
 
 	public function _ajax_file_upload() {
+		WPBDP_App_Helper::permission_check();
+
 		$setting_id = wpbdp_get_var( array( 'param' => 'setting_id' ), 'request' );
 		$nonce      = wpbdp_get_var( array( 'param' => 'nonce' ), 'request' );
 
@@ -959,14 +1009,15 @@ class WPBDP__Settings_Admin {
 				echo '</div>';
 
 				echo '<script>';
-				echo sprintf( 'window.parent.WPBDP.fileUpload.finishUpload("%s", %d, "%s");', $setting_id, $media_id, $element );
+				printf( 'window.parent.WPBDP.fileUpload.finishUpload("%s", %d, "%s");', esc_attr( $setting_id ), esc_attr( $media_id ), esc_attr( $element ) );
 				echo '</script>';
 			} else {
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				print $errors;
 			}
 		}
 
-		echo sprintf( '<script>window.parent.WPBDP.fileUpload.resizeIFrame("%s", %d);</script>', $setting_id, 30 );
+		printf( '<script>window.parent.WPBDP.fileUpload.resizeIFrame("%s", %d);</script>', esc_attr( $setting_id ), 30 );
 
 		exit;
 	}

@@ -180,8 +180,9 @@ class WPBDP__Assets {
 
 		// Enable `grunt-contrib-watch` livereload.
 		// Live reload server will be started with the watch task per target.
-		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && in_array( $_SERVER['REMOTE_ADDR'], [ '127.0.0.1', '::1' ] ) ) {
-			wp_enqueue_script( 'livereload', 'http://localhost:35729/livereload.js?snipver=1', [], WPBDP_VERSION, true );
+		$ip = wpbdp_get_server_value( 'REMOTE_ADDR' );
+		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG && in_array( $ip, array( '127.0.0.1', '::1' ) ) ) {
+			wp_enqueue_script( 'livereload', 'http://localhost:35729/livereload.js?snipver=1', array(), WPBDP_VERSION, true );
 		}
 	}
 
@@ -189,7 +190,9 @@ class WPBDP__Assets {
 	 * Only load the widget CSS if a widget is active.
 	 *
 	 * @since 6.3.5
+	 *
 	 * @param bool $is_bd_page Whether the current page is a BD page.
+	 *
 	 * @return void
 	 */
 	private function maybe_enqueue_widget_css( $is_bd_page ) {
@@ -228,6 +231,7 @@ class WPBDP__Assets {
 	 * Load the theme CSS if we're on a BD page or a widget is included.
 	 *
 	 * @since 6.3.5
+	 *
 	 * @return void
 	 */
 	private function load_theme_css() {
@@ -261,15 +265,99 @@ class WPBDP__Assets {
 			$rootline_color = '#569AF6';
 		}
 
-		$css = 'html{
-			--bd-main-color:' . $rootline_color . ';
-			--bd-main-color-20:' . $rootline_color . '33;
-			--bd-main-color-8:' . $rootline_color . '14;
-			--bd-thumbnail-width:' . esc_attr( $thumbnail_width ) . 'px;
-			--bd-thumbnail-height:' . esc_attr( $thumbnail_height ) . 'px;
-		}';
+		$css_vars = array(
+			'--bd-main-color'       => $rootline_color,
+			'--bd-main-color-20'    => $rootline_color . '33',
+			'--bd-main-color-8'     => $rootline_color . '14',
+			'--bd-thumbnail-width'  => $thumbnail_width . 'px',
+			'--bd-thumbnail-height' => $thumbnail_height . 'px',
+		);
+
+		$this->add_default_theme_css( $css_vars );
+
+		$css = 'html,body{';
+		foreach ( $css_vars as $var => $value ) {
+			$css .= esc_attr( $var ) . ':' . esc_attr( $value ) . ';';
+		}
+		$css .= '}';
+
+		if ( isset( $css_vars['--bd-button-padding-left'] ) ) {
+			// Workaround to only add the padding when defined to avoid overriding the theme padding.
+			$css .= '.wpbdp-with-button-styles .wpbdp-checkout-submit input[type="submit"],
+			.wpbdp-with-button-styles .wpbdp-ratings-reviews input[type="submit"],
+			.wpbdp-with-button-styles .comment-form input[type="submit"],
+			.wpbdp-with-button-styles .wpbdp-main-box input[type="submit"],
+			.wpbdp-with-button-styles .listing-actions a.wpbdp-button,
+			.wpbdp-with-button-styles .wpbdp-button-secondary,
+			.wpbdp-with-button-styles .wpbdp-button{
+				padding-left: ' . esc_attr( $css_vars['--bd-button-padding-left'] ) . ';
+				padding-right: ' . esc_attr( $css_vars['--bd-button-padding-left'] ) . ';
+			}';
+		}
+
+		if ( isset( $css_vars['--bd-button-font-size'] ) ) {
+			$css .= 'a.wpbdp-button, .wpbdp-button{
+				font-size: ' . esc_attr( $css_vars['--bd-button-font-size'] ) . ';
+			}';
+		}
 
 		wp_add_inline_style( 'wpbdp-base-css', WPBDP_App_Helper::minimize_code( $css ) );
+	}
+
+	/**
+	 * Get settings from the theme.json file and add them to the CSS variables.
+	 *
+	 * @since 6.4
+	 *
+	 * @param array $css_vars The CSS variables.
+	 *
+	 * @return void
+	 */
+	private function add_default_theme_css( &$css_vars ) {
+		$settings = wp_get_global_styles();
+
+		if ( isset( $settings['color']['text'] ) ) {
+			$css_vars['--bd-text-color'] = $settings['color']['text'];
+		}
+
+		if ( isset( $settings['color']['background'] ) ) {
+			$css_vars['--bd-bg-color'] = $settings['color']['background'];
+		}
+
+		if ( empty( $settings['elements']['button'] ) ) {
+			return;
+		}
+		$button = $settings['elements']['button'];
+
+		if ( isset( $button['color']['text'] ) ) {
+			$css_vars['--bd-button-text-color'] = $button['color']['text'];
+		}
+
+		if ( isset( $button['color']['background'] ) ) {
+			$css_vars['--bd-button-bg-color'] = $button['color']['background'];
+			if ( $css_vars['--bd-main-color'] === '#569AF6' ) {
+				// If default color, use theme button color.
+				$css_vars['--bd-main-color'] = $css_vars['--bd-button-bg-color'];
+			} else {
+				// If the color is set, use it as the button background.
+				$css_vars['--bd-button-bg-color']   = $css_vars['--bd-main-color'];
+				$css_vars['--bd-button-text-color'] = '#fff';
+			}
+		}
+
+		if ( isset( $button['typeography']['fontSize'] ) ) {
+			$css_vars['--bd-button-font-size'] = $button['typeography']['fontSize'];
+		}
+
+		if ( isset( $button['spacing']['padding'] ) ) {
+			$padding = $button['spacing']['padding'];
+			if ( isset( $padding['left'] ) ) {
+				$css_vars['--bd-button-padding-left'] = $padding['left'];
+			}
+			if ( isset( $padding['top'] ) ) {
+				$css_vars['--bd-button-padding-top'] = $padding['top'];
+			}
+		}
 	}
 
 	/**
@@ -313,7 +401,7 @@ class WPBDP__Assets {
 						array(),
 						WPBDP_VERSION
 					);
-					$n++;
+					++$n;
 				}
 			}
 		}
@@ -322,9 +410,9 @@ class WPBDP__Assets {
 	/**
 	 * Load resources on admin page
 	 *
-	 * @param bool $force Force reloading the resources.
-	 *
 	 * @since 5.18 Deprecate the $force parameter to not load on non BD pages.
+	 *
+	 * @param bool $force Force reloading the resources.
 	 */
 	public function enqueue_admin_scripts( $force = false ) {
 		if ( $force === true ) {
@@ -354,7 +442,9 @@ class WPBDP__Assets {
 		$this->global_localize( 'wpbdp-admin-js' );
 
 		// Enqueue Floating Links.
-		self::enqueue_floating_links( WPBDP_ASSETS_URL, WPBDP_VERSION );
+		if ( apply_filters( 'wpbdp_enqueue_floating_links', true ) ) {
+			self::enqueue_floating_links( WPBDP_ASSETS_URL, WPBDP_VERSION );
+		}
 
 		wp_enqueue_script( 'wpbdp-user-selector-js', WPBDP_ASSETS_URL . 'js/user-selector' . $min . '.js', array( 'jquery', 'wpbdp-js-select2' ), WPBDP_VERSION, true );
 
@@ -429,15 +519,20 @@ class WPBDP__Assets {
 	 * Add admin body class.
 	 * This will be used a wrapper for admin css classes to prevent conflicts with other page styles.
 	 *
-	 * @param string $admin_body_classes The current admin body classes.
-	 *
 	 * @since 5.14.3
+	 *
+	 * @param string $admin_body_classes The current admin body classes.
 	 *
 	 * @return string $admin_body_classes The body class with the added plugin class.
 	 */
 	public function add_body_class( $admin_body_classes ) {
 		if ( WPBDP_App_Helper::is_bd_page() ) {
-			$admin_body_classes = ' wpbdp-admin-page';
+			$admin_body_classes .= ' wpbdp-admin-page';
+
+			// Append 'wpbdp-no-renewal' class if listing renewals are turned off.
+			if ( ! wpbdp_get_option( 'listing-renewal' ) ) {
+				$admin_body_classes .= ' wpbdp-no-renewal';
+			}
 		}
 
 		return $admin_body_classes;
@@ -496,6 +591,7 @@ class WPBDP__Assets {
 	 *
 	 * @param string $plugin_url URL of the plugin.
 	 * @param string $version Current version of the plugin.
+	 *
 	 * @return void
 	 */
 	private static function enqueue_floating_links( $plugin_url, $version ) {
@@ -511,7 +607,7 @@ class WPBDP__Assets {
 		wp_enqueue_script( 's11-floating-links-config', $plugin_url . '/js/packages/floating-links/config.js', array( 'wp-i18n', 'wpbdp-admin-js' ), $version, true );
 		wp_set_script_translations( 's11-floating-links-config', 's11-' );
 		$floating_links_data = array(
-			'navLinks'         => array(
+			'navLinks'       => array(
 				'freeVersion' => array(
 					'upgrade'       => wpbdp_admin_upgrade_link( 'floating-links' ),
 					'support'       => 'https://wordpress.org/support/plugin/business-directory-plugin/',
@@ -521,7 +617,7 @@ class WPBDP__Assets {
 					'support_and_docs' => wpbdp_admin_upgrade_link( 'floating-links', 'get-help/' ),
 				),
 			),
-			'proIsInstalled'   => WPBDP_Admin_Education::is_installed( 'premium' ),
+			'proIsInstalled' => WPBDP_Admin_Education::is_installed( 'premium' ),
 		);
 		wp_localize_script( 's11-floating-links-config', 's11FloatingLinksData', $floating_links_data );
 	}

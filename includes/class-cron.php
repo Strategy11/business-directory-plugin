@@ -17,5 +17,4 @@ class WPBDP__Cron {
 			wp_schedule_event( current_time( 'timestamp' ), 'daily', 'wpbdp_daily_events' );
 		}
 	}
-
 }

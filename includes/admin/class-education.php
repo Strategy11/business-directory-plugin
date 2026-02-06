@@ -51,9 +51,9 @@ class WPBDP_Admin_Education {
 	/**
 	 * Render the cta.
 	 *
-	 * @param array $tip The current tip.
-	 *
 	 * @since 6.0
+	 *
+	 * @param array $tip The current tip.
 	 *
 	 * @return string
 	 */
@@ -70,6 +70,7 @@ class WPBDP_Admin_Education {
 	public static function show_tip_message( $message ) {
 		?>
 		<div class="wpbdp-pro-tip">
+			<?php // phpcs:ignore SlevomatCodingStandard.Files.LineLength ?>
 			<svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 1.00003L1 13H10L9 21L19 9.00003H10L11 1.00003Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
 			<?php
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -137,20 +138,30 @@ class WPBDP_Admin_Education {
 	}
 
 	/**
-	 * @param string $id
-	 *
 	 * @since 5.9.1
+	 *
+	 * @param string $id
 	 *
 	 * @return array
 	 */
 	private static function get_tip( $id ) {
 		$tips = self::tips();
 		$tip  = isset( $tips[ $id ] ) ? $tips[ $id ] : array();
+
+		$should_setup_sales_api = empty( $tip['link'] ) || empty( $tip['cta'] );
+		if ( $should_setup_sales_api ) {
+			if ( ! class_exists( 'WPBDP_Admin' ) ) {
+				require_once WPBDP_INC . 'admin/class-admin.php';
+			}
+
+			WPBDP_Admin::setup_sales_api();
+		}
+
 		if ( empty( $tip['link'] ) ) {
-			$tip['link'] = wpbdp_admin_upgrade_link( $id );
+			$tip['link'] = WPBDP_Sales_API::get_best_sale_cta_link( 'pro_tip_cta_link', $id ) ?? wpbdp_admin_upgrade_link( $id );
 		}
 		if ( empty( $tip['cta'] ) ) {
-			$tip['cta'] = 'Upgrade Now.';
+			$tip['cta'] = WPBDP_Sales_API::get_best_sale_value( 'pro_tip_cta_text' ) ?? __( 'Upgrade Now', 'business-directory-plugin' );
 		}
 
 		$has_premium = self::is_installed( 'premium' );
@@ -159,8 +170,18 @@ class WPBDP_Admin_Education {
 			return array();
 		}
 
-		$is_any_upgrade = $tip['cta'] === 'Upgrade Now.' || $tip['cta'] === 'Upgrade to Premium';
-		if ( $has_premium && $is_any_upgrade ) {
+		$upgrade_labels = array( 
+			'Upgrade Now.', 
+			'Upgrade to Premium', 
+			'Upgrade to Pro.',
+		);
+
+		$is_any_upgrade = in_array( $tip['cta'], $upgrade_labels, true );
+
+		$is_premium_cta = $is_any_upgrade && $has_premium;
+		$is_pro_cta     = $is_any_upgrade && self::has_access_to( $tip['requires'] );
+
+		if ( $is_premium_cta || $is_pro_cta ) {
 			$tip['cta']  = 'Install Now.';
 			$tip['link'] = admin_url( 'admin.php?page=wpbdp-addons' );
 		}
@@ -189,5 +210,19 @@ class WPBDP_Admin_Education {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Checks if the user has access to a module
+	 *
+	 * @param string $module
+	 * 
+	 * @return bool
+	 */
+	private static function has_access_to( $module ) {
+		$licenses = get_option( 'wpbdp_licenses', array() );
+		$license  = isset( $licenses[ 'module-business-directory-' . $module ] ) ? $licenses[ 'module-business-directory-' . $module ] : null;
+	
+		return is_array( $license ) && isset( $license['status'] ) && $license['status'] === 'valid';
 	}
 }

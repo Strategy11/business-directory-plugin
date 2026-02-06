@@ -110,10 +110,10 @@ final class WPBDP_Listing_Image {
 	/**
 	 * Only delete if it's not attached to any other posts.
 	 *
+	 * @since 5.12
+	 *
 	 * @param int $id         The attachment id.
 	 * @param int $listing_id The listing id.
-	 *
-	 * @since 5.12
 	 */
 	public static function maybe_delete_image( $id, $listing_id ) {
 		$linked_listings      = self::linked_listings( $id, $listing_id );
@@ -134,10 +134,10 @@ final class WPBDP_Listing_Image {
 	/**
 	 * Check if the image is used on another listing.
 	 *
+	 * @since 6.1
+	 *
 	 * @param int $attachment_id The attachment id.
 	 * @param int $listing_id    The listing id.
-	 *
-	 * @since 6.1
 	 *
 	 * @return array
 	 */
@@ -158,11 +158,11 @@ final class WPBDP_Listing_Image {
 	/**
 	 * Check if the attachment is linked to any other resource.
 	 *
+	 * @since 5.18
+	 *
 	 * @param array $linked_listings Ids of other linked listings.
 	 * @param int   $attachment_id   The attachment id.
 	 * @param int   $listing_id      The listing id.
-	 *
-	 * @since 5.18
 	 *
 	 * @return bool Returns true if the attachment is linked to a listing or a post. Returns false otherwise.
 	 */
@@ -181,9 +181,9 @@ final class WPBDP_Listing_Image {
 	 * Checks id an attachment is linked to other posts.
 	 * This checks if the attachment is in use with other posts and returns the ids.
 	 *
-	 * @param int $attachment_id The attachment id.
-	 *
 	 * @since 5.18
+	 *
+	 * @param int $attachment_id The attachment id.
 	 *
 	 * @return array
 	 */

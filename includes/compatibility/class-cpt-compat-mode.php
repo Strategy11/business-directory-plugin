@@ -11,6 +11,7 @@ class WPBDP__CPT_Compat_Mode {
 		add_filter( 'wpbdp_current_view', array( $this, 'maybe_change_current_view' ) );
 		add_action( 'wpbdp_before_dispatch', array( $this, 'before_dispatch' ) );
 		add_action( 'wpbdp_after_dispatch', array( $this, 'after_dispatch' ) );
+		add_action( 'admin_bar_menu', array( $this, 'update_admin_bar_edit_link' ), 90 );
 	}
 
 	public function maybe_change_current_view( $viewname ) {
@@ -48,6 +49,44 @@ class WPBDP__CPT_Compat_Mode {
 	private function get_listing_id_from_query_var() {
 		$id_or_slug = get_query_var( '_' . wpbdp_get_option( 'permalinks-directory-slug' ) );
 		return wpbdp_get_post_by_id_or_slug( $id_or_slug, 'id', 'id' );
+	}
+
+	/**
+	 * Update the admin bar edit link to point to the listing.
+	 *
+	 * @since x.x
+	 *
+	 * @param WP_Admin_Bar $wp_admin_bar The WP_Admin_Bar instance.
+	 *
+	 * @return void
+	 */
+	public function update_admin_bar_edit_link( $wp_admin_bar ) {
+		if ( is_admin() || ! is_admin_bar_showing() ) {
+			return;
+		}
+
+		if ( 'show_listing' !== wpbdp_current_view() ) {
+			return;
+		}
+
+		$listing_id = $this->get_listing_id_from_query_var();
+		if ( ! $listing_id || ! current_user_can( 'edit_post', $listing_id ) ) {
+			return;
+		}
+
+		$edit_link = get_edit_post_link( $listing_id );
+		if ( ! $edit_link ) {
+			return;
+		}
+
+		$node = $wp_admin_bar->get_node( 'edit' );
+		if ( ! $node ) {
+			return;
+		}
+
+		$node->href  = $edit_link;
+		$node->title = esc_html__( 'Edit Listing', 'business-directory-plugin' );
+		$wp_admin_bar->add_node( $node );
 	}
 
 	public function before_dispatch() {
@@ -123,9 +162,11 @@ class WPBDP__CPT_Compat_Mode {
 	/**
 	 * Change the main page title only.
 	 *
+	 * @since 6.2.10
+	 *
 	 * @param string $title The current title to show.
 	 * @param int    $id    The post id.
-	 * @since 6.2.10
+	 *
 	 * @return string
 	 */
 	public function get_title( $title, $id ) {
@@ -152,11 +193,17 @@ class WPBDP__CPT_Compat_Mode {
 	 * Save the name for the page for later use.
 	 *
 	 * @since 6.2.10
+	 *
 	 * @return void
 	 */
 	private function set_title() {
 		add_filter( 'the_title', array( &$this, 'get_title' ), 10, 2 );
 		$object = get_queried_object();
+
+		if ( empty( $object ) ) {
+			return;
+		}
+
 		if ( $this->current_view === 'show_listing' ) {
 			$this->page_title = $object->post_title;
 		} else {
@@ -167,9 +214,11 @@ class WPBDP__CPT_Compat_Mode {
 	/**
 	 * Override the main title in the Enfold theme.
 	 *
+	 * @since 6.2.10
+	 *
 	 * @param array $args
 	 * @param int   $id   The post id.
-	 * @since 6.2.10
+	 *
 	 * @return array
 	 */
 	public function enfold_title( $args, $id ) {
@@ -195,8 +244,10 @@ class WPBDP__CPT_Compat_Mode {
 	/**
 	 * Override the main title in the 7 theme.
 	 *
-	 * @param string $title
 	 * @since 6.2.10
+	 *
+	 * @param string $title
+	 *
 	 * @return string
 	 */
 	public function the7_title( $title ) {

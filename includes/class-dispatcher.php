@@ -14,7 +14,11 @@ class WPBDP__Dispatcher {
 	public function __construct() {
 		add_action( 'wp', array( $this, '_lookup_current_view' ) );
 		add_action( 'template_redirect', array( $this, '_execute_view' ), 11 );
+		add_action( 'template_redirect', array( $this, 'maybe_redirect_from_draft_listings' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, '_enqueue_view_scripts' ) );
+
+		// Login redirect, run early to be overwritten by membership plugins.
+		add_filter( 'login_redirect', array( $this, 'login_redirect' ), 12, 3 );
 
 		add_action( 'wp_ajax_wpbdp_ajax', array( $this, '_ajax_dispatch' ) );
 		add_action( 'wp_ajax_nopriv_wpbdp_ajax', array( $this, '_ajax_dispatch' ) );
@@ -87,6 +91,63 @@ class WPBDP__Dispatcher {
 		return $template;
 	}
 
+	/**
+	 * Redirect the user after logging in.
+	 *
+	 * @return void
+	 */
+	public function login_redirect( $redirect_to, $requested_redirect_to, $user ) {
+		// Prevent redirection if option is disabled or user is admin.
+		if ( ! wpbdp_get_option( 'login-redirect' ) || ( ! is_wp_error( $user ) && user_can( $user, 'manage_options' ) ) ) {
+			return $redirect_to;
+		}
+
+		$url = wpbdp_url();
+
+		// Fail if there is no directory page.
+		if ( ! $url || ! is_string( $url ) || strlen( $url ) < 1 ) {
+			return $redirect_to;
+		}
+
+		return $url;
+	}
+
+    /**
+     * Redirect from draft listings to the main directory page.
+     *
+     * @since 6.4.5
+     *
+     * @return void
+     */
+    public function maybe_redirect_from_draft_listings() {
+        global $wp_query;
+
+        if ( ! is_404() ) {
+            return;
+        }
+
+        $query_vars = $wp_query->query_vars;
+
+        if ( ! isset( $query_vars['post_type'] ) || $query_vars['post_type'] !== WPBDP_POST_TYPE ) {
+            return;
+        }
+
+        $queried_posts = get_posts(
+            array(
+                'post_type'   => WPBDP_POST_TYPE,
+                'name'        => $query_vars['name'],
+                'post_status' => array( 'draft', 'pending' ),
+            )
+        );
+
+        if ( empty( $queried_posts ) ) {
+            return;
+        }
+
+        wp_redirect( add_query_arg( 'inactive_listing', true, wpbdp_url() ) );
+        exit;
+    }
+
 	public function _enqueue_view_scripts() {
 		if ( ! $this->current_view_obj ) {
 			return;
@@ -140,6 +201,10 @@ class WPBDP__Dispatcher {
 	}
 
 	public function load_view( $view_name, $args = null ) {
+		if ( empty( $view_name ) ) {
+			return false;
+		}
+
 		$class_view_name = str_replace( '_', '-', $view_name );
 		// TODO: add some filters so plugins can override default view loading.
 		$filenames = array(
@@ -198,8 +263,4 @@ class WPBDP__Dispatcher {
 	public function current_view_output() {
 		return $this->output;
 	}
-
-
 }
-
-

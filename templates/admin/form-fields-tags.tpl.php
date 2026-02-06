@@ -1,10 +1,10 @@
 <?php
 function _fields_dropdown( $name, $field_id, $fixed = false ) {
 	?>
-	<select name="<?php echo $name; ?>" <?php echo ( $fixed ? 'disabled="disabled"' : '' ); ?> >
-		<option value=""><?php _ex( '-- None --', 'form-fields admin', 'business-directory-plugin' ); ?></option>
+	<select name="<?php echo esc_attr( $name ); ?>" <?php echo ( $fixed ? 'disabled="disabled"' : '' ); ?> >
+		<option value=""><?php esc_html_e( '— None —', 'business-directory-plugin' ); ?></option>
 		<?php foreach ( wpbdp_get_form_fields() as $f ) : ?>
-			<option value="<?php echo $f->get_id(); ?>" <?php selected( $field_id, $f->get_id() ); ?> ><?php echo esc_attr( $f->get_label() ); ?></option>
+			<option value="<?php echo esc_attr( $f->get_id() ); ?>" <?php selected( $field_id, $f->get_id() ); ?> ><?php echo esc_html( $f->get_label() ); ?></option>
 		<?php endforeach; ?>
 	</select>
 	<?php
@@ -18,7 +18,7 @@ function _fields_dropdown( $name, $field_id, $fixed = false ) {
 <div class="wpbdp-note">
 	<?php esc_html_e( 'Before you create fields, make sure you\'ve mapped all of your EXISTING ones first, otherwise you\'ll appear to be "missing data" on your listings.', 'business-directory-plugin' ); ?>
 <br /><br />
-<a href="<?php echo wp_nonce_url( admin_url( 'admin.php?page=wpbdp-themes&wpbdp-action=create-theme-suggested-fields' ), 'create_suggested_fields' ); ?>" class="button"><?php _ex( 'Create Missing Fields', 'form-fields admin', 'business-directory-plugin' ); ?></a>
+<a href="<?php echo wp_nonce_url( admin_url( 'admin.php?page=wpbdp-themes&wpbdp-action=create-theme-suggested-fields' ), 'create_suggested_fields' ); ?>" class="button"><?php esc_html_e( 'Create Missing Fields', 'business-directory-plugin' ); ?></a>
 </div>
 <?php endif; ?>
 

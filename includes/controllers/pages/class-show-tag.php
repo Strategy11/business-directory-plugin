@@ -1,11 +1,13 @@
 <?php
 
+// phpcs:ignore WordPressVIPMinimum.Files.IncludingFile.NotAbsolutePath
 require_once 'class-show-category.php';
 
 class WPBDP__Views__Show_Tag extends WPBDP__Views__Show_Category {
 
 	/**
 	 * @since 6.2.2
+	 *
 	 * @return string
 	 */
 	protected function get_taxonomy_html( $term ) {

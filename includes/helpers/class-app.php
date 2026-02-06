@@ -13,7 +13,7 @@ class WPBDP_App_Helper {
 	}
 
 	public static function plugin_path() {
-		return dirname( dirname( dirname( __FILE__ ) ) );
+		return dirname( dirname( __DIR__ ) );
 	}
 
 	/**
@@ -129,7 +129,7 @@ class WPBDP_App_Helper {
 	 *
 	 * @param string $page The name of the page to check
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public static function is_admin_page( $page = 'wpbdp_settings' ) {
 		global $pagenow;
@@ -205,14 +205,21 @@ class WPBDP_App_Helper {
 	 * @since 5.11.2
 	 *
 	 * @param string $permission
+	 * @param array  $atts
+	 *
+	 * @return void
 	 */
-	public static function permission_check( $permission, $atts = array() ) {
+	public static function permission_check( $permission = '', $atts = array() ) {
 		$defaults = array(
 			'show_message' => '',
 			'nonce_name'   => '_wpnonce',
 			'nonce'        => '',
 		);
 		$atts     = array_merge( $defaults, $atts );
+
+		if ( empty( $permission ) ) {
+			$permission = wpbdp_backend_minimim_role();
+		}
 
 		$permission_error = self::permission_nonce_error( $permission, $atts );
 		if ( $permission_error !== false ) {
@@ -233,7 +240,7 @@ class WPBDP_App_Helper {
 	 * @return false|string The permission message or false if allowed
 	 */
 	public static function permission_nonce_error( $permission, $atts = array() ) {
-		if ( ! empty( $permission ) && ! current_user_can( $permission ) && ! current_user_can( 'administrator' ) ) {
+		if ( ! empty( $permission ) && ! current_user_can( $permission ) && ! wpbdp_user_is_admin() ) {
 			return esc_html__( 'You are not allowed to do that.', 'business-directory-plugin' );
 		}
 
@@ -243,7 +250,7 @@ class WPBDP_App_Helper {
 		}
 
 		$nonce_name  = $atts['nonce_name'];
-		$nonce_value = ( $_REQUEST && isset( $_REQUEST[ $nonce_name ] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $nonce_name ] ) ) : '';
+		$nonce_value = $_REQUEST && isset( $_REQUEST[ $nonce_name ] ) ? sanitize_text_field( wp_unslash( $_REQUEST[ $nonce_name ] ) ) : '';
 
 		if ( $_REQUEST && ( ! isset( $_REQUEST[ $nonce_name ] ) || ! wp_verify_nonce( $nonce_value, $atts['nonce'] ) ) ) {
 			$error = esc_html__( 'You are not allowed to do that.', 'business-directory-plugin' );
@@ -283,7 +290,8 @@ class WPBDP_App_Helper {
 		}
 
 		if ( $echo ) {
-			echo $icon; // WPCS: XSS ok.
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $icon;
 		} else {
 			return $icon;
 		}
@@ -295,6 +303,7 @@ class WPBDP_App_Helper {
 	 * @since 5.9.2
 	 */
 	public static function include_svg() {
+		// phpcs:ignore WordPressVIPMinimum.Files.IncludingNonPHPFile, WordPressVIPMinimum.Files.IncludingFile.NotAbsolutePath
 		include_once self::plugin_path() . '/assets/images/icons.svg';
 	}
 
@@ -304,6 +313,7 @@ class WPBDP_App_Helper {
 	 * @since 5.9.2
 	 *
 	 * @param array $atts
+	 *
 	 * @return string
 	 */
 	public static function array_to_html_params( $atts ) {
@@ -317,12 +327,13 @@ class WPBDP_App_Helper {
 	}
 
 	/**
-	 * @param array|int $atts
-	 *
 	 * @since 5.9.2
+	 *
+	 * @param array|int $atts
 	 */
 	public static function show_logo( $atts ) {
-		echo self::kses( self::svg_logo( $atts ), 'all' ); // WPCS: XSS ok.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo self::kses( self::svg_logo( $atts ), 'all' );
 	}
 
 	/**
@@ -331,13 +342,15 @@ class WPBDP_App_Helper {
 	public static function svg_logo( $atts = array() ) {
 		$atts = self::prep_logo_atts( $atts );
 
-		return '<img src="' . esc_url( self::plugin_url() . '/assets/images/percie' . ( $atts['round'] ? '-round' : '' ) . '.svg' ) . '" width="' . esc_attr( $atts['size'] ) . '" height="' . esc_attr( $atts['size'] ) . '" class="' . esc_attr( $atts['class'] ) . '" alt="BD Plugin" />';
+		return '<img src="' . esc_url( self::plugin_url() . '/assets/images/percie' . ( $atts['round'] ? '-round' : '' ) . '.svg' ) . '" ' .
+			'width="' . esc_attr( $atts['size'] ) . '" height="' . esc_attr( $atts['size'] ) . '" ' .
+			'class="' . esc_attr( $atts['class'] ) . '" alt="BD Plugin" />';
 	}
 
 	/**
-	 * @param int|array $atts
-	 *
 	 * @since 6.0
+	 *
+	 * @param array|int $atts
 	 */
 	private static function prep_logo_atts( $atts ) {
 		if ( ! is_array( $atts ) ) {
@@ -392,7 +405,7 @@ class WPBDP_App_Helper {
 	/**
 	 * @since 5.9.2
 	 */
-	private static function safe_html() {
+	private static function safe_html() { // phpcs:ignore SlevomatCodingStandard.Functions.FunctionLength
 		$allow_class = array(
 			'class' => true,
 			'id'    => true,
@@ -513,6 +526,7 @@ class WPBDP_App_Helper {
 
 	/**
 	 * @since 5.16
+	 *
 	 * @return string
 	 */
 	public static function minimize_code( $html ) {
@@ -521,9 +535,12 @@ class WPBDP_App_Helper {
 
 	/**
 	 * Let themes add their own button class to the buttons.
+	 * Expects "button wpbdp-button" to avoid adding the class twice.
 	 *
 	 * @since 6.3.4
+	 *
 	 * @param string $content
+	 *
 	 * @return void
 	 */
 	public static function add_theme_button_class( &$content ) {
@@ -535,14 +552,18 @@ class WPBDP_App_Helper {
 
 		$content = str_replace(
 			array(
-				'"button' . $append,
-				' button' . $append,
+				'"button' . $append . '"',
+				' button' . $append . ' ',
+				' button' . $append . '"',
+				'"button' . $append . ' ',
 				'wpbdp-button button ',
-				'"wpbdp-button"'
+				'"wpbdp-button"',
 			),
 			array(
-				'"' . esc_attr( $button_class . $append ),
-				' ' . esc_attr( $button_class . $append ),
+				'"' . esc_attr( $button_class . $append ) . '"',
+				' ' . esc_attr( $button_class . $append ) . ' ',
+				' ' . esc_attr( $button_class . $append ) . '"',
+				'"' . esc_attr( $button_class . $append ) . ' ',
 				'wpbdp-button ' . esc_attr( $button_class ) . ' ',
 				'"' . esc_attr( $button_class . $append ) . '"',
 			),

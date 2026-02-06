@@ -10,6 +10,7 @@
  * The list is actually produced by {@link wpbdp_list_categories()}.
  *
  * @return string HTML output.
+ *
  * @uses wpbdp_list_categories().
  */
 function wpbdp_directory_categories() {
@@ -32,11 +33,13 @@ function wpbdp_directory_categories() {
  * @uses wpbdp_directory_categories().
  */
 function wpbdp_the_directory_categories() {
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo wpbdp_directory_categories();
 }
 
 /**
  * @since 2.3
+ *
  * @access private
  */
 function _wpbdp_padded_count( &$term, $return = false ) {
@@ -62,7 +65,9 @@ function _wpbdp_padded_count( &$term, $return = false ) {
 		if ( $tt_ids ) {
 			$format = implode( ', ', array_fill( 0, count( $tt_ids ), '%d' ) );
 			$query  = $wpdb->prepare(
-				"SELECT COUNT(DISTINCT r.object_id) FROM {$wpdb->term_relationships} r INNER JOIN {$wpdb->posts} p ON p.ID = r.object_id WHERE p.post_status = %s and p.post_type = %s AND term_taxonomy_id IN ( $format )",
+				"SELECT COUNT(DISTINCT r.object_id) FROM {$wpdb->term_relationships} r " .
+				"INNER JOIN {$wpdb->posts} p ON p.ID = r.object_id " .
+				"WHERE p.post_status = %s and p.post_type = %s AND term_taxonomy_id IN ( $format )",
 				array_merge( array( 'publish', WPBDP_POST_TYPE ), (array) $tt_ids )
 			);
 
@@ -81,6 +86,7 @@ function _wpbdp_padded_count( &$term, $return = false ) {
 
 /**
  * @since 2.3
+ *
  * @access private
  */
 function _wpbdp_list_categories_walk( $parent, $depth, $args ) {
@@ -109,7 +115,7 @@ function _wpbdp_list_categories_walk( $parent, $depth, $args ) {
 	if ( $args['hide_empty'] ) {
 		$terms = array_filter(
 			$terms,
-			function( $x ) {
+			function ( $x ) {
 				return $x->count > 0;
 			}
 		);
@@ -135,8 +141,12 @@ function _wpbdp_list_categories_walk( $parent, $depth, $args ) {
 		$class = apply_filters( 'wpbdp_categories_list_item_css', '', $term ) . ' ' . ( $depth > 0 ? 'subcat' : '' );
 		$html .= '<li class="cat-item cat-item-' . esc_attr( $term->term_id . ' ' . $class ) . '">';
 
-		$item_html  = '';
-		$item_html .= '<a href="' . apply_filters( 'wpbdp_categories_term_link', esc_url( get_term_link( $term ) ) ) . '" ';
+		$term_link = get_term_link( $term );
+		if ( is_wp_error( $term_link ) ) {
+			continue;
+		}
+
+		$item_html  = '<a href="' . apply_filters( 'wpbdp_categories_term_link', esc_url( $term_link ) ) . '" ';
 		$item_html .= 'title="' . esc_attr( strip_tags( apply_filters( 'category_description', $term->description, $term ) ) ) . '" class="category-label">';
 
 		$item_html .= esc_attr( $term->name );
@@ -206,10 +216,12 @@ function _wpbdp_get_terms_from_args( $args ) {
  *      'echo' (boolean) default is False - If True, the list will be printed in addition to returned by this function.
  *      'no_items_msg' (string) default is "No listing categories found." - Message to display when no categories are found.
  *
- * @param string|array $args array of arguments to be used while creating the list.
- * @return string HTML output.
  * @since 2.3
  * @see wpbdp_directory_categories()
+ *
+ * @param array|string $args array of arguments to be used while creating the list.
+ *
+ * @return string HTML output.
  */
 function wpbdp_list_categories( $args = array() ) {
 	$args = wp_parse_args(
@@ -248,6 +260,7 @@ function wpbdp_list_categories( $args = array() ) {
 	$html = apply_filters( 'wpbdp_categories_list', $html );
 
 	if ( $args['echo'] ) {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $html;
 	}
 
@@ -255,7 +268,8 @@ function wpbdp_list_categories( $args = array() ) {
 }
 
 /**
- * @param string|array $buttons buttons to be displayed in wpbdp_main_box()
+ * @param array|string $buttons buttons to be displayed in wpbdp_main_box()
+ *
  * @return string
  */
 function wpbdp_main_links( $buttons = null ) {
@@ -340,8 +354,12 @@ function wpbdp_main_links( $buttons = null ) {
 	$buttons_count = count( $html );
 	$html          = implode( ' ', $html );
 
-	$content  = '<div class="wpbdp-main-links-container" data-breakpoints=\'{"tiny": [0,360], "small": [360,560], "medium": [560,710], "large": [710,999999]}\' data-breakpoints-class-prefix="wpbdp-main-links">';
-	$content .= '<div class="wpbdp-main-links wpbdp-main-links-' . $buttons_count . '-buttons">' . apply_filters( 'wpbdp_main_links', $html ) . '</div>';
+	$content  = '<div class="wpbdp-main-links-container" ' .
+		'data-breakpoints=\'{"tiny": [0,360], "small": [360,560], "medium": [560,710], "large": [710,999999]}\' ' .
+		'data-breakpoints-class-prefix="wpbdp-main-links">';
+	$content .= '<div class="wpbdp-main-links wpbdp-main-links-' . absint( $buttons_count ) . '-buttons">' .
+		apply_filters( 'wpbdp_main_links', $html ) .
+		'</div>';
 	$content .= '</div>';
 
 	return $content;
@@ -349,6 +367,7 @@ function wpbdp_main_links( $buttons = null ) {
 
 
 function wpbdp_the_main_links( $buttons = null ) {
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo wpbdp_main_links( $buttons );
 }
 
@@ -356,25 +375,25 @@ function wpbdp_search_form() {
 	$html  = '';
 	$html .= sprintf(
 		'<form id="wpbdmsearchform" action="%s" method="GET" class="wpbdp-search-form">',
-		wpbdp_url( 'search' )
+		esc_url( wpbdp_url( 'search' ) )
 	);
 	$html .= '<input type="hidden" name="wpbdp_view" value="search" />';
 
 	if ( ! wpbdp_rewrite_on() ) {
-		$html .= sprintf( '<input type="hidden" name="page_id" value="%d" />', wpbdp_get_page_id( 'main' ) );
+		$html .= sprintf( '<input type="hidden" name="page_id" value="%d" />', esc_attr( wpbdp_get_page_id( 'main' ) ) );
 	}
 
 	$html .= '<label for="wpbdp-keyword-field" style="display:none;">Keywords:</label>';
 	$html .= '<input type="hidden" name="dosrch" value="1" />';
 	$html .= '<input id="intextbox" maxlength="150" name="q" size="20" type="text" value="" />';
 	$html .= sprintf(
-		'<input id="wpbdmsearchsubmit" class="submit wpbdp-button wpbdp-submit" type="submit" value="%s" />',
+		'<input id="wpbdmsearchsubmit" class="submit button wpbdp-button wpbdp-submit" type="submit" value="%s" />',
 		esc_attr__( 'Search Listings', 'business-directory-plugin' )
 	);
 	$html .= sprintf(
-		'<a href="%s" class="advanced-search-link">%s</a>',
+		'<a href="%s" class="wpbdp-advanced-search-link">%s</a>',
 		esc_url( wpbdp_url( 'search' ) ),
-		_x( 'Advanced Search', 'templates', 'business-directory-plugin' )
+		esc_html__( 'Advanced Search', 'business-directory-plugin' )
 	);
 	$html .= '</form>';
 
@@ -383,11 +402,13 @@ function wpbdp_search_form() {
 
 function wpbdp_the_search_form() {
 	if ( wpbdp_get_option( 'show-search-listings' ) ) {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo wpbdp_search_form();
 	}
 }
 
 function wpbdp_the_listing_excerpt() {
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo wpbdp_render_listing( null, 'excerpt' );
 }
 
@@ -473,6 +494,7 @@ function wpbdp_get_listing_sort_links( $sort_options ) {
 }
 
 function wpbdp_the_listing_sort_options() {
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo wpbdp_listing_sort_options();
 }
 
@@ -496,6 +518,86 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
 		$thumbnail_id = 0;
 	}
 
+	wpbdp_set_thumbnail_atts( $args );
+
+	$image_size = wpbdp_get_option( 'listing-main-image-default-size', 'wpbdp-thumb' );
+	if ( $image_size === 'wpbdp-thumb' ) {
+		// If this size is set, using the gallery thumb settings.
+		$crop_class             = wpbdp_get_option( 'thumbnail-crop' ) ? ' wpbdp-thumbnail-cropped' : '';
+		$args['image_classes'] .= $crop_class . ' wpbdp-thumbnail';
+	}
+
+	if ( $main_image ) {
+		$args['image_title'] = get_post_meta( $main_image->ID, '_wpbdp_image_caption', true );
+
+		$args['image_img'] = wp_get_attachment_image(
+			$main_image->ID,
+			'uploaded' !== $image_size ? $image_size : '',
+			false,
+			array(
+				'alt'   => $args['image_title'] ? $args['image_title'] : get_the_title( $listing_id ),
+				'title' => $args['image_title'] ? $args['image_title'] : get_the_title( $listing_id ),
+				'class' => $args['image_classes'],
+			)
+		);
+
+		if ( $args['link'] == 'picture' ) {
+			$full_image_data = wp_get_attachment_image_src( $main_image->ID, 'wpbdp-large' );
+
+			$args['image_link'] = $full_image_data[0];
+		}
+	} elseif ( has_post_thumbnail( $listing_id ) ) {
+		$caption           = get_post_meta( get_post_thumbnail_id( $listing_id ), '_wpbdp_image_caption', true );
+		$caption           = $caption ? $caption : get_the_title( $listing_id );
+		$args['image_img'] = get_the_post_thumbnail(
+			$listing_id,
+			'wpbdp-thumb',
+			array(
+				'alt'   => $caption,
+				'title' => $caption,
+				'class' => $args['image_classes'],
+			)
+		);
+	} elseif ( isset( $args['coming_soon'] ) ) {
+		$use_default_img = (array) wpbdp_get_option( 'use-default-picture', array() );
+		if ( ! empty( $use_default_img ) && in_array( $display, $use_default_img ) ) {
+
+			$image_src          = $args['coming_soon'];
+			$args['image_img']  = sprintf(
+				'<img src="%s" alt="%s" title="%s" border="0" width="%d" class="%s" />',
+				esc_url( $image_src ),
+				esc_attr( get_the_title( $listing_id ) ),
+				esc_attr( get_the_title( $listing_id ) ),
+				esc_attr( wpbdp_get_option( 'thumbnail-width' ) ),
+				esc_attr( $args['image_classes'] )
+			);
+			$args['image_link'] = $args['link'] == 'picture' ? $image_src : '';
+		}
+	}
+
+	if ( ! $args['image_link'] && $args['link'] == 'listing' ) {
+		$args['image_link']              = get_permalink( $listing_id );
+		$args['listing_link_in_new_tab'] = wpbdp_get_option( 'listing-link-in-new-tab' ) ? '_blank' : '_self';
+	}
+
+	$args['listing_id'] = $listing_id;
+
+	$image_html = wpbdp_thumbnail_html( $args );
+
+	/**
+	 * @since v5.9
+	 */
+	return apply_filters( 'wpbdp_thumbnail_html', $image_html, $args );
+}
+
+/**
+ * This function isn't intended to be used publically.
+ *
+ * @since 6.4.4
+ *
+ * @return void
+ */
+function wpbdp_set_thumbnail_atts( &$args ) {
 	$defaults = array(
 		'link'  => 'picture',
 		'class' => '',
@@ -508,81 +610,11 @@ function wpbdp_listing_thumbnail( $listing_id = null, $args = array(), $display 
 		$args = wp_parse_args( $args, $defaults );
 	}
 
-	$image_img               = '';
-	$image_link              = '';
-	$image_title             = '';
-	$listing_link_in_new_tab = '';
-	$image_classes           = 'attachment-wpbdp-thumb ' . $args['class'];
-	$image_size              = wpbdp_get_option( 'listing-main-image-default-size', 'wpbdp-thumb' );
-	if ( $image_size === 'wpbdp-thumb' ) {
-		// If this size is set, using the gallery thumb settings.
-		$crop_class     = wpbdp_get_option( 'thumbnail-crop' ) ? ' wpbdp-thumbnail-cropped' : '';
-		$image_classes .= $crop_class . ' wpbdp-thumbnail';
-	}
-
-	if ( $main_image ) {
-		$image_title = get_post_meta( $main_image->ID, '_wpbdp_image_caption', true );
-
-		$image_img = wp_get_attachment_image(
-			$main_image->ID,
-			'uploaded' !== $image_size ? $image_size : '',
-			false,
-			array(
-				'alt'   => $image_title ? $image_title : get_the_title( $listing_id ),
-				'title' => $image_title ? $image_title : get_the_title( $listing_id ),
-				'class' => $image_classes,
-			)
-		);
-
-		if ( $args['link'] == 'picture' ) {
-			$full_image_data = wp_get_attachment_image_src( $main_image->ID, 'wpbdp-large' );
-			$image_link      = $full_image_data[0];
-		}
-	} elseif ( has_post_thumbnail( $listing_id ) ) {
-		$caption   = get_post_meta( get_post_thumbnail_id( $listing_id ), '_wpbdp_image_caption', true );
-		$image_img = get_the_post_thumbnail(
-			$listing_id,
-			'wpbdp-thumb',
-			array(
-				'alt'   => $caption ? $caption : get_the_title( $listing_id ),
-				'title' => $caption ? $caption : get_the_title( $listing_id ),
-				'class' => $image_classes,
-			)
-		);
-	} elseif ( isset( $args['coming_soon'] ) ) {
-		$use_default_img = (array) wpbdp_get_option( 'use-default-picture', array() );
-		if ( ! empty( $use_default_img ) && in_array( $display, $use_default_img ) ) {
-
-			$image_src  = $args['coming_soon'];
-			$image_img  = sprintf(
-				'<img src="%s" alt="%s" title="%s" border="0" width="%d" class="%s" />',
-				esc_url( $image_src ),
-				esc_attr( get_the_title( $listing_id ) ),
-				esc_attr( get_the_title( $listing_id ) ),
-				esc_attr( wpbdp_get_option( 'thumbnail-width' ) ),
-				esc_attr( $image_classes )
-			);
-			$image_link = $args['link'] == 'picture' ? $image_src : '';
-		}
-	}
-
-	if ( ! $image_link && $args['link'] == 'listing' ) {
-		$image_link              = get_permalink( $listing_id );
-		$listing_link_in_new_tab = wpbdp_get_option( 'listing-link-in-new-tab' ) ? '_blank' : '_self';
-	}
-
-	$args['image_img']               = $image_img;
-	$args['image_link']              = $image_link;
-	$args['listing_id']              = $listing_id;
-	$args['image_title']             = $image_title;
-	$args['listing_link_in_new_tab'] = $listing_link_in_new_tab;
-
-	$image_html = wpbdp_thumbnail_html( $args );
-
-	/**
-	 * @since v5.9
-	 */
-	return apply_filters( 'wpbdp_thumbnail_html', $image_html, $args );
+	$args['image_img']               = '';
+	$args['image_link']              = '';
+	$args['image_title']             = '';
+	$args['listing_link_in_new_tab'] = '';
+	$args['image_classes']           = 'attachment-wpbdp-thumb ' . $args['class'];
 }
 
 /**
@@ -630,6 +662,10 @@ function wpbdp_thumbnail_html( $args ) {
 	);
 }
 
+/**
+ * Is this class used?
+ */
+// phpcs:ignore
 class WPBDP_ListingFieldDisplayItem {
 	private $listing_id = 0;
 	private $display    = '';
@@ -715,6 +751,7 @@ class WPBDP_ListingFieldDisplayItem {
  * @since 5.0
  */
 function wpbdp_the_main_box( $args = array() ) {
+	// phpcs:ignore WordPress.Security.EscapeOutput
 	echo wpbdp_main_box( $args = array() );
 }
 
@@ -741,5 +778,9 @@ function wpbdp_main_box( $args = null ) {
 	$template_vars = array_merge( $template_vars, $args );
 
 	$html = wpbdp_x_render( apply_filters( 'wpbdp_main_box_template_name', 'main-box' ), $template_vars );
+	// Add BD field styling to the extra fields like zip.
+	if ( $args['in_shortcode'] ) {
+		$html = str_replace( '"box-col ', '"wpbdp-form-field box-col wpbdp-widget-field ', $html );
+	}
 	return $html;
 }

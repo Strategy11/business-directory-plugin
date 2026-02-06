@@ -11,7 +11,8 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 	private $items            = array();
 	private $displayed_fields = array();
 	private $names_to_ids     = array();
-	private $has_excerpt     = false;
+	private $has_excerpt      = false;
+
 	public function __construct( $listing_id, $display, $fields = array() ) {
 		$this->listing_id = $listing_id;
 		$this->display    = $display;
@@ -67,7 +68,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 
 	/**
 	 * Check if fields has the excerpt field.
-     *
+	 *
 	 * @return bool
 	 */
 	public function has_excerpt() {
@@ -236,14 +237,14 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 		$second_line = $address2;
 
 		$third_line  = $city;
-		$third_line .= ( $city && $state ) ? ', ' . $state : $state;
+		$third_line .= $city && $state ? ', ' . $state : $state;
 		$third_line .= $zip ? ' ' . $zip : '';
 
 		return implode(
 			'<br />',
 			array_filter(
 				array( $first_line, $second_line, $third_line, $country ),
-				function( $line ) {
+				function ( $line ) {
 					return ! empty( $line );
 				}
 			)
@@ -303,6 +304,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 /**
  * @since 4.0
  */
+// phpcs:ignore
 class _WPBDP_Lightweight_Field_Display_Item {
 
 	public $field       = null;
@@ -368,7 +370,4 @@ class _WPBDP_Lightweight_Field_Display_Item {
 		$this->{$k} = $v;
 		return $v;
 	}
-
 }
-
-

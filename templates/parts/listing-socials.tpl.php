@@ -13,7 +13,7 @@ if ( ! $social_fields ) {
 $html = $social_fields->html;
 if ( ! empty( $html ) ) {
 	?>
-	<div class="social-fields cf">
+	<div class="social-fields wpbdp-flex">
 		<?php
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $html;

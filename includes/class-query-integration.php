@@ -1,7 +1,8 @@
 <?php
 /**
- * @since 4.0
  * @package BDP/Includes/Query Integration
+ *
+ * @since 4.0
  */
 
 /**
@@ -199,12 +200,36 @@ class WPBDP__Query_Integration {
 		} elseif ( 'show_listing' === $query->wpbdp_view && $query->is_main_query() ) {
 			add_filter( 'posts_results', array( $this, 'check_child_page' ), 10, 2 );
 		}
+
+		// Remove spaces from orderby in the default query.
+		add_filter( 'posts_orderby', array( $this, 'remove_spaces_from_order_by' ), 10, 2 );
+	}
+
+	/**
+	 * Filter the posts orderby clause to remove spaces for improved sorting.
+	 * 
+	 * @since 6.4.10
+	 *
+	 * @param string   $orderby - The orderby clause.
+	 * @param WP_Query $query - The current query object.
+	 *
+	 * @return string
+	 */
+	public function remove_spaces_from_order_by( $orderby, $query ) {
+		if ( empty( $query->wpbdp_our_query ) ) {
+			return $orderby;
+		}
+
+		$field = explode( ' ', $orderby )[0];
+
+		return $this->get_space_replace( $field, $query->get( 'order', 'ASC' ) );
 	}
 
 	/**
 	 * If a listing wasn't found, check for a child page instead.
 	 *
 	 * @since 6.2.7
+	 *
 	 * @return array
 	 */
 	public function check_child_page( $posts, $query ) {
@@ -251,8 +276,8 @@ class WPBDP__Query_Integration {
 
 		$sticky_ids_str = $this->get_sticky_query( $query );
 
-		$order_by          = $query->get( 'orderby' );
-		$order             = $query->get( 'order' );
+		$order_by = $query->get( 'orderby' );
+		$order    = $query->get( 'order' );
 
 		switch ( $order_by ) {
 			case 'paid':
@@ -401,7 +426,11 @@ class WPBDP__Query_Integration {
 					break;
 				}
 
-				$q = $wpdb->prepare( "(SELECT {$wpdb->postmeta}.meta_value FROM {$wpdb->postmeta} WHERE {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID AND {$wpdb->postmeta}.meta_key = %s) AS field_{$sname}", '_wpbdp[fields][' . $field->get_id() . ']' );
+				$q = $wpdb->prepare(
+					"(SELECT {$wpdb->postmeta}.meta_value FROM {$wpdb->postmeta} " .
+					"WHERE {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID AND {$wpdb->postmeta}.meta_key = %s) AS field_{$sname}",
+					'_wpbdp[fields][' . $field->get_id() . ']'
+				);
 				break;
 		}
 
@@ -460,10 +489,24 @@ class WPBDP__Query_Integration {
 		}
 
 		if ( $qn && $qn !== $orderby ) {
-			$orderby = $orderby . ( $orderby ? ', ' : '' ) . $qn . ' ' . $sort->order;
+			$orderby = $orderby . ( $orderby ? ', ' : '' ) . $this->get_space_replace( $qn, $sort->order );
 		}
 
 		return $orderby;
+	}
+
+	/**
+	 * Return the space removal string for the given field and order.
+	 * 
+	 * @since 6.4.10
+	 *
+	 * @param string $field - The field to remove spaces from.
+	 * @param string $order - The order to apply.
+	 * 
+	 * @return string
+	 */
+	private function get_space_replace( $field, $order ) {
+		return "REPLACE( {$field}, ' ', '' ) " . ' ' . $order;
 	}
 
 	/**
@@ -500,4 +543,3 @@ class WPBDP__Query_Integration {
 		}
 	}
 }
-

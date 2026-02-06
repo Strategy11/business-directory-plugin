@@ -2,13 +2,15 @@
 /**
  * View API/class.
  *
- * @since 5.0
  * @package BDP/Includes
+ *
+ * @since 5.0
  */
 
 /**
  * Class WPBDP__View
  */
+#[\AllowDynamicProperties]
 class WPBDP__View {
 
 	public function __construct( $args = null ) {
@@ -29,10 +31,10 @@ class WPBDP__View {
 	public function enqueue_resources() {
 		// CSS used for plan buttons on the listing page.
 		$custom_css = "
-		.wpbdp-plan-price input[type=radio]+ label span:before{
+		.wpbdp-plan-action input[type=radio]+ label span:before{
 			content:'" . esc_attr__( 'Select', 'business-directory-plugin' ) . "';
 		}
-		.wpbdp-plan-price input[type=radio]:checked + label span:before{
+		.wpbdp-plan-action input[type=radio]:checked + label span:before{
 			content:'" . esc_attr__( 'Selected', 'business-directory-plugin' ) . "';
 		}";
 		wp_add_inline_style( 'wpbdp-base-css', WPBDP_App_Helper::minimize_code( $custom_css ) );
@@ -110,8 +112,8 @@ class WPBDP__View {
 
 		if ( is_callable( $test ) ) {
 			$passes = call_user_func( $test );
-		} elseif ( 'administrator' == $test ) {
-			$passes = current_user_can( 'administrator' );
+		} elseif ( 'administrator' == $test || 'manage_options' === $test ) {
+			$passes = wpbdp_user_is_admin();
 		} else {
 			$passes = is_user_logged_in() && $this->is_listing_owner( $args['listing'] );
 		}

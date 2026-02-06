@@ -67,12 +67,10 @@ class WPBDP__Rewrite {
 					} else {
 						$rules[ '(' . $rewrite_base . ')/(.*)/?$' ] = 'index.php?page_id=' . $page_id . '&_' . $dir_slug . '=$matches[2]';
 					}
-				} else {
-					if ( ! wpbdp_get_option( 'disable-cpt' ) ) {
+				} elseif ( ! wpbdp_get_option( 'disable-cpt' ) ) {
 						$rules[ '(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$' ] = 'index.php?p=$matches[2]&listing_slug=$matches[3]&post_type=' . WPBDP_POST_TYPE; // FIXME: post_type shouldn't be required. Fix Query_Integration too.
 					} else {
-						$rules[ '(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$' ] = 'index.php?page_id=' . $page_id . '&_' . $dir_slug . '=$matches[2]&listing_slug=$matches[3]';
-					}
+					$rules[ '(' . $rewrite_base . ')/([0-9]{1,})/?(.*)/?$' ] = 'index.php?page_id=' . $page_id . '&_' . $dir_slug . '=$matches[2]&listing_slug=$matches[3]';
 				}
 			}
 		}
@@ -103,6 +101,7 @@ class WPBDP__Rewrite {
 			foreach ( $this->get_rewrite_rules() as $k => $v ) {
 				if ( ! isset( $rules[ $k ] ) || $rules[ $k ] != $v ) {
 					global $wp_rewrite;
+					// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions
 					$wp_rewrite->flush_rules();
 					return;
 				}
@@ -124,8 +123,8 @@ class WPBDP__Rewrite {
 
 		if ( $main_page_id = wpbdp_get_page_id( 'main' ) ) {
 			if ( is_page() && ! is_feed() && isset( $wp_query->queried_object ) &&
-				 get_option( 'show_on_front' ) == 'page' &&
-				 get_option( 'page_on_front' ) == $wp_query->queried_object->ID ) {
+				get_option( 'show_on_front' ) == 'page' &&
+				get_option( 'page_on_front' ) == $wp_query->queried_object->ID ) {
 				return $requested_url;
 			}
 		}
@@ -176,5 +175,4 @@ class WPBDP__Rewrite {
 			exit();
 		}
 	}
-
 }

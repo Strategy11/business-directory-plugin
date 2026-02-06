@@ -16,7 +16,7 @@
 	</div>
 <?php endif; ?>
 
-<div class="listing-details cf<?php echo esc_attr( ( $images->main || $images->thumbnail ) ? '' : ' wpbdp-no-thumb' ); ?>">
+<div class="listing-details cf<?php echo esc_attr( $images->main || $images->thumbnail ? '' : ' wpbdp-no-thumb' ); ?>">
 	<?php
 	foreach ( $fields->not( 'social' ) as $field ) {
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

@@ -9,6 +9,7 @@
 *.lock export-ignore
 package-lock.json export-ignore
 composer.json export-ignore
+composer.lock export-ignore
 Gruntfile.js export-ignore
 /assets/css/less/ export-ignore
 node_modules export-ignore
@@ -21,3 +22,4 @@ phpunit.xml export-ignore
 *.yml export-ignore
 stubs.php export-ignore
 tests export-ignore
+.idea export-ignore

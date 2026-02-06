@@ -31,7 +31,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 						'<a>',
 						'<a href="' . esc_url( remove_query_arg( 'listing' ) ) . '">',
 						sprintf(
-							_x( 'You\'re seeing payments related to listing: "%1$s" (ID #%2$d). <a>Click here</a> to see all payments.', 'payments admin', 'business-directory-plugin' ),
+							__( 'You\'re seeing payments related to listing: "%1$s" (ID #%2$d). <a>Click here</a> to see all payments.', 'business-directory-plugin' ),
 							esc_html( $listing->get_title() ),
 							esc_html( $listing->get_id() )
 						)
@@ -61,7 +61,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 	public function payment_update() {
 		$data  = wpbdp_get_var( array( 'param' => 'payment' ), 'post' );
 		$nonce = array( 'nonce' => 'payment-' . absint( $data['id'] ) );
-		WPBDP_App_Helper::permission_check( 'edit_posts', $nonce );
+		WPBDP_App_Helper::permission_check( wpbdp_backend_minimim_role(), $nonce );
 
 		$payment = WPBDP_Payment::objects()->get( absint( $data['id'] ) );
 		$this->handle_payment_not_found_redirect( $payment );
@@ -81,7 +81,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 			'request'
 		);
 		$nonce      = array( 'nonce' => 'payment-' . $payment_id );
-		WPBDP_App_Helper::permission_check( 'edit_posts', $nonce );
+		WPBDP_App_Helper::permission_check( wpbdp_backend_minimim_role(), $nonce );
 
 		$payment = WPBDP_Payment::objects()->get( $payment_id );
 		$this->handle_payment_not_found_redirect( $payment );
@@ -92,7 +92,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 	}
 
 	public function ajax_add_note() {
-		WPBDP_App_Helper::permission_check( 'edit_posts' );
+		WPBDP_App_Helper::permission_check();
 		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
 
 		$payment_id = wpbdp_get_var(
@@ -138,7 +138,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 
 	public function ajax_delete_note() {
 		$nonce = array( 'nonce' => 'wpbdp_ajax' );
-		WPBDP_App_Helper::permission_check( 'edit_posts', $nonce );
+		WPBDP_App_Helper::permission_check( wpbdp_backend_minimim_role(), $nonce );
 
 		$payment_id = wpbdp_get_var(
 			array(
@@ -171,9 +171,9 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 	/**
 	 * Redirect to error page if the payment object id not found.
 	 *
-	 * @param WPBDP_Payment|null $payment The payment object pulled from the database. If the object does not exist, null is returned.
-	 *
 	 * @since 5.14.3
+	 *
+	 * @param WPBDP_Payment|null $payment The payment object pulled from the database. If the object does not exist, null is returned.
 	 */
 	private function handle_payment_not_found_redirect( $payment ) {
 		if ( ! $payment ) {
@@ -182,5 +182,4 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 			exit;
 		}
 	}
-
 }

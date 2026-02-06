@@ -2,8 +2,9 @@
 /**
  * Represents a single field from the database. This class can not be instantiated directly.
  *
- * @since 2.3
  * @package WPBDP/Views/Includes/Fields/Form Field
+ *
+ * @since 2.3
  */
 
 /**
@@ -63,7 +64,7 @@ class WPBDP_Form_Field {
 		$this->type        = is_object( $attrs['field_type'] ) ? $attrs['field_type'] : WPBDP_FormFields::instance()->get_field_type( $attrs['field_type'] );
 
 		if ( ! $this->type ) {
-			throw new Exception( _x( 'Invalid form field type', 'form-fields-api', 'business-directory-plugin' ) );
+			throw new Exception( esc_html_x( 'Invalid form field type', 'form-fields-api', 'business-directory-plugin' ) );
 		}
 
 		/*
@@ -98,22 +99,21 @@ class WPBDP_Form_Field {
 			// $options [ $k ] = $term->name;
 			// }
 			// $this->field_data['options'] = $options;
-		} else {
+		} elseif ( isset( $attrs['field_data'] ) && isset( $attrs['field_data']['options'] ) ) {
 			// handle some special extra data from previous BD versions
 			// TODO: this is not needed anymore since the 3.2 upgrade routine
-			if ( isset( $attrs['field_data'] ) && isset( $attrs['field_data']['options'] ) ) {
-				$options = array();
 
-				foreach ( $attrs['field_data']['options'] as $option_value ) {
-					if ( is_array( $option_value ) ) {
-						$options[ $option_value[0] ] = $option_value[1];
-					} else {
-						$options[ $option_value ] = $option_value;
-					}
+			$options = array();
+
+			foreach ( $attrs['field_data']['options'] as $option_value ) {
+				if ( is_array( $option_value ) ) {
+					$options[ $option_value[0] ] = $option_value[1];
+				} else {
+					$options[ $option_value ] = $option_value;
 				}
-
-				$this->field_data['options'] = $options;
 			}
+
+			$this->field_data['options'] = $options;
 		}
 
 		$this->type->setup_field( $this );
@@ -205,7 +205,7 @@ class WPBDP_Form_Field {
 				break;
 			}
 
-			$n++;
+			++$n;
 		}
 
 		return $shortname;
@@ -357,7 +357,8 @@ class WPBDP_Form_Field {
 	 * Returns field-type specific configuration options for this field.
 	 *
 	 * @param string $key configuration key name
-	 * @return mixed|array if $key is ommitted an array of all key/values will be returned
+	 *
+	 * @return array|mixed if $key is ommitted an array of all key/values will be returned
 	 */
 	public function data( $key = null, $default = null ) {
 		if ( ! $key ) {
@@ -373,7 +374,8 @@ class WPBDP_Form_Field {
 	 *
 	 * @param string $key configuration key name.
 	 * @param mixed  $value data value.
-	 * @return mixed data value.
+	 *
+	 * @return void
 	 */
 	public function set_data( $key, $value = null ) {
 		$this->field_data[ $key ] = $value;
@@ -390,6 +392,7 @@ class WPBDP_Form_Field {
 	 * Returns this field's raw value for the given post.
 	 *
 	 * @param int|object $post_id post ID or object.
+	 *
 	 * @return mixed
 	 */
 	public function value( $post_id, $raw = false ) {
@@ -411,6 +414,7 @@ class WPBDP_Form_Field {
 	 *
 	 * @param int|object $post_id post ID or object.
 	 * @param string     $display_context The display context. Defaults to 'listing'.
+	 *
 	 * @return string valid HTML.
 	 */
 	public function html_value( $post_id, $display_context = 'listing' ) {
@@ -439,6 +443,7 @@ class WPBDP_Form_Field {
 	 * Returns this field's value as plain text. Useful for emails or cooperation between modules.
 	 *
 	 * @param int|object $post_id post ID or object.
+	 *
 	 * @return string
 	 */
 	public function plain_value( $post_id ) {
@@ -458,6 +463,7 @@ class WPBDP_Form_Field {
 	 * Converts input from forms to a value useful for this field.
 	 *
 	 * @param mixed $input form input.
+	 *
 	 * @return mixed
 	 */
 	public function convert_input( $input = null ) {
@@ -530,9 +536,9 @@ class WPBDP_Form_Field {
 	}
 
 	/**
-	 * @param array|string $error
-	 *
 	 * @since 5.16
+	 *
+	 * @param array|string $error
 	 */
 	public function add_validation_error( $error ) {
 		if ( is_array( $error ) ) {
@@ -540,6 +546,7 @@ class WPBDP_Form_Field {
 		} else {
 			$this->validation_errors[] = $error;
 		}
+		$this->validation_errors = array_unique( $this->validation_errors );
 	}
 
 	public function validate_categories( $categories = array() ) {
@@ -564,6 +571,7 @@ class WPBDP_Form_Field {
 	 *
 	 * @param int|object $post_id post ID or object
 	 * @param string     $display_context the display context. defaults to 'listing'.
+	 *
 	 * @return string
 	 */
 	public function display( $post_id, $display_context = 'listing' ) {
@@ -577,7 +585,7 @@ class WPBDP_Form_Field {
 			return '';
 		}
 
-		if ( $this->has_display_flag( 'private' ) && ! current_user_can( 'administrator' ) ) {
+		if ( $this->has_display_flag( 'private' ) && ! wpbdp_user_is_admin() ) {
 			return '';
 		}
 
@@ -598,6 +606,7 @@ class WPBDP_Form_Field {
 	 *
 	 * @param mixed  $value the value to be displayed. defaults to null.
 	 * @param string $display_context the rendering context. defaults to 'submit'.
+	 *
 	 * @return string
 	 */
 	public function render( $value = null, $display_context = 'submit', &$extra = null, $field_settings = array() ) {
@@ -611,7 +620,7 @@ class WPBDP_Form_Field {
 			return '';
 		}
 
-		if ( $this->has_display_flag( 'private' ) && ! current_user_can( 'administrator' ) ) {
+		if ( $this->has_display_flag( 'private' ) && ! wpbdp_user_is_admin() ) {
 			return '';
 		}
 
@@ -623,7 +632,7 @@ class WPBDP_Form_Field {
 	 *
 	 * @return mixed True if successfully created, WP_Error in the other case
 	 */
-	public function save() {
+	public function save() { // phpcs:ignore SlevomatCodingStandard.Complexity
 		global $wpdb;
 
 		$api = wpbdp_formfields_api();
@@ -648,7 +657,11 @@ class WPBDP_Form_Field {
 			if ( $orig_type != $new_type ) {
 				if ( 'url' == $new_type || 'image' == $new_type || 'url' == $orig_type || 'image' == $orig_type ) {
 					$this->type = WPBDP_FormFields::instance()->get_field_type( $orig_type );
-					$error_msg  = _x( 'You can\'t change from %2$s field type to the one you wanted--the types are incompatible internally. If you want to switch to a field of type %1$s, delete this current field and create a NEW field of type %1$s instead.', 'form-fields-api', 'business-directory-plugin' );
+					$error_msg  = _x(
+						'You can\'t change from %2$s field type to the one you wanted--the types are incompatible internally. If you want to switch to a field of type %1$s, delete this current field and create a NEW field of type %1$s instead.',
+						'form-fields-api',
+						'business-directory-plugin'
+					);
 
 					if ( WPBDP_Listing::count_listings() ) {
 						$error_msg .= '<br/><br/>' . _x( '<strong>WARNING</strong>: If you delete this field, the data from it in existing listings will be deleted as well.', 'form-fields-api', 'business-directory-plugin' );
@@ -682,7 +695,7 @@ class WPBDP_Form_Field {
 
 		// enforce association constraints
 		global $wpbdp;
-		$flags = $wpbdp->formfields->get_association_flags( $this->association );
+		$flags = $wpbdp->form_fields->get_association_flags( $this->association );
 
 		if ( in_array( 'unique', $flags ) ) {
 			if ( $otherfields = wpbdp_get_form_fields( 'association=' . $this->association ) ) {
@@ -696,7 +709,7 @@ class WPBDP_Form_Field {
 			$this->add_validator( 'required' );
 		}
 
-		if ( ! in_array( $this->type->get_id(), (array) $wpbdp->formfields->get_association_field_types( $this->association ) ) ) {
+		if ( ! in_array( $this->type->get_id(), (array) $wpbdp->form_fields->get_association_field_types( $this->association ) ) ) {
 			return new WP_Error( 'wpbdp-field-error', sprintf( _x( '"%s" is an invalid field type for this association.', 'form-fields-api', 'business-directory-plugin' ), $this->type->get_name() ) );
 		}
 
@@ -733,6 +746,7 @@ class WPBDP_Form_Field {
 		}
 
 		$this->clear_field_cache();
+		return true;
 	}
 
 	/**
@@ -746,7 +760,7 @@ class WPBDP_Form_Field {
 		}
 
 		global $wpbdp;
-		$flags = $wpbdp->formfields->get_association_flags( $this->association );
+		$flags = $wpbdp->form_fields->get_association_flags( $this->association );
 
 		if ( in_array( 'required', $flags ) ) {
 			$otherfields = wpbdp_get_form_fields( array( 'association' => $this->association ) );
@@ -868,7 +882,7 @@ class WPBDP_Form_Field {
 	/**
 	 * @since 5.0
 	 */
-	public function configure_search( $query, &$search ) {
+	public function configure_search( $query, &$search ) { // phpcs:ignore SlevomatCodingStandard.Complexity
 		global $wpdb;
 
 		// Check if the search has been short-circuited.
@@ -900,7 +914,7 @@ class WPBDP_Form_Field {
 				break;
 			case 'tags':
 			case 'category':
-				$query = ( 'tags' == $this->get_association() && is_string( $query ) ) ? explode( ',', $query ) : $query;
+				$query = 'tags' == $this->get_association() && is_string( $query ) ? explode( ',', $query ) : $query;
 				$query = is_array( $query ) ? $query : array( $query );
 				$query = array_diff( array_map( 'trim', $query ), array( -1, 0, '' ) );
 
@@ -983,6 +997,7 @@ class WPBDP_Form_Field {
 	 * Creates a WPBDP_Form_Field from a database record.
 	 *
 	 * @param int $id the database record ID.
+	 *
 	 * @return WPBDP_Form_Field|null a valid WPBDP_Form_Field if the record exists or null if not.
 	 */
 	public static function get( $id ) {
@@ -1071,19 +1086,19 @@ class WPBDP_Form_Field {
 	}
 
 	/**
-	 * @return bool
-	 *
 	 * @since 5.5
+	 *
+	 * @return bool
 	 */
 	public function is_privacy_field() {
 		return in_array( $this->get_tag(), self::$default_tags );
 	}
-
 }
 
 /**
  * @deprecated Since 3.4.2. Use {@link WPBDP_Form_Field} instead.
  */
+// phpcs:ignore
 class WPBDP_FormField extends WPBDP_Form_Field {
 	public function __construct( $attrs = array() ) {
 		_deprecated_constructor( __CLASS__, '3.4.2', 'WPBDP_Form_Field' );

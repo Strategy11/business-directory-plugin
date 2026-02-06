@@ -18,7 +18,7 @@ if ( $theme->active ) {
 			<div class="wpbdp-theme-update-info update-message notice inline notice-warning notice-alt" data-l10n-updating="<?php esc_attr_e( 'Updating theme...', 'business-directory-plugin' ); ?>" data-l10n-updated="<?php esc_attr_e( 'Theme updated.', 'business-directory-plugin' ); ?>">
 				<div class="update-message">
 					<?php
-					echo sprintf(
+					printf(
 						// translators: %1$s is opening <a> tag, %2$s is closing </a> tag
 						esc_html__( 'New version available. %1$sUpdate now.%2$s', 'business-directory-plugin' ),
 						'<a href="#" data-theme-id="' . esc_attr( $theme->id ) . '" data-nonce="' . esc_attr( wp_create_nonce( 'update theme ' . $theme->id ) ) . '" class="update-link">',

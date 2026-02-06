@@ -72,8 +72,11 @@ class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
 		return array( 'title', 'excerpt', 'tags', 'meta' );
 	}
 
+	/**
+	 * @return void|WP_Error
+	 */
 	public function process_field_settings( &$field ) {
-		$field->set_data( 'word_count', ( in_array( 'word_number', $field->get_validators(), true ) && isset( $_POST['field']['word_count'] ) ) ? intval( $_POST['field']['word_count'] ) : 0 );
+		$field->set_data( 'word_count', in_array( 'word_number', $field->get_validators(), true ) && isset( $_POST['field']['word_count'] ) ? intval( $_POST['field']['word_count'] ) : 0 );
 	}
 
 	/**
@@ -82,5 +85,4 @@ class WPBDP_FieldTypes_TextField extends WPBDP_Form_Field_Type {
 	public function get_field_csv_value( &$field, $post_id ) {
 		return sanitize_text_field( $this->get_field_plain_value( $field, $post_id ) );
 	}
-
 }

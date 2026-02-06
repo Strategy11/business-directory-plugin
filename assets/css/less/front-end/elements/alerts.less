@@ -7,17 +7,18 @@
 .wpbdp-msg {
 	border: 1px solid @border-main;
 	border-radius: @border-radius-main;
-	padding: 19px 25px;
-	margin: 30px 0;
-	background-color: @bg-warning;
-	color: @color-text--60;
+	padding: @padding-md @padding-lg;
+	margin: @padding-lg 0;
+	background-color: @color-warning;
+	border-color: darken( @color-warning, 10% );
 	font-size: @font-size-md;
-	line-height: @line-height-body;
+	opacity: .9;
 
 	&.error,
 	&.wpbdp-error {
-		background-color: @bg-danger;
+		background-color: @color-danger;
 		color: @red;
+		border-color: darken( @color-danger, 5% );
 	}
 
 	ul {

@@ -40,9 +40,10 @@ class WPBDP_Currency_Helper {
 	/**
 	 * @since 6.2.7
 	 *
-	 * @param string|float $amount The string could contain the currency symbol.
+	 * @param float|string $amount The string could contain the currency symbol.
 	 * @param array|null   $currency
-	 * @return string|float
+	 *
+	 * @return float|string
 	 */
 	public static function format_amount_for_currency( $amount = 0, $currency = null ) {
 		if ( is_null( $currency ) ) {
@@ -54,6 +55,9 @@ class WPBDP_Currency_Helper {
 		} else {
 			if ( is_string( $amount ) ) {
 				$amount = floatval( self::prepare_price( $amount, $currency ) );
+			}
+			if ( is_null( $amount ) ) {
+				$amount = 0.0;
 			}
 			$amount = number_format( $amount, $currency['decimals'], $currency['decimal_separator'], $currency['thousand_separator'] );
 		}
@@ -141,6 +145,7 @@ class WPBDP_Currency_Helper {
 		 * Allow custom code to change the currency for different currencies per form.
 		 *
 		 * @since 6.2.7
+		 *
 		 * @param array $currency  The currency information.
 		 */
 		$currency = apply_filters( 'wpbdp_currency', $currency );
@@ -165,7 +170,7 @@ class WPBDP_Currency_Helper {
 	/**
 	 * @since 6.2.7
 	 */
-	public static function get_currencies( $currency = false ) {
+	public static function get_currencies( $currency = false ) { // phpcs:ignore SlevomatCodingStandard.Functions.FunctionLength
 		$currencies = array(
 			'AUD' => array(
 				'name'               => __( 'Australian Dollar', 'business-directory-plugin' ),

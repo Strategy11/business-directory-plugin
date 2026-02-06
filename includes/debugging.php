@@ -11,6 +11,7 @@ class WPBDP_Debugging {
 	public static function debug_on() {
 		self::$debug = true;
 
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions
 		error_reporting( E_ALL | E_DEPRECATED );
 
 		// Disable our debug util for AJAX requests in order to be able to see the errors.
@@ -97,16 +98,16 @@ class WPBDP_Debugging {
 		foreach ( self::$messages as $item ) {
 			$time = explode( ' ', $item['timestamp'] );
 
-			echo '<tr class="' . $item['type'] . '">';
+			echo '<tr class="' . esc_attr( $item['type'] ) . '">';
 			echo '<td class="handle">&raquo;</td>';
-			echo '<td class="timestamp">' . date( 'H:i:s', (int) $time[1] ) . '</td>';
+			echo '<td class="timestamp">' . esc_html( date( 'H:i:s', (int) $time[1] ) ) . '</td>';
 
-			echo '<td class="type">' . $item['type'] . '</td>';
-			echo '<td class="message">' . $item['message'] . '</td>';
+			echo '<td class="type">' . esc_html( $item['type'] ) . '</td>';
+			echo '<td class="message">' . esc_html( $item['message'] ) . '</td>';
 
 			if ( $item['context'] ) {
-				echo '<td class="context">' . $item['context']['function'] . '</td>';
-				echo '<td class="file">' . basename( $item['context']['file'] ) . ':' . $item['context']['line'] . '</td>';
+				echo '<td class="context">' . esc_html( $item['context']['function'] ) . '</td>';
+				echo '<td class="file">' . esc_html( basename( $item['context']['file'] ) . ':' . $item['context']['line'] ) . '</td>';
 			} else {
 				echo '<td class="context"></td><td class="file"></td>';
 			}
@@ -126,11 +127,11 @@ class WPBDP_Debugging {
 				echo '<tr class="wpdbquery">';
 				echo '<td class="handle">&raquo;</td>';
 				echo '<td class="query">';
-				echo $q[0];
+				echo esc_html( $q[0] );
 				echo '<div class="extradata">';
 				echo '<dl>';
-				echo '<dt>Time Spent:</dt><dd>' . $q[1] . '</dd>';
-				echo '<dt>Backtrace:</dt><dd>' . $q[2] . '</dd>';
+				echo '<dt>Time Spent:</dt><dd>' . esc_html( $q[1] ) . '</dd>';
+				echo '<dt>Backtrace:</dt><dd>' . esc_html( $q[2] ) . '</dd>';
 				echo '</dl>';
 				echo '</div>';
 				echo '</td>';
@@ -212,13 +213,12 @@ class WPBDP_Debugging {
 			$ret .= self::_var_dump( $arg ) . "\n";
 		}
 
-		wp_die( sprintf( '<pre>%s</pre>', $ret ), '' );
+		wp_die( sprintf( '<pre>%s</pre>', esc_html( $ret ) ), '' );
 	}
 
 	public static function log( $msg, $type = 'info' ) {
 		self::add_debug_msg( $msg, sprintf( 'log-%s', $type ), debug_backtrace() );
 	}
-
 }
 
 function wpbdp_log( $msg, $type = 'info' ) {
@@ -238,4 +238,3 @@ function wpbdp_debug_e() {
 	$args = func_get_args();
 	call_user_func_array( array( 'WPBDP_Debugging', 'debug_e' ), $args );
 }
-

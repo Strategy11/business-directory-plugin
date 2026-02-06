@@ -5,20 +5,9 @@
 actor: WpunitTester
 modules:
     enabled:
-        - WPDb
         - WPLoader
         - \Helper\Wpunit
     config:
-        WPDb:
-            dsn: 'mysql:host=localhost;dbname=wordpress_tests'
-            user: 'root'
-            password: 'root'
-            dump: 'tests/_data/dump.sql'
-            populate: true #import the dump before the tests
-            cleanup: false #do not import the dump between tests
-            url: 'https://qa.businessdirectoryplugin.com/'
-            urlReplacement: true #replace the hardcoded dump URL with the one above
-            tablePrefix: 'wpl_'
         WPLoader:
             loadOnly: false
             multisite: false
@@ -30,7 +19,7 @@ modules:
             tablePrefix: "wpl_"
             domain: "https://qa.businessdirectoryplugin.com/"
             adminEmail: "admin@businessdirectory.com"
-            title: "Test"        
+            title: "Test"
             plugins: ['business-directory-plugin/business-directory-plugin.php']
             activatePlugins: ['business-directory-plugin/business-directory-plugin.php']
             bootstrapActions:

@@ -101,9 +101,9 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 * Escape content and allow svg in the content.
 	 * This is mainly becuase some of the fields, like the ratings, use svg.
 	 *
-	 * @param string $content The text to filter.
-	 *
 	 * @since 5.15
+	 *
+	 * @param string $content The text to filter.
 	 *
 	 * @return string
 	 */
@@ -183,24 +183,28 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	/**
 	 * Render empty message
 	 *
-	 * @param string $html_class - the html class to append to the view
-	 *
 	 * @since  x.x
+	 *
+	 * @param string $html_class - the html class to append to the view
 	 *
 	 * @return string
 	 */
 	private function render_empty_widget( $html_class ) {
-		return sprintf( '<li class="wpbdp-empty-widget %s">%s</li>', esc_attr( $html_class ), esc_html__( 'There are currently no listings to show.', 'business-directory-plugin' ) );
+		return sprintf(
+			'<li class="wpbdp-empty-widget %s">%s</li>',
+			esc_attr( $html_class ),
+			esc_html__( 'There are currently no listings to show.', 'business-directory-plugin' )
+		);
 	}
 
 	/**
 	 * Render the widget
 	 *
+	 * @since 5.15
+	 *
 	 * @param array $items - the widget items
 	 * @param array $instance - the settings instance
 	 * @param string $html_class - the html class to append to the view
-	 *
-	 * @since 5.15
 	 *
 	 * @return string
 	 */
@@ -219,6 +223,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 		$default_image     = $show_images && isset( $instance['default_image'] ) && $instance['default_image'];
 		$coming_soon_image = WPBDP_Listing_Display_Helper::get_coming_soon_image();
 		$fields            = is_array( $instance['fields'] ) ? $instance['fields'] : array();
+		$html              = array();
 		foreach ( $items as $post ) {
 			$html[] = $this->render_item( $post, compact( 'show_images', 'img_size', 'default_image', 'coming_soon_image', 'html_class', 'fields' ) );
 		}
@@ -231,10 +236,10 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	/**
 	 * Generate the thumbnail position classes.
 	 *
+	 * @since 5.15
+	 *
 	 * @param string $thumbnail_position - the thumbnail position ( left, right )
 	 * @param string $device - the device being used ( desktop, mobile )
-	 *
-	 * @since 5.15
 	 *
 	 * @return string
 	 */
@@ -251,7 +256,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	/**
 	 * @since 5.15
 	 *
-	 * @return string|array
+	 * @return array|string
 	 */
 	private function get_image_size( $instance ) {
 		$width  = isset( $instance['thumbnail_width'] ) ? $instance['thumbnail_width'] : 0;
@@ -268,16 +273,20 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	/**
 	 * Render item for widget.
 	 *
+	 * @since 5.15
+	 *
 	 * @param WP_Post $post The current listing post.
 	 * @param array $args The view arguments.
-	 *
-	 * @since 5.15
 	 *
 	 * @return string
 	 */
 	private function render_item( $post, $args ) {
 		$listing       = wpbdp_get_listing( $post->ID );
-		$listing_title = sprintf( '<div class="wpbdp-listing-title"><a class="listing-title" href="%s">%s</a></div>', esc_url( $listing->get_permalink() ), esc_html( $listing->get_title() ) );
+		$listing_title = sprintf(
+			'<div class="wpbdp-listing-title"><a class="listing-title" href="%s">%s</a></div>',
+			esc_url( $listing->get_permalink() ),
+			esc_html( $listing->get_title() )
+		);
 		$html_image    = $this->render_image( $listing, $args );
 		$fields        = sprintf( '<div class="wpbdp-listing-fields">%s</div>', $this->render_fields( $listing, $args['fields'] ) );
 		$template      = '<li class="wpbdp-listings-widget-item %1$s"><div class="wpbdp-listings-widget-container">';
@@ -296,10 +305,10 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 * Render the listing image.
 	 * Depending on the settings, this will return the listing image or the default image or none.
 	 *
+	 * @since  x.x
+	 *
 	 * @param object $listing The listing object.
 	 * @param array $args The view arguments.
-	 *
-	 * @since  x.x
 	 *
 	 * @return string
 	 */
@@ -321,7 +330,8 @@ class WPBDP_Listings_Widget extends WP_Widget {
 			} elseif ( $args['default_image'] ) {
 				$class      = "attachment-$img_size size-$img_size listing-image";
 				$image_link = '<a href="' . esc_url( $permalink ) . '">' .
-					'<img src="' . esc_url( $args['coming_soon_image'] ) . '" class="' . esc_attr( $class ) . '" alt="' . esc_attr( $listing->get_title() ) . '" loading="lazy" />' .
+					'<img src="' . esc_url( $args['coming_soon_image'] ) . '" class="' . esc_attr( $class ) . '" ' .
+					'alt="' . esc_attr( $listing->get_title() ) . '" loading="lazy" />' .
 					'</a>';
 			} else {
 				// For image spacing.
@@ -335,10 +345,10 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 * Render fields.
 	 * Render the field items in the widget.
 	 *
+	 * @since 5.15
+	 *
 	 * @param object $listing The listing object.
 	 * @param array $allowed_fields The field ids to show.
-	 *
-	 * @since 5.15
 	 *
 	 * @return string
 	 */

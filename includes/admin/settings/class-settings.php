@@ -59,8 +59,8 @@ class WPBDP__Settings {
 					switch ( $setting['type'] ) {
 						case 'multicheck':
 							if ( is_array( $value ) ) {
-								$input[ $setting_id ]  = array_filter( $value, 'strlen' );
-								$output[ $setting_id ] = array_filter( $value, 'strlen' );
+								$input[ $setting_id ]  = wpbdp_array_filter( $value );
+								$output[ $setting_id ] = wpbdp_array_filter( $value );
 							}
 
 							break;
@@ -265,7 +265,7 @@ class WPBDP__Settings {
 	}
 
 	/**
-	 * @return int|string|array
+	 * @return array|int|string
 	 */
 	public function get_option( $setting_id, $default = false ) {
 		$default_provided = func_num_args() > 1;
@@ -425,7 +425,7 @@ class WPBDP__Settings {
 		update_option( 'wpbdp_settings', $this->options );
 	}
 
-	public function validate_setting( $value, $setting_id ) {
+	public function validate_setting( $value, $setting_id ) { // phpcs:ignore SlevomatCodingStandard.Complexity
 		$on_admin = ! empty( $_POST['_wp_http_referer'] );
 		if ( ! $on_admin ) {
 			return $value;
@@ -464,7 +464,7 @@ class WPBDP__Settings {
 					break;
 				case 'required':
 					if ( is_array( $value ) ) {
-						$value = array_filter( $value, 'strlen' );
+						$value = wpbdp_array_filter( $value );
 					}
 
 					if ( empty( $value ) ) {
@@ -534,14 +534,51 @@ class WPBDP__Settings {
 		}
 
 		// Min and max.
-		$value = ( array_key_exists( 'min', $setting ) && $value < $setting['min'] ) ? $setting['min'] : $value;
-		$value = ( array_key_exists( 'max', $setting ) && $value > $setting['max'] ) ? $setting['max'] : $value;
+		$value = array_key_exists( 'min', $setting ) && $value < $setting['min'] ? $setting['min'] : $value;
+		$value = array_key_exists( 'max', $setting ) && $value > $setting['max'] ? $setting['max'] : $value;
 
 		return $value;
 	}
 
 	public function set_new_install_settings() {
 		$this->set_option( 'show-manage-listings', true );
+	}
+
+	/**
+	 * Check if at least one of the keys specified has a value in settings.
+	 *
+	 * @since 6.4.9
+	 *
+	 * @param array $keys
+	 *
+	 * @return bool
+	 */
+	public function any_setting_exists( $keys ) {
+		foreach ( $keys as $key ) {
+			if ( ! empty( $this->options[ $key ] ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if Stripe API keys are set in BD Lite settings.
+	 * If any are set, Stripe Lite will not load and we'll fallback on the Stripe module (add-on).
+	 *
+	 * @since 6.4.9
+	 *
+	 * @return bool
+	 */
+	public function legacy_stripe_settings_exist() {
+		$keys = array(
+			'stripe-test-publishable-key',
+			'stripe-test-secret-key',
+			'stripe-live-publishable-key',
+			'stripe-live-secret-key',
+		);
+		return $this->any_setting_exists( $keys );
 	}
 
 	/**
@@ -572,6 +609,7 @@ class WPBDP__Settings {
 }
 
 // For backwards compat.
+// phpcs:ignore
 class WPBDP_Settings extends WPBDP__Settings {
 	public function __construct() {
 		_deprecated_constructor( __CLASS__, '5.0', 'WPBDP__Settings' );

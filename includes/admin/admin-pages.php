@@ -168,7 +168,7 @@ class WPBDP_Admin_Pages {
 			echo '<span class="wpbdp-taxonomy-search-results">';
 			printf(
 				/* translators: %s: Search query. */
-				__( 'Search results for: %s', 'business-directory-plugin' ),
+				esc_html__( 'Search results for: %s', 'business-directory-plugin' ),
 				'<strong>' . esc_html( $search_param ) . '</strong>'
 			);
 			echo '</span>';
@@ -351,10 +351,10 @@ class WPBDP_Admin_Pages {
 	/**
 	 * Admin tabbed title.
 	 *
+	 * @since 6.0
+	 *
 	 * @param array $titles The titles as an array.
 	 * @param string $current_tab The current selected tab.
-	 *
-	 * @since 6.0
 	 */
 	public static function show_tabbed_title( $titles, $current_tab = '' ) {
 		?>
@@ -389,11 +389,10 @@ class WPBDP_Admin_Pages {
 	/**
 	 * Prints out all settings sections added to a particular settings page.
 	 *
+	 * @since 6.0
 	 * @link https://developer.wordpress.org/reference/functions/do_settings_sections/
 	 *
 	 * @param string $page
-	 *
-	 * @since 6.0
 	 */
 	public static function render_settings_sections( $page ) {
 		global $wp_settings_sections, $wp_settings_fields;
@@ -425,12 +424,11 @@ class WPBDP_Admin_Pages {
 	/**
 	 * Print out the settings fields for a particular settings section.
 	 *
+	 * @since 6.0
 	 * @link https://developer.wordpress.org/reference/functions/do_settings_fields/
 	 *
 	 * @param string $page
 	 * @param string $section
-	 *
-	 * @since 6.0
 	 */
 	public static function render_settings_fields( $page, $section ) {
 		global $wp_settings_fields;
@@ -478,12 +476,16 @@ class WPBDP_Admin_Pages {
 		$exclude = $wpbdp->admin->top_level_nav();
 
 		foreach ( $menu as $id => $menu_item ) {
-			$requires = empty( $menu_item['capability'] ) ? 'administrator' : $menu_item['capability'];
-			if ( ! current_user_can( $requires ) || in_array( $id, $exclude ) ) {
+			if ( empty( $menu_item['capability'] ) ) {
+				$allowed = wpbdp_user_is_admin();
+			} else {
+				$allowed = current_user_can( $menu_item['capability'] );
+			}
+			if ( ! $allowed || in_array( $id, $exclude ) ) {
 				continue;
 			}
 
-			$title = strip_tags( $menu_item['title'] );
+			$title = wp_strip_all_tags( $menu_item['title'] );
 
 			// change_menu_name() changes the name here. This changes it back.
 			if ( $title === __( 'Directory Content', 'business-directory-plugin' ) ) {

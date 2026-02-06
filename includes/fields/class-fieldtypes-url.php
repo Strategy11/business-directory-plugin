@@ -39,6 +39,9 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
 		return self::render_admin_settings( $settings );
 	}
 
+	/**
+	 * @return void|WP_Error
+	 */
 	public function process_field_settings( &$field ) {
 		if ( array_key_exists( 'x_open_in_new_window', $_POST['field'] ) ) {
 			$open_in_new_window = (bool) intval( $_POST['field']['x_open_in_new_window'] );
@@ -124,17 +127,29 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
 		return is_array( $value ) ? $value[0] : $value;
 	}
 
+	/**
+	 * Convert input to a URL with http.
+	 *
+	 * @param WPBDP_Form_Field $field Field object.
+	 * @param array|string     $input Values from url field.
+	 *
+	 * @return array
+	 */
 	public function convert_input( &$field, $input ) {
-		if ( $input === null ) {
+		if ( empty( $input ) ) {
 			return array( '', '' );
 		}
 
-		$url  = trim( sanitize_text_field( is_array( $input ) ? $input[0] : $input ) );
-		$text = trim( is_array( $input ) ? sanitize_text_field( $input[1] ) : '' );
+        $raw_url      = is_array( $input ) ? trim( $input[0] ) : $input;
+        $has_protocol = str_contains( $raw_url, 'http://' ) || str_contains( $raw_url, 'https://' );
 
-		if ( $url && ! parse_url( $url, PHP_URL_SCHEME ) ) {
-			$url = 'http://' . $url;
-		}
+        // Check if the URL has a protocol, if not, add https.
+        if ( ! empty( $raw_url ) && ! $has_protocol ) {
+            $raw_url = 'https://' . $raw_url;
+        }
+
+		$url  = esc_url_raw( $raw_url );
+		$text = trim( is_array( $input ) ? sanitize_text_field( $input[1] ) : '' );
 
 		return array( $url, $text );
 	}
@@ -159,7 +174,7 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
 
 		if ( $context == 'search' ) {
 			global $wpbdp;
-			return $wpbdp->formfields->get_field_type( 'textfield' )->render_field_inner( $field, $value[1], $context, $extra, $field_settings );
+			return $wpbdp->form_fields->get_field_type( 'textfield' )->render_field_inner( $field, $value[1], $context, $extra, $field_settings );
 		}
 
 		$html  = '';
@@ -205,5 +220,4 @@ class WPBDP_FieldTypes_URL extends WPBDP_Form_Field_Type {
 
 		return $css_classes;
 	}
-
 }

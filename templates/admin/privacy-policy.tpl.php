@@ -3,6 +3,7 @@
  * Privacy Policy
  *
  * @package BDP/Templates/Admin/
+ *
  * @since 5.5
  */
 
@@ -15,11 +16,11 @@
 	<p>
 	<?php
 	$url = home_url();
-	echo sprintf(
+	printf(
 		// translators: %s is a link with the URL of the current site.
 		esc_html__( 'If you pay to post a directory listing entering your credit card and billing information directly on %s, the credit card information won\'t be stored but it will be shared through a secure connection with the following payment gateways to process the payment:', 'business-directory-plugin' ),
 		'<a href="' . esc_url( $url ) . '">' . esc_html( $url ) . '</a>'
-	)
+	);
 	?>
 	</p>
 	<ul>

@@ -22,6 +22,7 @@
 
 <div class="wpbdp-payment-invoice">
 	<?php
+	// phpcs:ignore WordPress.Security.EscapeOutput
 	echo $invoice_resume;
 	?>
 </div>
@@ -30,8 +31,8 @@
 	<div class="inner">
 		<form action="" method="post">
 			<?php wp_nonce_field( 'cancel renewal fee ' . $payment->id ); ?>
-			<input type="submit" name="proceed-to-checkout" value="<?php echo esc_html_x( 'Continue to checkout', 'templates', 'business-directory-plugin' ); ?>" />
-			<input type="submit" name="return-to-fee-select" value="<?php echo esc_html_x( 'Return to plan selection', 'templates', 'business-directory-plugin' ); ?>" />
+			<input type="submit" name="proceed-to-checkout" value="<?php echo esc_attr_x( 'Continue to checkout', 'templates', 'business-directory-plugin' ); ?>" />
+			<input type="submit" name="return-to-fee-select" value="<?php echo esc_attr_x( 'Return to plan selection', 'templates', 'business-directory-plugin' ); ?>" />
 		</form>
 	</div>
 </div>

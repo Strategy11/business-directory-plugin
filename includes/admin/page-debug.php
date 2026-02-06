@@ -13,24 +13,24 @@ class WPBDP_Admin_Debug_Page {
 
 		$debug = array(
 			'label'  => __( 'Business Directory Plugin', 'business-directory-plugin' ),
-			'fields' => [],
+			'fields' => array(),
 		);
 
 		foreach ( $basic as $label => $value ) {
 			if ( is_array( $value ) ) {
 				$value = isset( $value['value'] ) ? $value['value'] : reset( $value );
 			}
-			$debug['fields'][] = [
+			$debug['fields'][] = array(
 				'label' => $label,
 				'value' => $value,
-			];
+			);
 		}
 
 		$debug_info['wpbdp'] = $debug;
 		return $debug_info;
 	}
 
-	public function dispatch( $plain = false ) {
+	public function dispatch( $plain = false ) { // phpcs:ignore SlevomatCodingStandard.Complexity
 
 		$debug_info = array();
 
@@ -166,8 +166,8 @@ class WPBDP_Admin_Debug_Page {
 	public function handle_download() {
 		global $pagenow;
 
-		if ( ! current_user_can( 'administrator' ) || ! in_array( $pagenow, array( 'admin.php', 'edit.php' ) )
-			 || 'wpbdp-debug-info' !== wpbdp_get_var( array( 'param' => 'page' ) ) ) {
+		if ( ! wpbdp_user_is_admin() || ! in_array( $pagenow, array( 'admin.php', 'edit.php' ) )
+			|| 'wpbdp-debug-info' !== wpbdp_get_var( array( 'param' => 'page' ) ) ) {
 			return;
 		}
 

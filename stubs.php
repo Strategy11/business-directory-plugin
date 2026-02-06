@@ -36,6 +36,8 @@ namespace {
 
 	define( 'AUTH_KEY', '' );
 
+	define( 'ICL_PLUGIN_INACTIVE', false );
+
 	function wpbdp() {
 		static $instance = null;
 
@@ -73,6 +75,13 @@ namespace {
 
 	class WPBDP_Addons {
 		public static function show_conditional_action_button( $atts ) {
+		}
+		/**
+		 * @param bool $force_type
+		 *
+		 * @return string
+		 */
+		public static function get_raw_license_type( $force_type = false ) {
 		}
 	}
 
@@ -114,4 +123,10 @@ namespace WPMailSMTP {
 		public static function init() {
 		}
 	}
+}
+
+namespace Elementor\Core\Base {
+	class Document {
+		public const CACHE_META_KEY = '_elementor_element_cache';
+	}	
 }

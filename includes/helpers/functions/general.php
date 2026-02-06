@@ -218,7 +218,7 @@ function wpbdp_register_setting( $args ) {
 
 function wpbdp_formfields_api() {
 	global $wpbdp;
-	return $wpbdp->formfields;
+	return $wpbdp->form_fields;
 }
 
 function wpbdp_get_formfield( $id ) {
@@ -278,7 +278,7 @@ function wpbdp_get_parent_catids( $catid ) {
 	$parent_categories = wpbdp_get_parent_categories( $catid );
 	array_walk(
 		$parent_categories,
-		function( &$x ) {
+		function ( &$x ) {
 			$x = intval( $x->term_id );
 		}
 	);
@@ -289,8 +289,9 @@ function wpbdp_get_parent_catids( $catid ) {
 /**
  * Checks if permalinks are enabled.
  *
- * @return boolean
  * @since 2.1
+ *
+ * @return bool
  */
 function wpbdp_rewrite_on() {
 	global $wp_rewrite;
@@ -300,11 +301,13 @@ function wpbdp_rewrite_on() {
 /**
  * Checks if a given user can perform some action to a listing.
  *
- * @param string       $action the action to be checked. available actions are 'view', 'edit', 'delete' and 'upgrade-to-sticky'
- * @param (object|int) $listing_id the listing ID. if null, the current post ID will be used
- * @param int          $user_id the user ID. if null, the current user will be used
- * @return boolean
  * @since 2.1
+ *
+ * @param string       $action the action to be checked. available actions are 'view', 'edit', 'delete' and 'upgrade-to-sticky'
+ * @param (int|object) $listing_id the listing ID. if null, the current post ID will be used
+ * @param int          $user_id the user ID. if null, the current user will be used
+ *
+ * @return bool
  */
 function wpbdp_user_can( $action, $listing_id = null, $user_id = null ) {
 	$listing_id = $listing_id ? ( is_object( $listing_id ) ? $listing_id->ID : intval( $listing_id ) ) : get_the_ID();
@@ -332,7 +335,6 @@ function wpbdp_user_can( $action, $listing_id = null, $user_id = null ) {
 			} else {
 				$res = true;
 			}
-			// return apply_filters( 'wpbdp_user_can_view', true, $action, $listing_id );
 			break;
 		case 'flagging':
 			if ( wpbdp_get_option( 'listing-flagging-register-users' ) ) {
@@ -344,7 +346,7 @@ function wpbdp_user_can( $action, $listing_id = null, $user_id = null ) {
 			break;
 		case 'edit':
 		case 'delete':
-			$res = user_can( $user_id, 'administrator' );
+			$res = user_can( $user_id, 'edit_others_posts' );
 			$res = $res || ( $user_id && $post->post_author && $post->post_author == $user_id );
 			$res = $res || ( ! $user_id && wpbdp_get_option( 'enable-key-access' ) );
 			break;
@@ -384,7 +386,7 @@ function wpbdp_get_current_sort_option() {
 		$order = substr( $sort, 0, 1 ) == '-' ? 'DESC' : 'ASC';
 		$sort  = ltrim( $sort, '-' );
 
-		$obj         = new StdClass();
+		$obj         = new stdClass();
 		$obj->option = $sort;
 		$obj->order  = $order;
 
@@ -397,22 +399,22 @@ function wpbdp_get_current_sort_option() {
 /**
  * Maybe resize image.
  *
- * @param int   $id   The media attachment id.
- * @param array $args Optional. Accepts an array of width and height in pixels and crop as a boolean.
- *
  * @since 2.1.6
  * @since 5.14.3 The second parameter is added.
+ *
+ * @param int   $id   The media attachment id.
+ * @param array $args Optional. Accepts an array of width and height in pixels and crop as a boolean.
  */
 function _wpbdp_resize_image_if_needed( $id, $args = array() ) {
 
 	/**
 	 * Add filter to allow user to skin image resizing.
 	 *
+	 * @since 5.14.3
+	 *
 	 * @param bool  $resize Whether to resize the image or not.
 	 * @param int   $id     The media attachment id.
 	 * @param array $args   Optional. An array of width and height in pixels and crop as a boolean.
-	 *
-	 * @since 5.14.3
 	 */
 	$resize_image = apply_filters( 'wpbdp_resize_image_if_needed', true, $id, $args );
 	if ( ! $resize_image ) {
@@ -446,10 +448,10 @@ function _wpbdp_resize_image_if_needed( $id, $args = array() ) {
  * This checks against the image dimensions and the database image settings.
  * If the dimensions are the same or smaller than what is saved, we skip the resize.
  *
+ * @since 5.14.3
+ *
  * @param int   $id   The media attachment id.
  * @param array $args Optional. Accepts an array of width and height in pixels and crop as a boolean.
- *
- * @since 5.14.3
  *
  * @return bool
  */
@@ -523,7 +525,7 @@ function wpbdp_date( $timestamp ) {
 /**
  * @since 3.5.3
  */
-function wpbdp_get_post_by_id_or_slug( $id_or_slug = false, $try_first = 'id', $result = 'post' ) {
+function wpbdp_get_post_by_id_or_slug( $id_or_slug = false, $try_first = 'id', $result = 'post', $allow_empty = true ) {
 	if ( 'slug' === $try_first ) {
 		$strategies = array( 'post_name', 'ID' );
 	} else {
@@ -542,7 +544,8 @@ function wpbdp_get_post_by_id_or_slug( $id_or_slug = false, $try_first = 'id', $
 				'group'     => 'wpbdp_listings',
 				'query'     => $q,
 				'type'      => 'get_var',
-			)
+			),
+			$allow_empty
 		);
 		$listing_id = intval( $listing_id );
 
@@ -577,6 +580,18 @@ function wpbdp_push_query( &$q ) {
 function wpbdp_pop_query() {
 	global $wpbdp;
 	return array_pop( $wpbdp->_query_stack );
+}
+
+/**
+ * @since 6.4
+ */
+function wpbdp_array_filter( $value ) {
+	return array_filter(
+		$value,
+		function ( $item ) {
+			return strlen( $item ) > 0;
+		}
+	);
 }
 
 /**
@@ -845,8 +860,8 @@ function wpbdp_get_fee_plans( $args = array() ) {
 
 	$order = wpbdp_get_option( 'fee-order' );
 	if ( $order ) {
-		$defaults['orderby'] = ( 'custom' == $order['method'] ) ? 'weight' : $order['method'];
-		$defaults['order']   = ( 'custom' == $order['method'] ) ? 'DESC' : $order['order'];
+		$defaults['orderby'] = 'custom' == $order['method'] ? 'weight' : $order['method'];
+		$defaults['order']   = 'custom' == $order['method'] ? 'DESC' : $order['order'];
 	}
 
 	$args = wp_parse_args( $args, $defaults );
@@ -897,7 +912,7 @@ function wpbdp_get_fee_plans( $args = array() ) {
 			if ( $categories && ! $plan->supports_category_selection( $categories ) ) {
 				continue;
 			}
-			if ( ! $args['include_private'] && ! empty( $plan->extra_data['private'] ) && ! current_user_can( 'administrator' ) ) {
+			if ( ! $args['include_private'] && ! empty( $plan->extra_data['private'] ) && ! wpbdp_user_is_admin() ) {
 				continue;
 			}
 			$plans[] = $plan;
@@ -981,6 +996,8 @@ function wpbdp_render_page( $template, $vars = array(), $echo_output = false ) {
 	include $template;
 	$html = ob_get_contents();
 	ob_end_clean();
+
+	WPBDP_App_Helper::add_theme_button_class( $html );
 
 	if ( $echo_output ) {
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -1090,6 +1107,7 @@ function wpbdp_render_msg( $msg, $type = 'status', $echo = false ) {
 	}
 	$msg = '<div class="' . esc_attr( implode( ' ', $classes ) ) . '">' . wp_kses_post( $msg ) . '</div>';
 	if ( $echo ) {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $msg;
 	}
 
@@ -1112,6 +1130,7 @@ function _wpbdp_template_mode( $template ) {
  *
  * @param mixed  $listing_id listing object or listing id to display.
  * @param string $view 'single' for single view or 'excerpt' for summary view.
+ *
  * @return string HTML output.
  */
 function wpbdp_render_listing( $listing_id = null, $view = 'single', $echo = false ) {
@@ -1121,7 +1140,7 @@ function wpbdp_render_listing( $listing_id = null, $view = 'single', $echo = fal
 		'post_type' => WPBDP_POST_TYPE,
 		'p'         => $listing_id,
 	);
-	if ( ! current_user_can( 'edit_posts' ) ) {
+	if ( ! wpbdp_user_can_access_backend() ) {
 		$args['post_status'] = 'publish';
 	}
 
@@ -1180,6 +1199,7 @@ function wpbdp_latest_listings( $n = 10, $before = '<ul>', $after = '</ul>', $be
  * @since 4.0
  */
 function wpbdp_the_listing_actions() {
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo wpbdp_listing_actions();
 }
 
@@ -1201,7 +1221,8 @@ function wpbdp_sortbar_get_field_options() {
 	$options = array();
 
 	foreach ( wpbdp_get_form_fields() as $field ) {
-		if ( in_array( $field->get_field_type_id(), array( 'image', 'social-network', 'multiselect', 'checkbox', 'url' ) ) || in_array( $field->get_association(), array( 'category', 'tags', 'regions' ) ) ) {
+		$is_sortable = in_array( $field->get_field_type_id(), array( 'image', 'social-network', 'multiselect', 'checkbox', 'url' ) );
+		if ( $is_sortable || in_array( $field->get_association(), array( 'category', 'tags', 'regions' ) ) ) {
 			continue;
 		}
 
@@ -1221,9 +1242,11 @@ function wpbdp_sortbar_get_field_options() {
 /**
  * Returns the admin edit link for the listing.
  *
- * @param int $listing_id the listing ID
- * @return string The admin edit link for the listing (if available).
  * @since 5.1.3
+ *
+ * @param int $listing_id the listing ID
+ *
+ * @return string The admin edit link for the listing (if available).
  */
 function wpbdp_get_edit_post_link( $listing_id ) {
 	if ( ! $post = get_post( $listing_id ) ) {
@@ -1308,7 +1331,6 @@ function wpbdp_get_return_link() {
 	if ( $msg ) {
 		echo '<span class="wpbdp-goback"><a href="' . esc_url( $referer ) . '" >' . esc_html( $msg ) . '</a></span>';
 	}
-
 }
 
 /**
@@ -1323,6 +1345,72 @@ function wpbdp_users_dropdown() {
 	}
 
 	return $res;
+}
+
+/**
+ * Check if user is admin.
+ *
+ * @since 6.3.11
+ *
+ * @return bool Whether user is admin.
+ */
+function wpbdp_user_is_admin() {
+	return current_user_can( 'manage_options' );
+}
+
+/**
+ * Check if user can edit listings.
+ * Defaults to edit_others_posts capability for editors.
+ *
+ * @since 6.4
+ *
+ * @return bool
+ */
+function wpbdp_user_can_edit() {
+	return current_user_can( 'edit_others_posts' );
+}
+
+/**
+ * Check if user can create listings and edit their own.
+ * Defaults to edit_posts capability for contributors.
+ *
+ * @since 6.4
+ *
+ * @return bool
+ */
+function wpbdp_user_can_access_backend() {
+	return current_user_can( wpbdp_backend_minimim_role() );
+}
+
+/**
+ * Check if user has backend access.
+ *
+ * @since 6.4
+ *
+ * @return string
+ */
+function wpbdp_backend_minimim_role() {
+	/**
+	 * Filter the minimum role required to access the backend.
+	 *
+	 * @since 6.4
+	 *
+	 * @param string $role The minimum role required to access the backend.
+	 *
+	 * @return string
+	 */
+	return apply_filters( 'wpbdp_minimum_backend_role', 'edit_posts' );
+}
+
+/**
+ * Alias for wpbdp_backend_minimim_role without the typo.
+ *
+ * @since 6.4.9
+ *
+ * @return string
+ */
+function wpbdp_backend_minimum_role() {
+	return wpbdp_backend_minimim_role();
 }
 
 /**

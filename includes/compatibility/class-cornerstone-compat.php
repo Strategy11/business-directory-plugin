@@ -13,6 +13,12 @@ class WPBDP_Cornerstone_Compat {
 			return $has_shortcode;
 		}
 
-		return wpbdp_has_shortcode( get_post_meta( $post->ID, '_cornerstone_data' )[0], $shortcode );
+		$cornerstone_data = get_post_meta( $post->ID, '_cornerstone_data', true );
+
+		if ( empty( $cornerstone_data ) ) {
+			return false;
+		}
+
+		return wpbdp_has_shortcode( $cornerstone_data, $shortcode );
 	}
 }

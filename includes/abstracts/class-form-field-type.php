@@ -109,6 +109,29 @@ class WPBDP_Form_Field_Type {
 		return $value;
 	}
 
+	/**
+	 * Retrieve the option name for the selected value.
+	 * 
+	 * @since 6.4.10
+	 *
+	 * @param WPBDP_Form_Field_Type $field The field object.
+	 * 
+	 * @return string|null
+	 */
+	public function get_field_selected_value( &$field ) {
+		$listing_param = wpbdp_get_var( array( 'param' => 'listing_id' ), 'get' );
+		$post_param    = wpbdp_get_var( array( 'param' => 'post' ), 'get' );
+
+		if ( empty( $listing_param ) && empty( $post_param ) ) {
+			return null;
+		}
+
+		$post_id = ! empty( $listing_param ) ? intval( $listing_param ) : intval( $post_param );
+		$value   = get_post_meta( $post_id, '_wpbdp[fields][' . $field->get_id() . ']_selected', true );
+
+		return false !== $value ? $value : null;
+	}
+
 	public function get_field_html_value( &$field, $post_id ) {
 		$post = get_post( $post_id );
 
@@ -203,6 +226,29 @@ class WPBDP_Form_Field_Type {
 		}
 	}
 
+	/**
+	 * Store the selected value for the field.
+	 * 
+	 * @since 6.4.10
+	 *
+	 * @param WPBDP_Form_Field_Type $field   The field object.
+	 * @param int|string            $post_id The post ID.
+	 * @param string                $value   The value to store.
+	 * 
+	 * @return void
+	 */
+	protected function store_field_selected_value( &$field, $post_id, $value ) {
+		if ( ! method_exists( $field, 'data' ) || empty( $field->data()['options'] ) ) {
+			return;
+		}
+
+		$option = array_search( $value, $field->data()['options'], true );
+
+		if ( false !== $option ) {
+			update_post_meta( $post_id, '_wpbdp[fields][' . $field->get_id() . ']_selected', $option );
+		}
+	}
+
 	// this function should not try to hide values depending on field, context or value itself.
 	public function display_field( &$field, $post_id, $display_context ) {
 		return self::standard_display_wrapper( $field, $field->html_value( $post_id, $display_context ) );
@@ -221,7 +267,7 @@ class WPBDP_Form_Field_Type {
 					'<div class="wpbdp-search-filter %s %s" %s>',
 					esc_attr( $field->get_field_type()->get_id() ),
 					esc_attr( implode( ' ', $field->get_css_classes( $render_context ) ) ),
-					$this->html_attributes( $field->html_attributes )
+					self::html_attributes( $field->html_attributes )
 				);
 				$html .= '<div class="wpbdp-search-field-label">';
 				$html .= sprintf(
@@ -244,7 +290,7 @@ class WPBDP_Form_Field_Type {
 				break;
 
 			default: // includes submit and edit
-				$html_attributes = $this->html_attributes( apply_filters_ref_array( 'wpbdp_render_field_html_attributes', array( $field->html_attributes, &$field, $value, $render_context, &$extra ) ) );
+				$html_attributes = self::html_attributes( apply_filters_ref_array( 'wpbdp_render_field_html_attributes', array( $field->html_attributes, &$field, $value, $render_context, &$extra ) ) );
 
 				$html .= sprintf(
 					'<div class="%s" %s>',
@@ -259,7 +305,7 @@ class WPBDP_Form_Field_Type {
 					'<label for="%s">%s</label>',
 					'wpbdp-field-' . esc_attr( $field->get_id() ),
 					wp_kses_post( apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field ) ) .
-					( ( $field->has_validator( 'required' ) && 'widget' !== $render_context ) ? '<span class="wpbdp-form-field-required-indicator">*</span>' : '' )
+					( $field->has_validator( 'required' ) && 'widget' !== $render_context ? '<span class="wpbdp-form-field-required-indicator">*</span>' : '' )
 				);
 
 				$html .= '</div>';
@@ -383,6 +429,7 @@ class WPBDP_Form_Field_Type {
 	 *
 	 * @param object $field might be NULL if field is new or the field that is being edited.
 	 * @param string $association field association.
+	 *
 	 * @return string the HTML output.
 	 */
 	public function render_field_settings( &$field = null, $association = null ) {
@@ -394,7 +441,8 @@ class WPBDP_Form_Field_Type {
 	 * It should be used by field types to store any field type specific configuration.
 	 *
 	 * @param object $field the field being saved.
-	 * @return mixed WP_Error in case of error, anything else for success.
+	 *
+	 * @return void|WP_Error WP_Error in case of error, anything else for success.
 	 */
 	public function process_field_settings( &$field ) {
 	}
@@ -453,10 +501,10 @@ class WPBDP_Form_Field_Type {
 	 * Field label display wrapper.
 	 * Used to render the field label.
 	 *
+	 * @since 5.15.3
+	 *
 	 * @param string $label The field label.
 	 * @param array $atts includes $atts['field'] - The field object of the label.
-	 *
-	 * @since 5.15.3
 	 *
 	 * @return string
 	 */
@@ -517,12 +565,12 @@ class WPBDP_Form_Field_Type {
 
 		return $name;
 	}
-
 }
 
 /**
  * @deprecated Since 3.4.2. Use {@link WPBDP_Form_Field_Type} instead.
  */
+// phpcs:ignore
 class WPBDP_FormFieldType extends WPBDP_Form_Field_Type {
 	public function __construct( $name = '' ) {
 		_deprecated_constructor( __CLASS__, '3.4.2', 'WPBDP_Form_Field_Type' );

@@ -21,7 +21,7 @@ WPBDP_Admin_Pages::show_tabs(
 			<?php endforeach; ?>
 			</select>
 
-			<select name="fee_order[order]" style="<?php echo ( 'custom' == $current_order['method'] ) ? 'display: none;' : ''; ?>">
+			<select name="fee_order[order]" style="<?php echo 'custom' == $current_order['method'] ? 'display: none;' : ''; ?>">
 			<?php
 			foreach ( array(
 				'asc'  => __( '↑ Ascending', 'business-directory-plugin' ),
@@ -70,7 +70,7 @@ WPBDP_Admin_Pages::show_tabs(
 			</a>
 			<div class="gateway-description">
 				<?php
-				echo sprintf(
+				printf(
 					// translators: %s: payment gateway name */
 					esc_html__( 'Add %s as a payment option.', 'business-directory-plugin' ),
 					esc_html( $mod_info[2] )

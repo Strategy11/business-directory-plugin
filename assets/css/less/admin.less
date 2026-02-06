@@ -1,9 +1,9 @@
-@import 'colors.less';
+@import 'admin/colors.less';
 @import 'common.less';
 @import 'fonts.less';
-@import 'admin-buttons.less';
-@import 'admin-smtp.less';
-@import 'admin-modules.less';
+@import 'admin/buttons.less';
+@import 'admin/smtp.less';
+@import 'admin/modules.less';
 @import 'admin-notice-review.less';
 @import 'admin/layout.less';
 @import 'admin/notification.less';
@@ -38,9 +38,12 @@
         color: #fff;
         background: @brand;
         border-color: @brand;
+        padding-top: 10px;
 
         &:before {
-            color: #fff;
+            color: @brand;
+            background-color: #fff;
+            top: calc(50% - 16px);
         }
     }
 
@@ -48,6 +51,14 @@
     .wp-pointer-undefined .wp-pointer-arrow-inner {
         border-bottom-color: @brand;
     }
+
+    #wpbdp-drip-pointer-email {
+        width: 100%;
+    }
+}
+
+#adminmenu .wpbdp-orange-text {
+	color: #F47449;
 }
 
 .wpbdp-content-area-body a {
@@ -224,7 +235,7 @@ td.column-sticky_status .status.sticky {
 
 /* Form fields list table */
 
-table.wp-list-table.formfields {
+.wpbdp-admin-page-formfields table.wp-list-table {
     th.column-label {
         width: 40%;
     }
@@ -232,7 +243,8 @@ table.wp-list-table.formfields {
         width: 200px;
     }
     th.column-order, td.column-order  {
-        width: 65px;
+        text-wrap: nowrap;
+        width: 75px;
     }
     td.column-order .wpbdp-drag-handle {
         visibility: hidden;
@@ -478,7 +490,7 @@ body.taxonomy-wpbdp_category .column-id {
 .listing-fee-change .fee-selection .fee {
     padding-bottom: 5px;
     margin-bottom: 10px;
-    border-bottom: dotted 1px @gray;
+    border-bottom: 1px dotted @color-neutral-300;
     opacity: 0.85;
 }
 

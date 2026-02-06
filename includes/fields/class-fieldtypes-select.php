@@ -77,7 +77,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 		return explode( ',', $input );
 	}
 
-	public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
+	public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) { // phpcs:ignore SlevomatCodingStandard.Complexity
 		$options = $field->data( 'options' ) ? $field->data( 'options' ) : array();
 		$value   = is_array( $value ) ? $value : array( $value );
 
@@ -116,7 +116,7 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 			if ( ( 'submit' === $context || 'search' === $context ) && ! $this->is_multiple() ) {
 				$args['show_option_none'] = esc_html__( '-- Choose One --', 'business-directory-plugin' );
 
-				$terms_count = (int) wp_count_terms( WPBDP_CATEGORY_TAX, array( 'hide_empty' => false ) );
+				$terms_count = (int) wp_count_terms( array( 'taxonomy' => WPBDP_CATEGORY_TAX, 'hide_empty' => false ) );
 
 				if ( 'submit' == $context ) {
 					$args['option_none_value'] = '';
@@ -186,40 +186,82 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 			return $html;
 		}
 
-			$html .= sprintf(
-				'<select id="%s" name="%s" %s class="%s %s" %s>',
-				'wpbdp-field-' . $field->get_id(),
-				'listingfields[' . $field->get_id() . ']' . ( $this->is_multiple() ? '[]' : '' ),
-				$this->is_multiple() ? 'multiple="multiple"' : '',
-				'inselect',
-				$field->is_required() ? 'required' : '',
-				$this->is_multiple() ? sprintf( 'size="%d"', $field->data( 'size', 4 ) ) : ''
-			);
+		$html = $this->start_select_html( $field );
 
 		if ( $field->data( 'empty_on_search' ) && $context == 'search' ) {
 			$html .= '<option value="-1"> </option>';
 		}
 
-			$show_empty_option = $field->data( 'show_empty_option', null );
+		$html .= $this->add_empty_option( $field );
+		$html .= $this->add_options_to_field( $options, $value, $field );
+		$html .= '</select>';
 
-		if ( is_null( $show_empty_option ) ) {
-			$show_empty_option = ! $field->has_validator( 'required' );
+		return $html;
+	}
+
+	/**
+	 * @since 6.4.4
+	 *
+	 * @return string
+	 */
+	private function start_select_html( $field ) {
+		return sprintf(
+			'<select id="%s" name="%s" %s class="%s %s" %s>',
+			'wpbdp-field-' . $field->get_id(),
+			'listingfields[' . $field->get_id() . ']' . ( $this->is_multiple() ? '[]' : '' ),
+			$this->is_multiple() ? 'multiple="multiple"' : '',
+			'inselect',
+			$field->is_required() ? 'required' : '',
+			$this->is_multiple() ? sprintf( 'size="%d"', $field->data( 'size', 4 ) ) : ''
+		);
+	}
+
+	/**
+	 * @since 6.4.4
+	 *
+	 * @return string
+	 */
+	private function add_empty_option( $field ) {
+		$show_empty_field_option = $field->data( 'show_empty_option', null );
+		$show_choose_one         = false;
+
+		if ( is_null( $show_empty_field_option ) ) {
+			$show_empty_field_option = ! $field->has_validator( 'required' );
+			$show_choose_one         = true;
 		}
 
-		if ( $show_empty_option ) {
+		if ( $show_empty_field_option ) {
 			$default_label      = __( '— None —', 'business-directory-plugin' );
 			$empty_option_label = $field->data( 'empty_option_label', $default_label );
-			$html              .= '<option value="">' . esc_html( $empty_option_label ) . '</option>';
+			
+			return '<option value="">' . esc_html( $empty_option_label ) . '</option>';
 		}
+
+		return $show_choose_one ? '<option value="">' . esc_html__( '-- Choose One --', 'business-directory-plugin' ) . '</option>' : '';
+	}
+
+	/**
+	 * @since 6.4.4
+	 *
+	 * @return string
+	 */
+	private function add_options_to_field( $options, $value, $field ) {
+		$html = '';
+
+		$selected = $this->get_field_selected_value( $field );
 
 		foreach ( $options as $option => $label ) {
 			$option_data = array(
 				'label'      => $label,
-				'value'      => esc_attr( $option ),
 				'attributes' => array(),
+				'value'      => $option,
 			);
 
-			if ( in_array( $option, $value ) ) {
+			if (
+				( ! empty( $selected ) && $option === $selected ) ||
+				// phpcs:ignore
+				in_array( $option, $value )
+			) {
 				$option_data['attributes']['selected'] = 'selected';
 			}
 
@@ -227,15 +269,13 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 
 			$html .= sprintf(
 				'<option value="%s" class="%s" %s>%s</option>',
-				esc_attr( $option_data['value'] ),
+				// phpcs:ignore
+				$this->is_multiple() && $field->get_association() == 'meta' ? esc_attr( $option_data['label'] ) : esc_attr( $option_data['value'] ),
 				esc_attr( 'wpbdp-inner-field-option wpbdp-inner-field-option-' . WPBDP_Form_Field_Type::normalize_name( $option_data['label'] ) ),
-				$this->html_attributes( $option_data['attributes'], array( 'value', 'class' ) ),
+				self::html_attributes( $option_data['attributes'], array( 'value', 'class' ) ),
 				esc_html( $option_data['label'] )
 			);
 		}
-
-			$html .= '</select>';
-
 		return $html;
 	}
 
@@ -286,6 +326,9 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 		return $settings;
 	}
 
+	/**
+	 * @return void|WP_Error
+	 */
 	public function process_field_settings( &$field ) {
 		if ( ! isset( $_POST['field']['x_options'] ) ) {
 			return;
@@ -326,6 +369,8 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 			if ( $value ) {
 				$value = implode( "\t", is_array( $value ) ? $value : array( $value ) );
 			}
+
+			$this->store_field_selected_value( $field, $post_id, $value );
 		} elseif ( 'meta' == $field->get_association() ) {
 			$value = is_array( $value ) ? ( ! empty( $value ) ? $value[0] : '' ) : $value;
 		}
@@ -430,5 +475,4 @@ class WPBDP_FieldTypes_Select extends WPBDP_Form_Field_Type {
 	public function is_empty_value( $value ) {
 		return empty( $value ) || ( is_array( $value ) && in_array( -1, $value ) );
 	}
-
 }

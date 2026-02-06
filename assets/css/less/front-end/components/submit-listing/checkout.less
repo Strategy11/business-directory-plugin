@@ -1,0 +1,119 @@
+.wpbdp-checkout-section {
+    margin: 0 0 @padding-lg;
+    padding: @padding-lg;
+    border: 1px solid @color-neutral-300;
+
+    &.wpbdp-checkout-errors {
+        padding: 0;
+        border: none;
+    }
+
+    h3 {
+        margin: 0 0 @padding-lg 0;
+        padding: 0;
+    }
+}
+
+.wpbdp-grid > h3 {
+    margin-bottom: 0;
+}
+
+.wpbdp-checkout-gateway-selection {
+    label {
+        margin: 0 @padding-md 0 0;
+        text-wrap: nowrap;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        input, img {
+            vertical-align: middle;
+        }
+        img {
+            margin-bottom: @padding-md;
+        }
+    }
+}
+
+.wpbdp-billing-detail-field {
+    margin: 0 0 @padding-lg;
+
+    &.wpbdp-required label:after {
+        content: ' *';
+        color: @red;
+    }
+}
+
+.wpbdp-exp-field {
+	select {
+		width: auto;
+	}
+}
+
+.wpbdp-exp-slash {
+	padding: 0 5px;
+}
+
+.wpbdp-payment-receipt {
+    border: 1px solid @color-neutral-300;
+    padding: @padding-md @padding-lg;
+    margin: @padding-lg 0;
+    font-size: 90%;
+
+    h4 {
+        margin: 0;
+        padding: 0;
+    }
+
+    .wpbdp-payment-receipt-date {
+        opacity: .8;
+    }
+
+    .wpbdp-payment-status {
+        float: right;
+    }
+
+    .wpbdp-payment-receipt-details {
+        margin: @padding-lg @padding-sm;
+
+        dl {
+            margin: 0;
+            padding: 0;
+
+            dt {
+                margin: 0;
+                padding: 0;
+                float: left;
+                min-width: 50%;
+            }
+
+            dd {
+                margin: 0 0 5px 50%;
+                padding: 0;
+            }
+        }
+    }
+
+    .wpbdp-payment-receipt-print {
+        margin: 1.5em 0 0 0;
+    }
+}
+
+.wpbdp-checkout-invoice {
+    table.wpbdp-payment-items-table {
+        th, td {
+            font-size: 95%;
+        }
+
+        tr.item td:first-of-type {
+            width: 80%;
+        }
+
+        .item-fee-description {
+            margin-left: 10px;
+            font-size: 85%;
+            max-width: 90%;
+        }
+    }
+}

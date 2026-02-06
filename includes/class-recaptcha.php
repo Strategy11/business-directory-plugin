@@ -111,7 +111,7 @@ class WPBDP_reCAPTCHA {
 			$html .= '</div>';
 		}
 
-		$this->current_id++;
+		++$this->current_id;
 
 		return $html;
 	}
@@ -163,7 +163,7 @@ class WPBDP_reCAPTCHA {
 				return true;
 			}
 
-			if ( current_user_can( 'edit_others_posts' ) ) {
+			if ( wpbdp_user_can_edit() ) {
 				// Show the score to site editors.
 				$error_msg .= ' ' . esc_html( $js['score'] );
 			}
@@ -209,7 +209,7 @@ class WPBDP_reCAPTCHA {
 			$this->comment_error = true;
 			add_filter(
 				'pre_comment_approved',
-				function( $a ) {
+				function ( $a ) {
 					return 'spam';
 				}
 			);
@@ -243,12 +243,12 @@ class WPBDP_reCAPTCHA {
 			return;
 		}
 
-		echo <<<JS
-        <script>//<![CDATA[
-            jQuery( '#comment' ).val( "{$comment->comment_content}" );
+		?>
+		<script>//<![CDATA[
+            jQuery( '#comment' ).val( '<?php esc_js( $comment->comment_content ); ?>' );
         //}}>
         </script>
-JS;
+		<?php
 	}
 
 	/**
@@ -309,17 +309,15 @@ JS;
 		}
 
 		return true;
-
 	}
-
 }
-
 
 /**
  * Displays a reCAPTCHA field using the configured settings.
  *
- * @return string HTML for the reCAPTCHA field.
  * @since 3.4.2
+ *
+ * @return string HTML for the reCAPTCHA field.
  */
 function wpbdp_recaptcha( $name = '' ) {
 	return wpbdp()->recaptcha->render( $name );
@@ -328,10 +326,10 @@ function wpbdp_recaptcha( $name = '' ) {
 /**
  * Validates reCAPTCHA input.
  *
- * @return boolean TRUE if validation succeeded, FALSE otherwise.
  * @since 3.4.2
+ *
+ * @return bool TRUE if validation succeeded, FALSE otherwise.
  */
 function wpbdp_recaptcha_check_answer( &$error_msg = null ) {
 	return wpbdp()->recaptcha->verify( $error_msg );
 }
-

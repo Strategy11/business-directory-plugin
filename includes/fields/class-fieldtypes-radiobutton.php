@@ -52,8 +52,10 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 			return $html;
 		}
 
-		$html = '';
-		$i    = 1;
+		$html     = '';
+		$i        = 1;
+		$selected = $this->get_field_selected_value( $field );
+
 		foreach ( $options as $option => $label ) {
 			$css_classes   = array();
 			$css_classes[] = 'wpbdp-inner-field-option';
@@ -64,19 +66,45 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 			$css_classes[] = 'wpbdp-inner-radio-' . $i;
 			$css_classes[] = 'wpbdp-inner-radio-' . WPBDP_Form_Field_Type::normalize_name( $label );
 
+			$checked = '';
+
+			if ( $selected === $option || $value === $option ) {
+				$checked = 'checked="checked"';
+			}
+
 			$html .= sprintf(
-				'<div class="%1%s"><label for="wpbdp-field-%6$d-%5$s"><input id="wpbdp-field-%6$d-%5$s" type="radio" name="%2$s" value="%3$s" %4$s /> %5$s</label></div>',
+				'<div class="%1$s"><label for="wpbdp-field-%6$d-%5$s"><input id="wpbdp-field-%6$d-%5$s" type="radio" name="%2$s" value="%3$s" %4$s /> %5$s</label></div>',
 				implode( ' ', $css_classes ),
 				'listingfields[' . $field->get_id() . ']',
-				$option,
-				$value == $option ? 'checked="checked"' : '',
+				$field->get_association() === 'meta' ? esc_attr( $label ) : $option,
+				$checked,
 				esc_attr( $label ),
 				$field->get_id()
 			);
-			$i++;
+
+			++$i;
 		}
 
 		return $html;
+	}
+
+	/**
+	 * Extend the parent method to store the selected value.
+	 * 
+	 * @since 6.4.10
+	 *
+	 * @param WPBDP_Form_Field_Type $field
+	 * @param int|string $post_id
+	 * @param string $value
+	 * 
+	 * @return void
+	 */
+	public function store_field_value( &$field, $post_id, $value ) {
+		if ( $field->get_association() === 'meta' ) {
+			$this->store_field_selected_value( $field, $post_id, $value );
+		}
+
+		parent::store_field_value( $field, $post_id, $value );
 	}
 
 	public function get_supported_associations() {
@@ -107,6 +135,9 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 		return self::render_admin_settings( array( array( $label, $content ) ) );
 	}
 
+	/**
+	 * @return void|WP_Error
+	 */
 	public function process_field_settings( &$field ) {
 		if ( ! array_key_exists( 'x_options', $_POST['field'] ) ) {
 			return;
@@ -171,7 +202,4 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 
 		return strval( $value );
 	}
-
-
 }
-

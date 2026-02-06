@@ -10,7 +10,9 @@ $reasons = array(
 );
 ?>
 
-<form id="wpbdp-uninstall-capture-form" action="<?php echo esc_attr( $action ); ?>" method="post">
+<form id="wpbdp-uninstall-capture-form"
+	action="<?php echo esc_attr( $action ); // phpcs:ignore WordPressVIPMinimum.Security.ProperEscapingFunction.hrefSrcEscUrl ?>"
+	method="post">
 	<?php wp_nonce_field( 'uninstall bd' ); ?>
 
 	<p><?php esc_html_e( 'We\'re sorry to see you leave. Could you take 10 seconds and answer one question for us to help us make the product better for everyone in the future?', 'business-directory-plugin' ); ?></p>

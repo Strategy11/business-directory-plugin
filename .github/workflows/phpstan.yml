@@ -10,7 +10,7 @@ on:
 name: PHPStan Code Analysis
 jobs:
   phpstan:
-    if: contains(github.event.pull_request.labels.*.name, 'ready to merge')
+    if: contains(github.event.pull_request.labels.*.name, 'run analysis')
     name: PHPStan
 
     runs-on: ubuntu-latest
@@ -22,7 +22,7 @@ jobs:
       - name: "💽  Installing PHP, Composer, CS2PR"
         uses: shivammathur/setup-php@2.10.0
         with:
-          php-version: '7.4'
+          php-version: '8.2'
           coverage: none
           ini-values: display_errors = on, error_reporting = E_ALL
           tools: phpstan, composer
@@ -31,4 +31,4 @@ jobs:
         run: composer install
 
       - name: "🧪 Test"
-        run: phpstan analyze ./
+        run: vendor/bin/phpstan analyze ./
