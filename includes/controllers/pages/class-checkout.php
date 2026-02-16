@@ -137,7 +137,7 @@ class WPBDP__Views__Checkout extends WPBDP__View {
 		}
 
 		if ( ! $this->payment ) {
-			wp_die( 'Invalid Payment ID/key' );
+			wp_die( __( 'Invalid Payment ID/key', 'business-directory-plugin' ) );
 		}
 
 		$this->payment_id = $this->payment->id;
