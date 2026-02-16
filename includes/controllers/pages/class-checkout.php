@@ -125,14 +125,19 @@ class WPBDP__Views__Checkout extends WPBDP__View {
 
 	private function fetch_payment() {
 		$payment_id = wpbdp_get_var( array( 'param' => 'payment' ), 'request' );
+
+		if ( ! is_string( $payment_id ) ) {
+			wp_die( __( 'Invalid Payment ID/key', 'business-directory-plugin' ) );
+		}
+
 		if ( ! $this->payment_id && ! empty( $payment_id ) ) {
-			$this->payment = WPBDP_Payment::objects()->get( array( 'payment_key' => $payment_id ) );
+			$this->payment = WPBDP_Payment::objects()->get( array( 'payment_key' => sanitize_text_field( $payment_id ) ) );
 		} elseif ( $this->payment_id ) {
 			$this->payment = WPBDP_Payment::objects()->get( $this->payment_id );
 		}
 
 		if ( ! $this->payment ) {
-			wp_die( 'Invalid Payment ID/key' );
+			wp_die( __( 'Invalid Payment ID/key', 'business-directory-plugin' ) );
 		}
 
 		$this->payment_id = $this->payment->id;

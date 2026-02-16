@@ -207,7 +207,13 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
 			}
 
 			if ( is_array( $v ) ) {
-				$filters[] = "$f IN ('" . implode( '\',\'', $v ) . "')";
+				if ( empty( $v ) ) {
+					$filters[] = '1 = 0';
+				} else {
+					$placeholders = implode( ', ', array_fill( 0, count( $v ), '%s' ) );
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $f is a trusted column name.
+					$filters[] = $this->db->prepare( "$f IN ($placeholders)", ...array_values( $v ) );
+				}
 			} else {
 				$filters[] = $this->db->prepare( "$f $op %s", $v );
 			}
