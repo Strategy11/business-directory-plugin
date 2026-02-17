@@ -54,7 +54,7 @@ class WPBDP__CPT_Compat_Mode {
 	/**
 	 * Update the admin bar edit link to point to the listing.
 	 *
-	 * @since x.x
+	 * @since 6.4.22
 	 *
 	 * @param WP_Admin_Bar $wp_admin_bar The WP_Admin_Bar instance.
 	 *

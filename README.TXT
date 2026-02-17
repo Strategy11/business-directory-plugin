@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 5.9
 Requires PHP: 7.4
 Tested up to: 6.9
-Stable tag: 6.4.21
+Stable tag: 6.4.22
 License: GPLv2 or later
 
 The easy Business Directory Plugin for WordPress. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,11 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.4.22 =
+* Fix: Directory not recognizing successful payments after failed payment
+* Fix: Advanced CPT uses default directory URL instead of listing URL
+* Fix: Expired email template new line issue
+
 = 6.4.21 =
 * Enhancement: Added backend validation for the fields
 * Fix: PHP Notices
@@ -216,12 +221,5 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 
 = 6.4.8 =
 * Fix: Issue with the redirect chain for the new login redirect feature
-
-= 6.4.7 =
-* New: A new option was added to set a redirect URL for the login process. Now the users can be redirected to any page after logging in.
-* Fix: Issue with the caching mechanism for listings when using Elementor
-* Fix: 2 PHP notices when using PHP 8.4
-* Fix: A PHP warning on the email templates page
-* Fix: The label for the upgrade button now shows "Install Now" if the user already has access to the add-on
 
 <a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>

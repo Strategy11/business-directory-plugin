@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2026-02-03 07:18:05+00:00\n"
+"POT-Creation-Date: 2026-02-17 09:58:19+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -434,6 +434,7 @@ msgstr "Pagamento #%s"
 
 #: includes/admin/controllers/class-admin-listings.php:575
 #: includes/class-cpt-integration.php:21
+#: includes/compatibility/class-cpt-compat-mode.php:88
 #: includes/compatibility/class-navxt-integration.php:223
 #: templates/submit-listing.tpl.php:15
 msgid "Edit Listing"
@@ -504,8 +505,8 @@ msgid "Form Preview"
 msgstr "Anteprima modulo"
 
 #: includes/admin/controllers/class-form-fields-admin.php:152
-#: includes/helpers/functions/general.php:1309
-#: includes/helpers/functions/general.php:1314
+#: includes/helpers/functions/general.php:1324
+#: includes/helpers/functions/general.php:1329
 #, fuzzy
 msgid "Go back"
 msgstr "Va indietro"
@@ -2133,13 +2134,19 @@ msgstr "Vai al tuo annuncio"
 msgid "View All Listings"
 msgstr "Visualizza tutti gli annunci"
 
-#: includes/controllers/pages/class-checkout.php:183
+#: includes/controllers/pages/class-checkout.php:130
+#: includes/controllers/pages/class-checkout.php:140
+#, fuzzy
+msgid "Invalid Payment ID/key"
+msgstr "ID articolo non valido"
+
+#: includes/controllers/pages/class-checkout.php:188
 #: includes/controllers/pages/class-manage-listings.php:118
 #, fuzzy
 msgid "Pay Now"
 msgstr "Paga Adesso"
 
-#: includes/controllers/pages/class-checkout.php:183
+#: includes/controllers/pages/class-checkout.php:188
 #, fuzzy
 msgid "Complete"
 msgstr "Completato"
@@ -2737,7 +2744,7 @@ msgstr ""
 msgid "Destination dir \"%s\" is not writable."
 msgstr "La destinazione dir \"%s\" non è scrivibile."
 
-#: includes/helpers/functions/general.php:1299
+#: includes/helpers/functions/general.php:1314
 #, fuzzy
 msgid "Return to Directory"
 msgstr "Torna all'elenco"
@@ -3048,12 +3055,12 @@ msgstr "Vai al tuo annuncio"
 msgid "Return to plan selection"
 msgstr "Ritorno alla selezione del piano tariffario"
 
-#: includes/themes.php:893
+#: includes/themes.php:923
 #, fuzzy
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr "Il file ZIP non è un file tema BD valido."
 
-#: includes/themes.php:949
+#: includes/themes.php:979
 #, fuzzy
 msgid "Please update Business Directory Plugin to latest version."
 msgstr "Business Directory Plugin"
@@ -6160,13 +6167,13 @@ msgid "Author"
 msgstr "Autore"
 
 #: includes/admin/settings/class-settings-bootstrap.php:840
-#: includes/helpers/functions/general.php:1222
+#: includes/helpers/functions/general.php:1237
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Data di pubblicazione"
 
 #: includes/admin/settings/class-settings-bootstrap.php:841
-#: includes/helpers/functions/general.php:1223
+#: includes/helpers/functions/general.php:1238
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Data ultima modifica"
@@ -6375,12 +6382,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Carica Immagini"
 
-#: includes/helpers/functions/general.php:1220
+#: includes/helpers/functions/general.php:1235
 msgctxt "admin settings"
 msgid "User"
 msgstr "Utente"
 
-#: includes/helpers/functions/general.php:1221
+#: includes/helpers/functions/general.php:1236
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Data di registrazione"
@@ -7372,17 +7379,17 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr "Il tema è stato aggiornato con successo."
 
-#: includes/themes.php:901
+#: includes/themes.php:931
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Impossibile creare una directory dei temi."
 
-#: includes/themes.php:912
+#: includes/themes.php:942
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Impossibile rimuovere la directory al tema precedente \"%s\"."
 
-#: includes/themes.php:920
+#: includes/themes.php:950
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Non è stato possibile spostare un nuovo tema nella directory dei temi."
@@ -7860,28 +7867,28 @@ msgstr ""
 "Non è possibile elaborare un pagamento in questo momento. Per favore, "
 "riprova più tardi."
 
-#: includes/controllers/pages/class-checkout.php:152
+#: includes/controllers/pages/class-checkout.php:157
 #, fuzzy
 msgctxt "checkout"
 msgid "Invalid nonce received."
 msgstr "Invalid nonce ricevuto."
 
-#: includes/controllers/pages/class-checkout.php:167
+#: includes/controllers/pages/class-checkout.php:172
 msgctxt "checkout"
 msgid "Invalid gateway selected."
 msgstr "Gateway non valido selezionato."
 
-#: includes/controllers/pages/class-checkout.php:172
+#: includes/controllers/pages/class-checkout.php:177
 msgctxt "checkout"
 msgid "Selected gateway does not support payment's currency."
 msgstr "Il gateway selezionato non supporta la valuta del pagamento."
 
-#: includes/controllers/pages/class-checkout.php:231
+#: includes/controllers/pages/class-checkout.php:236
 msgctxt "checkout"
 msgid "Unknown gateway error."
 msgstr "Errore gateway sconosciuto."
 
-#: includes/controllers/pages/class-checkout.php:270
+#: includes/controllers/pages/class-checkout.php:275
 #, fuzzy
 msgctxt "checkout"
 msgid ""
@@ -8059,7 +8066,7 @@ msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Accetto i <a>termini e le condizioni</a> d'uso"
 
-#: includes/helpers/functions/general.php:1305
+#: includes/helpers/functions/general.php:1320
 msgctxt "templates"
 msgid "Return to results"
 msgstr "Ritorno ai risultati"
@@ -8656,7 +8663,7 @@ msgctxt "authorize-net"
 msgid "Listing #%d"
 msgstr "Elenco #%d"
 
-#: includes/gateways/class-stripe-gateway.php:612
+#: includes/gateways/class-stripe-gateway.php:619
 msgctxt "stripe"
 msgid "Stripe payments are not connected."
 msgstr ""
@@ -15760,10 +15767,6 @@ msgstr "No, torna ai miei abbonamenti"
 #, fuzzy
 #~ msgid "Site %d"
 #~ msgstr "Licenze"
-
-#, fuzzy
-#~ msgid "Invalid menu ID."
-#~ msgstr "ID articolo non valido"
 
 #, fuzzy
 #~ msgid "Site title."
