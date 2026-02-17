@@ -138,11 +138,14 @@ class WPBDP_Email {
 			return false;
 		}
 		if ( $this->template ) {
+			$prepared_body = str_ireplace( array( '<br>', '<br/>', '<br />' ), "\n", $this->body );
+			$prepared_body = nl2br( $prepared_body );
+
 			if ( $html_ = wpbdp_render(
 				$this->template,
 				array(
 					'subject' => $this->subject,
-					'body'    => $this->body,
+					'body'    => $prepared_body,
 				)
 			) ) {
 				$this->html = $html_;
