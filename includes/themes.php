@@ -67,7 +67,7 @@ class WPBDP_Themes {
 	/**
 	 * Get the paths from locate_template() in WordPress core.
 	 *
-	 * @since x.x
+	 * @since 6.4.22
 	 *
 	 * @return void
 	 */

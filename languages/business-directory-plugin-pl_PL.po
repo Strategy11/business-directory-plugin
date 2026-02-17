@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2026-02-03 07:18:05+00:00\n"
+"POT-Creation-Date: 2026-02-17 09:58:19+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: HomeSupport <admin@homesupport.pl>\n"
 "Language-Team: HomeSupport\n"
@@ -496,6 +496,7 @@ msgstr "Płatność #%d"
 # @ WPBDM
 #: includes/admin/controllers/class-admin-listings.php:575
 #: includes/class-cpt-integration.php:21
+#: includes/compatibility/class-cpt-compat-mode.php:88
 #: includes/compatibility/class-navxt-integration.php:223
 #: templates/submit-listing.tpl.php:15
 msgid "Edit Listing"
@@ -568,8 +569,8 @@ msgid "Form Preview"
 msgstr "Podgląd formularza"
 
 #: includes/admin/controllers/class-form-fields-admin.php:152
-#: includes/helpers/functions/general.php:1309
-#: includes/helpers/functions/general.php:1314
+#: includes/helpers/functions/general.php:1324
+#: includes/helpers/functions/general.php:1329
 msgid "Go back"
 msgstr ""
 
@@ -2313,13 +2314,20 @@ msgstr "Przejdź do Twojej oferty."
 msgid "View All Listings"
 msgstr "Zobacz wszystkie Firmy"
 
-#: includes/controllers/pages/class-checkout.php:183
+# @ WPBDM
+#: includes/controllers/pages/class-checkout.php:130
+#: includes/controllers/pages/class-checkout.php:140
+#, fuzzy
+msgid "Invalid Payment ID/key"
+msgstr "Niewłaściwe ID Pola"
+
+#: includes/controllers/pages/class-checkout.php:188
 #: includes/controllers/pages/class-manage-listings.php:118
 msgid "Pay Now"
 msgstr ""
 
 # @ WPBDM
-#: includes/controllers/pages/class-checkout.php:183
+#: includes/controllers/pages/class-checkout.php:188
 #, fuzzy
 msgid "Complete"
 msgstr "Zakończona"
@@ -2981,7 +2989,7 @@ msgid "Destination dir \"%s\" is not writable."
 msgstr "Kategoria \"%s\" nie istnieje"
 
 # @ WPBDM
-#: includes/helpers/functions/general.php:1299
+#: includes/helpers/functions/general.php:1314
 #, fuzzy
 msgid "Return to Directory"
 msgstr "Powrót do Katalogu."
@@ -3319,13 +3327,13 @@ msgid "Return to plan selection"
 msgstr "Powrót do oferty."
 
 # @ WPBDM
-#: includes/themes.php:893
+#: includes/themes.php:923
 #, fuzzy
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr "Proszę wprowadzić poprawny adres e-mail."
 
 # @ WPBDM
-#: includes/themes.php:949
+#: includes/themes.php:979
 #, fuzzy
 msgid "Please update Business Directory Plugin to latest version."
 msgstr "Plugin Katalog Firm"
@@ -6735,14 +6743,14 @@ msgstr "Autor"
 
 # @ WPBDM
 #: includes/admin/settings/class-settings-bootstrap.php:840
-#: includes/helpers/functions/general.php:1222
+#: includes/helpers/functions/general.php:1237
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Data publikacji"
 
 # @ WPBDM
 #: includes/admin/settings/class-settings-bootstrap.php:841
-#: includes/helpers/functions/general.php:1223
+#: includes/helpers/functions/general.php:1238
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Data ostatnij modyfikacji"
@@ -6985,13 +6993,13 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Załaduj obraz"
 
-#: includes/helpers/functions/general.php:1220
+#: includes/helpers/functions/general.php:1235
 msgctxt "admin settings"
 msgid "User"
 msgstr ""
 
 # @ WPBDM
-#: includes/helpers/functions/general.php:1221
+#: includes/helpers/functions/general.php:1236
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Data zakończenia emisji oferty"
@@ -8140,19 +8148,19 @@ msgid "Theme was updated successfully."
 msgstr "Import zakończony pełnym sukcesem."
 
 # @ WPBDM
-#: includes/themes.php:901
+#: includes/themes.php:931
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Nie można utworzyć katalogu wpbdp-csv-eksport."
 
 # @ WPBDM
-#: includes/themes.php:912
+#: includes/themes.php:942
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Nie można utworzyć kategorii ofert \"%s\""
 
 # @ WPBDM
-#: includes/themes.php:920
+#: includes/themes.php:950
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Nie masz aktualnie ofert w katalogu."
@@ -8695,30 +8703,30 @@ msgstr ""
 "później."
 
 # @ WPBDM
-#: includes/controllers/pages/class-checkout.php:152
+#: includes/controllers/pages/class-checkout.php:157
 #, fuzzy
 msgctxt "checkout"
 msgid "Invalid nonce received."
 msgstr "Niewłaściwe ID płatności"
 
 # @ WPBDM
-#: includes/controllers/pages/class-checkout.php:167
+#: includes/controllers/pages/class-checkout.php:172
 #, fuzzy
 msgctxt "checkout"
 msgid "Invalid gateway selected."
 msgstr "Niepoprawny Kraj."
 
-#: includes/controllers/pages/class-checkout.php:172
+#: includes/controllers/pages/class-checkout.php:177
 msgctxt "checkout"
 msgid "Selected gateway does not support payment's currency."
 msgstr ""
 
-#: includes/controllers/pages/class-checkout.php:231
+#: includes/controllers/pages/class-checkout.php:236
 msgctxt "checkout"
 msgid "Unknown gateway error."
 msgstr ""
 
-#: includes/controllers/pages/class-checkout.php:270
+#: includes/controllers/pages/class-checkout.php:275
 msgctxt "checkout"
 msgid ""
 "There was an error trying to process your request. No gateway is selected."
@@ -8898,7 +8906,7 @@ msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Akceptuję rwarunki i regulamin korzystania z witryny."
 
 # @ WPBDM
-#: includes/helpers/functions/general.php:1305
+#: includes/helpers/functions/general.php:1320
 #, fuzzy
 msgctxt "templates"
 msgid "Return to results"
@@ -9577,7 +9585,7 @@ msgctxt "authorize-net"
 msgid "Listing #%d"
 msgstr "Edycja oferty"
 
-#: includes/gateways/class-stripe-gateway.php:612
+#: includes/gateways/class-stripe-gateway.php:619
 msgctxt "stripe"
 msgid "Stripe payments are not connected."
 msgstr ""
@@ -17938,11 +17946,6 @@ msgstr "Link do zarządzania subskrypcjami"
 #, fuzzy
 #~ msgid "Site %d"
 #~ msgstr "Licencje"
-
-# @ WPBDM
-#, fuzzy
-#~ msgid "Invalid menu ID."
-#~ msgstr "Niewłaściwe ID Pola"
 
 # @ WPBDM
 #, fuzzy

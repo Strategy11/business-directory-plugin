@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2026-02-03 07:18:05+00:00\n"
+"POT-Creation-Date: 2026-02-17 09:58:19+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: admin <info@nederlofcentrum.nl>\n"
 "Language-Team: Dutch\n"
@@ -407,6 +407,7 @@ msgstr "Betaling"
 
 #: includes/admin/controllers/class-admin-listings.php:575
 #: includes/class-cpt-integration.php:21
+#: includes/compatibility/class-cpt-compat-mode.php:88
 #: includes/compatibility/class-navxt-integration.php:223
 #: templates/submit-listing.tpl.php:15
 msgid "Edit Listing"
@@ -470,8 +471,8 @@ msgid "Form Preview"
 msgstr "Formulier voorvertoning"
 
 #: includes/admin/controllers/class-form-fields-admin.php:152
-#: includes/helpers/functions/general.php:1309
-#: includes/helpers/functions/general.php:1314
+#: includes/helpers/functions/general.php:1324
+#: includes/helpers/functions/general.php:1329
 msgid "Go back"
 msgstr ""
 
@@ -1993,12 +1994,18 @@ msgstr "ga naar de registratie"
 msgid "View All Listings"
 msgstr "Bekijk alle registratie"
 
-#: includes/controllers/pages/class-checkout.php:183
+#: includes/controllers/pages/class-checkout.php:130
+#: includes/controllers/pages/class-checkout.php:140
+#, fuzzy
+msgid "Invalid Payment ID/key"
+msgstr "Ongeld e-mail adres."
+
+#: includes/controllers/pages/class-checkout.php:188
 #: includes/controllers/pages/class-manage-listings.php:118
 msgid "Pay Now"
 msgstr ""
 
-#: includes/controllers/pages/class-checkout.php:183
+#: includes/controllers/pages/class-checkout.php:188
 #, fuzzy
 msgid "Complete"
 msgstr "Afgerond"
@@ -2539,7 +2546,7 @@ msgstr ""
 msgid "Destination dir \"%s\" is not writable."
 msgstr ""
 
-#: includes/helpers/functions/general.php:1299
+#: includes/helpers/functions/general.php:1314
 #, fuzzy
 msgid "Return to Directory"
 msgstr "Terug naar Registers"
@@ -2816,11 +2823,11 @@ msgstr "ga naar de registratie"
 msgid "Return to plan selection"
 msgstr "Terug naar registratie."
 
-#: includes/themes.php:893
+#: includes/themes.php:923
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr ""
 
-#: includes/themes.php:949
+#: includes/themes.php:979
 #, fuzzy
 msgid "Please update Business Directory Plugin to latest version."
 msgstr "Business Directory instellingen"
@@ -5619,13 +5626,13 @@ msgid "Author"
 msgstr "Auteur"
 
 #: includes/admin/settings/class-settings-bootstrap.php:840
-#: includes/helpers/functions/general.php:1222
+#: includes/helpers/functions/general.php:1237
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Datum ingediend"
 
 #: includes/admin/settings/class-settings-bootstrap.php:841
-#: includes/helpers/functions/general.php:1223
+#: includes/helpers/functions/general.php:1238
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr ""
@@ -5840,12 +5847,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Beelden uploaden"
 
-#: includes/helpers/functions/general.php:1220
+#: includes/helpers/functions/general.php:1235
 msgctxt "admin settings"
 msgid "User"
 msgstr "Gebruiker"
 
-#: includes/helpers/functions/general.php:1221
+#: includes/helpers/functions/general.php:1236
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Gebruikers registratie datum"
@@ -6836,17 +6843,17 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr ""
 
-#: includes/themes.php:901
+#: includes/themes.php:931
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr ""
 
-#: includes/themes.php:912
+#: includes/themes.php:942
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr ""
 
-#: includes/themes.php:920
+#: includes/themes.php:950
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr ""
@@ -7294,27 +7301,27 @@ msgctxt "checkout"
 msgid "Can not process a payment at this time. Please try again later."
 msgstr ""
 
-#: includes/controllers/pages/class-checkout.php:152
+#: includes/controllers/pages/class-checkout.php:157
 msgctxt "checkout"
 msgid "Invalid nonce received."
 msgstr ""
 
-#: includes/controllers/pages/class-checkout.php:167
+#: includes/controllers/pages/class-checkout.php:172
 msgctxt "checkout"
 msgid "Invalid gateway selected."
 msgstr ""
 
-#: includes/controllers/pages/class-checkout.php:172
+#: includes/controllers/pages/class-checkout.php:177
 msgctxt "checkout"
 msgid "Selected gateway does not support payment's currency."
 msgstr ""
 
-#: includes/controllers/pages/class-checkout.php:231
+#: includes/controllers/pages/class-checkout.php:236
 msgctxt "checkout"
 msgid "Unknown gateway error."
 msgstr ""
 
-#: includes/controllers/pages/class-checkout.php:270
+#: includes/controllers/pages/class-checkout.php:275
 msgctxt "checkout"
 msgid ""
 "There was an error trying to process your request. No gateway is selected."
@@ -7464,7 +7471,7 @@ msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Ik ben akkoord met de voorwaarden"
 
-#: includes/helpers/functions/general.php:1305
+#: includes/helpers/functions/general.php:1320
 #, fuzzy
 msgctxt "templates"
 msgid "Return to results"
@@ -8034,7 +8041,7 @@ msgctxt "authorize-net"
 msgid "Listing #%d"
 msgstr "Registratie bewerken"
 
-#: includes/gateways/class-stripe-gateway.php:612
+#: includes/gateways/class-stripe-gateway.php:619
 msgctxt "stripe"
 msgid "Stripe payments are not connected."
 msgstr ""
@@ -13764,10 +13771,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Site %d"
 #~ msgstr "Beelden bij de registratie"
-
-#, fuzzy
-#~ msgid "Invalid menu ID."
-#~ msgstr "Ongeld e-mail adres."
 
 #, fuzzy
 #~ msgid "Site title."

@@ -213,7 +213,7 @@ class WPBDPStrpEventsController {
 	/**
 	 * Handle invoice.payment_failed events.
 	 *
-	 * @since x.x
+	 * @since 6.4.22
 	 *
 	 * @param WPBDP__Listing_Subscription|null $subscription   The subscription object.
 	 * @param object|null                      $parent_payment The parent payment object.
@@ -319,7 +319,7 @@ class WPBDPStrpEventsController {
 	/**
 	 * Find the WPBDP payment associated with a payment intent.
 	 *
-	 * @since x.x
+	 * @since 6.4.22
 	 *
 	 * @return WPBDP_Payment|null The payment object if found, null otherwise.
 	 */
@@ -447,7 +447,7 @@ class WPBDPStrpEventsController {
 	/**
 	 * Reactivate a listing if it was previously marked as failed.
 	 *
-	 * @since x.x
+	 * @since 6.4.22
 	 *
 	 * @param int $listing_id The listing ID to check and potentially reactivate.
 	 *

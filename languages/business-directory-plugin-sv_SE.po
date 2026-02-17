@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2026-02-03 07:18:05+00:00\n"
+"POT-Creation-Date: 2026-02-17 09:58:19+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -428,6 +428,7 @@ msgstr "Betalning #%s"
 
 #: includes/admin/controllers/class-admin-listings.php:575
 #: includes/class-cpt-integration.php:21
+#: includes/compatibility/class-cpt-compat-mode.php:88
 #: includes/compatibility/class-navxt-integration.php:223
 #: templates/submit-listing.tpl.php:15
 msgid "Edit Listing"
@@ -497,8 +498,8 @@ msgid "Form Preview"
 msgstr "Förhandsgranska formulär"
 
 #: includes/admin/controllers/class-form-fields-admin.php:152
-#: includes/helpers/functions/general.php:1309
-#: includes/helpers/functions/general.php:1314
+#: includes/helpers/functions/general.php:1324
+#: includes/helpers/functions/general.php:1329
 #, fuzzy
 msgid "Go back"
 msgstr "Nej, gå tillbaka"
@@ -2109,13 +2110,19 @@ msgstr "Gå till din annons."
 msgid "View All Listings"
 msgstr "Visa alla annonser"
 
-#: includes/controllers/pages/class-checkout.php:183
+#: includes/controllers/pages/class-checkout.php:130
+#: includes/controllers/pages/class-checkout.php:140
+#, fuzzy
+msgid "Invalid Payment ID/key"
+msgstr "Ogiltigt objekt-ID"
+
+#: includes/controllers/pages/class-checkout.php:188
 #: includes/controllers/pages/class-manage-listings.php:118
 #, fuzzy
 msgid "Pay Now"
 msgstr "Betala nu"
 
-#: includes/controllers/pages/class-checkout.php:183
+#: includes/controllers/pages/class-checkout.php:188
 #, fuzzy
 msgid "Complete"
 msgstr "Genomförd"
@@ -2706,7 +2713,7 @@ msgstr ""
 msgid "Destination dir \"%s\" is not writable."
 msgstr "Destination dir \"%s\" är inte skrivbar."
 
-#: includes/helpers/functions/general.php:1299
+#: includes/helpers/functions/general.php:1314
 #, fuzzy
 msgid "Return to Directory"
 msgstr "Återgå till Directory."
@@ -3014,12 +3021,12 @@ msgstr "Gå till din annons."
 msgid "Return to plan selection"
 msgstr "Återvänd till annons"
 
-#: includes/themes.php:893
+#: includes/themes.php:923
 #, fuzzy
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr "ZIP-filen är inte en giltig BD temafil."
 
-#: includes/themes.php:949
+#: includes/themes.php:979
 #, fuzzy
 msgid "Please update Business Directory Plugin to latest version."
 msgstr "Business Directory Plugin"
@@ -6057,13 +6064,13 @@ msgid "Author"
 msgstr "Författare"
 
 #: includes/admin/settings/class-settings-bootstrap.php:840
-#: includes/helpers/functions/general.php:1222
+#: includes/helpers/functions/general.php:1237
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Datum inlagd"
 
 #: includes/admin/settings/class-settings-bootstrap.php:841
-#: includes/helpers/functions/general.php:1223
+#: includes/helpers/functions/general.php:1238
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Senast ändrad"
@@ -6280,12 +6287,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Ladda upp bilder"
 
-#: includes/helpers/functions/general.php:1220
+#: includes/helpers/functions/general.php:1235
 msgctxt "admin settings"
 msgid "User"
 msgstr "Användare"
 
-#: includes/helpers/functions/general.php:1221
+#: includes/helpers/functions/general.php:1236
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Användarens registreringsdatum"
@@ -7245,17 +7252,17 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr "Temat har uppdaterats."
 
-#: includes/themes.php:901
+#: includes/themes.php:931
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "Det gick inte att skapa temakatalogen."
 
-#: includes/themes.php:912
+#: includes/themes.php:942
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Det gick inte att ta bort tidigare temakatalogen \"%s\"."
 
-#: includes/themes.php:920
+#: includes/themes.php:950
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Det gick inte att flytta det nya temat till temakatalogen."
@@ -7727,27 +7734,27 @@ msgctxt "checkout"
 msgid "Can not process a payment at this time. Please try again later."
 msgstr "Vi kan inte behandla din betalning just nu. Försök igen senare."
 
-#: includes/controllers/pages/class-checkout.php:152
+#: includes/controllers/pages/class-checkout.php:157
 msgctxt "checkout"
 msgid "Invalid nonce received."
 msgstr "Ogiltigt svar från server."
 
-#: includes/controllers/pages/class-checkout.php:167
+#: includes/controllers/pages/class-checkout.php:172
 msgctxt "checkout"
 msgid "Invalid gateway selected."
 msgstr "Ogiltig betalmodul vald."
 
-#: includes/controllers/pages/class-checkout.php:172
+#: includes/controllers/pages/class-checkout.php:177
 msgctxt "checkout"
 msgid "Selected gateway does not support payment's currency."
 msgstr "Valda gateway stöder inte betalningens valuta."
 
-#: includes/controllers/pages/class-checkout.php:231
+#: includes/controllers/pages/class-checkout.php:236
 msgctxt "checkout"
 msgid "Unknown gateway error."
 msgstr "Okänd gateway fel."
 
-#: includes/controllers/pages/class-checkout.php:270
+#: includes/controllers/pages/class-checkout.php:275
 msgctxt "checkout"
 msgid ""
 "There was an error trying to process your request. No gateway is selected."
@@ -7911,7 +7918,7 @@ msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Jag godtar <a>villkoren</a>."
 
-#: includes/helpers/functions/general.php:1305
+#: includes/helpers/functions/general.php:1320
 #, fuzzy
 msgctxt "templates"
 msgid "Return to results"
@@ -8497,7 +8504,7 @@ msgctxt "authorize-net"
 msgid "Listing #%d"
 msgstr "Annons #%d"
 
-#: includes/gateways/class-stripe-gateway.php:612
+#: includes/gateways/class-stripe-gateway.php:619
 msgctxt "stripe"
 msgid "Stripe payments are not connected."
 msgstr ""
@@ -15521,10 +15528,6 @@ msgstr "Länk för att hantera prenumerationer"
 #, fuzzy
 #~ msgid "Site %d"
 #~ msgstr "Licenser"
-
-#, fuzzy
-#~ msgid "Invalid menu ID."
-#~ msgstr "Ogiltigt objekt-ID"
 
 #, fuzzy
 #~ msgid "Site title."

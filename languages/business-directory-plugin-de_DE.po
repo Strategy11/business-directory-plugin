@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2026-02-03 07:18:05+00:00\n"
+"POT-Creation-Date: 2026-02-17 09:58:19+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:32-0500\n"
 "Last-Translator: Axel J. Metayer <axel@kfz.net>\n"
 "Language-Team: Business Directory Plugin "
@@ -434,6 +434,7 @@ msgstr "Bezahlung #%d"
 
 #: includes/admin/controllers/class-admin-listings.php:575
 #: includes/class-cpt-integration.php:21
+#: includes/compatibility/class-cpt-compat-mode.php:88
 #: includes/compatibility/class-navxt-integration.php:223
 #: templates/submit-listing.tpl.php:15
 msgid "Edit Listing"
@@ -500,8 +501,8 @@ msgid "Form Preview"
 msgstr "Form Vorschau"
 
 #: includes/admin/controllers/class-form-fields-admin.php:152
-#: includes/helpers/functions/general.php:1309
-#: includes/helpers/functions/general.php:1314
+#: includes/helpers/functions/general.php:1324
+#: includes/helpers/functions/general.php:1329
 #, fuzzy
 msgid "Go back"
 msgstr "Geh zurück"
@@ -2075,12 +2076,18 @@ msgstr "Zum Eintrag"
 msgid "View All Listings"
 msgstr "Alle Einträge anschauen"
 
-#: includes/controllers/pages/class-checkout.php:183
+#: includes/controllers/pages/class-checkout.php:130
+#: includes/controllers/pages/class-checkout.php:140
+#, fuzzy
+msgid "Invalid Payment ID/key"
+msgstr "Ungültige Feld ID"
+
+#: includes/controllers/pages/class-checkout.php:188
 #: includes/controllers/pages/class-manage-listings.php:118
 msgid "Pay Now"
 msgstr ""
 
-#: includes/controllers/pages/class-checkout.php:183
+#: includes/controllers/pages/class-checkout.php:188
 #, fuzzy
 msgid "Complete"
 msgstr "Abgeschlossen"
@@ -2660,7 +2667,7 @@ msgstr ""
 msgid "Destination dir \"%s\" is not writable."
 msgstr "Eintragskategorie \"%s\" existiert nicht"
 
-#: includes/helpers/functions/general.php:1299
+#: includes/helpers/functions/general.php:1314
 #, fuzzy
 msgid "Return to Directory"
 msgstr "Zurück zum Verzeichnis."
@@ -2957,12 +2964,12 @@ msgstr "Zum Eintrag"
 msgid "Return to plan selection"
 msgstr "Zurück zum Eintrag."
 
-#: includes/themes.php:893
+#: includes/themes.php:923
 #, fuzzy
 msgid "ZIP file is not a valid Business Directory theme file."
 msgstr "Bitte eine gültige E-mailadresse eingeben."
 
-#: includes/themes.php:949
+#: includes/themes.php:979
 #, fuzzy
 msgid "Please update Business Directory Plugin to latest version."
 msgstr "Business Directory Plugin"
@@ -5990,13 +5997,13 @@ msgid "Author"
 msgstr "Author"
 
 #: includes/admin/settings/class-settings-bootstrap.php:840
-#: includes/helpers/functions/general.php:1222
+#: includes/helpers/functions/general.php:1237
 msgctxt "admin settings"
 msgid "Date posted"
 msgstr "Datum gepostet"
 
 #: includes/admin/settings/class-settings-bootstrap.php:841
-#: includes/helpers/functions/general.php:1223
+#: includes/helpers/functions/general.php:1238
 msgctxt "admin settings"
 msgid "Date last modified"
 msgstr "Datum zuletzt verändert"
@@ -6212,12 +6219,12 @@ msgctxt "admin settings"
 msgid "Uploaded Image (no resize)"
 msgstr "Dateien hochladen"
 
-#: includes/helpers/functions/general.php:1220
+#: includes/helpers/functions/general.php:1235
 msgctxt "admin settings"
 msgid "User"
 msgstr "Benutzer"
 
-#: includes/helpers/functions/general.php:1221
+#: includes/helpers/functions/general.php:1236
 msgctxt "admin settings"
 msgid "User registration date"
 msgstr "Eintrag Enddatum"
@@ -7242,17 +7249,17 @@ msgctxt "themes"
 msgid "Theme was updated successfully."
 msgstr "Der Import wurde erfolgreich abgeschlossen."
 
-#: includes/themes.php:901
+#: includes/themes.php:931
 msgctxt "themes"
 msgid "Could not create themes directory."
 msgstr "wpbdp-csv-exports Verzeichnis konnte nicht erstellt werden."
 
-#: includes/themes.php:912
+#: includes/themes.php:942
 msgctxt "themes"
 msgid "Could not remove previous theme directory \"%s\"."
 msgstr "Konnte Eintragskategorie nicht erstellen \"%s\""
 
-#: includes/themes.php:920
+#: includes/themes.php:950
 msgctxt "themes"
 msgid "Could not move new theme into theme directory."
 msgstr "Momentan sind keine Einträge im Verzeichnis vorhanden."
@@ -7735,29 +7742,29 @@ msgstr ""
 "Ihre Zahlung kann momentan nicht ausgeführt werden. Bitte versuchen Sie es "
 "später noch einmal."
 
-#: includes/controllers/pages/class-checkout.php:152
+#: includes/controllers/pages/class-checkout.php:157
 #, fuzzy
 msgctxt "checkout"
 msgid "Invalid nonce received."
 msgstr "Ungültige Antwort vom Server"
 
-#: includes/controllers/pages/class-checkout.php:167
+#: includes/controllers/pages/class-checkout.php:172
 #, fuzzy
 msgctxt "checkout"
 msgid "Invalid gateway selected."
 msgstr "Ungültiger Erneuerungszustand."
 
-#: includes/controllers/pages/class-checkout.php:172
+#: includes/controllers/pages/class-checkout.php:177
 msgctxt "checkout"
 msgid "Selected gateway does not support payment's currency."
 msgstr ""
 
-#: includes/controllers/pages/class-checkout.php:231
+#: includes/controllers/pages/class-checkout.php:236
 msgctxt "checkout"
 msgid "Unknown gateway error."
 msgstr ""
 
-#: includes/controllers/pages/class-checkout.php:270
+#: includes/controllers/pages/class-checkout.php:275
 msgctxt "checkout"
 msgid ""
 "There was an error trying to process your request. No gateway is selected."
@@ -7920,7 +7927,7 @@ msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Ich akzeptiere die <a>AGB</a>s"
 
-#: includes/helpers/functions/general.php:1305
+#: includes/helpers/functions/general.php:1320
 msgctxt "templates"
 msgid "Return to results"
 msgstr "Zurück zu den Ergebnissen"
@@ -8523,7 +8530,7 @@ msgctxt "authorize-net"
 msgid "Listing #%d"
 msgstr "Eintrag bearbeiten"
 
-#: includes/gateways/class-stripe-gateway.php:612
+#: includes/gateways/class-stripe-gateway.php:619
 msgctxt "stripe"
 msgid "Stripe payments are not connected."
 msgstr ""
@@ -15343,10 +15350,6 @@ msgstr "Link um Abos zu verwalten"
 #, fuzzy
 #~ msgid "Site %d"
 #~ msgstr "Lizenz"
-
-#, fuzzy
-#~ msgid "Invalid menu ID."
-#~ msgstr "Ungültige Feld ID"
 
 #, fuzzy
 #~ msgid "Site title."
