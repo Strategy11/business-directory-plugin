@@ -1,16 +1,14 @@
 name: Claude Auto-Fix Issues
 
 on:
-  issues:
-    types: [labeled]
+  repository_dispatch:
+    types: [claude-fix]
 
 jobs:
   assess:
-    if: github.event.label.name == 'claude-fix'
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      issues: write
       id-token: write
     outputs:
       is_simple: ${{ steps.extract.outputs.is_simple }}
@@ -28,10 +26,10 @@ jobs:
           prompt: |
             You are an issue triage assistant for a WordPress plugin called Business Directory Plugin.
 
-            ISSUE NUMBER: ${{ github.event.issue.number }}
-            ISSUE TITLE: ${{ github.event.issue.title }}
-            ISSUE BODY: ${{ github.event.issue.body }}
-            ISSUE AUTHOR: ${{ github.event.issue.user.login }}
+            ISSUE NUMBER: ${{ github.event.client_payload.issue_number }}
+            ISSUE TITLE: ${{ github.event.client_payload.issue_title }}
+            ISSUE BODY: ${{ github.event.client_payload.issue_body }}
+            ISSUE AUTHOR: ${{ github.event.client_payload.issue_author }}
 
             Your task is to determine whether this issue describes a LOW complexity bug that can be
             safely fixed by an automated system, or whether it requires a human developer.
@@ -92,20 +90,22 @@ jobs:
       - name: Comment and remove label if too complex
         if: steps.extract.outputs.is_simple != 'true'
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.CROSS_REPO_PAT }}
           REASONING: ${{ steps.extract.outputs.reasoning }}
-          REQUESTED_BY: ${{ github.event.sender.login }}
+          REQUESTED_BY: ${{ github.event.client_payload.sender }}
+          ISSUE_NUMBER: ${{ github.event.client_payload.issue_number }}
+          ISSUES_REPO: ${{ github.event.client_payload.issues_repo }}
         run: |
-          gh issue comment ${{ github.event.issue.number }} \
-            --repo ${{ github.repository }} \
+          gh issue comment "$ISSUE_NUMBER" \
+            --repo "$ISSUES_REPO" \
             --body "This issue has been assessed as too complex for automated fixing.
 
           **Reason:** $REASONING
 
           @$REQUESTED_BY a human developer needs to handle this. Removing the \`claude-fix\` label."
 
-          gh issue edit ${{ github.event.issue.number }} \
-            --repo ${{ github.repository }} \
+          gh issue edit "$ISSUE_NUMBER" \
+            --repo "$ISSUES_REPO" \
             --remove-label "claude-fix"
 
   fix:
@@ -115,7 +115,6 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-      issues: write
       id-token: write
 
     steps:
@@ -142,12 +141,15 @@ jobs:
           track_progress: true
           prompt: |
             REPO: ${{ github.repository }}
-            ISSUE NUMBER: ${{ github.event.issue.number }}
-            ISSUE TITLE: ${{ github.event.issue.title }}
-            ISSUE BODY: ${{ github.event.issue.body }}
-            ISSUE AUTHOR: ${{ github.event.issue.user.login }}
+            ISSUE NUMBER: ${{ github.event.client_payload.issue_number }}
+            ISSUE TITLE: ${{ github.event.client_payload.issue_title }}
+            ISSUE BODY: ${{ github.event.client_payload.issue_body }}
+            ISSUE AUTHOR: ${{ github.event.client_payload.issue_author }}
+            ISSUES REPO: ${{ github.event.client_payload.issues_repo }}
 
             You are fixing a low-complexity bug in the Business Directory Plugin for WordPress.
+            The issue is tracked in a separate repository (${{ github.event.client_payload.issues_repo }})
+            but the code lives here in ${{ github.repository }}.
 
             Steps:
             1. Read the issue carefully and understand what needs to change.
@@ -157,9 +159,9 @@ jobs:
             5. Every new or modified PHP function/method must have a doc comment with an @since x.x tag.
             6. If you modified PHP files, run: vendor/bin/phpcs --standard=phpcs.xml <changed_files>
                Fix any violations before committing.
-            7. Create a PR that references the issue. In the PR description:
+            7. Create a PR in this repository (${{ github.repository }}). In the PR description:
                - Summarize the fix
-               - Add "Fixes #${{ github.event.issue.number }}"
+               - Reference the issue: "${{ github.event.client_payload.issues_repo }}#${{ github.event.client_payload.issue_number }}"
 
             Rules:
             - Do NOT modify files in vendor/, vendors/, node_modules/, or languages/
@@ -174,23 +176,18 @@ jobs:
       - name: Notify label applier
         if: steps.fix.outputs.branch_name != ''
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.CROSS_REPO_PAT }}
           BRANCH_NAME: ${{ steps.fix.outputs.branch_name }}
-          REQUESTED_BY: ${{ github.event.sender.login }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REQUESTED_BY: ${{ github.event.client_payload.sender }}
+          ISSUE_NUMBER: ${{ github.event.client_payload.issue_number }}
+          ISSUES_REPO: ${{ github.event.client_payload.issues_repo }}
         run: |
           PR_URL=$(gh pr list --head "$BRANCH_NAME" --repo "${{ github.repository }}" --json url --jq '.[0].url')
 
           if [ -n "$PR_URL" ]; then
-            PR_NUMBER=$(gh pr list --head "$BRANCH_NAME" --repo "${{ github.repository }}" --json number --jq '.[0].number')
-
             gh issue comment "$ISSUE_NUMBER" \
-              --repo "${{ github.repository }}" \
+              --repo "$ISSUES_REPO" \
               --body "An automated fix has been created for this issue: $PR_URL
 
           @$REQUESTED_BY please review and test the changes."
-
-            gh pr edit "$PR_NUMBER" \
-              --repo "${{ github.repository }}" \
-              --add-reviewer "$REQUESTED_BY" 2>/dev/null || true
           fi
