@@ -1,0 +1,196 @@
+name: Claude Auto-Fix Issues
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  assess:
+    if: github.event.label.name == 'claude-fix'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      id-token: write
+    outputs:
+      is_simple: ${{ steps.extract.outputs.is_simple }}
+      reasoning: ${{ steps.extract.outputs.reasoning }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Assess issue complexity
+        id: triage
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            You are an issue triage assistant for a WordPress plugin called Business Directory Plugin.
+
+            ISSUE NUMBER: ${{ github.event.issue.number }}
+            ISSUE TITLE: ${{ github.event.issue.title }}
+            ISSUE BODY: ${{ github.event.issue.body }}
+            ISSUE AUTHOR: ${{ github.event.issue.user.login }}
+
+            Your task is to determine whether this issue describes a LOW complexity bug that can be
+            safely fixed by an automated system, or whether it requires a human developer.
+
+            Steps:
+            1. Read the issue title and body carefully.
+            2. Browse the codebase to find the area of code likely affected.
+            3. Estimate how many files would need to change.
+            4. Evaluate complexity using the signals below.
+
+            SIGNALS THAT SUGGEST LOW COMPLEXITY (automatable):
+            - Likely touches 1-3 files
+            - Fix is localized to a single function, template, or stylesheet
+            - PHP notices, warnings, deprecations, or type errors
+            - CSS/styling adjustments (colors, fonts, spacing, alignment, visibility)
+            - Text, label, or copy changes
+            - Typos, formatting, or broken HTML
+            - Missing escaping or sanitization on a single output
+            - Adding a missing null/isset check
+            - Incorrect hook priority or missing argument
+            - Broken or incorrect URLs/links
+            - Missing translation wrappers
+            - Default value corrections
+            - Conditional logic off-by-one or wrong operator
+
+            SIGNALS THAT INDICATE HIGH COMPLEXITY (needs a human):
+            - Requires changes across 4+ files or multiple subsystems
+            - Involves database schema or migration changes
+            - Requires new features, new UI pages, or architectural changes
+            - Security vulnerabilities beyond simple escaping/sanitization
+            - Performance optimizations requiring profiling
+            - Payment/billing/financial logic
+            - Third-party API integration changes
+            - Changes to the plugin activation/deactivation lifecycle
+            - Multi-step user workflow changes
+            - The issue is vague or lacks enough detail to act on
+
+            KEY PRINCIPLE: If you are confident the fix is small, localized, and low-risk, mark it
+            as simple. When in doubt, defer to a human.
+
+            Return your assessment as structured JSON.
+          claude_args: |
+            --max-turns 6
+            --allowedTools "Read,Bash(find:*),Bash(grep:*),Bash(cat:*)"
+            --json-schema '{"type":"object","properties":{"is_simple":{"type":"boolean","description":"Whether the issue is low complexity and safe for automation"},"category":{"type":"string","description":"Short label like php-notice, css-fix, missing-check, typo, etc."},"estimated_files":{"type":"integer","description":"Estimated number of files that need to change"},"reasoning":{"type":"string","description":"1-2 sentence explanation of the assessment"}},"required":["is_simple","category","estimated_files","reasoning"]}'
+
+      - name: Extract triage results
+        id: extract
+        if: steps.triage.outputs.structured_output != ''
+        env:
+          STRUCTURED_OUTPUT: ${{ steps.triage.outputs.structured_output }}
+        run: |
+          IS_SIMPLE=$(echo "$STRUCTURED_OUTPUT" | jq -r '.is_simple')
+          REASONING=$(echo "$STRUCTURED_OUTPUT" | jq -r '.reasoning')
+          echo "is_simple=$IS_SIMPLE" >> "$GITHUB_OUTPUT"
+          echo "reasoning=$REASONING" >> "$GITHUB_OUTPUT"
+
+      - name: Comment and remove label if too complex
+        if: steps.extract.outputs.is_simple != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REASONING: ${{ steps.extract.outputs.reasoning }}
+          REQUESTED_BY: ${{ github.event.sender.login }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} \
+            --repo ${{ github.repository }} \
+            --body "This issue has been assessed as too complex for automated fixing.
+
+          **Reason:** $REASONING
+
+          @$REQUESTED_BY a human developer needs to handle this. Removing the \`claude-fix\` label."
+
+          gh issue edit ${{ github.event.issue.number }} \
+            --repo ${{ github.repository }} \
+            --remove-label "claude-fix"
+
+  fix:
+    needs: assess
+    if: needs.assess.outputs.is_simple == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+          tools: composer
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Fix the issue
+        id: fix
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          track_progress: true
+          prompt: |
+            REPO: ${{ github.repository }}
+            ISSUE NUMBER: ${{ github.event.issue.number }}
+            ISSUE TITLE: ${{ github.event.issue.title }}
+            ISSUE BODY: ${{ github.event.issue.body }}
+            ISSUE AUTHOR: ${{ github.event.issue.user.login }}
+
+            You are fixing a low-complexity bug in the Business Directory Plugin for WordPress.
+
+            Steps:
+            1. Read the issue carefully and understand what needs to change.
+            2. Find the relevant code in the codebase.
+            3. Implement the minimal, targeted fix. Do not refactor unrelated code.
+            4. Follow WordPress coding standards. Use tabs for indentation.
+            5. Every new or modified PHP function/method must have a doc comment with an @since x.x tag.
+            6. If you modified PHP files, run: vendor/bin/phpcs --standard=phpcs.xml <changed_files>
+               Fix any violations before committing.
+            7. Create a PR that references the issue. In the PR description:
+               - Summarize the fix
+               - Add "Fixes #${{ github.event.issue.number }}"
+
+            Rules:
+            - Do NOT modify files in vendor/, vendors/, node_modules/, or languages/
+            - Do NOT run build commands (npm run build, grunt, webpack)
+            - Keep changes minimal and focused on the reported issue
+            - Use `isset()` or null coalescing when accessing potentially undefined variables
+            - Escape output with appropriate WordPress functions (esc_html, esc_attr, etc.)
+            - Use the text domain "business-directory-plugin" for any translatable strings
+          claude_args: |
+            --allowedTools "Read,Write,Edit,Bash(git:*),Bash(gh pr create:*),Bash(gh pr comment:*),Bash(vendor/bin/phpcs:*),Bash(vendor/bin/phpcbf:*),Bash(find:*),Bash(grep:*),Bash(cat:*),Bash(ls:*)"
+
+      - name: Notify label applier
+        if: steps.fix.outputs.branch_name != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH_NAME: ${{ steps.fix.outputs.branch_name }}
+          REQUESTED_BY: ${{ github.event.sender.login }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          PR_URL=$(gh pr list --head "$BRANCH_NAME" --repo "${{ github.repository }}" --json url --jq '.[0].url')
+
+          if [ -n "$PR_URL" ]; then
+            PR_NUMBER=$(gh pr list --head "$BRANCH_NAME" --repo "${{ github.repository }}" --json number --jq '.[0].number')
+
+            gh issue comment "$ISSUE_NUMBER" \
+              --repo "${{ github.repository }}" \
+              --body "An automated fix has been created for this issue: $PR_URL
+
+          @$REQUESTED_BY please review and test the changes."
+
+            gh pr edit "$PR_NUMBER" \
+              --repo "${{ github.repository }}" \
+              --add-reviewer "$REQUESTED_BY" 2>/dev/null || true
+          fi
