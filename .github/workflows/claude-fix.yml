@@ -32,44 +32,46 @@ jobs:
             ISSUE BODY: ${{ github.event.client_payload.issue_body }}
             ISSUE AUTHOR: ${{ github.event.client_payload.issue_author }}
 
-            Your task is to determine whether this issue describes a LOW complexity bug that can be
-            safely fixed by an automated system, or whether it requires a human developer.
+            Your task is to determine whether this issue describes a TRIVIAL bug that can be
+            safely fixed by an automated system. You must be VERY conservative -- only approve
+            issues where the fix is obvious, mechanical, and requires no judgment about program
+            behavior or user-facing logic.
 
             Steps:
             1. Read the issue title and body carefully.
-            2. Browse the codebase to find the area of code likely affected.
-            3. Estimate how many files would need to change.
-            4. Evaluate complexity using the signals below.
+            2. Browse the codebase to find the EXACT line(s) of code that would need to change.
+            3. If you cannot pinpoint the exact fix within a few files, mark it as NOT simple.
+            4. Evaluate using the strict criteria below.
 
-            SIGNALS THAT SUGGEST LOW COMPLEXITY (automatable):
-            - Likely touches 1-3 files
-            - Fix is localized to a single function, template, or stylesheet
-            - PHP notices, warnings, deprecations, or type errors
-            - CSS/styling adjustments (colors, fonts, spacing, alignment, visibility)
-            - Text, label, or copy changes
-            - Typos, formatting, or broken HTML
-            - Missing escaping or sanitization on a single output
-            - Adding a missing null/isset check
-            - Incorrect hook priority or missing argument
-            - Broken or incorrect URLs/links
-            - Missing translation wrappers
-            - Default value corrections
-            - Conditional logic off-by-one or wrong operator
+            SIMPLE (mark is_simple: true) -- ONLY if ALL of these are true:
+            - You can identify the exact line(s) that need to change
+            - The fix is a mechanical change (not a behavioral/logic change)
+            - It touches 1-2 files maximum
+            - No change to control flow, query logic, or template rendering
+            - No change to how data is fetched, filtered, or displayed
+            - Examples: fixing a PHP notice for undefined variable, changing a CSS color/font/spacing
+              value, fixing a typo in a string, adding a missing esc_html() wrapper, adding a
+              missing isset() check, fixing a broken hardcoded URL, adding a missing translation
+              wrapper around a string literal
 
-            SIGNALS THAT INDICATE HIGH COMPLEXITY (needs a human):
-            - Requires changes across 4+ files or multiple subsystems
-            - Involves database schema or migration changes
-            - Requires new features, new UI pages, or architectural changes
-            - Security vulnerabilities beyond simple escaping/sanitization
-            - Performance optimizations requiring profiling
-            - Payment/billing/financial logic
-            - Third-party API integration changes
-            - Changes to the plugin activation/deactivation lifecycle
-            - Multi-step user workflow changes
-            - The issue is vague or lacks enough detail to act on
+            NOT SIMPLE (mark is_simple: false) -- if ANY of these are true:
+            - The fix requires understanding program flow or business logic
+            - It involves changing what gets displayed or when
+            - It involves template rendering, query modifications, or conditional behavior
+            - It changes how a feature works (even slightly)
+            - It requires adding new strings, messages, or UI elements that don't exist yet
+            - It touches 3+ files
+            - It involves database queries or data model changes
+            - It involves payment, billing, or subscription logic
+            - It involves third-party API or gateway integrations
+            - It requires changes to hooks, filters, or action priorities that affect behavior
+            - The issue description is vague, lacks specifics, or requires interpretation
+            - The issue is a feature request disguised as a bug
+            - You are not 100% certain what the fix should be
 
-            KEY PRINCIPLE: If you are confident the fix is small, localized, and low-risk, mark it
-            as simple. When in doubt, defer to a human.
+            IMPORTANT: Your default answer should be is_simple: false. Only mark is_simple: true
+            when the fix is genuinely trivial and you can point to the exact lines to change.
+            When in doubt, ALWAYS err on the side of marking it as NOT simple.
 
             Return your assessment as structured JSON.
           claude_args: |
