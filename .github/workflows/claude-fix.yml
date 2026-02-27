@@ -20,6 +20,7 @@ jobs:
 
       - name: Assess issue complexity
         id: triage
+        continue-on-error: true
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -72,7 +73,7 @@ jobs:
 
             Return your assessment as structured JSON.
           claude_args: |
-            --max-turns 6
+            --max-turns 15
             --allowedTools "Read,Bash(find:*),Bash(grep:*),Bash(cat:*)"
             --json-schema '{"type":"object","properties":{"is_simple":{"type":"boolean","description":"Whether the issue is low complexity and safe for automation"},"category":{"type":"string","description":"Short label like php-notice, css-fix, missing-check, typo, etc."},"estimated_files":{"type":"integer","description":"Estimated number of files that need to change"},"reasoning":{"type":"string","description":"1-2 sentence explanation of the assessment"}},"required":["is_simple","category","estimated_files","reasoning"]}'
 
@@ -96,11 +97,13 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.client_payload.issue_number }}
           ISSUES_REPO: ${{ github.event.client_payload.issues_repo }}
         run: |
+          REASON="${REASONING:-Assessment could not determine complexity.}"
+
           gh issue comment "$ISSUE_NUMBER" \
             --repo "$ISSUES_REPO" \
             --body "This issue has been assessed as too complex for automated fixing.
 
-          **Reason:** $REASONING
+          **Reason:** $REASON
 
           @$REQUESTED_BY a human developer needs to handle this. Removing the \`claude-fix\` label."
 
