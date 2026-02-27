@@ -37,6 +37,35 @@ vendors/                        Bundled third-party libraries (do not edit)
 node_modules/                   NPM dependencies (do not edit)
 ```
 
+## Coding Standards
+
+### PHP
+
+Follow **WordPress coding standards** as configured in `phpcs.xml`:
+
+- Tabs for indentation (not spaces).
+- The text domain is `business-directory-plugin`.
+- Every PHP function, method, and WordPress hook/filter callback must have a PHPDoc comment that includes an `@since x.x` tag. Always use `x.x` as the version -- it will be replaced by release automation. This applies to both new and modified functions.
+- Use `use` statements for class imports at the top of the file.
+- Prefer null coalescing (`??`) over ternary for default values. Never stack ternaries or null coalescing operators.
+- Maximum function length: 100 lines. Maximum cognitive complexity: 10 (error) / 32 (warning).
+- Line length limit: 250 characters (excludes tests and templates).
+- Escape all output with appropriate WordPress functions (`esc_html`, `esc_attr`, `esc_url`, `wp_kses`, etc.).
+- Custom auto-escaped functions: `wpbdp_sanitize_value`, `wpbdp_get_server_value`, `wpbdp_render_page`, `wpbdp_admin_footer`, `wpbdp_render`, `wpbdp_render_msg`, `wp_nonce_url`.
+
+### JavaScript
+
+Follow **WordPress ESLint configuration** as defined in `.eslintrc`:
+
+- ES6 syntax (always use `const`/`let`, never `var`).
+- `@wordpress/eslint-plugin` recommended rules.
+- JSDoc comments required.
+- Text domain: `business-directory-plugin`.
+
+### CSS/LESS
+
+Stylelint with `stylelint-config-recommended-less`. Source files are in LESS format.
+
 ## Linting Commands
 
 ```bash
