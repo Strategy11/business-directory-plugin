@@ -65,6 +65,9 @@ class WPBDP__WordPress_Template_Integration {
 				add_filter( 'render_block', array( $this, 'block_theme_remove_tax_featured_image' ), 10, 2 );
 				$this->setup_tax_hooks();
 			} else {
+				if ( is_tax() ) {
+					$this->maybe_inject_empty_tax_post();
+				}
 				add_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
 			}
 
@@ -107,6 +110,58 @@ class WPBDP__WordPress_Template_Integration {
 		// Run last so other hooks don't break our output.
 		add_filter( 'the_content', array( $this, 'display_view_in_content' ), 999 );
 		remove_action( 'loop_start', array( $this, 'setup_post_hooks' ) );
+	}
+
+	/**
+	 * Inject a placeholder post for empty taxonomy pages so the loop runs at least once.
+	 *
+	 * For classic themes, BD content is injected via the_content filter which is only
+	 * triggered when the WordPress loop runs. When a category has no listings the loop
+	 * would not run, leaving the page blank. Injecting a placeholder post ensures the
+	 * loop executes so BD content (including the "No listings found" message) is shown.
+	 *
+	 * @since 6.4.23
+	 *
+	 * @return void
+	 */
+	private function maybe_inject_empty_tax_post() {
+		global $wp_query;
+
+		if ( $wp_query->have_posts() ) {
+			return;
+		}
+
+		$wp_query->posts      = array(
+			new WP_Post(
+				(object) array(
+					'ID'                    => 0,
+					'post_author'           => 0,
+					'post_date'             => '',
+					'post_date_gmt'         => '',
+					'post_content'          => '',
+					'post_title'            => '',
+					'post_excerpt'          => '',
+					'post_status'           => 'publish',
+					'comment_status'        => 'closed',
+					'ping_status'           => 'closed',
+					'post_password'         => '',
+					'post_name'             => '',
+					'to_ping'               => '',
+					'pinged'                => '',
+					'post_modified'         => '',
+					'post_modified_gmt'     => '',
+					'post_content_filtered' => '',
+					'post_parent'           => 0,
+					'guid'                  => '',
+					'menu_order'            => 0,
+					'post_type'             => 'page',
+					'post_mime_type'        => '',
+					'comment_count'         => 0,
+					'filter'                => 'raw',
+				)
+			),
+		);
+		$wp_query->post_count = 1;
 	}
 
 	/**
