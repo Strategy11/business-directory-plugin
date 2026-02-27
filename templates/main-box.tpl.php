@@ -19,7 +19,7 @@
 		<input type="hidden" name="wpbdp_view" value="search" />
 		<?php echo $hidden_fields; ?>
 		<?php if ( ! wpbdp_rewrite_on() ) : ?>
-		<input type="hidden" name="page_id" value="<?php echo wpbdp_get_page_id(); ?>" />
+		<input type="hidden" name="page_id" value="<?php echo esc_attr( wpbdp_get_page_id() ); ?>" />
 		<?php endif; ?>
 		<div class="box-col search-fields">
 			<div class="box-row cols-<?php echo $no_cols; ?>">
