@@ -33,26 +33,17 @@ jobs:
             ISSUE AUTHOR: ${{ github.event.client_payload.issue_author }}
 
             Your task is to determine whether this issue describes a TRIVIAL bug that can be
-            safely fixed by an automated system. You must be VERY conservative -- only approve
-            issues where the fix is obvious, mechanical, and requires no judgment about program
-            behavior or user-facing logic.
-
-            Steps:
-            1. Read the issue title and body carefully.
-            2. Browse the codebase to find the EXACT line(s) of code that would need to change.
-            3. If you cannot pinpoint the exact fix within a few files, mark it as NOT simple.
-            4. Evaluate using the strict criteria below.
+            safely fixed by an automated system. Base your decision on the issue description
+            alone -- do NOT browse the codebase. You must be VERY conservative.
 
             SIMPLE (mark is_simple: true) -- ONLY if ALL of these are true:
-            - You can identify the exact line(s) that need to change
-            - The fix is a mechanical change (not a behavioral/logic change)
-            - It touches 1-2 files maximum
+            - The issue clearly describes a small, mechanical fix
+            - It would likely touch 1-2 files maximum
             - No change to control flow, query logic, or template rendering
             - No change to how data is fetched, filtered, or displayed
-            - Examples: fixing a PHP notice for undefined variable, changing a CSS color/font/spacing
-              value, fixing a typo in a string, adding a missing esc_html() wrapper, adding a
-              missing isset() check, fixing a broken hardcoded URL, adding a missing translation
-              wrapper around a string literal
+            - Examples: PHP notice for undefined variable, CSS color/font/spacing value change,
+              typo in a string, missing esc_html() wrapper, missing isset() check, broken
+              hardcoded URL, missing translation wrapper around a string literal
 
             NOT SIMPLE (mark is_simple: false) -- if ANY of these are true:
             - The fix requires understanding program flow or business logic
@@ -60,7 +51,7 @@ jobs:
             - It involves template rendering, query modifications, or conditional behavior
             - It changes how a feature works (even slightly)
             - It requires adding new strings, messages, or UI elements that don't exist yet
-            - It touches 3+ files
+            - It would likely touch 3+ files
             - It involves database queries or data model changes
             - It involves payment, billing, or subscription logic
             - It involves third-party API or gateway integrations
@@ -70,8 +61,7 @@ jobs:
             - You are not 100% certain what the fix should be
 
             IMPORTANT: Your default answer should be is_simple: false. Only mark is_simple: true
-            when the fix is genuinely trivial and you can point to the exact lines to change.
-            When in doubt, ALWAYS err on the side of marking it as NOT simple.
+            when the fix is genuinely trivial. When in doubt, ALWAYS say NOT simple.
 
             Return your assessment as structured JSON.
           claude_args: |
