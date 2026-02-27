@@ -65,9 +65,7 @@ jobs:
 
             Return your assessment as structured JSON.
           claude_args: |
-            --model claude-haiku-4-5-20250805
-            --max-turns 15
-            --allowedTools "Read,Bash(find:*),Bash(grep:*),Bash(cat:*)"
+            --max-turns 3
             --json-schema '{"type":"object","properties":{"is_simple":{"type":"boolean","description":"Whether the issue is low complexity and safe for automation"},"category":{"type":"string","description":"Short label like php-notice, css-fix, missing-check, typo, etc."},"estimated_files":{"type":"integer","description":"Estimated number of files that need to change"},"reasoning":{"type":"string","description":"1-2 sentence explanation of the assessment"}},"required":["is_simple","category","estimated_files","reasoning"]}'
 
       - name: Extract triage results
