@@ -73,6 +73,7 @@ jobs:
 
             Return your assessment as structured JSON.
           claude_args: |
+            --model claude-haiku-4-5-20250805
             --max-turns 15
             --allowedTools "Read,Bash(find:*),Bash(grep:*),Bash(cat:*)"
             --json-schema '{"type":"object","properties":{"is_simple":{"type":"boolean","description":"Whether the issue is low complexity and safe for automation"},"category":{"type":"string","description":"Short label like php-notice, css-fix, missing-check, typo, etc."},"estimated_files":{"type":"integer","description":"Estimated number of files that need to change"},"reasoning":{"type":"string","description":"1-2 sentence explanation of the assessment"}},"required":["is_simple","category","estimated_files","reasoning"]}'
@@ -141,7 +142,6 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          track_progress: true
           prompt: |
             REPO: ${{ github.repository }}
             ISSUE NUMBER: ${{ github.event.client_payload.issue_number }}
