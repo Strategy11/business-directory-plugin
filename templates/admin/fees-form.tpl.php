@@ -30,7 +30,7 @@
 					<label for="wpbdp-fee-form-fee-description"> <?php esc_html_e( 'Plan Description', 'business-directory-plugin' ); ?></label>
 				</th>
 				<td>
-					<textarea id="wpbdp-fee-form-fee-description" name="fee[description]" rows="5" cols="50"><?php echo esc_textarea( $fee->description ); ?></textarea>
+					<textarea id="wpbdp-fee-form-fee-description" name="fee[description]" rows="5" cols="50"><?php echo esc_textarea( $fee->description ?? '' ); ?></textarea>
 				</td>
 			</tr>
 			<tr class="form-required">
