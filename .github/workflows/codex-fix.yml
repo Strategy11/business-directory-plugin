@@ -5,7 +5,69 @@ on:
     types: [codex-fix]
 
 jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      branch_exists: ${{ steps.check.outputs.branch_exists }}
+      branch_name: ${{ steps.check.outputs.branch_name }}
+      existing_pr_url: ${{ steps.check.outputs.existing_pr_url }}
+    steps:
+      - name: Check for existing codex-fix branch
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.client_payload.issue_number }}
+        run: |
+          BRANCH_NAME="codex-fix/issue-${ISSUE_NUMBER}"
+          BRANCH_REF=$(gh api "repos/${{ github.repository }}/git/matching-refs/heads/${BRANCH_NAME}" --jq '.[0].ref // ""' 2>/dev/null || true)
+          EXISTING_PR_URL=""
+
+          if [ -n "$BRANCH_REF" ]; then
+            EXISTING_PR_URL=$(gh pr list --repo "${{ github.repository }}" --head "$BRANCH_NAME" --json url --jq '.[0].url // ""')
+            echo "branch_exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "branch_exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+          echo "branch_name=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
+          echo "existing_pr_url=$EXISTING_PR_URL" >> "$GITHUB_OUTPUT"
+
+  notify-existing-branch:
+    needs: precheck
+    if: needs.precheck.outputs.branch_exists == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify requester about existing branch
+        env:
+          GH_TOKEN: ${{ secrets.CROSS_REPO_PAT }}
+          ISSUE_NUMBER: ${{ github.event.client_payload.issue_number }}
+          ISSUES_REPO: ${{ github.event.client_payload.issues_repo }}
+          REQUESTED_BY: ${{ github.event.client_payload.sender }}
+          BRANCH_NAME: ${{ needs.precheck.outputs.branch_name }}
+          EXISTING_PR_URL: ${{ needs.precheck.outputs.existing_pr_url }}
+        run: |
+          if [ -n "$EXISTING_PR_URL" ]; then
+            gh issue comment "$ISSUE_NUMBER" \
+              --repo "$ISSUES_REPO" \
+              --body "A Codex fix branch already exists for this issue (\`$BRANCH_NAME\`), so this run was skipped to avoid duplicate work.
+
+          Existing PR: $EXISTING_PR_URL
+
+          @$REQUESTED_BY please continue review/testing on the existing PR."
+          else
+            gh issue comment "$ISSUE_NUMBER" \
+              --repo "$ISSUES_REPO" \
+              --body "A Codex fix branch already exists for this issue (\`$BRANCH_NAME\`), so this run was skipped to avoid duplicate work.
+
+          @$REQUESTED_BY please review that branch or remove it before requesting another automated fix."
+          fi
+
   assess:
+    needs: precheck
+    if: needs.precheck.outputs.branch_exists != 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -139,8 +201,8 @@ jobs:
             --remove-label "codex-fix"
 
   fix:
-    needs: assess
-    if: needs.assess.outputs.is_simple == 'true'
+    needs: [ precheck, assess ]
+    if: needs.precheck.outputs.branch_exists != 'true' && needs.assess.outputs.is_simple == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -167,9 +229,8 @@ jobs:
       - name: Create fix branch
         id: branch
         env:
-          ISSUE_NUMBER: ${{ github.event.client_payload.issue_number }}
+          BRANCH_NAME: ${{ needs.precheck.outputs.branch_name }}
         run: |
-          BRANCH_NAME="codex-fix/issue-${ISSUE_NUMBER}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           git switch -c "$BRANCH_NAME"
           echo "branch_name=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
 
@@ -300,6 +361,15 @@ jobs:
             --title "fix: automated codex fix for issue #$ISSUE_NUMBER" \
             --body-file "$PR_BODY_FILE")
           echo "pr_url=$PR_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Add run-analysis label to PR
+        if: steps.create_pr.outputs.pr_url != ''
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_URL: ${{ steps.create_pr.outputs.pr_url }}
+        run: |
+          gh pr edit "$PR_URL" --repo "${{ github.repository }}" --add-label "run analysis"
 
       - name: Notify issue requester when no code changes were made
         if: steps.codex_fix.outcome == 'success' && steps.commit_push.outputs.has_changes != 'true'
