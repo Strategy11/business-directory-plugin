@@ -43,6 +43,8 @@ final class WPBDP {
 	public $rewrite;
 	public $admin;
 	public $privacy;
+	public $_importing_csv          = false;
+	public $_importing_csv_no_email = false;
 
 	public function __construct() {
 		$this->_db_version = get_option( 'wpbdp-db-version', null );
