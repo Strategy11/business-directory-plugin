@@ -22,6 +22,7 @@ jobs:
           cat > triage-schema.json <<'EOF'
           {
             "type": "object",
+            "additionalProperties": false,
             "properties": {
               "is_simple": {
                 "type": "boolean",
@@ -168,11 +169,13 @@ jobs:
         env:
           ISSUE_NUMBER: ${{ github.event.client_payload.issue_number }}
         run: |
-          BRANCH_NAME="codex-fix/issue-${ISSUE_NUMBER}-${GITHUB_RUN_ID}"
+          BRANCH_NAME="codex-fix/issue-${ISSUE_NUMBER}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           git switch -c "$BRANCH_NAME"
           echo "branch_name=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
 
       - name: Fix the issue
+        id: codex_fix
+        continue-on-error: true
         uses: openai/codex-action@v1
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
@@ -208,16 +211,26 @@ jobs:
             - Escape output with appropriate WordPress functions (esc_html, esc_attr, etc.)
             - Use the text domain "business-directory-plugin" for any translatable strings
 
+      - name: Notify issue requester when Codex fix run fails
+        if: steps.codex_fix.outcome != 'success'
+        env:
+          GH_TOKEN: ${{ secrets.CROSS_REPO_PAT }}
+          ISSUE_NUMBER: ${{ github.event.client_payload.issue_number }}
+          ISSUES_REPO: ${{ github.event.client_payload.issues_repo }}
+          REQUESTED_BY: ${{ github.event.client_payload.sender }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" \
+            --repo "$ISSUES_REPO" \
+            --body "I ran the \`codex-fix\` workflow but the automated fix step failed before producing a safe patch.
+
+          @$REQUESTED_BY please review and handle this issue manually."
+
       - name: Commit and push changes
         id: commit_push
+        if: steps.codex_fix.outcome == 'success'
         env:
           BRANCH_NAME: ${{ steps.branch.outputs.branch_name }}
         run: |
-          if git diff --quiet && git diff --cached --quiet; then
-            echo "has_changes=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
@@ -252,7 +265,7 @@ jobs:
           echo "pr_url=$PR_URL" >> "$GITHUB_OUTPUT"
 
       - name: Notify issue requester when no code changes were made
-        if: steps.commit_push.outputs.has_changes != 'true'
+        if: steps.codex_fix.outcome == 'success' && steps.commit_push.outputs.has_changes != 'true'
         env:
           GH_TOKEN: ${{ secrets.CROSS_REPO_PAT }}
           ISSUE_NUMBER: ${{ github.event.client_payload.issue_number }}
