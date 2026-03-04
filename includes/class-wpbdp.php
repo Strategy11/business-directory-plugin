@@ -499,6 +499,11 @@ final class WPBDP {
 		return false;
 	}
 
+	/**
+	 * Handle AJAX image uploads from submit listing form.
+	 *
+	 * @since x.x
+	 */
 	public function ajax_listing_submit_image_upload() {
 		$res = new WPBDP_AJAX_Response();
 
@@ -541,7 +546,9 @@ final class WPBDP {
 			return $res->send_error( __( 'Please select a plan before uploading images to the listing', 'business-directory-plugin' ) );
 		}
 
-		$slots_available = absint( $plan->fee_images ) - absint( $_POST['images_count'] );
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$images_count    = absint( $_POST['images_count'] ?? 0 );
+		$slots_available = absint( $plan->fee_images ) - $images_count;
 		if ( 0 >= $slots_available ) {
 			return $res->send_error( __( 'Can not upload any more images for this listing.', 'business-directory-plugin' ) );
 		} elseif ( $slots_available < count( $files ) ) {
