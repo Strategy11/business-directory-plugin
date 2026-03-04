@@ -395,11 +395,16 @@ class WPBDP_CSV_Import {
 		}
 	}
 
+	/**
+	 * Parse the CSV header row.
+	 *
+	 * @since x.x
+	 */
 	private function parse_header( $file ) {
 		$header_line = $this->remove_bom( $file->current() );
 		$header_line = $this->maybe_convert_encoding( $header_line );
 
-		$this->set_header( str_getcsv( $header_line, $this->settings['csv-file-separator'] ) );
+		$this->set_header( str_getcsv( $header_line, $this->settings['csv-file-separator'], '"', '\\' ) );
 
 		$file->next();
 		$this->current_line = $file->key();
