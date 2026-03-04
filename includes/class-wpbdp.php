@@ -507,7 +507,7 @@ final class WPBDP {
 	public function ajax_listing_submit_image_upload() {
 		$res = new WPBDP_AJAX_Response();
 
-		$listing_id = intval( $_REQUEST['listing_id'] );
+		$listing_id = intval( $_REQUEST['listing_id'] ?? 0 );
 
 		if ( ! $listing_id ) {
 			return $res->send_error();
