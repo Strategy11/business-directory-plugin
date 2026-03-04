@@ -515,7 +515,7 @@ class WPBDP_CSV_Import {
 				continue;
 			}
 
-			$term_name = str_replace( '&', '&amp;', $c['name'] );
+			$term_name = $c['name'];
 			$t         = term_exists( $term_name, WPBDP_CATEGORY_TAX );
 			if ( $t ) {
 				$c['term_id'] = $t['term_id'];
@@ -883,7 +883,7 @@ class WPBDP_CSV_Import {
 		$csv_category = str_replace( "\n", '-', $csv_category );
 		$csv_category = strip_tags( $csv_category );
 		$csv_category = str_replace( array( '"', "'" ), '', $csv_category );
-		return str_replace( '& ', '&amp; ', $csv_category );
+		return $csv_category;
 	}
 
 	private function get_header() {
