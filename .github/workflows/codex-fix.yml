@@ -17,6 +17,38 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Prepare triage schema file
+        run: |
+          cat > triage-schema.json <<'EOF'
+          {
+            "type": "object",
+            "properties": {
+              "is_simple": {
+                "type": "boolean",
+                "description": "Whether the issue is low complexity and safe for automation"
+              },
+              "category": {
+                "type": "string",
+                "description": "Short label like php-notice, css-fix, missing-check, typo, etc."
+              },
+              "estimated_files": {
+                "type": "integer",
+                "description": "Estimated number of files that need to change"
+              },
+              "reasoning": {
+                "type": "string",
+                "description": "1-2 sentence explanation of the assessment"
+              }
+            },
+            "required": [
+              "is_simple",
+              "category",
+              "estimated_files",
+              "reasoning"
+            ]
+          }
+          EOF
+
       - name: Assess issue complexity
         id: triage
         continue-on-error: true
@@ -66,8 +98,7 @@ jobs:
 
             Return ONLY valid JSON with this exact shape:
             {"is_simple":boolean,"category":"string","estimated_files":number,"reasoning":"string"}
-          codex-args: >
-            ["--output-schema","{\"type\":\"object\",\"properties\":{\"is_simple\":{\"type\":\"boolean\",\"description\":\"Whether the issue is low complexity and safe for automation\"},\"category\":{\"type\":\"string\",\"description\":\"Short label like php-notice, css-fix, missing-check, typo, etc.\"},\"estimated_files\":{\"type\":\"integer\",\"description\":\"Estimated number of files that need to change\"},\"reasoning\":{\"type\":\"string\",\"description\":\"1-2 sentence explanation of the assessment\"}},\"required\":[\"is_simple\",\"category\",\"estimated_files\",\"reasoning\"]}"]
+          codex-args: '["--output-schema","triage-schema.json"]'
 
       - name: Extract triage results
         id: extract
