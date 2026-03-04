@@ -45,7 +45,7 @@ Follow **WordPress coding standards** as configured in `phpcs.xml`:
 
 - Tabs for indentation (not spaces).
 - The text domain is `business-directory-plugin`.
-- Every PHP function, method, and WordPress hook/filter callback must have a PHPDoc comment that includes an `@since x.x` tag. Always use `x.x` as the version -- it will be replaced by release automation. This applies to both new and modified functions.
+- Every **new** PHP function, method, or WordPress hook/filter callback must have a PHPDoc comment that includes an `@since x.x` tag. Always use `x.x` as the version -- it will be replaced by release automation. Do **not** add or modify doc comments or `@since` tags on pre-existing functions/methods that you are editing -- leave their existing documentation as-is.
 - Use `use` statements for class imports at the top of the file.
 - Prefer null coalescing (`??`) over ternary for default values. Never stack ternaries or null coalescing operators.
 - Maximum function length: 100 lines. Maximum cognitive complexity: 10 (error) / 32 (warning).

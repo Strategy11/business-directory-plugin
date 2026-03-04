@@ -160,11 +160,6 @@ class WPBDP_CSV_Import {
 		$this->state_persist();
 	}
 
-	/**
-	 * Returns the CSV file object configured for import parsing.
-	 *
-	 * @since x.x
-	 */
 	private function get_csv_file() {
 		$file = new SplFileObject( $this->csv_file );
 		$file->setFlags( SplFileObject::READ_CSV );
