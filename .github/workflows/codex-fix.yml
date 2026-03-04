@@ -1,0 +1,250 @@
+name: Codex Auto-Fix Issues
+
+on:
+  repository_dispatch:
+    types: [codex-fix]
+
+jobs:
+  assess:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      is_simple: ${{ steps.extract.outputs.is_simple }}
+      reasoning: ${{ steps.extract.outputs.reasoning }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Assess issue complexity
+        id: triage
+        continue-on-error: true
+        uses: openai/codex-action@v1
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          sandbox: read-only
+          output-file: triage-output.json
+          prompt: |
+            You are an issue triage assistant for a WordPress plugin called Business Directory Plugin.
+
+            ISSUE NUMBER: ${{ github.event.client_payload.issue_number }}
+            ISSUE TITLE: ${{ github.event.client_payload.issue_title }}
+            ISSUE BODY: ${{ github.event.client_payload.issue_body }}
+            ISSUE AUTHOR: ${{ github.event.client_payload.issue_author }}
+
+            Your task is to determine whether this issue describes a TRIVIAL bug that can be
+            safely fixed by an automated system. Base your decision on the issue description
+            alone -- do NOT browse the codebase. You must be VERY conservative.
+
+            SIMPLE (mark is_simple: true) -- ONLY if ALL of these are true:
+            - The issue clearly describes a small, mechanical fix
+            - It would likely touch 1-2 files maximum
+            - No change to control flow, query logic, or template rendering
+            - No change to how data is fetched, filtered, or displayed
+            - Examples: PHP notice for undefined variable, CSS color/font/spacing value change,
+              typo in a string, missing esc_html() wrapper, missing isset() check, broken
+              hardcoded URL, missing translation wrapper around a string literal
+
+            NOT SIMPLE (mark is_simple: false) -- if ANY of these are true:
+            - The fix requires understanding program flow or business logic
+            - It involves changing what gets displayed or when
+            - It involves template rendering, query modifications, or conditional behavior
+            - It changes how a feature works (even slightly)
+            - It requires adding new strings, messages, or UI elements that don't exist yet
+            - It would likely touch 3+ files
+            - It involves database queries or data model changes
+            - It involves payment, billing, or subscription logic
+            - It involves third-party API or gateway integrations
+            - It requires changes to hooks, filters, or action priorities that affect behavior
+            - The issue description is vague, lacks specifics, or requires interpretation
+            - The issue is a feature request disguised as a bug
+            - You are not 100% certain what the fix should be
+
+            IMPORTANT: Your default answer should be is_simple: false. Only mark is_simple: true
+            when the fix is genuinely trivial. When in doubt, ALWAYS say NOT simple.
+
+            Return ONLY valid JSON with this exact shape:
+            {"is_simple":boolean,"category":"string","estimated_files":number,"reasoning":"string"}
+          codex-args: >
+            ["--output-schema","{\"type\":\"object\",\"properties\":{\"is_simple\":{\"type\":\"boolean\",\"description\":\"Whether the issue is low complexity and safe for automation\"},\"category\":{\"type\":\"string\",\"description\":\"Short label like php-notice, css-fix, missing-check, typo, etc.\"},\"estimated_files\":{\"type\":\"integer\",\"description\":\"Estimated number of files that need to change\"},\"reasoning\":{\"type\":\"string\",\"description\":\"1-2 sentence explanation of the assessment\"}},\"required\":[\"is_simple\",\"category\",\"estimated_files\",\"reasoning\"]}"]
+
+      - name: Extract triage results
+        id: extract
+        run: |
+          IS_SIMPLE="false"
+          REASONING="Assessment could not determine complexity."
+
+          if [ -f triage-output.json ] && jq -e . triage-output.json >/dev/null 2>&1; then
+            IS_SIMPLE=$(jq -r '.is_simple // false' triage-output.json)
+            REASONING=$(jq -r '.reasoning // "Assessment could not determine complexity."' triage-output.json)
+          fi
+
+          echo "is_simple=$IS_SIMPLE" >> "$GITHUB_OUTPUT"
+          echo "reasoning=$REASONING" >> "$GITHUB_OUTPUT"
+
+      - name: Comment and remove label if too complex
+        if: steps.extract.outputs.is_simple != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.CROSS_REPO_PAT }}
+          REASONING: ${{ steps.extract.outputs.reasoning }}
+          REQUESTED_BY: ${{ github.event.client_payload.sender }}
+          ISSUE_NUMBER: ${{ github.event.client_payload.issue_number }}
+          ISSUES_REPO: ${{ github.event.client_payload.issues_repo }}
+        run: |
+          REASON="${REASONING:-Assessment could not determine complexity.}"
+
+          gh issue comment "$ISSUE_NUMBER" \
+            --repo "$ISSUES_REPO" \
+            --body "This issue has been assessed as too complex for automated fixing.
+
+          **Reason:** $REASON
+
+          @$REQUESTED_BY a human developer needs to handle this. Removing the \`codex-fix\` label."
+
+          gh issue edit "$ISSUE_NUMBER" \
+            --repo "$ISSUES_REPO" \
+            --remove-label "codex-fix"
+
+  fix:
+    needs: assess
+    if: needs.assess.outputs.is_simple == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      pr_url: ${{ steps.create_pr.outputs.pr_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+          tools: composer
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Create fix branch
+        id: branch
+        env:
+          ISSUE_NUMBER: ${{ github.event.client_payload.issue_number }}
+        run: |
+          BRANCH_NAME="codex-fix/issue-${ISSUE_NUMBER}-${GITHUB_RUN_ID}"
+          git switch -c "$BRANCH_NAME"
+          echo "branch_name=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Fix the issue
+        uses: openai/codex-action@v1
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          sandbox: workspace-write
+          codex-args: '["--full-auto"]'
+          prompt: |
+            REPO: ${{ github.repository }}
+            ISSUE NUMBER: ${{ github.event.client_payload.issue_number }}
+            ISSUE TITLE: ${{ github.event.client_payload.issue_title }}
+            ISSUE BODY: ${{ github.event.client_payload.issue_body }}
+            ISSUE AUTHOR: ${{ github.event.client_payload.issue_author }}
+            ISSUES REPO: ${{ github.event.client_payload.issues_repo }}
+
+            You are fixing a low-complexity bug in the Business Directory Plugin for WordPress.
+            The issue is tracked in a separate repository (${{ github.event.client_payload.issues_repo }})
+            but the code lives here in ${{ github.repository }}.
+
+            Steps:
+            1. Read the issue carefully and understand what needs to change.
+            2. Find the relevant code in the codebase.
+            3. Implement the minimal, targeted fix. Do not refactor unrelated code.
+            4. Follow WordPress coding standards. Use tabs for indentation.
+            5. Every new or modified PHP function/method must have a doc comment with an @since x.x tag.
+            6. If you modified PHP files, run: vendor/bin/phpcs --standard=phpcs.xml <changed_files>
+               Fix any violations before completing.
+            7. Do not create commits or pull requests. Only change files in the working tree.
+
+            Rules:
+            - Do NOT modify files in vendor/, vendors/, node_modules/, or languages/
+            - Do NOT run build commands (npm run build, grunt, webpack)
+            - Keep changes minimal and focused on the reported issue
+            - Use isset() or null coalescing when accessing potentially undefined variables
+            - Escape output with appropriate WordPress functions (esc_html, esc_attr, etc.)
+            - Use the text domain "business-directory-plugin" for any translatable strings
+
+      - name: Commit and push changes
+        id: commit_push
+        env:
+          BRANCH_NAME: ${{ steps.branch.outputs.branch_name }}
+        run: |
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git commit -m "fix: automated codex fix for issue #${{ github.event.client_payload.issue_number }}"
+          git push -u origin "$BRANCH_NAME"
+          echo "has_changes=true" >> "$GITHUB_OUTPUT"
+
+      - name: Create pull request
+        id: create_pr
+        if: steps.commit_push.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH_NAME: ${{ steps.branch.outputs.branch_name }}
+          ISSUE_NUMBER: ${{ github.event.client_payload.issue_number }}
+          ISSUES_REPO: ${{ github.event.client_payload.issues_repo }}
+          BASE_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          PR_URL=$(gh pr create \
+            --repo "${{ github.repository }}" \
+            --base "$BASE_BRANCH" \
+            --head "$BRANCH_NAME" \
+            --title "fix: automated codex fix for issue #$ISSUE_NUMBER" \
+            --body "Automated fix generated by Codex.
+
+          References: $ISSUES_REPO#$ISSUE_NUMBER")
+          echo "pr_url=$PR_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Notify issue requester when no code changes were made
+        if: steps.commit_push.outputs.has_changes != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.CROSS_REPO_PAT }}
+          ISSUE_NUMBER: ${{ github.event.client_payload.issue_number }}
+          ISSUES_REPO: ${{ github.event.client_payload.issues_repo }}
+          REQUESTED_BY: ${{ github.event.client_payload.sender }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" \
+            --repo "$ISSUES_REPO" \
+            --body "I ran the \`codex-fix\` workflow but no code changes were produced for this issue.
+
+          @$REQUESTED_BY please review and handle this issue manually."
+
+      - name: Notify issue requester with PR
+        if: steps.create_pr.outputs.pr_url != ''
+        env:
+          GH_TOKEN: ${{ secrets.CROSS_REPO_PAT }}
+          PR_URL: ${{ steps.create_pr.outputs.pr_url }}
+          REQUESTED_BY: ${{ github.event.client_payload.sender }}
+          ISSUE_NUMBER: ${{ github.event.client_payload.issue_number }}
+          ISSUES_REPO: ${{ github.event.client_payload.issues_repo }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" \
+            --repo "$ISSUES_REPO" \
+            --body "An automated Codex fix has been created for this issue: $PR_URL
+
+          @$REQUESTED_BY please review and test the changes."
