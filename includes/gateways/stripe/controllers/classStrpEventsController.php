@@ -76,8 +76,12 @@ class WPBDPStrpEventsController {
 
 			$this->event = WPBDPStrpConnectHelper::get_event( $event_id );
 			if ( is_object( $this->event ) ) {
-				$this->handle_event();
+				$handled = $this->handle_event();
 				$this->track_handled_event( $event_id );
+				if ( ! $handled ) {
+					continue;
+				}
+
 				WPBDPStrpConnectHelper::process_event( $event_id );
 			} else {
 				$this->count_failed_event( $event_id );
@@ -175,7 +179,7 @@ class WPBDPStrpEventsController {
 	/**
 	 * Handle the current event in the queue and update payment records.
 	 *
-	 * @return void
+	 * @return bool True if the event was handled by this site.
 	 */
 	private function handle_event() {
 		$this->invoice = $this->event->data->object;
@@ -190,8 +194,7 @@ class WPBDPStrpEventsController {
 
 		switch ( $this->event->type ) {
 			case 'invoice.payment_failed':
-				$this->process_invoice_payment_failed( $subscription, $parent_payment );
-				break;
+				return $this->process_invoice_payment_failed( $subscription, $parent_payment );
 			case 'invoice.payment_succeeded':
 				if ( ! $subscription ) {
 					$subscription = $this->maybe_create_listing_subscription();
@@ -201,12 +204,11 @@ class WPBDPStrpEventsController {
 					}
 				}
 
-				$this->process_payment_succeeded( $subscription, $parent_payment );
-
-				break;
+				return $this->process_payment_succeeded( $subscription, $parent_payment );
 			case 'payment_intent.succeeded':
-				$this->process_payment_intent();
-				break;
+				return $this->process_payment_intent();
+			default:
+				return true;
 		}
 	}
 
@@ -218,18 +220,18 @@ class WPBDPStrpEventsController {
 	 * @param WPBDP__Listing_Subscription|null $subscription   The subscription object.
 	 * @param object|null                      $parent_payment The parent payment object.
 	 *
-	 * @return void
+	 * @return bool True if the payment was found on this site.
 	 */
 	private function process_invoice_payment_failed( $subscription, $parent_payment ) {
 		if ( ! $parent_payment || 'stripe' !== $parent_payment->gateway ) {
-			return;
+			return false;
 		}
 
 		// Soft cancel: Mark listing as expired but preserve subscription data for potential recovery.
 		$listing = wpbdp_get_listing( $parent_payment->listing_id );
 
 		if ( ! $listing ) {
-			return;
+			return true;
 		}
 
 		$listing->set_status( 'expired' );
@@ -237,6 +239,8 @@ class WPBDPStrpEventsController {
 
 		// Store metadata to track this was a payment failure (for recovery on successful retry).
 		update_post_meta( $parent_payment->listing_id, '_wpbdp_stripe_payment_failed', time() );
+
+		return true;
 	}
 
 	/**
@@ -287,16 +291,20 @@ class WPBDPStrpEventsController {
 	/**
 	 * Triggered when processing payment_intent.succeeded events.
 	 *
-	 * @return void
+	 * @return bool True if the payment was found on this site.
 	 */
 	private function process_payment_intent() {
 		if ( empty( $this->invoice->id ) || 'manual' === $this->invoice->confirmation_method ) {
-			return;
+			return true;
 		}
 
 		$payment = $this->find_payment_for_intent();
-		if ( ! $payment || 'completed' === $payment->status ) {
-			return;
+		if ( ! $payment ) {
+			return false;
+		}
+
+		if ( 'completed' === $payment->status ) {
+			return true;
 		}
 
 		$payment->gateway = 'stripe';
@@ -314,6 +322,8 @@ class WPBDPStrpEventsController {
 
 		$payment->save();
 		$this->maybe_reactivate_listing( $payment->listing_id );
+
+		return true;
 	}
 
 	/**
@@ -402,11 +412,15 @@ class WPBDPStrpEventsController {
 	 * @param WPBDP__Listing_Subscription $subscription
 	 * @param object                       $parent_payment
 	 *
-	 * @return void
+	 * @return bool True if the payment was found on this site.
 	 */
 	private function process_payment_succeeded( $subscription, $parent_payment ) {
-		if ( ! $parent_payment || 'stripe' !== $parent_payment->gateway ) {
-			return;
+		if ( ! $parent_payment ) {
+			return false;
+		}
+
+		if ( 'stripe' !== $parent_payment->gateway ) {
+			return false;
 		}
 
 		$invoice = $this->invoice;
@@ -419,7 +433,8 @@ class WPBDPStrpEventsController {
 			$parent_payment->save();
 
 			$this->maybe_reactivate_listing( $parent_payment->listing_id );
-			return;
+
+			return true;
 		}
 
 		$exists = WPBDP_Payment::objects()->get(
@@ -429,7 +444,7 @@ class WPBDPStrpEventsController {
 			)
 		);
 		if ( $exists ) {
-			return;
+			return true;
 		}
 
 		// An installment.
@@ -442,6 +457,8 @@ class WPBDPStrpEventsController {
 		);
 		$subscription->renew();
 		$this->maybe_reactivate_listing( $parent_payment->listing_id );
+
+		return true;
 	}
 
 	/**
