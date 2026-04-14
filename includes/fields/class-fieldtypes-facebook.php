@@ -44,7 +44,7 @@ class WPBDP_FieldTypes_Facebook extends WPBDP_Form_Field_Type {
 
 		// data-layout can be 'box_count', 'standard' or 'button_count'
 		// ref: https://developers.facebook.com/docs/reference/plugins/like/
-		$html .= sprintf( '<div class="fb-like" data-href="%s" data-send="false" data-width="200" data-layout="button_count" data-show-faces="false"></div>', $value );
+		$html .= sprintf( '<div class="fb-like" data-href="%s" data-send="false" data-width="200" data-layout="button_count" data-show-faces="false"></div>', esc_url( $value ) );
 		$html .= '</div>';
 
 		return $html;

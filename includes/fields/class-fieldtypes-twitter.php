@@ -67,7 +67,7 @@ class WPBDP_FieldTypes_Twitter extends WPBDP_Form_Field_Type {
 			esc_attr( $value ),
 			! empty( $field->data( 'show_count' ) ) ? 'true' : 'false',
 			substr( get_bloginfo( 'language' ), 0, 2 ),
-			$value
+			esc_html( $value )
 		);
 		$html .= '<script>' .
 			'!function(d,s,id){' .
