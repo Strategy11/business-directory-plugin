@@ -33,8 +33,11 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_Form_Field_Type {
 	 * @return string
 	 */
 	public function convert_input( &$field, $input ) {
-		$input = trim( $input );
+		if ( ! is_scalar( $input ) ) {
+			return '';
+		}
 
+		$input = trim( (string) $input );
 		if ( ! $input ) {
 			return '';
 		}
