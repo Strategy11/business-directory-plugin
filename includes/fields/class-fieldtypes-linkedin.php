@@ -22,6 +22,29 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_Form_Field_Type {
 		$field->add_display_flag( 'social' );
 	}
 
+	/**
+	 * Sanitize the field input value.
+	 *
+	 * @since x.x
+	 *
+	 * @param WPBDP_Form_Field $field The field object.
+	 * @param string           $input The raw input value.
+	 *
+	 * @return string
+	 */
+	public function convert_input( &$field, $input ) {
+		if ( ! is_scalar( $input ) ) {
+			return '';
+		}
+
+		$input = trim( (string) $input );
+		if ( ! $input ) {
+			return '';
+		}
+
+		return is_numeric( $input ) ? intval( $input ) : esc_url_raw( $input );
+	}
+
 	public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
 		// LinkedIn fields are rendered as normal textfields
 		global $wpbdp;
