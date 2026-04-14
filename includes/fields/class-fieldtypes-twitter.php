@@ -33,6 +33,20 @@ class WPBDP_FieldTypes_Twitter extends WPBDP_Form_Field_Type {
 	}
 
 
+	/**
+	 * Sanitize the field input value.
+	 *
+	 * @since x.x
+	 *
+	 * @param WPBDP_Form_Field $field The field object.
+	 * @param string           $input The raw input value.
+	 *
+	 * @return string
+	 */
+	public function convert_input( &$field, $input ) {
+		return sanitize_text_field( $input );
+	}
+
 	public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
 		// twitter fields are rendered as normal textfields
 		global $wpbdp;
