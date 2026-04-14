@@ -56,7 +56,7 @@
 		"lint:js": "eslint .",
 		"lint:php": "composer phpcs",
 		"watch": "grunt watch",
-		"build": "cross-env NODE_ENV=production webpack --progress",
+		"build": "grunt minify:plugin && cross-env NODE_ENV=production webpack --progress",
 		"dev": "cross-env NODE_ENV=default webpack --watch"
 	},
 	"repository": {

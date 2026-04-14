@@ -359,6 +359,84 @@ class WPBDP_Themes_Admin {
 		return $outdated;
 	}
 
+	/**
+	 * Get the download URL for a theme package.
+	 *
+	 * Tries the cached version info first. If no URL is found,
+	 * falls back to a direct EDD API request for the theme.
+	 *
+	 * @since x.x
+	 *
+	 * @param string     $theme_id The theme ID.
+	 * @param array|null $version  Optional cached version info.
+	 *
+	 * @return string The download URL, or empty string on failure.
+	 */
+	private function get_theme_download_url( $theme_id, $version = null ) {
+		$theme_key = 'theme-' . $theme_id;
+
+		if ( $version && ! empty( $version[ $theme_key ]->download_link ) ) {
+			return $version[ $theme_key ]->download_link;
+		}
+
+		if ( $version && ! empty( $version[ $theme_key ]->package ) ) {
+			return $version[ $theme_key ]->package;
+		}
+
+		return $this->fetch_theme_package_url( $theme_id );
+	}
+
+	/**
+	 * Fetch the download URL for a theme directly from the EDD API.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $theme_id The theme ID.
+	 *
+	 * @return string The download URL, or empty string on failure.
+	 */
+	private function fetch_theme_package_url( $theme_id ) {
+		$theme = $this->api->get_theme( $theme_id );
+		if ( ! $theme ) {
+			return '';
+		}
+
+		$license = wpbdp_get_option( 'license-key-theme-' . $theme_id );
+		if ( ! $license ) {
+			$license = wpbdp_get_option( 'license-key-module-business-directory-premium' );
+		}
+
+		if ( ! $license ) {
+			return '';
+		}
+
+		$item_name = ! empty( $theme->edd_name ) ? $theme->edd_name : $theme->name;
+
+		$response = wp_remote_get(
+			add_query_arg(
+				array(
+					'edd_action' => 'get_version',
+					'item_name'  => $item_name,
+					'url'        => home_url(),
+					'license'    => $license,
+				),
+				WPBDP_Licensing::STORE_URL
+			),
+			array(
+				'timeout'   => 15,
+				'sslverify' => false,
+			)
+		);
+
+		if ( is_wp_error( $response ) ) {
+			return '';
+		}
+
+		$data = json_decode( wp_remote_retrieve_body( $response ) );
+
+		return ! empty( $data->package ) ? $data->package : '';
+	}
+
 	// Theme update process. {{
 
 	public function _update_theme() {
@@ -413,65 +491,88 @@ class WPBDP_Themes_Admin {
 			return new WP_Error( 'no_package_information', 'No theme package information available.' );
 		}
 
-		// Download package.
-		$url = $version[ 'theme-' . $theme_id ]->download_link;
+		$url = $this->get_theme_download_url( $theme_id, $version );
 
 		if ( ! $url ) {
-			$version = $this->licensing->get_version_information( true );
+			return new WP_Error( 'invalid_package_url', 'No package URL provided.' );
+		}
 
-			$url = $version[ 'theme-' . $theme_id ]->download_link;
+		$download_file = $this->download_theme_zip( $url );
 
-			if ( ! $url ) {
-				return new WP_Error( 'invalid_package_url', 'No package URL provided.' );
+		if ( ! is_string( $download_file ) ) {
+			$fresh_url = $this->fetch_theme_package_url( $theme_id );
+
+			if ( $fresh_url && $fresh_url !== $url ) {
+				$download_file = $this->download_theme_zip( $fresh_url );
 			}
 		}
 
-		$download_file = download_url( $url );
 		if ( is_wp_error( $download_file ) ) {
-			return new WP_Error( 'download_failed', 'Could not download theme package.', $download_file->get_error_message() );
+			return $download_file;
 		}
 
-		// Unpack package.
-		$upgrade_folder = $this->api->get_themes_dir() . 'upgrade/';
-		if ( ! is_dir( $upgrade_folder ) ) {
-			if ( ! WPBDP_FS::mkdir( $upgrade_folder ) ) {
-				return new WP_Error( 'no_upgrade_folder', sprintf( 'Could not create temporary upgrade folder: %s.', $upgrade_folder ) );
-			}
+		if ( ! is_string( $download_file ) ) {
+			return new WP_Error( 'download_failed', 'Could not download a valid theme package.' );
 		}
 
-		$working_dir = $upgrade_folder . basename( basename( $download_file, '.tmp' ), '.zip' );
-		if ( is_dir( $working_dir ) && ! WPBDP_FS::rmdir( $working_dir ) ) {
-			return new WP_Error( 'no_upgrade_folder', sprintf( 'Temporary upgrade folder already exists: %s.', $working_dir ) );
-		}
+		$result = $this->api->install_theme( $download_file );
+		@unlink( $download_file );
 
-		if ( ! WPBDP_FS::mkdir( $working_dir ) ) {
-			return new WP_Error( 'no_upgrade_folder', sprintf( 'Could not create upgrade folder: %s.', $working_dir ) );
-		}
-
-		$result = WPBDP_FS::unzip( $download_file, $working_dir );
 		if ( is_wp_error( $result ) ) {
-			return new WP_Error( 'unpackaging_failed', 'Could not unpackage theme file.' );
+			return $result;
 		}
-
-		$contents_folder   = $result[0];
-		$orig_theme_folder = $this->api->get_themes_dir() . $theme_id;
-		$theme_folder      = $contents_folder . $theme_id;
-		if ( ! is_dir( $theme_folder ) || ! file_exists( trailingslashit( $theme_folder ) . 'theme.json' ) ) {
-			return new WP_Error( 'no_valid_theme', 'Package is not a valid theme file.' );
-		}
-
-		if ( ! WPBDP_FS::rmdir( $orig_theme_folder ) ) {
-			return new WP_Error( 'dest_not_writable', 'Could not cleanup destination directory.' );
-		}
-
-		if ( ! WPBDP_FS::movedir( $theme_folder, $this->api->get_themes_dir() ) ) {
-			return new WP_Error( 'theme_not_moved', 'Could not move theme to destination directory.' );
-		}
-
-		WPBDP_FS::rmdir( $working_dir );
-		WPBDP_FS::rmdir( $upgrade_folder );
 
 		return true;
+	}
+
+	/**
+	 * Download a URL and validate it is a ZIP file.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $url The URL to download.
+	 *
+	 * @return string|WP_Error|false File path on success, WP_Error on download failure, false if not a valid ZIP.
+	 */
+	private function download_theme_zip( $url ) {
+		$tmpfile = download_url( $url );
+
+		if ( is_wp_error( $tmpfile ) ) {
+			return $tmpfile;
+		}
+
+		if ( $this->is_valid_zip( $tmpfile ) ) {
+			return $tmpfile;
+		}
+
+		@unlink( $tmpfile );
+
+		return false;
+	}
+
+	/**
+	 * Check if a file is a valid ZIP archive by reading its magic bytes.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $file Path to the file.
+	 *
+	 * @return bool
+	 */
+	private function is_valid_zip( $file ) {
+		if ( ! file_exists( $file ) || filesize( $file ) < 4 ) {
+			return false;
+		}
+
+		$handle = fopen( $file, 'rb' );
+		if ( ! $handle ) {
+			return false;
+		}
+
+		$header = fread( $handle, 4 );
+		fclose( $handle );
+
+		return strpos( $header, "PK" ) === 0;
 	}
 
 	function pre_themes_templates_warning() {
