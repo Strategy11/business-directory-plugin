@@ -31,7 +31,7 @@ class WPBDP_FieldTypes_Facebook extends WPBDP_Form_Field_Type {
 	 * @return string
 	 */
 	public function convert_input( &$field, $input ) {
-		$input = trim( $input );
+		$input = is_scalar( $input ) ? trim( (string) $input ) : '';
 
 		return $input ? esc_url_raw( $input ) : '';
 	}
