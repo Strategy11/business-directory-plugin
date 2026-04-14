@@ -94,14 +94,18 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 		}
 
 		if ( isset( $_POST['go-to-checkout'] ) ) {
-			$this->fee_payment( $payment && 'completed' == $payment->status ? null : $payment );
+			$result = $this->fee_payment( $payment && 'completed' == $payment->status ? null : $payment );
+
+			return $result ? $result : $this->render_plan_selection( $this->plan );
 		}
 
 		if ( ! isset( $_POST['proceed-to-checkout'] ) && $this->payment_id > 0 ) {
 			return $this->fee_confirm( $payment );
 		}
 
-		return $this->_redirect( $payment->get_checkout_url() );
+		return $payment
+			? $this->_redirect( $payment->get_checkout_url() )
+			: $this->render_plan_selection( $this->plan );
 	}
 
 	private function render_manage_subscription_page( $listing, $current_plan ) {
