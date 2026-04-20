@@ -6,6 +6,7 @@ WPBDP_Admin_Pages::show_tabs(
 		'buttons' => array(
 			__( 'Add New Plan', 'business-directory-plugin' ) => esc_url( admin_url( 'admin.php?page=wpbdp-admin-fees&wpbdp-view=add-fee' ) ),
 		),
+		'tabs'    => 'settings',
 	)
 );
 ?>
