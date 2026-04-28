@@ -322,6 +322,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			return;
 		}
 
+		if ( ! $this->can_reset_listing() ) {
+			return;
+		}
+
 		if ( $this->editing ) {
 			$url = wpbdp_url( 'edit_listing', $this->listing->get_id() );
 		} else {
@@ -339,6 +343,27 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			$url,
 			array( 'doing_ajax' => $this->is_ajax )
 		);
+	}
+
+	/**
+	 * Verify that the current user can reset the form for the loaded listing.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private function can_reset_listing() {
+		$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
+		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'listing submit' ) ) {
+			return false;
+		}
+
+		$listing_id = $this->listing->get_id();
+		if ( 'auto-draft' === get_post_status( $listing_id ) ) {
+			return true;
+		}
+
+		return wpbdp_user_can( 'edit', $listing_id );
 	}
 
 	/**
