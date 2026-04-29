@@ -348,7 +348,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * Verify that the current user can reset the form for the loaded listing.
 	 *
-	 * @since x.x
+	 * @since 6.4.23
 	 *
 	 * @return bool
 	 */

@@ -25,7 +25,7 @@ class WPBDP_FieldTypes_LinkedIn extends WPBDP_Form_Field_Type {
 	/**
 	 * Sanitize the field input value.
 	 *
-	 * @since x.x
+	 * @since 6.4.23
 	 *
 	 * @param WPBDP_Form_Field $field The field object.
 	 * @param string           $input The raw input value.
