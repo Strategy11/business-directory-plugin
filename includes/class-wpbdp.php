@@ -57,7 +57,7 @@ final class WPBDP {
 	}
 
 	private function setup_constants() {
-		define( 'WPBDP_VERSION', '6.4.22' );
+		define( 'WPBDP_VERSION', '6.4.23' );
 
 		define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
 		define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -504,7 +504,7 @@ final class WPBDP {
 	/**
 	 * Handle AJAX image uploads from submit listing form.
 	 *
-	 * @since x.x
+	 * @since 6.4.23
 	 */
 	public function ajax_listing_submit_image_upload() {
 		$res = new WPBDP_AJAX_Response();

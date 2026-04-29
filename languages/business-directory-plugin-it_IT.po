@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Business Directory Plugin v6.3.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/business-"
 "directory-plugin\n"
-"POT-Creation-Date: 2026-02-17 09:58:19+00:00\n"
+"POT-Creation-Date: 2026-04-29 10:55:47+00:00\n"
 "PO-Revision-Date: 2020-06-17 15:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -100,7 +100,7 @@ msgstr ""
 
 #: includes/admin/class-admin.php:213
 #: includes/admin/settings/class-settings-bootstrap.php:13
-#: includes/controllers/pages/class-submit-listing.php:1606
+#: includes/controllers/pages/class-submit-listing.php:1631
 #: includes/form-fields.php:422 templates/admin/payments-details.tpl.php:151
 #: templates/listing-contactform.tpl.php:34
 #: templates/listing-flagging-form.tpl.php:39
@@ -173,7 +173,7 @@ msgstr ""
 msgid "Cyber Monday!"
 msgstr ""
 
-#: includes/admin/class-admin.php:575 includes/class-wpbdp.php:436
+#: includes/admin/class-admin.php:575 includes/class-wpbdp.php:438
 msgid "Upgrade to Premium"
 msgstr ""
 
@@ -383,7 +383,7 @@ msgid "Cannot disable plan. At least one plan should be enabled"
 msgstr ""
 
 #: includes/admin/controllers/class-admin-listings.php:235
-#: includes/controllers/pages/class-submit-listing.php:787
+#: includes/controllers/pages/class-submit-listing.php:812
 #: templates/email/listing-reported.tpl.php:7
 msgid "Listing Information"
 msgstr "Informazioni sull'annuncio"
@@ -494,7 +494,7 @@ msgstr ""
 "automaticamente."
 
 #: includes/admin/controllers/class-form-fields-admin.php:42
-#: includes/controllers/pages/class-submit-listing.php:1221
+#: includes/controllers/pages/class-submit-listing.php:1246
 #, fuzzy
 msgid "Go to \"Form Fields\""
 msgstr "Vai a \"Gestire i campi dei moduli\"."
@@ -1074,7 +1074,7 @@ msgstr "Sì, e renderlo obbligatorio"
 
 #: includes/admin/settings/class-settings-bootstrap.php:326
 #: includes/admin/settings/class-settings-bootstrap.php:340
-#: includes/controllers/pages/class-submit-listing.php:800
+#: includes/controllers/pages/class-submit-listing.php:825
 #, fuzzy
 msgid "Terms and Conditions"
 msgstr "Termini e Condizioni"
@@ -1650,7 +1650,7 @@ msgstr ""
 msgid "View Docs"
 msgstr "Vedi"
 
-#: includes/admin/views/modules/list.php:78 includes/class-wpbdp.php:420
+#: includes/admin/views/modules/list.php:78 includes/class-wpbdp.php:422
 #, fuzzy
 msgid "Settings"
 msgstr "Impostazioni"
@@ -1944,52 +1944,52 @@ msgstr ""
 msgid "Payments are now available for free users with a 3% application fee."
 msgstr ""
 
-#: includes/class-wpbdp.php:512
+#: includes/class-wpbdp.php:519
 msgid "Security check failed. Please refresh the page and try again."
 msgstr ""
 
-#: includes/class-wpbdp.php:517
+#: includes/class-wpbdp.php:524
 #, fuzzy
 msgid "Invalid listing"
 msgstr "Annuncio"
 
-#: includes/class-wpbdp.php:521
+#: includes/class-wpbdp.php:528
 #, fuzzy
 msgid "You do not have permission to upload images to this listing"
 msgstr "Non è possibile modificare questo annuncio."
 
-#: includes/class-wpbdp.php:541
+#: includes/class-wpbdp.php:548
 #, fuzzy
 msgid "Please select a plan before uploading images to the listing"
 msgstr "Si prega di selezionare il motivo per segnalare questo annuncio:"
 
-#: includes/class-wpbdp.php:546
+#: includes/class-wpbdp.php:555
 #, fuzzy
 msgid "Can not upload any more images for this listing."
 msgstr "Non è possibile caricare altre immagini per questo annuncio."
 
-#: includes/class-wpbdp.php:679
+#: includes/class-wpbdp.php:688
 #, fuzzy
 msgid "Could not find listing ID"
 msgstr "Impossibile contattare il server di licenza"
 
-#: includes/class-wpbdp.php:686
+#: includes/class-wpbdp.php:695
 msgid ""
 "Could not verify the image upload request. If problem persists contact site "
 "admin."
 msgstr ""
 
-#: includes/class-wpbdp.php:691
+#: includes/class-wpbdp.php:700
 #, fuzzy
 msgid "You do not have permission to update this listing."
 msgstr "Non è possibile modificare questo annuncio."
 
-#: includes/class-wpbdp.php:704 includes/fields/class-fieldtypes-image.php:415
+#: includes/class-wpbdp.php:713 includes/fields/class-fieldtypes-image.php:415
 #, fuzzy
 msgid "Could not find image ID"
 msgstr "Non è stato possibile aggiornare il tema: %s"
 
-#: includes/class-wpbdp.php:736
+#: includes/class-wpbdp.php:745
 msgid ""
 "The directory features are disabled at this time because a <a>manual "
 "upgrade</a> is pending."
@@ -1997,7 +1997,7 @@ msgstr ""
 "Le funzioni della directory sono disattivate in questo momento perché è in "
 "attesa di un <a>aggiornamento manuale</a>."
 
-#: includes/class-wpbdp.php:743
+#: includes/class-wpbdp.php:752
 msgid ""
 "The directory is not available at this time. Please try again in a few "
 "minutes or contact the administrator if the problem persists."
@@ -2246,49 +2246,49 @@ msgstr "Aggiungi la quota di Donazione"
 msgid "You don't have permission to edit this listing."
 msgstr "Non è possibile modificare questo annuncio."
 
-#: includes/controllers/pages/class-submit-listing.php:460
+#: includes/controllers/pages/class-submit-listing.php:485
 #, fuzzy
 msgid "You do not have permission to perform this action."
 msgstr "Non è possibile modificare questo annuncio."
 
-#: includes/controllers/pages/class-submit-listing.php:833
+#: includes/controllers/pages/class-submit-listing.php:858
 #, fuzzy
 msgid "Listing Images"
 msgstr "Immagini annuncio"
 
-#: includes/controllers/pages/class-submit-listing.php:901
+#: includes/controllers/pages/class-submit-listing.php:926
 #, fuzzy
 msgid "Account Creation"
 msgstr "Creazione account"
 
-#: includes/controllers/pages/class-submit-listing.php:1128
+#: includes/controllers/pages/class-submit-listing.php:1153
 #, fuzzy
 msgid "Please choose a plan."
 msgstr "(Si prega di scegliere un piano tariffario di cui sopra)"
 
-#: includes/controllers/pages/class-submit-listing.php:1197
+#: includes/controllers/pages/class-submit-listing.php:1222
 #, fuzzy
 msgid "Go to \"Plans\""
 msgstr "Nessun piano tariffario"
 
-#: includes/controllers/pages/class-submit-listing.php:1411
+#: includes/controllers/pages/class-submit-listing.php:1436
 #, fuzzy
 msgid "Please check the form for errors, correct them and submit again."
 msgstr ""
 "Qualcosa è andato storto. Si prega di controllare il modulo per eventuali "
 "errori, correggerli e ripresentarli di nuovo."
 
-#: includes/controllers/pages/class-submit-listing.php:1590
+#: includes/controllers/pages/class-submit-listing.php:1615
 #, fuzzy
 msgid "Create a user account on this site"
 msgstr "Creare un account utente su questo sito"
 
-#: includes/controllers/pages/class-submit-listing.php:1597
+#: includes/controllers/pages/class-submit-listing.php:1622
 #, fuzzy
 msgid "Username"
 msgstr "Nome utente:"
 
-#: includes/controllers/pages/class-submit-listing.php:1619
+#: includes/controllers/pages/class-submit-listing.php:1644
 #, fuzzy
 msgid "Clear Form"
 msgstr "Cancella"
@@ -2410,7 +2410,7 @@ msgid "Text to be displayed for social field"
 msgstr "Testo da visualizzare insieme all'icona"
 
 #: includes/fields/class-fieldtypes-social.php:148
-#: includes/fields/class-fieldtypes-social.php:290
+#: includes/fields/class-fieldtypes-social.php:324
 msgid "X (formerly Twitter)"
 msgstr ""
 
@@ -6064,7 +6064,7 @@ msgctxt "form-fields admin"
 msgid "Automatically generate excerpt from content field?"
 msgstr "Generare automaticamente un estratto dal campo contenuto?"
 
-#: includes/fields/class-fieldtypes-twitter.php:88
+#: includes/fields/class-fieldtypes-twitter.php:102
 #, fuzzy
 msgctxt "form-fields admin"
 msgid "Show followers count?"
@@ -7839,7 +7839,7 @@ msgctxt "recaptcha"
 msgid "The reCAPTCHA validation score failed."
 msgstr "Il punteggio di convalida reCAPTCHA non è riuscito."
 
-#: includes/class-wpbdp.php:550
+#: includes/class-wpbdp.php:559
 #, fuzzy
 msgctxt "listing image upload"
 msgid ""
@@ -8011,7 +8011,7 @@ msgstr ""
 "anteriore del tuo sito. Se non l'hai voluto, clicca <a>qui</a> per "
 "modificare l'impostazione."
 
-#: includes/controllers/pages/class-submit-listing.php:589
+#: includes/controllers/pages/class-submit-listing.php:614
 msgctxt "templates"
 msgid ""
 "<b>View not available</b>. Do you have the \"Disable Frontend Listing "
@@ -8020,7 +8020,7 @@ msgstr ""
 "<b>Vista non disponibile</b>. È stata selezionata l'impostazione "
 "\"Disattivare l'invio di annunci da frontend\"?"
 
-#: includes/controllers/pages/class-submit-listing.php:591
+#: includes/controllers/pages/class-submit-listing.php:616
 msgctxt "templates"
 msgid ""
 "Listing submission has been disabled. Contact the administrator for details."
@@ -8028,14 +8028,14 @@ msgstr ""
 "L'inserimento di un annuncio è stato disabilitato. Contattare "
 "l'amministratore per i dettagli."
 
-#: includes/controllers/pages/class-submit-listing.php:1190
+#: includes/controllers/pages/class-submit-listing.php:1215
 msgctxt "templates"
 msgid ""
 "<b>There are no Plans available</b>, without a plan site users can't submit "
 "a listing. %s to create a plan"
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1208
+#: includes/controllers/pages/class-submit-listing.php:1233
 msgctxt "templates"
 msgid ""
 "Listing submission is not available at the moment. Contact the administrator "
@@ -8044,7 +8044,7 @@ msgstr ""
 "Al momento non è disponibile l'invio di annunci. Contattare l'amministratore "
 "per i dettagli."
 
-#: includes/controllers/pages/class-submit-listing.php:1210
+#: includes/controllers/pages/class-submit-listing.php:1235
 #, fuzzy
 msgctxt "templates"
 msgid ""
@@ -8056,12 +8056,12 @@ msgstr ""
 "%s e crea un nuovo campo con questa associazione, o assegna questa "
 "associazione ad un campo esistente."
 
-#: includes/controllers/pages/class-submit-listing.php:1640
+#: includes/controllers/pages/class-submit-listing.php:1665
 msgctxt "templates"
 msgid "Please agree to the Terms and Conditions."
 msgstr "Per favore è necessario accettare le condizioni d'uso."
 
-#: includes/controllers/pages/class-submit-listing.php:1654
+#: includes/controllers/pages/class-submit-listing.php:1679
 msgctxt "templates"
 msgid "I agree to the <a>Terms and Conditions</a>"
 msgstr "Accetto i <a>termini e le condizioni</a> d'uso"
@@ -8276,7 +8276,7 @@ msgstr ""
 "Per completare il rinnovo, si prega di confermare la selezione del piano "
 "tariffario."
 
-#: includes/controllers/pages/class-renew-listing.php:162
+#: includes/controllers/pages/class-renew-listing.php:166
 msgctxt "listings"
 msgid "Fee \"%s\" renewal."
 msgstr "Canone \"%s\" di rinnovo."
@@ -8356,33 +8356,33 @@ msgctxt "submit listing"
 msgid "You're logged in as admin, payment will be skipped."
 msgstr "Sei loggato come amministratore, il pagamento verrà saltato."
 
-#: includes/controllers/pages/class-submit-listing.php:781
+#: includes/controllers/pages/class-submit-listing.php:806
 msgctxt "submit listing"
 msgid "Category selection"
 msgstr "Selezione della categoria"
 
-#: includes/controllers/pages/class-submit-listing.php:782
+#: includes/controllers/pages/class-submit-listing.php:807
 msgctxt "submit listing"
 msgid "Category & plan selection"
 msgstr "Selezione di categorie e piani"
 
-#: includes/controllers/pages/class-submit-listing.php:1110
-#: includes/controllers/pages/class-submit-listing.php:1322
+#: includes/controllers/pages/class-submit-listing.php:1135
+#: includes/controllers/pages/class-submit-listing.php:1347
 msgctxt "submit listing"
 msgid "Please select a category."
 msgstr "Per favore seleziona una categoria."
 
-#: includes/controllers/pages/class-submit-listing.php:1135
+#: includes/controllers/pages/class-submit-listing.php:1160
 msgctxt "submit listing"
 msgid "Current active plan is disabled. Please select another plan."
 msgstr ""
 
-#: includes/controllers/pages/class-submit-listing.php:1137
+#: includes/controllers/pages/class-submit-listing.php:1162
 msgctxt "submit listing"
 msgid "Please choose a valid category for your plan."
 msgstr "Scegli una categoria valida per il tuo piano."
 
-#: includes/controllers/pages/class-submit-listing.php:1140
+#: includes/controllers/pages/class-submit-listing.php:1165
 #, fuzzy
 msgctxt "submit listing"
 msgid "Please choose a valid plan for your category selection."
@@ -8390,29 +8390,29 @@ msgstr ""
 "Si prega di scegliere un piano tariffario valido per la selezione della "
 "categoria."
 
-#: includes/controllers/pages/class-submit-listing.php:1187
+#: includes/controllers/pages/class-submit-listing.php:1212
 msgctxt "submit listing"
 msgid "Can not submit a listing at this moment. Please try again later."
 msgstr ""
 "Non è possibile inviare un annuncio in questo momento. Per favore, riprova "
 "più tardi."
 
-#: includes/controllers/pages/class-submit-listing.php:1557
+#: includes/controllers/pages/class-submit-listing.php:1582
 msgctxt "submit listing"
 msgid "Please enter your desired username."
 msgstr "Inserisci il nome utente desiderato."
 
-#: includes/controllers/pages/class-submit-listing.php:1562
+#: includes/controllers/pages/class-submit-listing.php:1587
 msgctxt "submit listing"
 msgid "Please enter the e-mail for your new account."
 msgstr "Inserisci l'e-mail per il tuo nuovo account."
 
-#: includes/controllers/pages/class-submit-listing.php:1567
+#: includes/controllers/pages/class-submit-listing.php:1592
 msgctxt "submit listing"
 msgid "The username you chose is already in use. Please use a different one."
 msgstr "Il nome utente scelto è già in uso. Per favore, usane un'altra."
 
-#: includes/controllers/pages/class-submit-listing.php:1572
+#: includes/controllers/pages/class-submit-listing.php:1597
 msgctxt "submit listing"
 msgid "The e-mail address you chose for your account is already in use."
 msgstr "L'indirizzo e-mail scelto per il tuo account è già in uso."
@@ -8422,7 +8422,7 @@ msgctxt "submit listing"
 msgid "Listing submitted by admin. Payment skipped."
 msgstr "Annuncio presentato da admin. Pagamento saltato."
 
-#: includes/controllers/pages/class-submit-listing.php:1504
+#: includes/controllers/pages/class-submit-listing.php:1529
 msgctxt "listing submit"
 msgid ""
 "Image upload is required, please provide at least one image and submit again."
@@ -8450,7 +8450,7 @@ msgctxt "form-fields api"
 msgid "Image (file upload)"
 msgstr "Immagine (caricamento file)"
 
-#: includes/fields/class-fieldtypes-linkedin.php:29
+#: includes/fields/class-fieldtypes-linkedin.php:52
 msgctxt "form-fields api"
 msgid "You can add your Company ID or profile URL here."
 msgstr "Qui puoi aggiungere l'ID del tuo Annuncio o l'URL del tuo profilo."

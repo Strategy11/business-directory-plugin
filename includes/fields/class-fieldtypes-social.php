@@ -231,7 +231,7 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 	/**
 	 * Sanitize the field input value.
 	 *
-	 * @since x.x
+	 * @since 6.4.23
 	 *
 	 * @param WPBDP_Form_Field $field The field object.
 	 * @param mixed            $input The raw input value.
