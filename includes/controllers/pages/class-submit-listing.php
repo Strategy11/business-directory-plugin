@@ -545,8 +545,12 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 */
 	private function can_load_existing_listing( $listing_id ) {
 		$post = get_post( $listing_id );
-		if ( ! $post || WPBDP_POST_TYPE !== $post->post_type ) {
+		if ( ! $post ) {
 			return true;
+		}
+
+		if ( WPBDP_POST_TYPE !== $post->post_type ) {
+			return false;
 		}
 
 		if ( 'auto-draft' === $post->post_status ) {
