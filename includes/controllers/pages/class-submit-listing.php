@@ -126,6 +126,12 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			);
 		}
 
+		if ( $this->editing && $listing_id && ! get_post( $listing_id ) ) {
+			return wpbdp_render_msg(
+				_x( 'The listing you are trying to edit does not exist.', 'submit listing', 'business-directory-plugin' )
+			);
+		}
+
 		if ( $listing_id && ! $this->can_load_existing_listing( $listing_id ) ) {
 			return wpbdp_render_msg(
 				_x( "You can't edit this listing.", 'submit listing', 'business-directory-plugin' )
