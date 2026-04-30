@@ -111,18 +111,25 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		}
 
 		// At this point, 'editing' is only set if 'wpbdp_view' is 'edit_listing'.
-		if ( $this->editing ) {
-			$message = '';
+		$listing_id = wpbdp_get_var(
+			array(
+				'param'    => 'listing_id',
+				'sanitize' => 'absint',
+				'default'  => 0,
+			),
+			'request'
+		);
 
-			if ( empty( $_REQUEST['listing_id'] ) ) {
-				$message = _x( 'No listing ID was specified.', 'submit listing', 'business-directory-plugin' );
-			} elseif ( ! wpbdp_user_can( 'edit', wpbdp_get_var( array( 'param' => 'listing_id' ) ) ) ) {
-				$message = _x( "You can't edit this listing.", 'submit listing', 'business-directory-plugin' );
-			}
+		if ( $this->editing && ! $listing_id ) {
+			return wpbdp_render_msg(
+				_x( 'No listing ID was specified.', 'submit listing', 'business-directory-plugin' )
+			);
+		}
 
-			if ( $message ) {
-				return wpbdp_render_msg( $message );
-			}
+		if ( $listing_id && ! $this->can_load_existing_listing( $listing_id ) ) {
+			return wpbdp_render_msg(
+				_x( "You can't edit this listing.", 'submit listing', 'business-directory-plugin' )
+			);
 		}
 
 		$this->find_or_create_listing();
@@ -524,6 +531,29 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		$res->add( 'messages', $this->messages );
 		$res->add( 'sections', $sections );
 		$res->send();
+	}
+
+	/**
+	 * Verify the current user is allowed to load the listing referenced
+	 * in the request before the submit form processes its data.
+	 *
+	 * @since x.x
+	 *
+	 * @param int $listing_id The listing ID supplied by the request.
+	 *
+	 * @return bool True when the listing can be loaded by the current user.
+	 */
+	private function can_load_existing_listing( $listing_id ) {
+		$post = get_post( $listing_id );
+		if ( ! $post || WPBDP_POST_TYPE !== $post->post_type ) {
+			return true;
+		}
+
+		if ( 'auto-draft' === $post->post_status ) {
+			return true;
+		}
+
+		return wpbdp_user_can( 'edit', $listing_id );
 	}
 
 	/**
