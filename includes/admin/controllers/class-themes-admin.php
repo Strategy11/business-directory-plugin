@@ -362,9 +362,6 @@ class WPBDP_Themes_Admin {
 	/**
 	 * Get the download URL for a theme package.
 	 *
-	 * Tries the cached version info first. If no URL is found,
-	 * falls back to a direct EDD API request for the theme.
-	 *
 	 * @since x.x
 	 *
 	 * @param string     $theme_id The theme ID.
