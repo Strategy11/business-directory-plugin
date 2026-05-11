@@ -250,7 +250,7 @@ function wpbdpSelectSubnav() {
                     } );
 
                     if ( sorted_items )
-                        $.post( ajaxurl, { 'action': 'wpbdp-formfields-reorder', 'order': sorted_items } );
+                        $.post( ajaxurl, { 'action': 'wpbdp-formfields-reorder', 'order': sorted_items, 'nonce': wpbdp_global.nonce } );
                 }
             });
 
@@ -493,7 +493,7 @@ jQuery(document).ready(function($){
             } );
 
             if ( sorted_items )
-                $.post( ajaxurl, { 'action': 'wpbdp-admin-fees-reorder', 'order': sorted_items } );
+                $.post( ajaxurl, { 'action': 'wpbdp-admin-fees-reorder', 'order': sorted_items, 'nonce': wpbdp_global.nonce } );
         }
     });
 
