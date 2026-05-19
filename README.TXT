@@ -159,7 +159,7 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 
 == Changelog ==
 = 6.4.24 =
-* Fix: Security vulnerabilities in admin form field and fee reorder actions
+* Fix: Issues in admin form field and fee reorder actions
 * Fix: Issues downloading and installing theme updates
 * Fix: Error when attempting to edit a listing that does not exist
 
