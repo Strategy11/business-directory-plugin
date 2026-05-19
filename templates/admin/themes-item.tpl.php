@@ -15,7 +15,7 @@ if ( $theme->active ) {
 
 	<div class="wpbdp-theme-details-wrapper">
 		<?php if ( $theme->can_be_activated && $is_outdated ) : ?>
-			<div class="wpbdp-theme-update-info update-message notice inline notice-warning notice-alt" data-l10n-updating="<?php esc_attr_e( 'Updating theme...', 'business-directory-plugin' ); ?>" data-l10n-updated="<?php esc_attr_e( 'Theme updated.', 'business-directory-plugin' ); ?>">
+			<div class="wpbdp-theme-update-info update-message notice inline notice-warning notice-alt wpbdp-inline-notice" data-l10n-updating="<?php esc_attr_e( 'Updating theme...', 'business-directory-plugin' ); ?>" data-l10n-updated="<?php esc_attr_e( 'Theme updated.', 'business-directory-plugin' ); ?>">
 				<div class="update-message">
 					<?php
 					printf(

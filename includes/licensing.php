@@ -1078,7 +1078,9 @@ class WPBDP_Licensing {
 
 			$item_key = $item['item_type'] . '-' . $item['id'];
 
-			$addon->expires             = isset( $addon->expires ) ? gmdate( 'Y-m-d H:i:s', $addon->expires ) : '';
+			$addon->expires       = isset( $addon->expires ) ? gmdate( 'Y-m-d H:i:s', $addon->expires ) : '';
+			$addon->download_link = $addon->package;
+
 			$updates[ $item_key ]       = $addon;
 			$updates[ $item_key ]->slug = $item['id'];
 
