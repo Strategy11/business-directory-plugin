@@ -93,7 +93,7 @@ jobs:
         run: pnpm run build
 
       - name: Run grunt release
-        run: npx grunt release:plugin:${{ inputs.version }}
+        run: pnpm exec grunt release:plugin:${{ inputs.version }}
 
       - name: Update Tested up to
         if: inputs.tested_up_to != ''
@@ -162,7 +162,7 @@ jobs:
       - name: Build and package
         run: |
           pnpm run build
-          npx grunt release:plugin:${{ inputs.version }}
+          pnpm exec grunt release:plugin:${{ inputs.version }}
           mv ../business-directory-plugin-${{ inputs.version }}.zip ./
 
       - name: Upload ZIP artifact
@@ -241,7 +241,7 @@ jobs:
       - name: Build and package
         run: |
           pnpm run build
-          npx grunt release:plugin:${{ inputs.version }}
+          pnpm exec grunt release:plugin:${{ inputs.version }}
           mv ../business-directory-plugin-${{ inputs.version }}.zip ./
 
       - name: Create tag
@@ -304,7 +304,7 @@ jobs:
       - name: Build and package
         run: |
           pnpm run build
-          npx grunt release:plugin:${{ needs.extract-version.outputs.version }}
+          pnpm exec grunt release:plugin:${{ needs.extract-version.outputs.version }}
           mv ../business-directory-plugin-${{ needs.extract-version.outputs.version }}.zip ./
 
       - name: Create tag
