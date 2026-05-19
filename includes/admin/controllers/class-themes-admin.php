@@ -529,7 +529,7 @@ class WPBDP_Themes_Admin {
 	 *
 	 * @param string $url The URL to download.
 	 *
-	 * @return string|WP_Error|false File path on success, WP_Error on download failure, false if not a valid ZIP.
+	 * @return false|string|WP_Error File path on success, WP_Error on download failure, false if not a valid ZIP.
 	 */
 	private function download_theme_zip( $url ) {
 		$tmpfile = download_url( $url );
@@ -569,7 +569,7 @@ class WPBDP_Themes_Admin {
 		$header = fread( $handle, 4 );
 		fclose( $handle );
 
-		return strpos( $header, "PK" ) === 0;
+		return strpos( $header, 'PK' ) === 0;
 	}
 
 	function pre_themes_templates_warning() {
