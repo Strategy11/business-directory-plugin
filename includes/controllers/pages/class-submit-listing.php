@@ -543,7 +543,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 * Verify the current user is allowed to load the listing referenced
 	 * in the request before the submit form processes its data.
 	 *
-	 * @since x.x
+	 * @since 6.4.24
 	 *
 	 * @param int $listing_id The listing ID supplied by the request.
 	 *

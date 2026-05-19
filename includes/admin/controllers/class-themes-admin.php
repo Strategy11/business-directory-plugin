@@ -362,7 +362,7 @@ class WPBDP_Themes_Admin {
 	/**
 	 * Get the download URL for a theme package.
 	 *
-	 * @since x.x
+	 * @since 6.4.24
 	 *
 	 * @param string     $theme_id The theme ID.
 	 * @param array|null $version  Optional cached version info.
@@ -386,7 +386,7 @@ class WPBDP_Themes_Admin {
 	/**
 	 * Fetch the download URL for a theme directly from the EDD API.
 	 *
-	 * @since x.x
+	 * @since 6.4.24
 	 *
 	 * @param string $theme_id The theme ID.
 	 *
@@ -525,7 +525,7 @@ class WPBDP_Themes_Admin {
 	/**
 	 * Download a URL and validate it is a ZIP file.
 	 *
-	 * @since x.x
+	 * @since 6.4.24
 	 *
 	 * @param string $url The URL to download.
 	 *
@@ -550,7 +550,7 @@ class WPBDP_Themes_Admin {
 	/**
 	 * Check if a file is a valid ZIP archive by reading its magic bytes.
 	 *
-	 * @since x.x
+	 * @since 6.4.24
 	 *
 	 * @param string $file Path to the file.
 	 *
