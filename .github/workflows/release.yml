@@ -47,13 +47,19 @@ jobs:
       - name: Create release branch
         run: git checkout -b release/${{ inputs.version }}
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'pnpm'
 
-      - name: Install npm dependencies
-        run: npm ci
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Generate changelog via Claude Code
         uses: anthropics/claude-code-action@v1
@@ -84,7 +90,7 @@ jobs:
             --allowedTools "Read,Edit,Bash(git diff:*),Bash(git describe:*),Bash(git log:*),Bash(git tag:*),Bash(date:*)"
 
       - name: Build assets
-        run: npm run build
+        run: pnpm run build
 
       - name: Run grunt release
         run: npx grunt release:plugin:${{ inputs.version }}
@@ -139,17 +145,23 @@ jobs:
         with:
           ref: release/${{ inputs.version }}
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'pnpm'
 
-      - name: Install npm dependencies
-        run: npm ci
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Build and package
         run: |
-          npm run build
+          pnpm run build
           npx grunt release:plugin:${{ inputs.version }}
           mv ../business-directory-plugin-${{ inputs.version }}.zip ./
 
@@ -212,17 +224,23 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'pnpm'
 
-      - name: Install npm dependencies
-        run: npm ci
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Build and package
         run: |
-          npm run build
+          pnpm run build
           npx grunt release:plugin:${{ inputs.version }}
           mv ../business-directory-plugin-${{ inputs.version }}.zip ./
 
@@ -269,17 +287,23 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'pnpm'
 
-      - name: Install npm dependencies
-        run: npm ci
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Build and package
         run: |
-          npm run build
+          pnpm run build
           npx grunt release:plugin:${{ needs.extract-version.outputs.version }}
           mv ../business-directory-plugin-${{ needs.extract-version.outputs.version }}.zip ./
 
