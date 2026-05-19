@@ -1,0 +1,301 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version (e.g. 6.5.0)'
+        required: true
+        type: string
+      tested_up_to:
+        description: 'WP "Tested up to" version (blank = keep current)'
+        required: false
+        type: string
+      phase:
+        description: 'Release phase'
+        required: true
+        type: choice
+        options:
+          - prepare
+          - publish
+
+  pull_request:
+    types: [closed]
+    branches: [master]
+
+concurrency:
+  group: release-business-directory-plugin
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    if: github.event_name == 'workflow_dispatch' && inputs.phase == 'prepare'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+
+      - name: Create release branch
+        run: git checkout -b release/${{ inputs.version }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Generate changelog via Claude Code
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            You are generating a changelog entry for a WordPress plugin release.
+            Version: ${{ inputs.version }}
+
+            Steps:
+            1. Find the last git tag: run `git describe --tags --abbrev=0` (if no tags exist, use the last 50 commits)
+            2. Read the full diff since that tag: run `git diff <tag>..HEAD` to understand what actually changed in the code
+            3. Read the existing changelog in README.TXT to understand the format (look at the first 3-4 entries after `== Changelog ==`)
+            4. Based on the actual code changes (not just commit messages), write a changelog entry and insert it into README.TXT right after the `== Changelog ==` line
+
+            Changelog format rules:
+            - First line: = ${{ inputs.version }} =
+            - Each subsequent line: * New: , * Enhancement: , or * Fix: followed by a concise user-facing description
+            - Group related changes into single entries
+            - Skip merge commits, CI/tooling changes, dependency updates, and non-user-facing changes
+            - Match the exact formatting style of the existing entries in README.TXT
+            - End the entry with an empty line before the next entry
+
+            Only modify README.TXT. Do not touch any other files.
+          claude_args: |
+            --model claude-sonnet-4-6
+            --max-turns 10
+            --allowedTools "Read,Edit,Bash(git diff:*),Bash(git describe:*),Bash(git log:*),Bash(git tag:*),Bash(date:*)"
+
+      - name: Build assets
+        run: npm run build
+
+      - name: Run grunt release
+        run: npx grunt release:plugin:${{ inputs.version }}
+
+      - name: Update Tested up to
+        if: inputs.tested_up_to != ''
+        run: |
+          sed -i "s/^Tested up to: .*/Tested up to: ${{ inputs.tested_up_to }}/" README.TXT
+
+      - name: Commit and push
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Prepare release ${{ inputs.version }}"
+          git push -u origin release/${{ inputs.version }}
+
+      - name: Create pull request
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          gh pr create \
+            --title "Release ${{ inputs.version }}" \
+            --body "$(cat <<'EOF'
+          ## Release ${{ inputs.version }}
+
+          Automated release preparation:
+          - Version bumped in plugin file, class-wpbdp.php, theme.json, and README.TXT
+          - Assets rebuilt (webpack, LESS, uglify)
+          - Changelog generated
+          - Translation .pot file regenerated
+
+          **Next steps:**
+          1. Download the ZIP artifact from the workflow run
+          2. Test the plugin
+          3. Merge this PR or run the `publish` phase when ready
+          EOF
+          )" \
+            --base master
+
+  build-zip:
+    if: github.event_name == 'workflow_dispatch' && inputs.phase == 'prepare'
+    needs: prepare
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout release branch
+        uses: actions/checkout@v4
+        with:
+          ref: release/${{ inputs.version }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Build and package
+        run: |
+          npm run build
+          npx grunt release:plugin:${{ inputs.version }}
+          mv ../business-directory-plugin-${{ inputs.version }}.zip ./
+
+      - name: Upload ZIP artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: business-directory-plugin-${{ inputs.version }}
+          path: ./business-directory-plugin-${{ inputs.version }}.zip
+
+  notify-pr:
+    if: github.event_name == 'workflow_dispatch' && inputs.phase == 'prepare'
+    needs: build-zip
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      actions: read
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: business-directory-plugin-${{ inputs.version }}
+          path: ./dist
+
+      - name: Repackage as installable ZIP
+        run: |
+          cd dist
+          unzip business-directory-plugin-${{ inputs.version }}.zip
+          rm business-directory-plugin-${{ inputs.version }}.zip
+
+      - name: Upload installable artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: business-directory-plugin-${{ inputs.version }}-installable
+          path: ./dist/
+
+      - name: Comment on PR
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          PR_NUMBER=$(gh pr list --repo "${{ github.repository }}" --head "release/${{ inputs.version }}" --json number -q '.[0].number')
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          gh pr comment "$PR_NUMBER" --repo "${{ github.repository }}" --body "## Build ready for testing
+
+          **Download:** [business-directory-plugin-${{ inputs.version }}-installable](${RUN_URL}#artifacts)
+
+          Install in WordPress via **Plugins → Add New → Upload Plugin**. The downloaded ZIP is ready to install directly."
+
+  publish-manual:
+    if: github.event_name == 'workflow_dispatch' && inputs.phase == 'publish'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Build and package
+        run: |
+          npm run build
+          npx grunt release:plugin:${{ inputs.version }}
+          mv ../business-directory-plugin-${{ inputs.version }}.zip ./
+
+      - name: Create tag
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+          git tag v${{ inputs.version }}
+          git push origin v${{ inputs.version }}
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          gh release create v${{ inputs.version }} \
+            ./business-directory-plugin-${{ inputs.version }}.zip \
+            --title "v${{ inputs.version }}" \
+            --generate-notes
+
+  extract-version:
+    if: github.event_name == 'pull_request' && github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'release/')
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.parse.outputs.version }}
+    steps:
+      - name: Extract version from branch name
+        id: parse
+        run: |
+          BRANCH="${{ github.event.pull_request.head.ref }}"
+          echo "version=${BRANCH#release/}" >> "$GITHUB_OUTPUT"
+
+  publish-on-merge:
+    needs: extract-version
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Build and package
+        run: |
+          npm run build
+          npx grunt release:plugin:${{ needs.extract-version.outputs.version }}
+          mv ../business-directory-plugin-${{ needs.extract-version.outputs.version }}.zip ./
+
+      - name: Create tag
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+          git tag v${{ needs.extract-version.outputs.version }}
+          git push origin v${{ needs.extract-version.outputs.version }}
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          gh release create v${{ needs.extract-version.outputs.version }} \
+            ./business-directory-plugin-${{ needs.extract-version.outputs.version }}.zip \
+            --title "v${{ needs.extract-version.outputs.version }}" \
+            --generate-notes
