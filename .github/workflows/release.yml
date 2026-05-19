@@ -89,11 +89,10 @@ jobs:
             --max-turns 10
             --allowedTools "Read,Edit,Bash(git diff:*),Bash(git describe:*),Bash(git log:*),Bash(git tag:*),Bash(date:*)"
 
-      - name: Build assets
-        run: pnpm run build
-
-      - name: Run grunt release
-        run: pnpm exec grunt release:plugin:${{ inputs.version }}
+      - name: Bump version and update assets
+        run: |
+          pnpm run build
+          pnpm exec grunt release:plugin:${{ inputs.version }}
 
       - name: Update Tested up to
         if: inputs.tested_up_to != ''
@@ -127,88 +126,11 @@ jobs:
           - Translation .pot file regenerated
 
           **Next steps:**
-          1. Download the ZIP artifact from the workflow run
-          2. Test the plugin
-          3. Merge this PR or run the `publish` phase when ready
+          1. Review the changes
+          2. Merge this PR to create the release
           EOF
           )" \
             --base master
-
-  build-zip:
-    if: github.event_name == 'workflow_dispatch' && inputs.phase == 'prepare'
-    needs: prepare
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout release branch
-        uses: actions/checkout@v4
-        with:
-          ref: release/${{ inputs.version }}
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build and package
-        run: |
-          pnpm run build
-          pnpm exec grunt release:plugin:${{ inputs.version }}
-          mv ../business-directory-plugin-${{ inputs.version }}.zip ./
-
-      - name: Upload ZIP artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: business-directory-plugin-${{ inputs.version }}
-          path: ./business-directory-plugin-${{ inputs.version }}.zip
-
-  notify-pr:
-    if: github.event_name == 'workflow_dispatch' && inputs.phase == 'prepare'
-    needs: build-zip
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-      actions: read
-    steps:
-      - name: Download build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: business-directory-plugin-${{ inputs.version }}
-          path: ./dist
-
-      - name: Repackage as installable ZIP
-        run: |
-          cd dist
-          unzip business-directory-plugin-${{ inputs.version }}.zip
-          rm business-directory-plugin-${{ inputs.version }}.zip
-
-      - name: Upload installable artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: business-directory-plugin-${{ inputs.version }}-installable
-          path: ./dist/
-
-      - name: Comment on PR
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          PR_NUMBER=$(gh pr list --repo "${{ github.repository }}" --head "release/${{ inputs.version }}" --json number -q '.[0].number')
-          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          gh pr comment "$PR_NUMBER" --repo "${{ github.repository }}" --body "## Build ready for testing
-
-          **Download:** [business-directory-plugin-${{ inputs.version }}-installable](${RUN_URL}#artifacts)
-
-          Install in WordPress via **Plugins → Add New → Upload Plugin**. The downloaded ZIP is ready to install directly."
 
   publish-manual:
     if: github.event_name == 'workflow_dispatch' && inputs.phase == 'publish'
@@ -222,42 +144,15 @@ jobs:
         with:
           ref: master
           token: ${{ secrets.GH_TOKEN }}
-          fetch-depth: 0
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build and package
-        run: |
-          pnpm run build
-          pnpm exec grunt release:plugin:${{ inputs.version }}
-          mv ../business-directory-plugin-${{ inputs.version }}.zip ./
-
-      - name: Create tag
+      - name: Create tag and release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
           git tag v${{ inputs.version }}
           git push origin v${{ inputs.version }}
-
-      - name: Create GitHub Release
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
           gh release create v${{ inputs.version }} \
-            ./business-directory-plugin-${{ inputs.version }}.zip \
             --title "v${{ inputs.version }}" \
             --generate-notes
 
@@ -285,41 +180,14 @@ jobs:
         with:
           ref: master
           token: ${{ secrets.GH_TOKEN }}
-          fetch-depth: 0
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build and package
-        run: |
-          pnpm run build
-          pnpm exec grunt release:plugin:${{ needs.extract-version.outputs.version }}
-          mv ../business-directory-plugin-${{ needs.extract-version.outputs.version }}.zip ./
-
-      - name: Create tag
+      - name: Create tag and release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
           git tag v${{ needs.extract-version.outputs.version }}
           git push origin v${{ needs.extract-version.outputs.version }}
-
-      - name: Create GitHub Release
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
           gh release create v${{ needs.extract-version.outputs.version }} \
-            ./business-directory-plugin-${{ needs.extract-version.outputs.version }}.zip \
             --title "v${{ needs.extract-version.outputs.version }}" \
             --generate-notes
