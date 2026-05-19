@@ -92,7 +92,8 @@ jobs:
       - name: Bump version and update assets
         run: |
           pnpm run build
-          pnpm exec grunt release:plugin:${{ inputs.version }}
+          pnpm exec grunt setversion:plugin:${{ inputs.version }}
+          pnpm exec grunt less:plugin
 
       - name: Update Tested up to
         if: inputs.tested_up_to != ''
