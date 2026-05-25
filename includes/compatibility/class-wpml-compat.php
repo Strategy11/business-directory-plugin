@@ -45,9 +45,12 @@ class WPBDP_WPML_Compat {
 			add_action( 'wpbdp_query_flags', array( $this, 'maybe_change_query' ) );
 
 			add_action( 'wpbdp_before_ajax_dispatch', array( $this, 'before_ajax_dispatch' ) );
+
+			add_filter( 'wpbdp_form_field_value', array( $this, 'maybe_use_original_field_value' ), 10, 3 );
 		}
 
 		add_action( 'admin_footer', array( $this, 'maybe_register_some_strings' ) );
+		add_action( 'wpbdp_loaded', array( $this, 'register_custom_fields_with_wpml' ) );
 
 		// Regions.
 		add_filter( 'wpbdp_regions__get_hierarchy_option', array( &$this, 'use_cache_per_lang' ) );
@@ -549,5 +552,114 @@ class WPBDP_WPML_Compat {
 		}
 
 		echo '<input type="hidden" name="lang" value="' . esc_attr( $lang ) . '" />';
+	}
+
+	/**
+	 * Fall back to the original listing's field value when the translated post has none.
+	 *
+	 * @since x.x
+	 *
+	 * @param mixed          $value   The field value (may be empty on translated posts).
+	 * @param int            $post_id The current listing post ID.
+	 * @param WPBDP_Form_Field $field The field object.
+	 *
+	 * @return mixed
+	 */
+	public function maybe_use_original_field_value( $value, $post_id, $field ) {
+		if ( ! empty( $value ) || 'meta' !== $field->get_association() ) {
+			return $value;
+		}
+
+		$original_id = $this->get_original_listing_id( $post_id );
+
+		if ( ! $original_id || $original_id === $post_id ) {
+			return $value;
+		}
+
+		return get_post_meta( $original_id, '_wpbdp[fields][' . $field->get_id() . ']', true );
+	}
+
+	/**
+	 * Get the original (source) listing ID for a translated post.
+	 *
+	 * @since x.x
+	 *
+	 * @param int $listing_id The translated listing post ID.
+	 *
+	 * @return int|null Original listing ID or null if already original.
+	 */
+	private function get_original_listing_id( $listing_id ) {
+		$element_type = 'post_' . WPBDP_POST_TYPE;
+
+		$trid = apply_filters( 'wpml_element_trid', null, $listing_id, $element_type );
+
+		if ( ! $trid ) {
+			return null;
+		}
+
+		$translations = apply_filters( 'wpml_get_element_translations', null, $trid, $element_type );
+
+		if ( ! is_array( $translations ) ) {
+			return null;
+		}
+
+		foreach ( $translations as $translation ) {
+			if ( ! empty( $translation->original ) ) {
+				return (int) $translation->element_id;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Register BD custom field meta keys with WPML as "copy" so they sync to translations.
+	 *
+	 * @since x.x
+	 */
+	public function register_custom_fields_with_wpml() {
+		$cache_key = 'wpbdp_wpml_cf_registered';
+
+		if ( get_transient( $cache_key ) ) {
+			return;
+		}
+
+		if ( ! defined( 'WPML_COPY_CUSTOM_FIELD' ) ) {
+			return;
+		}
+
+		$tm_settings = get_option( 'icl_translation_management' );
+
+		if ( ! is_array( $tm_settings ) ) {
+			return;
+		}
+
+		if ( ! isset( $tm_settings['custom_fields_translation'] ) ) {
+			$tm_settings['custom_fields_translation'] = array();
+		}
+
+		$fields  = wpbdp_get_form_fields();
+		$updated = false;
+
+		foreach ( $fields as $field ) {
+			if ( 'meta' !== $field->get_association() ) {
+				continue;
+			}
+
+			$meta_key = '_wpbdp[fields][' . $field->get_id() . ']';
+
+			if ( isset( $tm_settings['custom_fields_translation'][ $meta_key ] ) ) {
+				continue;
+			}
+
+			$tm_settings['custom_fields_translation'][ $meta_key ] = WPML_COPY_CUSTOM_FIELD;
+			$updated = true;
+		}
+
+		if ( $updated ) {
+			update_option( 'icl_translation_management', $tm_settings );
+		}
+
+		set_transient( $cache_key, 1, DAY_IN_SECONDS );
 	}
 }
