@@ -693,7 +693,8 @@ class WPBDP_WPML_Compat {
 			return;
 		}
 
-		$tm_settings = $this->wpml->get_setting( 'translation-management', array() );
+		$wpml_tm     = function_exists( 'wpml_load_core_tm' ) ? wpml_load_core_tm() : null;
+		$tm_settings = $wpml_tm ? $wpml_tm->get_settings() : $this->wpml->get_setting( 'translation-management', array() );
 
 		if ( ! is_array( $tm_settings ) ) {
 			$tm_settings = array();
@@ -727,7 +728,12 @@ class WPBDP_WPML_Compat {
 		}
 
 		if ( $updated ) {
-			$this->wpml->set_setting( 'translation-management', $tm_settings, true );
+			if ( $wpml_tm ) {
+				$wpml_tm->settings = $tm_settings;
+				$wpml_tm->save_settings();
+			} else {
+				$this->wpml->set_setting( 'translation-management', $tm_settings, true );
+			}
 		}
 	}
 
