@@ -882,7 +882,7 @@ class WPBDP_WPML_Compat {
 			$decoded = base64_decode( $value, true );
 
 			if ( false !== $decoded ) {
-				return (string) $decoded;
+				return $decoded;
 			}
 		}
 
