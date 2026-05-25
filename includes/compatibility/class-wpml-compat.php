@@ -47,10 +47,12 @@ class WPBDP_WPML_Compat {
 			add_action( 'wpbdp_before_ajax_dispatch', array( $this, 'before_ajax_dispatch' ) );
 
 			add_filter( 'wpbdp_form_field_value', array( $this, 'maybe_use_original_field_value' ), 10, 3 );
+			add_filter( 'wpbdp_form_field_html_value', array( $this, 'maybe_use_original_field_html_value' ), 10, 4 );
 		}
 
 		add_action( 'admin_footer', array( $this, 'maybe_register_some_strings' ) );
 		add_action( 'wpbdp_loaded', array( $this, 'register_custom_fields_with_wpml' ) );
+		add_action( 'wpml_translation_job_saved', array( $this, 'save_translated_field_values' ), 10, 3 );
 
 		// Regions.
 		add_filter( 'wpbdp_regions__get_hierarchy_option', array( &$this, 'use_cache_per_lang' ) );
@@ -408,7 +410,15 @@ class WPBDP_WPML_Compat {
 	}
 
 	public function translate_form_field_option_data( $value, $key, $field ) {
-		if ( ! is_object( $field ) || empty( $value ) || 'options' !== $key || ! function_exists( 'icl_t' ) || ! is_array( $value ) ) {
+		if ( ! is_object( $field ) ) {
+			return $value;
+		}
+
+		if ( 'supported_categories' === $key ) {
+			return $this->translate_supported_categories( $value );
+		}
+
+		if ( empty( $value ) || 'options' !== $key || ! function_exists( 'icl_t' ) || ! is_array( $value ) ) {
 			return $value;
 		}
 
@@ -580,13 +590,39 @@ class WPBDP_WPML_Compat {
 			return $value;
 		}
 
-		$original_value = get_post_meta( $original_id, '_wpbdp[fields][' . $field->get_id() . ']', true );
+		$original_value = $field->value( $original_id );
 
-		if ( '' === $original_value ) {
+		if ( $field->is_empty_value( $original_value ) ) {
 			return $value;
 		}
 
 		return $original_value;
+	}
+
+	/**
+	 * Fall back to the original listing's HTML value when a field type bypasses value filters.
+	 *
+	 * @since x.x
+	 *
+	 * @param string         $value           The field HTML value.
+	 * @param int            $post_id         The current listing post ID.
+	 * @param WPBDP_Form_Field $field         The field object.
+	 * @param string         $display_context The display context.
+	 *
+	 * @return string
+	 */
+	public function maybe_use_original_field_html_value( $value, $post_id, $field, $display_context ) {
+		if ( ! empty( $value ) || 'meta' !== $field->get_association() ) {
+			return $value;
+		}
+
+		$original_id = $this->get_original_listing_id( $post_id );
+
+		if ( ! $original_id || (int) $original_id === (int) $post_id ) {
+			return $value;
+		}
+
+		return $field->html_value( $original_id, $display_context );
 	}
 
 	/**
@@ -648,25 +684,19 @@ class WPBDP_WPML_Compat {
 	}
 
 	/**
-	 * Register BD custom field meta keys with WPML as "copy" so they sync to translations.
+	 * Register BD custom field meta keys with WPML as translatable fields.
 	 *
 	 * @since x.x
 	 */
 	public function register_custom_fields_with_wpml() {
-		$cache_key = 'wpbdp_wpml_cf_registered';
-
-		if ( get_transient( $cache_key ) ) {
+		if ( ! defined( 'WPML_TRANSLATE_CUSTOM_FIELD' ) ) {
 			return;
 		}
 
-		if ( ! defined( 'WPML_COPY_CUSTOM_FIELD' ) ) {
-			return;
-		}
-
-		$tm_settings = get_option( 'icl_translation_management' );
+		$tm_settings = $this->wpml->get_setting( 'translation-management', array() );
 
 		if ( ! is_array( $tm_settings ) ) {
-			return;
+			$tm_settings = array();
 		}
 
 		if ( ! isset( $tm_settings['custom_fields_translation'] ) ) {
@@ -683,18 +713,205 @@ class WPBDP_WPML_Compat {
 
 			$meta_key = '_wpbdp[fields][' . $field->get_id() . ']';
 
-			if ( isset( $tm_settings['custom_fields_translation'][ $meta_key ] ) ) {
-				continue;
+			if ( ! isset( $tm_settings['custom_fields_translation'][ $meta_key ] ) || WPML_TRANSLATE_CUSTOM_FIELD !== (int) $tm_settings['custom_fields_translation'][ $meta_key ] ) {
+				$tm_settings['custom_fields_translation'][ $meta_key ] = WPML_TRANSLATE_CUSTOM_FIELD;
+				$updated = true;
 			}
 
-			$tm_settings['custom_fields_translation'][ $meta_key ] = WPML_COPY_CUSTOM_FIELD;
-			$updated = true;
+			if ( in_array( $field->get_field_type_id(), array( 'select', 'multiselect', 'checkbox', 'radio' ), true ) && defined( 'WPML_COPY_CUSTOM_FIELD' ) ) {
+				if ( ! isset( $tm_settings['custom_fields_translation'][ $meta_key . '_selected' ] ) || WPML_COPY_CUSTOM_FIELD !== (int) $tm_settings['custom_fields_translation'][ $meta_key . '_selected' ] ) {
+					$tm_settings['custom_fields_translation'][ $meta_key . '_selected' ] = WPML_COPY_CUSTOM_FIELD;
+					$updated = true;
+				}
+			}
 		}
 
 		if ( $updated ) {
-			update_option( 'icl_translation_management', $tm_settings );
+			$this->wpml->set_setting( 'translation-management', $tm_settings, true );
+		}
+	}
+
+	/**
+	 * Translate field category restrictions to the active language.
+	 *
+	 * @since x.x
+	 *
+	 * @param mixed $categories The supported categories field setting.
+	 *
+	 * @return mixed
+	 */
+	private function translate_supported_categories( $categories ) {
+		if ( 'all' === $categories || ! is_array( $categories ) ) {
+			return $categories;
 		}
 
-		set_transient( $cache_key, 1, DAY_IN_SECONDS );
+		$lang = $this->get_current_language();
+
+		if ( ! $lang ) {
+			return $categories;
+		}
+
+		$translated_categories = $categories;
+
+		foreach ( $categories as $category_id ) {
+			$translated_id = apply_filters( 'wpml_object_id', $category_id, WPBDP_CATEGORY_TAX, false, $lang );
+
+			if ( $translated_id ) {
+				$translated_categories[] = (int) $translated_id;
+			}
+		}
+
+		return array_unique( array_map( 'intval', $translated_categories ) );
+	}
+
+	/**
+	 * Save translated BD field values from WPML jobs.
+	 *
+	 * @since x.x
+	 *
+	 * @param int    $post_id The translated listing post ID.
+	 * @param array  $fields  Job fields.
+	 * @param object $job     WPML translation job.
+	 */
+	public function save_translated_field_values( $post_id, $fields, $job ) {
+		unset( $fields );
+
+		if ( WPBDP_POST_TYPE !== get_post_type( $post_id ) || empty( $job->elements ) ) {
+			return;
+		}
+
+		foreach ( wpbdp_get_form_fields() as $field ) {
+			if ( 'meta' !== $field->get_association() ) {
+				continue;
+			}
+
+			$meta_key = '_wpbdp[fields][' . $field->get_id() . ']';
+			$values   = $this->get_translated_custom_field_values_from_job( $meta_key, $job );
+
+			if ( empty( $values ) ) {
+				continue;
+			}
+
+			delete_post_meta( $post_id, $meta_key );
+
+			foreach ( $values as $value ) {
+				add_post_meta( $post_id, $meta_key, $value, 1 === count( $values ) );
+			}
+		}
+	}
+
+	/**
+	 * Get translated custom field values from a WPML job without relying on WPML's bracket-sensitive regex.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $meta_key The custom field meta key.
+	 * @param object $job      WPML translation job.
+	 *
+	 * @return array
+	 */
+	private function get_translated_custom_field_values_from_job( $meta_key, $job ) {
+		$values = array();
+
+		foreach ( $job->elements as $element ) {
+			if ( empty( $element->field_type ) || empty( $element->field_data ) || substr( $element->field_type, -5 ) !== '-name' ) {
+				continue;
+			}
+
+			if ( 0 !== strpos( $element->field_data, $meta_key . '-' ) ) {
+				continue;
+			}
+
+			$field_id_string = substr( $element->field_type, 6, -5 );
+			$translated      = $this->get_job_element_translation( 'field-' . $field_id_string, $job );
+
+			if ( null === $translated ) {
+				continue;
+			}
+
+			$path = substr( $element->field_data, strlen( $meta_key ) + 1 );
+			$path = array_map( array( $this, 'decode_wpml_job_path_part' ), explode( '-', $path ) );
+
+			$this->set_array_path_value( $values, $path, $translated );
+		}
+
+		return $values;
+	}
+
+	/**
+	 * Get a translated WPML job element value.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $field_type The job field type.
+	 * @param object $job        WPML translation job.
+	 *
+	 * @return string|null
+	 */
+	private function get_job_element_translation( $field_type, $job ) {
+		foreach ( $job->elements as $element ) {
+			if ( $field_type !== $element->field_type ) {
+				continue;
+			}
+
+			$field_format = isset( $element->field_format ) ? $element->field_format : '';
+			return $this->decode_wpml_job_value( $element->field_data_translated, $field_format );
+		}
+
+		return null;
+	}
+
+	/**
+	 * Decode a WPML job value.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $value  The encoded value.
+	 * @param string $format The value format.
+	 *
+	 * @return string
+	 */
+	private function decode_wpml_job_value( $value, $format ) {
+		if ( 'base64' === $format ) {
+			return (string) base64_decode( $value );
+		}
+
+		return html_entity_decode( str_replace( '&#0A;', "\n", $value ) );
+	}
+
+	/**
+	 * Decode a WPML field path part.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $path_part The encoded path part.
+	 *
+	 * @return string
+	 */
+	private function decode_wpml_job_path_part( $path_part ) {
+		return str_replace( ':::', '-', $path_part );
+	}
+
+	/**
+	 * Set a nested array value by path.
+	 *
+	 * @since x.x
+	 *
+	 * @param array  $values The values array.
+	 * @param array  $path   The path to set.
+	 * @param string $value  The translated value.
+	 */
+	private function set_array_path_value( &$values, $path, $value ) {
+		$current = &$values;
+
+		foreach ( $path as $path_part ) {
+			if ( ! isset( $current[ $path_part ] ) ) {
+				$current[ $path_part ] = array();
+			}
+
+			$current = &$current[ $path_part ];
+		}
+
+		$current = $value;
 	}
 }
