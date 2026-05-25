@@ -608,7 +608,7 @@ class WPBDP_WPML_Compat {
 	 * @return string
 	 */
 	public function maybe_use_original_field_html_value( $value, $post_id, $field, $display_context = 'listing' ) {
-		if ( ! empty( $value ) || 'meta' !== $field->get_association() ) {
+		if ( 'meta' !== $field->get_association() || ( null !== $value && '' !== $value ) ) {
 			return $value;
 		}
 
@@ -685,6 +685,10 @@ class WPBDP_WPML_Compat {
 	 * @since x.x
 	 */
 	public function register_custom_fields_with_wpml() {
+		if ( ! is_admin() || ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
 		if ( ! defined( 'WPML_TRANSLATE_CUSTOM_FIELD' ) ) {
 			return;
 		}
@@ -797,11 +801,8 @@ class WPBDP_WPML_Compat {
 				continue;
 			}
 
-			delete_post_meta( $post_id, $meta_key );
-
-			foreach ( $values as $value ) {
-				add_post_meta( $post_id, $meta_key, $value, 1 === count( $values ) );
-			}
+			$meta_value = 1 === count( $values ) ? reset( $values ) : $values;
+			update_post_meta( $post_id, $meta_key, $meta_value );
 		}
 	}
 
@@ -878,10 +879,20 @@ class WPBDP_WPML_Compat {
 	 */
 	private function decode_wpml_job_value( $value, $format ) {
 		if ( 'base64' === $format ) {
-			return (string) base64_decode( $value );
+			$decoded = base64_decode( $value, true );
+
+			if ( false !== $decoded ) {
+				return (string) $decoded;
+			}
 		}
 
-		return html_entity_decode( str_replace( '&#0A;', "\n", $value ) );
+		$charset = get_bloginfo( 'charset' );
+
+		if ( ! $charset ) {
+			$charset = 'UTF-8';
+		}
+
+		return html_entity_decode( str_replace( '&#0A;', "\n", $value ), ENT_QUOTES | ENT_HTML5, $charset );
 	}
 
 	/**
