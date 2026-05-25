@@ -611,7 +611,7 @@ class WPBDP_WPML_Compat {
 	 *
 	 * @return string
 	 */
-	public function maybe_use_original_field_html_value( $value, $post_id, $field, $display_context ) {
+	public function maybe_use_original_field_html_value( $value, $post_id, $field, $display_context = 'listing' ) {
 		if ( ! empty( $value ) || 'meta' !== $field->get_association() ) {
 			return $value;
 		}
