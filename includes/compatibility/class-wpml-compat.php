@@ -576,11 +576,7 @@ class WPBDP_WPML_Compat {
 	 * @return mixed
 	 */
 	public function maybe_use_original_field_value( $value, $post_id, $field ) {
-		if ( 'meta' !== $field->get_association() ) {
-			return $value;
-		}
-
-		if ( ! $field->is_empty_value( $value ) ) {
+		if ( 'meta' !== $field->get_association() || ! $field->is_empty_value( $value ) ) {
 			return $value;
 		}
 
@@ -727,14 +723,17 @@ class WPBDP_WPML_Compat {
 			}
 		}
 
-		if ( $updated ) {
-			if ( $wpml_tm ) {
-				$wpml_tm->settings = $tm_settings;
-				$wpml_tm->save_settings();
-			} else {
-				$this->wpml->set_setting( 'translation-management', $tm_settings, true );
-			}
+		if ( ! $updated ) {
+			return;
 		}
+
+		if ( $wpml_tm ) {
+			$wpml_tm->settings = $tm_settings;
+			$wpml_tm->save_settings();
+			return;
+		}
+
+		$this->wpml->set_setting( 'translation-management', $tm_settings, true );
 	}
 
 	/**
