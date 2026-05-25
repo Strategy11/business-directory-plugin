@@ -566,17 +566,27 @@ class WPBDP_WPML_Compat {
 	 * @return mixed
 	 */
 	public function maybe_use_original_field_value( $value, $post_id, $field ) {
-		if ( ! empty( $value ) || 'meta' !== $field->get_association() ) {
+		if ( 'meta' !== $field->get_association() ) {
+			return $value;
+		}
+
+		if ( ! $field->is_empty_value( $value ) ) {
 			return $value;
 		}
 
 		$original_id = $this->get_original_listing_id( $post_id );
 
-		if ( ! $original_id || $original_id === $post_id ) {
+		if ( ! $original_id || (int) $original_id === (int) $post_id ) {
 			return $value;
 		}
 
-		return get_post_meta( $original_id, '_wpbdp[fields][' . $field->get_id() . ']', true );
+		$original_value = get_post_meta( $original_id, '_wpbdp[fields][' . $field->get_id() . ']', true );
+
+		if ( '' === $original_value ) {
+			return $value;
+		}
+
+		return $original_value;
 	}
 
 	/**
@@ -594,19 +604,44 @@ class WPBDP_WPML_Compat {
 		$trid = apply_filters( 'wpml_element_trid', null, $listing_id, $element_type );
 
 		if ( ! $trid ) {
-			return null;
+			return $this->get_original_listing_id_fallback( $listing_id );
 		}
 
 		$translations = apply_filters( 'wpml_get_element_translations', null, $trid, $element_type );
 
 		if ( ! is_array( $translations ) ) {
-			return null;
+			return $this->get_original_listing_id_fallback( $listing_id );
 		}
 
 		foreach ( $translations as $translation ) {
 			if ( ! empty( $translation->original ) ) {
 				return (int) $translation->element_id;
 			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Fallback to find original listing using default language lookup.
+	 *
+	 * @since x.x
+	 *
+	 * @param int $listing_id The translated listing post ID.
+	 *
+	 * @return int|null
+	 */
+	private function get_original_listing_id_fallback( $listing_id ) {
+		$default_lang = apply_filters( 'wpml_default_language', null );
+
+		if ( ! $default_lang ) {
+			return null;
+		}
+
+		$original_id = apply_filters( 'wpml_object_id', $listing_id, WPBDP_POST_TYPE, true, $default_lang );
+
+		if ( $original_id && (int) $original_id !== (int) $listing_id ) {
+			return (int) $original_id;
 		}
 
 		return null;
