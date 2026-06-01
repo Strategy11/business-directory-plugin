@@ -132,9 +132,10 @@ if ( ! class_exists( 'WPBDP_SiteTracking' ) ) {
 			wp_remote_post(
 				self::TRACKING_URL,
 				array(
-					'method'   => 'POST',
-					'blocking' => false,
-					'body'     => $data,
+					'method'     => 'POST',
+					'blocking'   => false,
+					'user-agent' => wpbdp_http_user_agent(),
+					'body'       => $data,
 				)
 			);
 		}
@@ -175,9 +176,10 @@ if ( ! class_exists( 'WPBDP_SiteTracking' ) ) {
 			wp_remote_post(
 				self::TRACKING_URL,
 				array(
-					'method'   => 'POST',
-					'blocking' => true,
-					'body'     => array(
+					'method'     => 'POST',
+					'blocking'   => true,
+					'user-agent' => wpbdp_http_user_agent(),
+					'body'       => array(
 						'uninstall' => '1',
 						'hash'      => $hash,
 						'reason'    => $reason,

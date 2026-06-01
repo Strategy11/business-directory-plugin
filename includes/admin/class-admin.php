@@ -292,7 +292,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$response = wp_remote_post(
 				'https://feedback.strategy11.com/wp-json/frm/v2/entries',
 				array(
-					'body' => array(
+					'user-agent' => wpbdp_http_user_agent(),
+					'body'       => array(
 						'bd-firstname1' => $current_user->first_name,
 						'bd-email-1'    => $email,
 						'form_id'       => 'bd-plugin-course',

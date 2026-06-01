@@ -96,8 +96,9 @@ class WPBDP_Themes_Updater {
 		$response = wp_remote_get(
 			add_query_arg( $request, 'http://businessdirectoryplugin.com/' ),
 			array(
-				'timeout'   => 15,
-				'sslverify' => false,
+				'timeout'    => 15,
+				'user-agent' => wpbdp_http_user_agent(),
+				'sslverify'  => false,
 			)
 		);
 
@@ -226,7 +227,10 @@ class WPBDP_Themes_Updater {
 			return new WP_Error( 'invalid_package_url', 'No package URL provided.' );
 		}
 
+		// phpcs:ignore WordPressVIPMinimum.Hooks.RestrictedHooks.http_request_args
+		add_filter( 'http_request_args', 'wpbdp_add_user_agent_to_business_directory_request', 10, 2 );
 		$download_file = download_url( $url );
+		remove_filter( 'http_request_args', 'wpbdp_add_user_agent_to_business_directory_request', 10 );
 		if ( is_wp_error( $download_file ) ) {
 			return new WP_Error( 'download_failed', 'Could not download theme package.', $download_file->get_error_message() );
 		}

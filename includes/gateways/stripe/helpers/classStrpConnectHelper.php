@@ -95,8 +95,9 @@ class WPBDPStrpConnectHelper {
 		$timeout = 45; // (seconds) default timeout is 5. we want a bit more time to work with.
 		self::try_to_extend_server_timeout( $timeout );
 
-		$args     = compact( 'body', 'headers', 'timeout' );
-		$response = wp_remote_post( $url, $args );
+		$args               = compact( 'body', 'headers', 'timeout' );
+		$args['user-agent'] = wpbdp_http_user_agent();
+		$response           = wp_remote_post( $url, $args );
 
 		if ( ! self::validate_response( $response ) ) {
 			return 'Response from server is invalid';

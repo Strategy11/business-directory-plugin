@@ -497,6 +497,8 @@ class WPBDP_Licensing {
 
 		curl_setopt( $ch, CURLOPT_URL, self::STORE_URL );
 		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
+		curl_setopt( $ch, CURLOPT_USERAGENT, wpbdp_http_user_agent() );
 
 		$r = curl_exec( $ch );
 
@@ -593,7 +595,7 @@ class WPBDP_Licensing {
 			$url,
 			array(
 				'timeout'    => 15,
-				'user-agent' => $this->user_agent_header(),
+				'user-agent' => wpbdp_http_user_agent(),
 				'sslverify'  => false,
 			)
 		);
@@ -1008,7 +1010,7 @@ class WPBDP_Licensing {
 			self::STORE_URL,
 			array(
 				'timeout'    => 15,
-				'user-agent' => $this->user_agent_header(),
+				'user-agent' => wpbdp_http_user_agent(),
 				'sslverify'  => false,
 				'body'       => $args,
 			)
@@ -1261,11 +1263,7 @@ class WPBDP_Licensing {
 	}
 
 	function user_agent_header() {
-		$user_agent  = 'Business Directory/' . WPBDP_VERSION;
-		$user_agent .= ' WordPress/' . get_bloginfo( 'version' );
-		$user_agent .= '; ' . get_bloginfo( 'url' );
-
-		return $user_agent;
+		return wpbdp_http_user_agent();
 	}
 
 	/**
