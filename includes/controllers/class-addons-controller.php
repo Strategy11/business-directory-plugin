@@ -104,7 +104,10 @@ class WPBDP_Addons_Controller {
 		// Create the plugin upgrader with our custom skin.
 		require_once WPBDP_INC . 'models/class-installer-skin.php';
 		$installer = new Plugin_Upgrader( new WPBDP_Installer_Skin() );
+		// phpcs:ignore WordPressVIPMinimum.Hooks.RestrictedHooks.http_request_args
+		add_filter( 'http_request_args', 'wpbdp_add_user_agent_to_business_directory_request', 10, 2 );
 		$installer->install( $download_url );
+		remove_filter( 'http_request_args', 'wpbdp_add_user_agent_to_business_directory_request', 10 );
 
 		// Flush the cache and return the newly installed plugin basename.
 		wp_cache_flush();

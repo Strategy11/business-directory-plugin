@@ -713,6 +713,75 @@ function wpbdp_get_current_domain( $www = true, $prefix = '' ) {
 }
 
 /**
+ * Build a Business Directory user agent for outbound HTTP requests.
+ *
+ * @since x.x
+ *
+ * @param string $product Product name.
+ * @param string|null $version Product version.
+ *
+ * @return string
+ */
+function wpbdp_http_user_agent( $product = 'Business Directory', $version = null ) {
+	$product = (string) $product;
+
+	if ( '' === $product ) {
+		$product = 'Business Directory';
+	}
+
+	if ( null === $version && defined( 'WPBDP_VERSION' ) ) {
+		$version = WPBDP_VERSION;
+	}
+
+	$version    = (string) $version;
+	$user_agent = $product;
+	if ( '' !== $version ) {
+		$user_agent .= '/' . $version;
+	}
+
+	return $user_agent . '; ' . get_bloginfo( 'url' );
+}
+
+/**
+ * Check if a URL points to the Business Directory domain.
+ *
+ * @since x.x
+ *
+ * @param string $url The URL to check.
+ *
+ * @return bool
+ */
+function wpbdp_is_business_directory_request_url( $url ) {
+	$host = wp_parse_url( $url, PHP_URL_HOST );
+	if ( ! is_string( $host ) || '' === $host ) {
+		return false;
+	}
+
+	$host   = strtolower( $host );
+	$domain = 'businessdirectoryplugin.com';
+
+	return $domain === $host || substr( $host, -1 * ( strlen( $domain ) + 1 ) ) === '.' . $domain;
+}
+
+/**
+ * Add the Business Directory user agent to package downloads from our servers.
+ *
+ * @since x.x
+ *
+ * @param array  $args HTTP request args.
+ * @param string $url  Request URL.
+ *
+ * @return array
+ */
+function wpbdp_add_user_agent_to_business_directory_request( $args, $url ) {
+	if ( wpbdp_is_business_directory_request_url( $url ) ) {
+		$args['user-agent'] = wpbdp_http_user_agent();
+	}
+
+	return $args;
+}
+
+/**
  * Prepare an external link with utm parameters.
  *
  * @since 5.7.5

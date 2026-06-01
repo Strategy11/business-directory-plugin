@@ -89,14 +89,11 @@ class WPBDP_Modules_API {
 
 		$this->set_running();
 
-		// We need to know the version number to allow different downloads.
-		$agent = 'Business Directory/' . WPBDP_VERSION;
-
 		$response = wp_remote_get(
 			$url,
 			array(
 				'timeout'    => 25,
-				'user-agent' => $agent . '; ' . get_bloginfo( 'url' ),
+				'user-agent' => wpbdp_http_user_agent(),
 			)
 		);
 

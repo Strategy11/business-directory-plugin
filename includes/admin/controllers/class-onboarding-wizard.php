@@ -270,7 +270,8 @@ final class WPBDP_Onboarding_Wizard {
 		wp_remote_post(
 			'https://feedback.strategy11.com/wp-json/frm/v2/entries',
 			array(
-				'body' => array(
+				'user-agent' => wpbdp_http_user_agent(),
+				'body'       => array(
 					'bd-firstname1' => $user->first_name,
 					'bd-email-1'    => $user->user_email,
 					'form_id'       => 'bd-plugin-course',

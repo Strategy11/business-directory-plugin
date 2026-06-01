@@ -420,8 +420,9 @@ class WPBDP_Themes_Admin {
 				WPBDP_Licensing::STORE_URL
 			),
 			array(
-				'timeout'   => 15,
-				'sslverify' => false,
+				'timeout'    => 15,
+				'user-agent' => wpbdp_http_user_agent(),
+				'sslverify'  => false,
 			)
 		);
 
@@ -532,7 +533,10 @@ class WPBDP_Themes_Admin {
 	 * @return false|string|WP_Error File path on success, WP_Error on download failure, false if not a valid ZIP.
 	 */
 	private function download_theme_zip( $url ) {
+		// phpcs:ignore WordPressVIPMinimum.Hooks.RestrictedHooks.http_request_args
+		add_filter( 'http_request_args', 'wpbdp_add_user_agent_to_business_directory_request', 10, 2 );
 		$tmpfile = download_url( $url );
+		remove_filter( 'http_request_args', 'wpbdp_add_user_agent_to_business_directory_request', 10 );
 
 		if ( is_wp_error( $tmpfile ) ) {
 			return $tmpfile;
