@@ -14,6 +14,15 @@ if ( ! class_exists( 'WPBDP_CategoryFormInputWalker' ) ) {
  */
 class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 
+	/**
+	 * Meta radio inputs rejected during conversion.
+	 *
+	 * @since x.x
+	 *
+	 * @var array<int, bool>
+	 */
+	private $invalid_meta_inputs = array();
+
 	public function __construct() {
 		parent::__construct( _x( 'Radio button', 'form-fields api', 'business-directory-plugin' ) );
 	}
@@ -33,7 +42,19 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 	 * @return int|string
 	 */
 	public function convert_input( &$field, $input ) {
-		if ( is_null( $input ) || '' === $input || ! is_scalar( $input ) ) {
+		if ( 'meta' === $field->get_association() ) {
+			unset( $this->invalid_meta_inputs[ $field->get_id() ] );
+		}
+
+		if ( is_null( $input ) || '' === $input ) {
+			return '';
+		}
+
+		if ( ! is_scalar( $input ) ) {
+			if ( 'meta' === $field->get_association() ) {
+				$this->invalid_meta_inputs[ $field->get_id() ] = true;
+			}
+
 			return '';
 		}
 
@@ -44,6 +65,8 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 		}
 
 		if ( 'meta' === $field->get_association() && ! in_array( $input, $this->get_stored_options( $field ), true ) ) {
+			$this->invalid_meta_inputs[ $field->get_id() ] = true;
+
 			return '';
 		}
 
@@ -131,6 +154,13 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 	 */
 	public function store_field_value( &$field, $post_id, $value ) {
 		if ( $field->get_association() === 'meta' ) {
+			$is_invalid_input = isset( $this->invalid_meta_inputs[ $field->get_id() ] );
+			unset( $this->invalid_meta_inputs[ $field->get_id() ] );
+
+			if ( $is_invalid_input ) {
+				return;
+			}
+
 			if ( '' !== $value && in_array( (string) $value, $this->get_stored_options( $field ), true ) ) {
 				$this->store_field_selected_value( $field, $post_id, $value );
 			} else {

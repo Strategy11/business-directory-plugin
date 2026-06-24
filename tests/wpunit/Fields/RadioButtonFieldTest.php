@@ -54,6 +54,51 @@ class RadioButtonFieldTest extends WPUnitTestCase {
 	/**
 	 * @since x.x
 	 */
+	public function testRadioMetaFieldPreservesStoredOptionWhenSubmittedOptionNotConfiguredOnField() {
+		$field      = $this->create_radio_field();
+		$listing_id = $this->create_listing();
+		$payload    = '<script>alert(document.domain)</script>';
+
+		$_POST['listingfields'][ $field->get_id() ] = 'Market';
+		$value                                      = $field->value_from_POST();
+
+		$field->store_value( $listing_id, $value );
+
+		$_POST['listingfields'][ $field->get_id() ] = $payload;
+		$value                                      = $field->value_from_POST();
+
+		$field->store_value( $listing_id, $value );
+		unset( $_POST['listingfields'] );
+
+		$this->assertEquals( 'Market', get_post_meta( $listing_id, '_wpbdp[fields][' . $field->get_id() . ']', true ) );
+		$this->assertEquals( 1, get_post_meta( $listing_id, '_wpbdp[fields][' . $field->get_id() . ']_selected', true ) );
+	}
+
+	/**
+	 * @since x.x
+	 */
+	public function testRadioMetaFieldClearsStoredOptionWhenSubmittedEmpty() {
+		$field      = $this->create_radio_field();
+		$listing_id = $this->create_listing();
+
+		$_POST['listingfields'][ $field->get_id() ] = 'Market';
+		$value                                      = $field->value_from_POST();
+
+		$field->store_value( $listing_id, $value );
+
+		$_POST['listingfields'][ $field->get_id() ] = '';
+		$value                                      = $field->value_from_POST();
+
+		$field->store_value( $listing_id, $value );
+		unset( $_POST['listingfields'] );
+
+		$this->assertEquals( '', get_post_meta( $listing_id, '_wpbdp[fields][' . $field->get_id() . ']', true ) );
+		$this->assertEquals( '', get_post_meta( $listing_id, '_wpbdp[fields][' . $field->get_id() . ']_selected', true ) );
+	}
+
+	/**
+	 * @since x.x
+	 */
 	public function testRadioMetaFieldEscapesLegacyStoredValueForHtmlDisplay() {
 		$field      = $this->create_radio_field();
 		$listing_id = $this->create_listing();
