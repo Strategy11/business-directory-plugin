@@ -29,6 +29,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 	 *
 	 * @param WPBDP_Form_Field $field Field object.
 	 * @param mixed            $input Submitted value.
+	 *
 	 * @return int|string
 	 */
 	public function convert_input( &$field, $input ) {
@@ -229,6 +230,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 	 *
 	 * @param WPBDP_Form_Field $field   Field object.
 	 * @param int|string       $post_id Listing ID.
+	 *
 	 * @return string
 	 */
 	public function get_field_html_value( &$field, $post_id ) {
@@ -262,6 +264,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 	 * @since x.x
 	 *
 	 * @param WPBDP_Form_Field $field Field object.
+	 *
 	 * @return string[]
 	 */
 	private function get_stored_options( $field ) {
