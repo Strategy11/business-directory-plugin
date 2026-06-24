@@ -22,6 +22,33 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 		return 'radio';
 	}
 
+	/**
+	 * Convert submitted radio field input to a safe stored value.
+	 *
+	 * @since x.x
+	 *
+	 * @param WPBDP_Form_Field $field Field object.
+	 * @param mixed            $input Submitted value.
+	 * @return int|string
+	 */
+	public function convert_input( &$field, $input ) {
+		if ( is_null( $input ) || '' === $input || ! is_scalar( $input ) ) {
+			return '';
+		}
+
+		$input = sanitize_text_field( (string) $input );
+
+		if ( 'category' === $field->get_association() ) {
+			return absint( $input );
+		}
+
+		if ( 'meta' === $field->get_association() && ! in_array( $input, $this->get_stored_options( $field ), true ) ) {
+			return '';
+		}
+
+		return $input;
+	}
+
 	public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
 		$options = $field->data( 'options' ) ? $field->data( 'options' ) : array();
 
@@ -66,20 +93,22 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 			$css_classes[] = 'wpbdp-inner-radio-' . $i;
 			$css_classes[] = 'wpbdp-inner-radio-' . WPBDP_Form_Field_Type::normalize_name( $label );
 
-			$checked = '';
+			$checked      = '';
+			$option_value = $field->get_association() === 'meta' ? $label : $option;
+			$field_id     = 'wpbdp-field-' . $field->get_id() . '-' . WPBDP_Form_Field_Type::normalize_name( $label );
 
-			if ( $selected === $option || $value === $option ) {
+			if ( ( false !== $selected && null !== $selected && (string) $selected === (string) $option ) || (string) $value === (string) $option_value ) {
 				$checked = 'checked="checked"';
 			}
 
 			$html .= sprintf(
-				'<div class="%1$s"><label for="wpbdp-field-%6$d-%5$s"><input id="wpbdp-field-%6$d-%5$s" type="radio" name="%2$s" value="%3$s" %4$s /> %5$s</label></div>',
-				implode( ' ', $css_classes ),
-				'listingfields[' . $field->get_id() . ']',
-				$field->get_association() === 'meta' ? esc_attr( $label ) : $option,
+				'<div class="%1$s"><label for="%6$s"><input id="%6$s" type="radio" name="%2$s" value="%3$s" %4$s /> %5$s</label></div>',
+				esc_attr( implode( ' ', $css_classes ) ),
+				esc_attr( 'listingfields[' . $field->get_id() . ']' ),
+				esc_attr( $option_value ),
 				$checked,
-				esc_attr( $label ),
-				$field->get_id()
+				esc_html( $label ),
+				esc_attr( $field_id )
 			);
 
 			++$i;
@@ -101,7 +130,11 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 	 */
 	public function store_field_value( &$field, $post_id, $value ) {
 		if ( $field->get_association() === 'meta' ) {
-			$this->store_field_selected_value( $field, $post_id, $value );
+			if ( '' !== $value && in_array( (string) $value, $this->get_stored_options( $field ), true ) ) {
+				$this->store_field_selected_value( $field, $post_id, $value );
+			} else {
+				delete_post_meta( $post_id, '_wpbdp[fields][' . $field->get_id() . ']_selected' );
+			}
 		}
 
 		parent::store_field_value( $field, $post_id, $value );
@@ -189,6 +222,26 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 		return $value && is_array( $value ) ? $value[0] : $value;
 	}
 
+	/**
+	 * Return escaped HTML-safe output for radio field values.
+	 *
+	 * @since x.x
+	 *
+	 * @param WPBDP_Form_Field $field   Field object.
+	 * @param int|string       $post_id Listing ID.
+	 * @return string
+	 */
+	public function get_field_html_value( &$field, $post_id ) {
+		if ( 'meta' === $field->get_association() ) {
+			$value = $field->value( $post_id );
+			$value = is_array( $value ) ? implode( ', ', $value ) : $value;
+
+			return esc_html( (string) $value );
+		}
+
+		return parent::get_field_html_value( $field, $post_id );
+	}
+
 	public function get_field_plain_value( &$field, $post_id ) {
 		$value = $field->value( $post_id );
 
@@ -201,5 +254,19 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 		}
 
 		return strval( $value );
+	}
+
+	/**
+	 * Return configured radio options as stored string values.
+	 *
+	 * @since x.x
+	 *
+	 * @param WPBDP_Form_Field $field Field object.
+	 * @return string[]
+	 */
+	private function get_stored_options( $field ) {
+		$options = $field->data( 'options' ) ? $field->data( 'options' ) : array();
+
+		return array_map( 'strval', $options );
 	}
 }
