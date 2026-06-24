@@ -71,7 +71,7 @@ class RadioButtonFieldTest extends WPUnitTestCase {
 		unset( $_POST['listingfields'] );
 
 		$this->assertEquals( 'Market', get_post_meta( $listing_id, '_wpbdp[fields][' . $field->get_id() . ']', true ) );
-		$this->assertEquals( 1, get_post_meta( $listing_id, '_wpbdp[fields][' . $field->get_id() . ']_selected', true ) );
+		$this->assertEquals( 'Market', get_post_meta( $listing_id, '_wpbdp[fields][' . $field->get_id() . ']_selected', true ) );
 	}
 
 	/**
