@@ -37,6 +37,24 @@ class RadioButtonFieldTest extends WPUnitTestCase {
 	/**
 	 * @since x.x
 	 */
+	public function testRadioMetaFieldStoresSubmittedOptionWithLessThanCharacter() {
+		$field      = $this->create_radio_field_with_options( array( 'Price < 100', 'Price >= 100' ) );
+		$listing_id = $this->create_listing();
+
+		$_POST['listingfields'][ $field->get_id() ] = 'Price < 100';
+		$value                                      = $field->value_from_POST();
+
+		$field->store_value( $listing_id, $value );
+		unset( $_POST['listingfields'] );
+
+		$this->assertEquals( 'Price < 100', get_post_meta( $listing_id, '_wpbdp[fields][' . $field->get_id() . ']', true ) );
+		$this->assertEquals( 'Price < 100', get_post_meta( $listing_id, '_wpbdp[fields][' . $field->get_id() . ']_selected', true ) );
+		$this->assertEquals( 'Price &lt; 100', $field->html_value( $listing_id ) );
+	}
+
+	/**
+	 * @since x.x
+	 */
 	public function testRadioMetaFieldRejectsSubmittedOptionNotConfiguredOnField() {
 		$field      = $this->create_radio_field();
 		$listing_id = $this->create_listing();
@@ -115,6 +133,17 @@ class RadioButtonFieldTest extends WPUnitTestCase {
 	 * @return WPBDP_Form_Field
 	 */
 	private function create_radio_field() {
+		return $this->create_radio_field_with_options( array( 'Farm', 'Market', 'Delivery' ) );
+	}
+
+	/**
+	 * @since x.x
+	 *
+	 * @param string[] $options Radio field options.
+	 *
+	 * @return WPBDP_Form_Field
+	 */
+	private function create_radio_field_with_options( $options ) {
 		$field = new WPBDP_Form_Field(
 			array(
 				'association'   => 'meta',
@@ -122,7 +151,7 @@ class RadioButtonFieldTest extends WPUnitTestCase {
 				'label'         => 'Business Type',
 				'display_flags' => array( 'listing' ),
 				'field_data'    => array(
-					'options' => array( 'Farm', 'Market', 'Delivery' ),
+					'options' => $options,
 				),
 			)
 		);

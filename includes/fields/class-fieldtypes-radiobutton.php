@@ -58,19 +58,22 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 			return '';
 		}
 
-		$input = sanitize_text_field( (string) $input );
+		$input = (string) $input;
 
 		if ( 'category' === $field->get_association() ) {
 			return absint( $input );
 		}
 
-		if ( 'meta' === $field->get_association() && ! in_array( $input, $this->get_stored_options( $field ), true ) ) {
-			$this->invalid_meta_inputs[ $field->get_id() ] = true;
+		if ( 'meta' === $field->get_association() ) {
+			if ( in_array( $input, $this->get_stored_options( $field ), true ) ) {
+				return $input;
+			}
 
+			$this->invalid_meta_inputs[ $field->get_id() ] = true;
 			return '';
 		}
 
-		return $input;
+		return sanitize_text_field( $input );
 	}
 
 	public function render_field_inner( &$field, $value, $context, &$extra = null, $field_settings = array() ) {
