@@ -75,16 +75,14 @@ class ListingQuerySortTest extends WPUnitTestCase {
 		$alpha = $this->create_listing_on_plan( 'Alpha Inc', $plan, '2026-01-02 00:00:00' );
 		$mango = $this->create_listing_on_plan( 'Mango Ltd', $plan, '2026-01-03 00:00:00' );
 
-		$listing_ids = array( $zebra, $alpha, $mango );
-
 		$this->assertSame(
 			array( $alpha, $mango, $zebra ),
-			$this->query_listing_ids( 'plan-order-title', 'ASC', $listing_ids )
+			$this->get_display_listing_ids_from_sticky_query( 'plan-order-title', 'ASC' )
 		);
 
 		$this->assertSame(
 			array( $zebra, $mango, $alpha ),
-			$this->query_listing_ids( 'plan-order-title', 'DESC', $listing_ids )
+			$this->get_display_listing_ids_from_sticky_query( 'plan-order-title', 'DESC' )
 		);
 	}
 
@@ -100,7 +98,7 @@ class ListingQuerySortTest extends WPUnitTestCase {
 
 		$this->assertSame(
 			array( $oldest, $middle, $newest ),
-			$this->query_listing_ids( 'plan-order-date', 'ASC', array( $newest, $oldest, $middle ) )
+			$this->get_display_listing_ids_from_sticky_query( 'plan-order-date', 'ASC' )
 		);
 	}
 
@@ -171,24 +169,22 @@ class ListingQuerySortTest extends WPUnitTestCase {
 	/**
 	 * @since x.x
 	 *
-	 * @param string $order_by   Order by value.
-	 * @param string $order      Order direction.
-	 * @param int[]  $listing_ids Listing ids.
+	 * @param string $order_by Order by value.
+	 * @param string $order    Order direction.
 	 *
 	 * @return int[]
 	 */
-	private function query_listing_ids( $order_by, $order, $listing_ids ) {
-		$query = new WP_Query(
-			array(
-				'post_type'       => WPBDP_POST_TYPE,
-				'post_status'     => 'publish',
-				'orderby'         => $order_by,
-				'order'           => $order,
-				'posts_per_page'  => count( $listing_ids ),
-				'wpbdp_shortcode' => true,
-			)
-		);
+	private function get_display_listing_ids_from_sticky_query( $order_by, $order ) {
+		$query = new WP_Query();
+		$query->set( 'orderby', $order_by );
+		$query->set( 'order', $order );
 
-		return array_map( 'intval', wp_list_pluck( $query->posts, 'ID' ) );
+		$reflection = new \ReflectionClass( 'WPBDP__Query_Integration' );
+		$method     = $reflection->getMethod( 'get_sticky_listing_ids' );
+		$method->setAccessible( true );
+
+		$sticky_ids = $method->invoke( $reflection->newInstanceWithoutConstructor(), $query );
+
+		return array_reverse( array_map( 'intval', explode( ',', $sticky_ids ) ) );
 	}
 }
