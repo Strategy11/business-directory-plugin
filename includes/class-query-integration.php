@@ -341,26 +341,16 @@ class WPBDP__Query_Integration {
 	 * @return string listing ids
 	 */
 	private function get_sticky_listing_ids( $query ) {
-		global $wpdb;
-
-		$order_by  = $query->get( 'orderby' );
-		$order     = $query->get( 'order' );
-		$join_sort = in_array( $order_by, array( 'title', 'date', 'modified', 'author' ), true );
-
-		$query = "SELECT listing_id FROM {$wpdb->prefix}wpbdp_listings";
-		if ( $join_sort ) {
-			$query .= " JOIN {$wpdb->posts} p ON p.ID = {$wpdb->prefix}wpbdp_listings.listing_id";
-		}
-		$query .= ' WHERE is_sticky=1';
-		if ( $join_sort ) {
-			$query .= " ORDER BY p.post_{$order_by} {$order}";
-		}
+		$order_by  = (string) $query->get( 'orderby' );
+		$order     = strtoupper( (string) $query->get( 'order' ) );
+		$order     = in_array( $order, array( 'ASC', 'DESC' ), true ) ? $order : 'ASC';
+		$sql_query = $this->get_sticky_listing_ids_query( $order_by, $order );
 
 		$results = WPBDP_Utils::check_cache(
 			array(
-				'cache_key' => 'sticky_listing_idss',
+				'cache_key' => $this->get_sticky_listing_ids_cache_key( $order_by, $order ),
 				'group'     => 'wpbdp_listings',
-				'query'     => $query,
+				'query'     => $sql_query,
 				'type'      => 'get_col',
 			)
 		);
@@ -374,6 +364,79 @@ class WPBDP__Query_Integration {
 		}
 
 		return implode( ',', $results );
+	}
+
+	/**
+	 * Get the SQL query for sticky listing ids.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $order_by The orderby value from the current query.
+	 * @param string $order    The normalized order direction.
+	 *
+	 * @return string
+	 */
+	private function get_sticky_listing_ids_query( $order_by, $order ) {
+		global $wpdb;
+
+		$query = "SELECT l.listing_id FROM {$wpdb->prefix}wpbdp_listings l";
+
+		switch ( $order_by ) {
+			case 'title':
+			case 'date':
+			case 'modified':
+			case 'author':
+				$query .= " JOIN {$wpdb->posts} p ON p.ID = l.listing_id";
+				$query .= ' WHERE l.is_sticky=1';
+				$query .= " ORDER BY p.post_{$order_by} {$order}";
+
+				break;
+			case 'paid':
+			case 'paid-title':
+				$next_order = 'paid' === $order_by ? 'post_date DESC' : 'post_title ASC';
+
+				$query .= " JOIN {$wpdb->posts} p ON p.ID = l.listing_id";
+				$query .= ' WHERE l.is_sticky=1';
+				$query .= " ORDER BY l.fee_price {$order}, p.{$next_order}";
+
+				break;
+			case 'plan-order-date':
+			case 'plan-order-title':
+				$plan_order = wpbdp_get_option( 'fee-order' );
+				if ( is_array( $plan_order ) && isset( $plan_order['method'] ) && 'custom' === $plan_order['method'] ) {
+					$next_order = 'plan-order-date' === $order_by ? 'post_date' : 'post_title';
+
+					$query .= " JOIN {$wpdb->posts} p ON p.ID = l.listing_id";
+					$query .= " LEFT JOIN {$wpdb->prefix}wpbdp_plans po ON po.id = l.fee_id";
+					$query .= ' WHERE l.is_sticky=1';
+					$query .= " ORDER BY po.weight DESC, p.{$next_order} {$order}";
+					break;
+				}
+
+				$query .= ' WHERE l.is_sticky=1';
+
+				break;
+			default:
+				$query .= ' WHERE l.is_sticky=1';
+
+				break;
+		}
+
+		return $query;
+	}
+
+	/**
+	 * Get the cache key for sticky listing ids.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $order_by The orderby value from the current query.
+	 * @param string $order    The normalized order direction.
+	 *
+	 * @return string
+	 */
+	private function get_sticky_listing_ids_cache_key( $order_by, $order ) {
+		return 'sticky_listing_ids_' . md5( $order_by . '|' . $order . '|' . maybe_serialize( wpbdp_get_option( 'fee-order' ) ) );
 	}
 
 	// {{ Sort bar.
