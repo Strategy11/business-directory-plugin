@@ -169,7 +169,7 @@ class WPBDP__Migrations__3_7 extends WPBDP__Migration {
 
                             if ( ! $fee_info || ! term_exists( intval( $fee_info->category_id ), WPBDP_CATEGORY_TAX ) ) {
                                 $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}wpbdp_payments WHERE id = %d", $t['id'] ) );
-                                continue;
+                                continue 2;
                             }
 
                             $fee_info->fee = unserialize( $fee_info->fee );
