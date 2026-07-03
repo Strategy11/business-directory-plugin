@@ -131,7 +131,7 @@ class ListingQuerySortTest extends WPUnitTestCase {
 		);
 
 		$this->assertTrue( is_int( $listing_id ) && 0 < $listing_id );
-		$this->assertTrue( wpbdp_get_listing( $listing_id )->set_fee_plan( $plan ) );
+		$this->assertNotFalse( wpbdp_get_listing( $listing_id )->set_fee_plan( $plan ) );
 
 		return $listing_id;
 	}
