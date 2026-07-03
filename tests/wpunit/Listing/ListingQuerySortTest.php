@@ -21,6 +21,16 @@ class ListingQuerySortTest extends WPUnitTestCase {
 	protected $tester;
 
 	/**
+	 * @var int[]
+	 */
+	private $created_listing_ids = array();
+
+	/**
+	 * @var int[]
+	 */
+	private $created_plan_ids = array();
+
+	/**
 	 * @since x.x
 	 */
 	protected function after_setup() {
@@ -33,6 +43,26 @@ class ListingQuerySortTest extends WPUnitTestCase {
 		);
 		wpbdp_set_option( 'prevent-sticky-on-directory-view', array() );
 		WPBDP_Utils::cache_delete_group( 'wpbdp_listings' );
+	}
+
+	/**
+	 * @since x.x
+	 */
+	public function tearDown() : void {
+		foreach ( $this->created_listing_ids as $listing_id ) {
+			wp_delete_post( $listing_id, true );
+		}
+
+		foreach ( $this->created_plan_ids as $plan_id ) {
+			$plan = wpbdp_get_fee_plan( $plan_id );
+			if ( $plan ) {
+				$plan->delete();
+			}
+		}
+
+		WPBDP_Utils::cache_delete_group( 'wpbdp_listings' );
+
+		parent::tearDown();
 	}
 
 	/**
@@ -105,6 +135,7 @@ class ListingQuerySortTest extends WPUnitTestCase {
 		}
 
 		$this->assertTrue( is_int( $fee->id ) );
+		$this->created_plan_ids[] = $fee->id;
 
 		return $fee;
 	}
@@ -132,6 +163,7 @@ class ListingQuerySortTest extends WPUnitTestCase {
 
 		$this->assertTrue( is_int( $listing_id ) && 0 < $listing_id );
 		$this->assertNotFalse( wpbdp_get_listing( $listing_id )->set_fee_plan( $plan ) );
+		$this->created_listing_ids[] = $listing_id;
 
 		return $listing_id;
 	}
@@ -150,10 +182,9 @@ class ListingQuerySortTest extends WPUnitTestCase {
 			array(
 				'post_type'       => WPBDP_POST_TYPE,
 				'post_status'     => 'publish',
-				'post__in'        => $listing_ids,
 				'orderby'         => $order_by,
 				'order'           => $order,
-				'posts_per_page'  => -1,
+				'posts_per_page'  => count( $listing_ids ),
 				'wpbdp_shortcode' => true,
 			)
 		);
