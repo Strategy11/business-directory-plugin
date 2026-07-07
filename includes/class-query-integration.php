@@ -369,7 +369,7 @@ class WPBDP__Query_Integration {
 	/**
 	 * Get the SQL query for sticky listing ids.
 	 *
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param string $order_by The orderby value from the current query.
 	 * @param string $order    The normalized order direction.
@@ -428,7 +428,7 @@ class WPBDP__Query_Integration {
 	/**
 	 * Get the cache key for sticky listing ids.
 	 *
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param string $order_by The orderby value from the current query.
 	 * @param string $order    The normalized order direction.

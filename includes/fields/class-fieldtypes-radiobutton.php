@@ -17,7 +17,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 	/**
 	 * Meta radio inputs rejected during conversion.
 	 *
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @var array<int, bool>
 	 */
@@ -34,7 +34,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 	/**
 	 * Convert submitted radio field input to a safe stored value.
 	 *
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param WPBDP_Form_Field $field Field object.
 	 * @param mixed            $input Submitted value.
@@ -259,7 +259,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 	/**
 	 * Return escaped HTML-safe output for radio field values.
 	 *
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param WPBDP_Form_Field $field   Field object.
 	 * @param int|string       $post_id Listing ID.
@@ -294,7 +294,7 @@ class WPBDP_FieldTypes_RadioButton extends WPBDP_Form_Field_Type {
 	/**
 	 * Return configured radio options as stored string values.
 	 *
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param WPBDP_Form_Field $field Field object.
 	 *

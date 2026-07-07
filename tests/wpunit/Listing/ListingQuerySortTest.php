@@ -31,7 +31,7 @@ class ListingQuerySortTest extends WPUnitTestCase {
 	private $created_plan_ids = array();
 
 	/**
-	 * @since x.x
+	 * @since 6.4.25
 	 */
 	protected function after_setup() {
 		wpbdp_set_option(
@@ -46,7 +46,7 @@ class ListingQuerySortTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.25
 	 */
 	public function tearDown() : void {
 		foreach ( $this->created_listing_ids as $listing_id ) {
@@ -66,7 +66,7 @@ class ListingQuerySortTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.25
 	 */
 	public function testStickyListingsUsePlanOrderTitleSort() {
 		$plan = $this->create_fee_plan( 'sticky_plan_order_title', 10 );
@@ -87,7 +87,7 @@ class ListingQuerySortTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.25
 	 */
 	public function testStickyListingsUsePlanOrderDateSort() {
 		$plan = $this->create_fee_plan( 'sticky_plan_order_date', 10 );
@@ -103,7 +103,7 @@ class ListingQuerySortTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param string $tag    Fee plan tag.
 	 * @param int    $weight Fee plan weight.
@@ -139,7 +139,7 @@ class ListingQuerySortTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param string          $title Post title.
 	 * @param WPBDP__Fee_Plan $plan  Fee plan.
@@ -167,7 +167,7 @@ class ListingQuerySortTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param string $order_by Order by value.
 	 * @param string $order    Order direction.

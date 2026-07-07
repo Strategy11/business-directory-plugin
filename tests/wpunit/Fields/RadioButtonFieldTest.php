@@ -19,7 +19,7 @@ class RadioButtonFieldTest extends WPUnitTestCase {
 	protected $tester;
 
 	/**
-	 * @since x.x
+	 * @since 6.4.25
 	 */
 	public function testRadioMetaFieldStoresValidSubmittedOption() {
 		$field      = $this->create_radio_field();
@@ -35,7 +35,7 @@ class RadioButtonFieldTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.25
 	 */
 	public function testRadioMetaFieldStoresSubmittedOptionWithLessThanCharacter() {
 		$field      = $this->create_radio_field_with_options( array( 'Price < 100', 'Price >= 100' ) );
@@ -53,7 +53,7 @@ class RadioButtonFieldTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.25
 	 */
 	public function testRadioMetaFieldRejectsSubmittedOptionNotConfiguredOnField() {
 		$field      = $this->create_radio_field();
@@ -70,7 +70,7 @@ class RadioButtonFieldTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.25
 	 */
 	public function testRadioMetaFieldPreservesStoredOptionWhenSubmittedOptionNotConfiguredOnField() {
 		$field      = $this->create_radio_field();
@@ -93,7 +93,7 @@ class RadioButtonFieldTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.25
 	 */
 	public function testRadioMetaFieldClearsStoredOptionWhenSubmittedEmpty() {
 		$field      = $this->create_radio_field();
@@ -115,7 +115,7 @@ class RadioButtonFieldTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.25
 	 */
 	public function testRadioMetaFieldEscapesLegacyStoredValueForHtmlDisplay() {
 		$field      = $this->create_radio_field();
@@ -128,7 +128,7 @@ class RadioButtonFieldTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @return WPBDP_Form_Field
 	 */
@@ -137,7 +137,7 @@ class RadioButtonFieldTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param string[] $options Radio field options.
 	 *
@@ -166,7 +166,7 @@ class RadioButtonFieldTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @return int
 	 */

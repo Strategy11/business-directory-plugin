@@ -683,7 +683,7 @@ class WPBDP_Themes {
 	/**
 	 * Gets template metadata from the old `$__template__` declaration.
 	 *
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param string $template_path Path to the template file.
 	 *
@@ -723,7 +723,7 @@ class WPBDP_Themes {
 	/**
 	 * Extracts quoted values from old template metadata arrays.
 	 *
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param string $values List of values from a legacy template metadata array.
 	 *

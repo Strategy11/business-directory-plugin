@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 5.9
 Requires PHP: 7.4
 Tested up to: 7.0
-Stable tag: 6.4.24
+Stable tag: 6.4.25
 License: GPLv2 or later
 
 The easy Business Directory Plugin for WordPress. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,13 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.4.25 =
+* Fix: Security issue allowing arbitrary values to be stored via radio button fields
+* Fix: Sticky listings not sorting correctly when using plan order sort options
+* Fix: Translated listings showing empty field values instead of falling back to the original listing
+* Fix: WPML translation jobs not saving custom field values for translated listings
+* Fix: Legacy template block metadata not recognized in some themes
+
 = 6.4.24 =
 * Fix: Issues in admin form field and fee reorder actions
 * Fix: Issues downloading and installing theme updates
