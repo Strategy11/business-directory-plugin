@@ -235,8 +235,3 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 
 = 6.4.9 =
 * New: Added Stripe payment gateway
-
-= 6.4.8 =
-* Fix: Issue with the redirect chain for the new login redirect feature
-
-<a href="https://businessdirectoryplugin.com/plugins/business-directory/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion">See changelog for all versions</a>
