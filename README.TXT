@@ -159,7 +159,6 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 
 == Changelog ==
 = 6.4.25 =
-* Fix: Security issue allowing arbitrary values to be stored via radio button fields
 * Fix: Sticky listings not sorting correctly when using plan order sort options
 * Fix: Translated listings showing empty field values instead of falling back to the original listing
 * Fix: WPML translation jobs not saving custom field values for translated listings
