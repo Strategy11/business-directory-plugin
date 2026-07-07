@@ -567,7 +567,7 @@ class WPBDP_WPML_Compat {
 	/**
 	 * Fall back to the original listing's field value when the translated post has none.
 	 *
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param mixed          $value   The field value (may be empty on translated posts).
 	 * @param int            $post_id The current listing post ID.
@@ -598,7 +598,7 @@ class WPBDP_WPML_Compat {
 	/**
 	 * Fall back to the original listing's HTML value when a field type bypasses value filters.
 	 *
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param string         $value           The field HTML value.
 	 * @param int            $post_id         The current listing post ID.
@@ -624,7 +624,7 @@ class WPBDP_WPML_Compat {
 	/**
 	 * Get the original (source) listing ID for a translated post.
 	 *
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param int $listing_id The translated listing post ID.
 	 *
@@ -657,7 +657,7 @@ class WPBDP_WPML_Compat {
 	/**
 	 * Fallback to find original listing using default language lookup.
 	 *
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param int $listing_id The translated listing post ID.
 	 *
@@ -682,7 +682,7 @@ class WPBDP_WPML_Compat {
 	/**
 	 * Register BD custom field meta keys with WPML as translatable fields.
 	 *
-	 * @since x.x
+	 * @since 6.4.25
 	 */
 	public function register_custom_fields_with_wpml() {
 		if ( ! is_admin() || ! current_user_can( 'manage_options' ) ) {
@@ -743,7 +743,7 @@ class WPBDP_WPML_Compat {
 	/**
 	 * Translate field category restrictions to the active language.
 	 *
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param mixed $categories The supported categories field setting.
 	 *
@@ -776,7 +776,7 @@ class WPBDP_WPML_Compat {
 	/**
 	 * Save translated BD field values from WPML jobs.
 	 *
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param int    $post_id The translated listing post ID.
 	 * @param array  $fields  Job fields.
@@ -809,7 +809,7 @@ class WPBDP_WPML_Compat {
 	/**
 	 * Get translated custom field values from a WPML job without relying on WPML's bracket-sensitive regex.
 	 *
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param string $meta_key The custom field meta key.
 	 * @param object $job      WPML translation job.
@@ -847,7 +847,7 @@ class WPBDP_WPML_Compat {
 	/**
 	 * Get a translated WPML job element value.
 	 *
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param string $field_type The job field type.
 	 * @param object $job        WPML translation job.
@@ -870,7 +870,7 @@ class WPBDP_WPML_Compat {
 	/**
 	 * Decode a WPML job value.
 	 *
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param string $value  The encoded value.
 	 * @param string $format The value format.
@@ -898,7 +898,7 @@ class WPBDP_WPML_Compat {
 	/**
 	 * Decode a WPML field path part.
 	 *
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param string $path_part The encoded path part.
 	 *
@@ -911,7 +911,7 @@ class WPBDP_WPML_Compat {
 	/**
 	 * Set a nested array value by path.
 	 *
-	 * @since x.x
+	 * @since 6.4.25
 	 *
 	 * @param array  $values The values array.
 	 * @param array  $path   The path to set.

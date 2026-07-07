@@ -715,7 +715,7 @@ function wpbdp_get_current_domain( $www = true, $prefix = '' ) {
 /**
  * Build a Business Directory user agent for outbound HTTP requests.
  *
- * @since x.x
+ * @since 6.4.25
  *
  * @param string $product Product name.
  * @param string|null $version Product version.
@@ -745,7 +745,7 @@ function wpbdp_http_user_agent( $product = 'Business Directory', $version = null
 /**
  * Check if a URL points to the Business Directory domain.
  *
- * @since x.x
+ * @since 6.4.25
  *
  * @param string $url The URL to check.
  *
@@ -766,7 +766,7 @@ function wpbdp_is_business_directory_request_url( $url ) {
 /**
  * Add the Business Directory user agent to package downloads from our servers.
  *
- * @since x.x
+ * @since 6.4.25
  *
  * @param array  $args HTTP request args.
  * @param string $url  Request URL.
