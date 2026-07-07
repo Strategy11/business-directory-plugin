@@ -666,10 +666,11 @@ class WPBDP_Themes {
 			'variables' => 'Template Variables',
 		);
 		$template_meta   = get_file_data( $template_path, $default_headers, 'business_directory_template' );
+		$legacy_meta     = $this->get_legacy_template_meta( $template_path );
 
 		foreach ( array_keys( $default_headers ) as $variable ) {
 			if ( ! $template_meta[ $variable ] ) {
-				$template_meta[ $variable ] = array();
+				$template_meta[ $variable ] = $legacy_meta[ $variable ];
 				continue;
 			}
 
@@ -677,6 +678,63 @@ class WPBDP_Themes {
 		}
 
 		return $template_meta;
+	}
+
+	/**
+	 * Gets template metadata from the old `$__template__` declaration.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $template_path Path to the template file.
+	 *
+	 * @return array
+	 */
+	private function get_legacy_template_meta( $template_path ) {
+		$template_meta = array(
+			'blocks'    => array(),
+			'variables' => array(),
+		);
+
+		if ( ! is_readable( $template_path ) ) {
+			return $template_meta;
+		}
+
+		try {
+			$template_file     = new SplFileObject( $template_path, 'r' );
+			$template_contents = $template_file->fread( 8192 );
+		} catch ( RuntimeException $e ) {
+			return $template_meta;
+		}
+
+		if ( ! preg_match( '/\$__template__\s*=\s*array\s*\((.*?)\)\s*;/s', $template_contents, $template_match ) ) {
+			return $template_meta;
+		}
+
+		foreach ( array_keys( $template_meta ) as $variable ) {
+			$pattern = '/[\'"]' . preg_quote( $variable, '/' ) . '[\'"]\s*=>\s*array\s*\(([^)]*)\)/s';
+			if ( preg_match( $pattern, $template_match[1], $variable_match ) ) {
+				$template_meta[ $variable ] = $this->parse_legacy_template_meta_values( $variable_match[1] );
+			}
+		}
+
+		return $template_meta;
+	}
+
+	/**
+	 * Extracts quoted values from old template metadata arrays.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $values List of values from a legacy template metadata array.
+	 *
+	 * @return array
+	 */
+	private function parse_legacy_template_meta_values( $values ) {
+		if ( ! preg_match_all( '/[\'"]([A-Za-z0-9_-]+)[\'"]/', $values, $matches ) ) {
+			return array();
+		}
+
+		return array_values( array_unique( $matches[1] ) );
 	}
 
 	function render_part( $template_id, $additional_vars = array() ) {
