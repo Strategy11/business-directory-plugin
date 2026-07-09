@@ -222,7 +222,7 @@ class WPBDP__Query_Integration {
 
 		$field = explode( ' ', $orderby )[0];
 
-		return $this->get_space_replace( $field, $query->get( 'order', 'ASC' ) );
+		return $this->get_space_replace_orderby( $field, $query->get( 'order', 'ASC' ), $this->is_numeric_orderby( $query, $field ) );
 	}
 
 	/**
@@ -513,8 +513,9 @@ class WPBDP__Query_Integration {
 			return $orderby;
 		}
 
-		$sname = str_replace( 'field-', '', $sort->option );
-		$qn    = '';
+		$sname        = str_replace( 'field-', '', $sort->option );
+		$qn           = '';
+		$numeric_sort = false;
 
 		switch ( $sname ) {
 			case 'user_login':
@@ -544,15 +545,14 @@ class WPBDP__Query_Integration {
 						break;
 				}
 
-				if ( $qn !== $orderby && $field->is_numeric() ) {
-					$qn .= ' +0';
-				}
+				$numeric_sort = $field->is_numeric();
 
 				break;
 		}
 
 		if ( $qn && $qn !== $orderby ) {
-			$orderby = $orderby . ( $orderby ? ', ' : '' ) . $this->get_space_replace( $qn, $sort->order );
+			$order_by_field = $this->get_space_replace_orderby( $qn, $sort->order, $numeric_sort );
+			$orderby        = $orderby . ( $orderby ? ', ' : '' ) . $order_by_field;
 		}
 
 		return $orderby;
@@ -569,7 +569,46 @@ class WPBDP__Query_Integration {
 	 * @return string
 	 */
 	private function get_space_replace( $field, $order ) {
-		return "REPLACE( {$field}, ' ', '' ) " . ' ' . $order;
+		return $this->get_space_replace_orderby( $field, $order );
+	}
+
+	/**
+	 * Return the space removal orderby string for the given field and order.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $field        The field to remove spaces from.
+	 * @param string $order        The order to apply.
+	 * @param bool   $numeric_sort Whether to cast the value for numeric sorting.
+	 *
+	 * @return string
+	 */
+	private function get_space_replace_orderby( $field, $order, $numeric_sort = false ) {
+		$space_replace = "REPLACE( {$field}, ' ', '' )";
+
+		if ( $numeric_sort ) {
+			return "( {$space_replace} + 0 ) " . $order;
+		}
+
+		return $space_replace . ' ' . $order;
+	}
+
+	/**
+	 * Determine whether a default orderby expression should sort numerically.
+	 *
+	 * @since x.x
+	 *
+	 * @param WP_Query $query The current query object.
+	 * @param string   $field The SQL field or expression being ordered.
+	 *
+	 * @return bool
+	 */
+	private function is_numeric_orderby( $query, $field ) {
+		$orderby    = (string) $query->get( 'orderby' );
+		$is_rating  = false !== stripos( $orderby, 'rating' ) || false !== stripos( $field, 'rating' );
+		$is_numeric = in_array( $orderby, array( 'meta_value_num' ), true ) || $is_rating || false !== strpos( $field, '+0' ) || false !== stripos( $field, 'cast(' );
+
+		return (bool) apply_filters( 'wpbdp_is_numeric_orderby', $is_numeric, $orderby, $field, $query );
 	}
 
 	/**
