@@ -513,8 +513,9 @@ class WPBDP__Query_Integration {
 			return $orderby;
 		}
 
-		$sname = str_replace( 'field-', '', $sort->option );
-		$qn    = '';
+		$sname        = str_replace( 'field-', '', $sort->option );
+		$qn           = '';
+		$numeric_sort = false;
 
 		switch ( $sname ) {
 			case 'user_login':
@@ -544,15 +545,14 @@ class WPBDP__Query_Integration {
 						break;
 				}
 
-				if ( $qn !== $orderby && $field->is_numeric() ) {
-					$qn .= ' +0';
-				}
+				$numeric_sort = $qn !== $orderby && $field->is_numeric();
 
 				break;
 		}
 
 		if ( $qn && $qn !== $orderby ) {
-			$orderby = $orderby . ( $orderby ? ', ' : '' ) . $this->get_space_replace( $qn, $sort->order );
+			$order_by_field = $numeric_sort ? "( REPLACE( {$qn}, ' ', '' ) + 0 ) " . $sort->order : $this->get_space_replace( $qn, $sort->order );
+			$orderby        = $orderby . ( $orderby ? ', ' : '' ) . $order_by_field;
 		}
 
 		return $orderby;
