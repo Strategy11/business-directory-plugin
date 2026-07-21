@@ -80,6 +80,7 @@ jobs:
             - Each subsequent line: * New: , * Enhancement: , or * Fix: followed by a concise user-facing description
             - Group related changes into single entries
             - Skip merge commits, CI/tooling changes, dependency updates, and non-user-facing changes
+            - Omit any security-related fixes entirely (auth bypasses, XSS, CSRF, privilege escalation, sanitization/escaping hardening for vulnerabilities, CVEs, etc.). Do not describe them and do not add vague placeholders like "* Fix: Security improvements" or "* Fix: Security Vulnerabilities". If a change mixes security and non-security work, include only the non-security user-facing parts.
             - Match the exact formatting style of the existing entries in README.TXT
             - End the entry with an empty line before the next entry
 
