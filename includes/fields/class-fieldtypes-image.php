@@ -84,17 +84,20 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
 		$value = is_array( $value ) ? $value : array( $value );
 
+		$image_id = ! empty( $value[0] ) ? absint( $value[0] ) : 0;
+		$caption  = ! empty( $value[1] ) ? $value[1] : '';
+
 		$html  = '';
 		$html .= sprintf(
 			'<input type="hidden" name="listingfields[%d][0]" value="%s" />',
 			$field->get_id(),
-			$value[0]
+			esc_attr( $image_id )
 		);
 
-		$html .= '<div class="preview wpbdp-image"' . ( empty( $value[0] ) ? ' style="display: none;"' : '' ) . '>';
-		if ( ! empty( $value[0] ) ) {
+		$html .= '<div class="preview wpbdp-image"' . ( empty( $image_id ) ? ' style="display: none;"' : '' ) . '>';
+		if ( ! empty( $image_id ) ) {
 			$html .= '<div class="wpbdp-image-img">';
-			$html .= wp_get_attachment_image( $value[0], 'wpbdp-thumb', false );
+			$html .= wp_get_attachment_image( $image_id, 'wpbdp-thumb', false );
 			$html .= '</div>';
 		}
 
@@ -103,7 +106,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 		$html .= sprintf(
 			'<label for="wpbdp-field-%1$d-caption" style="display:none;">Image Caption:</label><input id="wpbdp-field-%1$d-caption" type="text" name="listingfields[%1$d][1]" value="%2$s" placeholder="Image caption or description">',
 			$field->get_id(),
-			! empty( $value[1] ) ? $value[1] : ''
+			esc_attr( $caption )
 		);
 
 		$html .= sprintf(
@@ -175,7 +178,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 			admin_url( 'admin-ajax.php' )
 		);
 
-		$html .= '<div class="wpbdp-upload-widget"' . ( ! empty( $value[0] ) ? ' style="display: none;"' : '' ) . '>';
+		$html .= '<div class="wpbdp-upload-widget"' . ( ! empty( $image_id ) ? ' style="display: none;"' : '' ) . '>';
 		$html .= sprintf(
 			'<iframe class="wpbdp-upload-iframe" name="upload-iframe-%d" id="wpbdp-upload-iframe-%d" src="%s" scrolling="no" seamless="seamless" border="0" frameborder="0"></iframe>',
 			esc_attr( $field->get_id() ),
@@ -244,7 +247,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 		$html .= '<a href="' . esc_url( $img[0] ) . '" target="_blank" rel="noopener" ' . ( wpbdp_get_option( 'use-thickbox' ) ? 'class="thickbox" data-lightbox="wpbdpgal" rel="wpbdpgal"' : '' ) . '>';
 		$html .= wp_get_attachment_image( $img_id, $img_size, false, array( 'alt' => $caption ? $caption : esc_attr( $field->get_label() ) ) );
 		$html .= '</a>';
-		$html .= $field->data( 'display_caption' ) ? '<br />' . $caption : '';
+		$html .= $field->data( 'display_caption' ) ? '<br />' . esc_html( $caption ) : '';
 		$html .= '</div>';
 
 		return $html;
@@ -476,9 +479,9 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 			return array( '', '' );
 		}
 
-		$image   = trim( sanitize_text_field( is_array( $input ) ? $input[0] : $input ) );
+		$image   = absint( is_array( $input ) ? $input[0] : $input );
 		$caption = trim( is_array( $input ) ? sanitize_text_field( $input[1] ) : '' );
 
-		return array( $image, $caption );
+		return array( $image ? (string) $image : '', $caption );
 	}
 }
