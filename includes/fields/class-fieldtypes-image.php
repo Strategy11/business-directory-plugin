@@ -85,7 +85,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 		$value = is_array( $value ) ? $value : array( $value );
 
 		$image_id = ! empty( $value[0] ) ? absint( $value[0] ) : 0;
-		$caption  = ! empty( $value[1] ) ? $value[1] : '';
+		$caption  = $value[1] ?? '';
 
 		$html  = '';
 		$html .= sprintf(
@@ -479,8 +479,16 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 			return array( '', '' );
 		}
 
-		$image   = absint( is_array( $input ) ? $input[0] : $input );
-		$caption = trim( is_array( $input ) ? sanitize_text_field( $input[1] ) : '' );
+		if ( is_array( $input ) ) {
+			$image_raw   = $input[0] ?? '';
+			$caption_raw = $input[1] ?? '';
+		} else {
+			$image_raw   = $input;
+			$caption_raw = '';
+		}
+
+		$image   = absint( is_scalar( $image_raw ) ? $image_raw : '' );
+		$caption = trim( sanitize_text_field( is_scalar( $caption_raw ) ? $caption_raw : '' ) );
 
 		return array( $image ? (string) $image : '', $caption );
 	}
