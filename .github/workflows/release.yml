@@ -74,6 +74,7 @@ jobs:
             2. Read the full diff since that tag: run `git diff <tag>..HEAD` to understand what actually changed in the code
             3. Read the existing changelog in README.TXT to understand the format (look at the first 3-4 entries after `== Changelog ==`)
             4. Based on the actual code changes (not just commit messages), write a changelog entry and insert it into README.TXT right after the `== Changelog ==` line
+            5. Remove the oldest changelog entry from the bottom of the changelog section (the last `= x.x.x =` block and its bullet lines). Preserve any trailing links or text after the changelog entries.
 
             Changelog format rules:
             - First line: = ${{ inputs.version }} =
