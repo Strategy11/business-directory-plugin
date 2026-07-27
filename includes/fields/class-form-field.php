@@ -498,6 +498,11 @@ class WPBDP_Form_Field {
 	public function validate( $value, &$errors = null ) {
 		$errors = ! is_array( $errors ) ? array() : $errors;
 
+		// Private fields are hidden from non-admins, so they must not block submit.
+		if ( $this->has_display_flag( 'private' ) && ! wpbdp_user_is_admin() ) {
+			return true;
+		}
+
 		$validation_api = WPBDP_FieldValidation::instance();
 
 		if ( ! $this->is_required() && $this->type->is_empty_value( $value ) ) {
@@ -716,6 +721,11 @@ class WPBDP_Form_Field {
 		$res = $this->type->before_field_update( $this );
 		if ( is_wp_error( $res ) ) {
 			return $res;
+		}
+
+		// Admin-only fields are not visible to non-admins, so they cannot be required.
+		if ( $this->has_display_flag( 'private' ) && $this->is_required() ) {
+			$this->set_validators( array_values( array_diff( $this->validators, array( 'required' ) ) ) );
 		}
 
 		$data = array();
