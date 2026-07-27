@@ -283,7 +283,7 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 			'_wpbdp[fields][' . $field->get_id() . ']'
 		);
 
-		$pattern             = '(' . implode( '|', $query ) . '){1}([tab]{0,1})';
+		$pattern             = '(^|\t)(' . implode( '|', $query ) . ')(\t|$)';
 		$search_res['where'] = $wpdb->prepare( "{$alias}.meta_value REGEXP %s", $pattern );
 
 		return $search_res;
