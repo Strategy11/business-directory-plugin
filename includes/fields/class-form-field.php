@@ -942,15 +942,20 @@ class WPBDP_Form_Field {
 					}
 
 					if ( is_string( $term_ ) ) {
-						$tt_ids = $wpdb->get_col(
-							$wpdb->prepare(
-								"SELECT DISTINCT tt.term_taxonomy_id FROM {$wpdb->term_taxonomy} tt JOIN {$wpdb->terms} t ON t.term_id = tt.term_id WHERE tt.taxonomy = %s AND t.name LIKE '%%%s%%'",
-								$tax,
-								htmlspecialchars( $term_, ENT_QUOTES, $charset )
+						$tt_ids = array_merge(
+							$tt_ids,
+							$wpdb->get_col(
+								$wpdb->prepare(
+									"SELECT DISTINCT tt.term_taxonomy_id FROM {$wpdb->term_taxonomy} tt JOIN {$wpdb->terms} t ON t.term_id = tt.term_id WHERE tt.taxonomy = %s AND t.name LIKE '%%%s%%'",
+									$tax,
+									htmlspecialchars( $term_, ENT_QUOTES, $charset )
+								)
 							)
 						);
 					}
 				}
+
+				$tt_ids = array_values( array_unique( array_map( 'intval', $tt_ids ) ) );
 
 				if ( $tt_ids ) {
 					list( $alias, $reused ) = $search->join_alias( $wpdb->term_relationships );
