@@ -261,6 +261,13 @@ if ( ! class_exists( 'WPBDP_FieldValidation' ) ) {
 				return;
 			}
 
+			// Tag-associated textfields convert comma-separated input to an array.
+			if ( is_array( $value ) ) {
+				$value = implode( ' ', $value );
+			}
+
+			$value = (string) $value;
+
 			$no_html_text = preg_replace( '/(<[^>]+>)/i', '', $value );
 			$input_array  = preg_split( '/[\s,]+/', $no_html_text );
 
