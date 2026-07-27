@@ -269,7 +269,18 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 		);
 
 		if ( ! $field ) {
-			return WPBDP_Form_Field_Type::field_label_display_wrapper( __( 'Address', 'business-directory-plugin' ), $atts );
+			$fallback = $this->get_address_label_fallback_item();
+			if ( ! $fallback ) {
+				return WPBDP_Form_Field_Type::field_label_display_wrapper( __( 'Address', 'business-directory-plugin' ), $atts );
+			}
+
+			if ( $fallback->field->has_display_flag( 'nolabel' ) ) {
+				return '';
+			}
+
+			$atts['field'] = $fallback->field;
+
+			return WPBDP_Form_Field_Type::field_label_display_wrapper( $fallback->label, $atts );
 		}
 
 		if ( $field->has_display_flag( 'nolabel' ) ) {
@@ -279,6 +290,33 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 		$atts['field'] = $field;
 
 		return WPBDP_Form_Field_Type::field_label_display_wrapper( $this->t_address->label, $atts );
+	}
+
+	/**
+	 * Find the first address-component field with a value when street Address is missing.
+	 *
+	 * @since x.x
+	 *
+	 * @return _WPBDP_Lightweight_Field_Display_Item|null
+	 */
+	private function get_address_label_fallback_item() {
+		foreach ( array( 'address2', 'city', 'state', 'country', 'zip' ) as $tag ) {
+			$item = $this->{'t_' . $tag};
+			if ( empty( $item->field ) ) {
+				continue;
+			}
+
+			$value = $item->value;
+			if ( is_array( $value ) ) {
+				$value = $value['zip'] ?? '';
+			}
+
+			if ( '' !== trim( (string) $value ) ) {
+				return $item;
+			}
+		}
+
+		return null;
 	}
 
 	public function helper__author() {
