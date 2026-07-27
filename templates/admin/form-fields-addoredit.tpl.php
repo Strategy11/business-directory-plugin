@@ -148,7 +148,7 @@ wpbdp_admin_notices();
 					</label>
 				</td>
 			</tr>
-			<tr>
+			<tr id="wpbdp_required_field">
 				<th scope="row">
 					<label> <?php esc_html_e( 'Is field required?', 'business-directory-plugin' ); ?></label>
 				</th>

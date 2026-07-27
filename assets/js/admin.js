@@ -237,6 +237,13 @@ function wpbdpSelectSubnav() {
                 $( '.if-display-in-search' ).toggle( $( this ).is( ':checked' ) );
             });
 
+			$( '#wpbdp-formfield-form' ).on(
+				'change',
+				'#wpbdp_private_field input[value="private"], #wpbdp_required_field input[value="required"]',
+				WPBDPAdmin_FormFields.syncPrivateRequired
+			);
+			WPBDPAdmin_FormFields.syncPrivateRequired();
+
             $('.wpbdp-admin-page-formfields .wp-list-table tbody').sortable({
                 placeholder: 'wpbdp-draggable-highlight',
                 handle: '.wpbdp-drag-handle',
@@ -339,7 +346,35 @@ function wpbdpSelectSubnav() {
             } else {
                 form.removeClass( 'hidden' );
             }
+
+			WPBDPAdmin_FormFields.syncPrivateRequired();
         },
+
+		/**
+		 * Keep Admin Only and Required mutually exclusive.
+		 *
+		 * @since x.x
+		 */
+		syncPrivateRequired: function() {
+			var $private = $( '#wpbdp_private_field input[value="private"]' );
+			var $required = $( '#wpbdp_required_field input[value="required"]' );
+
+			if ( ! $private.length || ! $required.length ) {
+				return;
+			}
+
+			if ( $private.is( ':checked' ) ) {
+				$required.prop( 'checked', false ).prop( 'disabled', true );
+			} else {
+				$required.prop( 'disabled', false );
+			}
+
+			if ( $required.is( ':checked' ) ) {
+				$private.prop( 'checked', false ).prop( 'disabled', true );
+			} else if ( $( '#wpbdp_private_field' ).is( ':visible' ) ) {
+				$private.prop( 'disabled', false );
+			}
+		},
 
         onFieldValidatorChange: function() {
             var $field_validator = $(this).find('option:selected');
