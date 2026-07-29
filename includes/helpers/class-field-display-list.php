@@ -295,7 +295,7 @@ class WPBDP_Field_Display_List implements IteratorAggregate {
 	/**
 	 * Find the first address-component field with a value when street Address is missing.
 	 *
-	 * @since x.x
+	 * @since 6.4.26
 	 *
 	 * @return _WPBDP_Lightweight_Field_Display_Item|null
 	 */

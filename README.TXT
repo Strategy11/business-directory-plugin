@@ -4,7 +4,7 @@ Tags: business directory, listings, directory plugin, staff directory, member di
 Requires at least: 5.9
 Requires PHP: 7.4
 Tested up to: 7.0
-Stable tag: 6.4.25
+Stable tag: 6.4.26
 License: GPLv2 or later
 
 The easy Business Directory Plugin for WordPress. Build an easy team directory, member directory, staff directory, church directory, and more.
@@ -158,6 +158,15 @@ Yes it is. However, you cannot "network activate" the plugin (as this will share
 This can be done under Plugins -> Add New as the Administrator user. Do not "network activate" as the "super admin".
 
 == Changelog ==
+= 6.4.26 =
+* Fix: Checkbox and multiselect search no longer match partial option names
+* Fix: Admin-only fields no longer block listing submission for non-admin users
+* Enhancement: Admin Only and Required field options are now mutually exclusive in field settings
+* Fix: ZIP Code label displays correctly in listing excerpts when street address is empty
+* Fix: Multiselect tag search now returns listings matching all selected tags
+* Fix: Word Count Validator no longer causes a fatal error on Post Tags fields
+* Fix: Numeric custom fields sort correctly by numeric value
+
 = 6.4.25 =
 * Fix: Sticky listings not sorting correctly when using plan order sort options
 * Fix: Translated listings showing empty field values instead of falling back to the original listing
@@ -232,6 +241,3 @@ This can be done under Plugins -> Add New as the Administrator user. Do not "net
 * Enhancement: Improved sorting to exclude whitespaces
 * Fix: Prevent Elementor Element Caching on our shortcodes
 * Fix: WPML translation issue with Multiselect or Radio field types
-
-= 6.4.9 =
-* New: Added Stripe payment gateway

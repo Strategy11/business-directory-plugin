@@ -353,7 +353,7 @@ function wpbdpSelectSubnav() {
 		/**
 		 * Keep Admin Only and Required mutually exclusive.
 		 *
-		 * @since x.x
+		 * @since 6.4.26
 		 */
 		syncPrivateRequired: function() {
 			var $private = $( '#wpbdp_private_field input[value="private"]' );

@@ -575,7 +575,7 @@ class WPBDP__Query_Integration {
 	/**
 	 * Return the space removal orderby string for the given field and order.
 	 *
-	 * @since x.x
+	 * @since 6.4.26
 	 *
 	 * @param string $field        The field to remove spaces from.
 	 * @param string $order        The order to apply.
@@ -596,7 +596,7 @@ class WPBDP__Query_Integration {
 	/**
 	 * Determine whether a default orderby expression should sort numerically.
 	 *
-	 * @since x.x
+	 * @since 6.4.26
 	 *
 	 * @param WP_Query $query The current query object.
 	 * @param string   $field The SQL field or expression being ordered.
