@@ -348,7 +348,7 @@ function wpbdp_user_can( $action, $listing_id = null, $user_id = null ) {
 		case 'delete':
 			$res = user_can( $user_id, 'edit_others_posts' );
 			$res = $res || ( $user_id && $post->post_author && $post->post_author == $user_id );
-			$res = $res || ( ! $user_id && wpbdp_get_option( 'enable-key-access' ) );
+			$res = $res || ( ! $user_id && wpbdp_request_has_valid_access_key( $listing_id ) );
 			break;
 		default:
 			break;
@@ -358,6 +358,39 @@ function wpbdp_user_can( $action, $listing_id = null, $user_id = null ) {
 	$res = apply_filters( 'wpbdp_user_can_' . $action, $res, $listing_id, $user_id );
 
 	return $res;
+}
+
+/**
+ * Whether the current request includes a valid listing access-key hash.
+ *
+ * @since x.x
+ *
+ * @param int $listing_id Listing ID.
+ * @return bool
+ */
+function wpbdp_request_has_valid_access_key( $listing_id ) {
+	if ( ! wpbdp_get_option( 'enable-key-access' ) ) {
+		return false;
+	}
+
+	$key_hash = wpbdp_get_var( array( 'param' => 'access_key_hash' ), 'request' );
+	if ( ! $key_hash ) {
+		return false;
+	}
+
+	$listing = wpbdp_get_listing( $listing_id );
+	return $listing && $listing->validate_access_key_hash( $key_hash );
+}
+
+/**
+ * Whether guests may see listing edit/delete links that lead to access-key login.
+ *
+ * @since x.x
+ *
+ * @return bool
+ */
+function wpbdp_guest_can_use_access_key() {
+	return ! is_user_logged_in() && (bool) wpbdp_get_option( 'enable-key-access' );
 }
 
 function wpbdp_get_post_by_slug( $slug, $post_type = null ) {

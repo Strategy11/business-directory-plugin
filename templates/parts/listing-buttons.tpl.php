@@ -8,7 +8,7 @@
 $buttons = '';
 
 if ( 'single' === $view || 'excerpt' === $view ) :
-	if ( wpbdp_user_can( 'edit', $listing_id ) ) :
+	if ( wpbdp_user_can( 'edit', $listing_id ) || wpbdp_guest_can_use_access_key() ) :
 		$buttons .= sprintf(
 			'<a class="button wpbdp-button edit-listing" href="%s" rel="nofollow">%s</a>',
 			wpbdp_url( 'edit_listing', $listing_id ),
@@ -24,7 +24,7 @@ if ( 'single' === $view || 'excerpt' === $view ) :
 		);
 	endif;
 
-	if ( wpbdp_user_can( 'delete', $listing_id ) ) :
+	if ( wpbdp_user_can( 'delete', $listing_id ) || wpbdp_guest_can_use_access_key() ) :
 		$buttons .= sprintf(
 			'<a class="button wpbdp-button delete-listing" href="%s" rel="nofollow">%s</a>',
 			wpbdp_url( 'delete_listing', $listing_id ),
