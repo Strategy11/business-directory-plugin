@@ -366,6 +366,7 @@ function wpbdp_user_can( $action, $listing_id = null, $user_id = null ) {
  * @since x.x
  *
  * @param int $listing_id Listing ID.
+ *
  * @return bool
  */
 function wpbdp_request_has_valid_access_key( $listing_id ) {
