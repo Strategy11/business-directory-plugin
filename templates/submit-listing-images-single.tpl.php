@@ -7,14 +7,17 @@ if ( isset( $image ) && is_object( $image ) ) {
 	$caption  = $image->caption;
 }
 
-$delete_link = add_query_arg(
-	array(
-		'action'     => 'wpbdp-listing-submit-image-delete',
-		'image_id'   => $image_id,
-		'listing_id' => $listing_id,
-	),
-	admin_url( 'admin-ajax.php' )
+$delete_args = array(
+	'action'     => 'wpbdp-listing-submit-image-delete',
+	'image_id'   => $image_id,
+	'listing_id' => $listing_id,
 );
+$key_hash    = wpbdp_get_var( array( 'param' => 'access_key_hash' ), 'request' );
+if ( $key_hash ) {
+	$delete_args['access_key_hash'] = $key_hash;
+}
+
+$delete_link = add_query_arg( $delete_args, admin_url( 'admin-ajax.php' ) );
 $delete_link = wp_nonce_url( $delete_link, 'delete-listing-' . $listing_id . '-image-' . $image_id );
 ?>
 

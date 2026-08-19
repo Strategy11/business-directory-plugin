@@ -633,8 +633,7 @@ class WPBDP_Listing {
 		}
 
 		if ( empty( $user_id ) || ! $this->id ) {
-			// This function is currently intended for logged in users.
-			return true;
+			return false;
 		}
 
 		$post = get_post( $this->id );

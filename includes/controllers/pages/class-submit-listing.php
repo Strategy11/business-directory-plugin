@@ -563,7 +563,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			return true;
 		}
 
-		return wpbdp_user_can( 'edit', $listing_id );
+		if ( wpbdp_user_can( 'edit', $listing_id ) ) {
+			return true;
+		}
+
+		return wpbdp_guest_can_use_access_key();
 	}
 
 	/**
@@ -683,6 +687,11 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			),
 			'request'
 		);
+
+		if ( ! $listing_id ) {
+			return;
+		}
+
 		$editing_id = wpbdp_get_var(
 			array(
 				'param'    => 'editing',
@@ -692,7 +701,15 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			'post'
 		);
 
-		$this->editing = $listing_id && $editing_id;
+		if ( $editing_id ) {
+			$this->editing = true;
+			return;
+		}
+
+		$status = get_post_status( $listing_id );
+		if ( $status && 'auto-draft' !== $status ) {
+			$this->editing = true;
+		}
 	}
 
 	/**

@@ -523,8 +523,9 @@ final class WPBDP {
 		if ( ! $listing ) {
 			return $res->send_error( __( 'Invalid listing', 'business-directory-plugin' ) );
 		}
-		
-		if ( ! wpbdp_user_is_admin() && ! $listing->owned_by_user( get_current_user_id() ) ) {
+
+		$post_status = get_post_status( $listing_id );
+		if ( 'auto-draft' !== $post_status && ! wpbdp_user_can( 'edit', $listing_id ) ) {
 			return $res->send_error( __( 'You do not have permission to upload images to this listing', 'business-directory-plugin' ) );
 		}
 
@@ -659,7 +660,8 @@ final class WPBDP {
 			$res->send_error();
 		}
 
-		if ( ! wpbdp_user_can( 'edit', $listing_id ) ) {
+		$post_status = get_post_status( $listing_id );
+		if ( 'auto-draft' !== $post_status && ! wpbdp_user_can( 'edit', $listing_id ) ) {
 			$res->send_error();
 		}
 
