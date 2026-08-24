@@ -524,8 +524,7 @@ final class WPBDP {
 			return $res->send_error( __( 'Invalid listing', 'business-directory-plugin' ) );
 		}
 
-		$post_status = get_post_status( $listing_id );
-		if ( 'auto-draft' !== $post_status && ! wpbdp_user_can( 'edit', $listing_id ) ) {
+		if ( ! $this->can_edit_listing_images( $listing_id ) ) {
 			return $res->send_error( __( 'You do not have permission to upload images to this listing', 'business-directory-plugin' ) );
 		}
 
@@ -598,8 +597,9 @@ final class WPBDP {
 			$html .= wpbdp_render(
 				'submit-listing-images-single',
 				array(
-					'image_id'   => $attachment_id,
-					'listing_id' => $listing_id,
+					'image_id'             => $attachment_id,
+					'listing_id'           => $listing_id,
+					'listing_submit_token' => $listing->get_submit_token(),
 				),
 				false
 			);
@@ -660,8 +660,7 @@ final class WPBDP {
 			$res->send_error();
 		}
 
-		$post_status = get_post_status( $listing_id );
-		if ( 'auto-draft' !== $post_status && ! wpbdp_user_can( 'edit', $listing_id ) ) {
+		if ( ! $this->can_edit_listing_images( $listing_id ) ) {
 			$res->send_error();
 		}
 
@@ -670,6 +669,23 @@ final class WPBDP {
 
 		$res->add( 'imageId', $image_id );
 		$res->send();
+	}
+
+	/**
+	 * Whether the current request may add or remove images on a listing.
+	 *
+	 * @since x.x
+	 *
+	 * @param int $listing_id Listing ID.
+	 *
+	 * @return bool
+	 */
+	private function can_edit_listing_images( $listing_id ) {
+		if ( 'auto-draft' === get_post_status( $listing_id ) ) {
+			return wpbdp_user_can_access_auto_draft( $listing_id );
+		}
+
+		return (bool) wpbdp_user_can( 'edit', $listing_id );
 	}
 
 	public function ajax_listing_media_image() {
@@ -719,13 +735,17 @@ final class WPBDP {
 		$image_ids = is_array( $image_ids ) ? $image_ids : array( $image_ids );
 		WPBDP_Listing_Image::maybe_set_post_parent( $image_ids, $listing_id );
 
+		$listing              = wpbdp_get_listing( $listing_id );
+		$listing_submit_token = $listing ? $listing->get_submit_token() : '';
+
 		$html = '';
 		foreach ( $image_ids as $id ) {
 			$html .= wpbdp_render(
 				'submit-listing-images-single',
 				array(
-					'image_id'   => $id,
-					'listing_id' => $listing_id,
+					'image_id'             => $id,
+					'listing_id'           => $listing_id,
+					'listing_submit_token' => $listing_submit_token,
 				),
 				false
 			);

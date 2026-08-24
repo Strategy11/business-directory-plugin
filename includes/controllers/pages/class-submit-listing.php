@@ -37,6 +37,13 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	 */
 	protected $is_ajax = false;
 
+	/**
+	 * @since x.x
+	 *
+	 * @var bool
+	 */
+	protected $created_listing_in_request = false;
+
 	public function get_title() {
 		return __( 'Add Listing', 'business-directory-plugin' );
 	}
@@ -275,12 +282,13 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		return wpbdp_render(
 			'submit-listing',
 			array(
-				'listing'  => $this->listing,
-				'sections' => $this->sections,
-				'messages' => $this->prepare_messages(),
-				'is_admin' => wpbdp_user_is_admin(),
-				'editing'  => $this->editing,
-				'submit'   => $this,
+				'listing'              => $this->listing,
+				'sections'             => $this->sections,
+				'messages'             => $this->prepare_messages(),
+				'is_admin'             => wpbdp_user_is_admin(),
+				'editing'              => $this->editing,
+				'submit'               => $this,
+				'listing_submit_token' => $this->listing->get_submit_token(),
 			),
 			false
 		);
@@ -373,7 +381,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		$listing_id = $this->listing->get_id();
 		if ( 'auto-draft' === get_post_status( $listing_id ) ) {
-			return true;
+			return wpbdp_user_can_access_auto_draft( $listing_id );
 		}
 
 		return wpbdp_user_can( 'edit', $listing_id );
@@ -560,7 +568,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		}
 
 		if ( 'auto-draft' === $post->post_status ) {
-			return true;
+			return wpbdp_user_can_access_auto_draft( $listing_id );
 		}
 
 		if ( wpbdp_user_can( 'edit', $listing_id ) ) {
@@ -587,9 +595,13 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			return true;
 		}
 
-		$post_status = get_post_status( $listing_id );
-		if ( ! $post_status || 'auto-draft' === $post_status ) {
-			return true;
+		$post = get_post( $listing_id );
+		if ( ! $post || WPBDP_POST_TYPE !== $post->post_type ) {
+			return false;
+		}
+
+		if ( 'auto-draft' === $post->post_status ) {
+			return wpbdp_user_can_access_auto_draft( $listing_id );
 		}
 
 		if ( ! wpbdp_user_can( 'edit', $listing_id ) ) {
@@ -762,6 +774,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		}
 
 		$this->listing = $listing;
+		$this->listing->get_submit_token();
+		$this->created_listing_in_request = true;
 	}
 
 	/**
@@ -1599,6 +1613,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		$image_min_height = intval( wpbdp_get_option( 'image-min-height' ) );
 		$image_max_height = intval( wpbdp_get_option( 'image-max-height' ) );
 
+		$listing_submit_token = $this->listing->get_submit_token();
+
 		return $this->section_render(
 			'submit-listing-images',
 			compact(
@@ -1613,7 +1629,8 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 				'image_slots',
 				'image_slots_remaining',
 				'thumbnail_id',
-				'listing'
+				'listing',
+				'listing_submit_token'
 			)
 		);
 	}
@@ -1849,6 +1866,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 
 		$listing_status = get_post_status( $this->listing->get_id() );
 		$this->listing->set_post_status( $this->editing ? ( 'publish' !== $listing_status ? $listing_status : wpbdp_get_option( 'edit-post-status' ) ) : wpbdp_get_option( 'new-post-status' ) );
+		$this->listing->delete_submit_token();
 		$this->listing->_after_save( 'submit-' . ( $this->editing ? 'edit' : 'new' ) );
 		if ( ! $this->editing && 'completed' != $payment->status ) {
 			$checkout_url = $payment->get_checkout_url();

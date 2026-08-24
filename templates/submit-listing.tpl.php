@@ -4,6 +4,7 @@
 	<form action="" method="post" data-ajax-url="<?php echo esc_url( wpbdp_ajax_url() ); ?>" enctype="multipart/form-data">
 		<?php wp_nonce_field( 'listing submit' ); ?>
 		<input type="hidden" name="listing_id" value="<?php echo esc_attr( $listing->get_id() ); ?>" />
+		<input type="hidden" name="listing_submit_token" value="<?php echo esc_attr( $listing_submit_token ?? '' ); ?>" />
 		<input type="hidden" name="editing" value="<?php echo $editing ? '1' : '0'; ?>" />
 		<input type="hidden" name="save_listing" value="1" />
 		<input type="hidden" name="reset" value="" />
