@@ -156,7 +156,7 @@ See the detailed [Installation Guide](https://businessdirectoryplugin.com/knowle
 
 = What types of directories can I build? =
 
-Combine the core plugin with add-on modules to build almost any kind of directory. Here are a few examples:
+Combine the core plugin with premium plan features to build almost any kind of directory. Here are a few examples:
 
 * Business listings
 * Company directory
