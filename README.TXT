@@ -304,7 +304,3 @@ Yes, with one restriction: do not "network activate" the plugin, since that woul
 * Enhancement: Improved sorting to exclude whitespaces
 * Fix: Prevent Elementor Element Caching on our shortcodes
 * Fix: WPML translation issue with Multiselect or Radio field types
-
-== Upgrade Notice ==
-= 6.4.26 =
-Bug fixes for checkbox/multiselect search matching, admin-only field submissions, ZIP code display, and custom field sorting. Recommended update for everyone running this business directory plugin.
