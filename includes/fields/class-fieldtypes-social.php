@@ -196,15 +196,21 @@ class WPBDP_FieldTypes_Social extends WPBDP_Form_Field_Type {
 				}
 			}
 
-			$nonce    = wp_create_nonce( 'wpbdp-file-field-upload-' . $field->get_id() . '-listing_id-' . $listing_id );
+			$nonce     = wp_create_nonce( 'wpbdp-file-field-upload-' . $field->get_id() . '-listing_id-' . $listing_id );
+			$ajax_args = array(
+				'action'     => 'wpbdp-file-field-upload',
+				'field_id'   => $field->get_id(),
+				'element'    => 'listingfields[' . $field->get_id() . '][social-icon]',
+				'nonce'      => $nonce,
+				'listing_id' => $listing_id,
+			);
+			$listing   = wpbdp_get_listing( $listing_id );
+			$token     = $listing ? $listing->get_submit_token() : '';
+			if ( $token ) {
+				$ajax_args['listing_submit_token'] = $token;
+			}
 			$ajax_url = add_query_arg(
-				array(
-					'action'     => 'wpbdp-file-field-upload',
-					'field_id'   => $field->get_id(),
-					'element'    => 'listingfields[' . $field->get_id() . '][social-icon]',
-					'nonce'      => $nonce,
-					'listing_id' => $listing_id,
-				),
+				$ajax_args,
 				admin_url( 'admin-ajax.php' )
 			);
 

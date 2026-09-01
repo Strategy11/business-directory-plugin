@@ -166,15 +166,21 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 			$html .= '</div>';
 		}
 
-		$nonce    = wp_create_nonce( 'wpbdp-file-field-upload-' . $field->get_id() . '-listing_id-' . $listing_id );
-		$ajax_url = add_query_arg(
-			array(
-				'action'     => 'wpbdp-file-field-upload',
-				'field_id'   => $field->get_id(),
-				'element'    => 'listingfields[' . $field->get_id() . '][0]',
-				'nonce'      => $nonce,
-				'listing_id' => $listing_id,
-			),
+		$nonce     = wp_create_nonce( 'wpbdp-file-field-upload-' . $field->get_id() . '-listing_id-' . $listing_id );
+		$ajax_args = array(
+			'action'     => 'wpbdp-file-field-upload',
+			'field_id'   => $field->get_id(),
+			'element'    => 'listingfields[' . $field->get_id() . '][0]',
+			'nonce'      => $nonce,
+			'listing_id' => $listing_id,
+		);
+		$listing   = wpbdp_get_listing( $listing_id );
+		$token     = $listing ? $listing->get_submit_token() : '';
+		if ( $token ) {
+			$ajax_args['listing_submit_token'] = $token;
+		}
+		$ajax_url  = add_query_arg(
+			$ajax_args,
 			admin_url( 'admin-ajax.php' )
 		);
 
@@ -314,8 +320,11 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 			die;
 		}
 
-		// If its an auto-draft there is no point in running the check.
-		if ( 'auto-draft' !== $post_status && ! wpbdp_user_can( 'edit', $listing_id ) ) {
+		if ( 'auto-draft' === $post_status ) {
+			if ( ! wpbdp_user_can_access_auto_draft( $listing_id ) ) {
+				die;
+			}
+		} elseif ( ! wpbdp_user_can( 'edit', $listing_id ) ) {
 			die;
 		}
 

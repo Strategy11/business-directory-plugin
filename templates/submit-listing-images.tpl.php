@@ -18,11 +18,12 @@ foreach ( $images as $image ) :
 	endif;
 
 	$vars = array(
-		'image'        => $image,
-		'listing_id'   => $listing->get_id(),
-		'is_thumbnail' => ( 1 == count( $images ) || $thumbnail_id == $image_id ),
-		'admin'        => $admin,
-		'echo'         => true,
+		'image'                => $image,
+		'listing_id'           => $listing->get_id(),
+		'is_thumbnail'         => ( 1 == count( $images ) || $thumbnail_id == $image_id ),
+		'admin'                => $admin,
+		'echo'                 => true,
+		'listing_submit_token' => $listing_submit_token ?? $listing->get_submit_token(),
 	);
 	if ( ! $admin ) :
 		$vars['image_id'] = $image_id;
@@ -42,8 +43,9 @@ endforeach;
 <?php
 if ( $admin ) :
 	$vars = array(
-		'admin'      => true,
-		'listing_id' => $listing->get_id(),
+		'admin'                => true,
+		'listing_id'           => $listing->get_id(),
+		'listing_submit_token' => $listing_submit_token ?? $listing->get_submit_token(),
 	);
 else :
 	$conditions = array();
@@ -74,10 +76,11 @@ else :
 	endif;
 
 	$vars = array(
-		'slots_available' => $image_slots_remaining,
-		'slots'           => $image_slots,
-		'conditions'      => $conditions,
-		'listing_id'      => $listing->get_id(),
+		'slots_available'      => $image_slots_remaining,
+		'slots'                => $image_slots,
+		'conditions'           => $conditions,
+		'listing_id'           => $listing->get_id(),
+		'listing_submit_token' => $listing_submit_token ?? $listing->get_submit_token(),
 	);
 endif;
 $vars['echo'] = true;

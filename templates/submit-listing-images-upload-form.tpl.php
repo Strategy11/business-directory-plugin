@@ -1,6 +1,7 @@
 <?php
-$admin      = isset( $admin ) ? $admin : false;
-$listing_id = isset( $listing_id ) ? $listing_id : 0;
+$admin                = isset( $admin ) ? $admin : false;
+$listing_id           = isset( $listing_id ) ? $listing_id : 0;
+$listing_submit_token = $listing_submit_token ?? '';
 
 $ajax_args = array(
 	'listing_id' => $listing_id,
@@ -8,6 +9,13 @@ $ajax_args = array(
 $key_hash  = wpbdp_get_var( array( 'param' => 'access_key_hash' ), 'request' );
 if ( $key_hash ) {
 	$ajax_args['access_key_hash'] = $key_hash;
+}
+
+if ( empty( $listing_submit_token ) ) {
+	$listing_submit_token = wpbdp_get_var( array( 'param' => 'listing_submit_token' ), 'request' );
+}
+if ( is_string( $listing_submit_token ) && '' !== $listing_submit_token ) {
+	$ajax_args['listing_submit_token'] = $listing_submit_token;
 }
 
 $action = add_query_arg(

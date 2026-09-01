@@ -394,6 +394,64 @@ function wpbdp_guest_can_use_access_key() {
 	return ! is_user_logged_in() && (bool) wpbdp_get_option( 'enable-key-access' );
 }
 
+/**
+ * Whether the current request includes a valid auto-draft submit token.
+ *
+ * @since x.x
+ *
+ * @param int $listing_id Listing ID.
+ *
+ * @return bool
+ */
+function wpbdp_request_has_valid_submit_token( $listing_id ) {
+	$listing_id = absint( $listing_id );
+	if ( ! $listing_id ) {
+		return false;
+	}
+
+	$post = get_post( $listing_id );
+	if ( ! $post || WPBDP_POST_TYPE !== $post->post_type || 'auto-draft' !== $post->post_status ) {
+		return false;
+	}
+
+	$token = wpbdp_get_var( array( 'param' => 'listing_submit_token' ), 'request' );
+	if ( ! is_string( $token ) || '' === $token ) {
+		return false;
+	}
+
+	$listing = wpbdp_get_listing( $listing_id );
+	return $listing && $listing->validate_submit_token( $token );
+}
+
+/**
+ * Whether the current user may continue an auto-draft listing.
+ *
+ * Logged-in owners and admins pass via edit capability. Guests need the submit token.
+ *
+ * @since x.x
+ *
+ * @param int $listing_id Listing ID.
+ *
+ * @return bool
+ */
+function wpbdp_user_can_access_auto_draft( $listing_id ) {
+	$listing_id = absint( $listing_id );
+	if ( ! $listing_id ) {
+		return false;
+	}
+
+	$post = get_post( $listing_id );
+	if ( ! $post || WPBDP_POST_TYPE !== $post->post_type || 'auto-draft' !== $post->post_status ) {
+		return false;
+	}
+
+	if ( wpbdp_user_can( 'edit', $listing_id ) ) {
+		return true;
+	}
+
+	return wpbdp_request_has_valid_submit_token( $listing_id );
+}
+
 function wpbdp_get_post_by_slug( $slug, $post_type = null ) {
 	$post_type = $post_type ? $post_type : WPBDP_POST_TYPE;
 
