@@ -38,7 +38,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	protected $is_ajax = false;
 
 	/**
-	 * @since x.x
+	 * @since 6.4.27
 	 *
 	 * @var bool
 	 */

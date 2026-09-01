@@ -666,7 +666,7 @@ class WPBDP_Listing {
 	/**
 	 * Get or create the unguessable token used to continue a guest auto-draft.
 	 *
-	 * @since x.x
+	 * @since 6.4.27
 	 *
 	 * @return string Empty when the listing is not an auto-draft.
 	 */
@@ -695,7 +695,7 @@ class WPBDP_Listing {
 	/**
 	 * Whether a submitted auto-draft token matches the stored secret.
 	 *
-	 * @since x.x
+	 * @since 6.4.27
 	 *
 	 * @param mixed $token Token from the request.
 	 *
@@ -717,7 +717,7 @@ class WPBDP_Listing {
 	/**
 	 * Remove the short-lived submit token after the listing leaves auto-draft.
 	 *
-	 * @since x.x
+	 * @since 6.4.27
 	 *
 	 * @return void
 	 */

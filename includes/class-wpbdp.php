@@ -57,7 +57,7 @@ final class WPBDP {
 	}
 
 	private function setup_constants() {
-		define( 'WPBDP_VERSION', '6.4.26' );
+		define( 'WPBDP_VERSION', '6.4.27' );
 
 		define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
 		define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -674,7 +674,7 @@ final class WPBDP {
 	/**
 	 * Whether the current request may add or remove images on a listing.
 	 *
-	 * @since x.x
+	 * @since 6.4.27
 	 *
 	 * @param int $listing_id Listing ID.
 	 *
