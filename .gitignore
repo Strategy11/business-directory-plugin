@@ -4,6 +4,7 @@
 *.pyc
 *.zip
 *.swp
+.changelog-context.txt
 .servethis
 .themes-beta
 .vagrant/

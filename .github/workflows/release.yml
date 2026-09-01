@@ -61,7 +61,40 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Collect changelog context
+        id: changelog-context
+        run: |
+          set -euo pipefail
+          CONTEXT="${GITHUB_WORKSPACE}/.changelog-context.txt"
+          LAST_TAG="$(git describe --tags --abbrev=0 2>/dev/null || true)"
+          {
+            echo "Release version: ${{ inputs.version }}"
+            echo
+            if [ -n "$LAST_TAG" ]; then
+              echo "Last tag: ${LAST_TAG}"
+              echo
+              echo "== Commits since ${LAST_TAG} =="
+              git log --no-merges --pretty=format:'%s' "${LAST_TAG}..HEAD"
+              echo
+              echo
+              echo "== Changed files =="
+              git diff --stat "${LAST_TAG}..HEAD"
+              echo
+              echo "== Name status =="
+              git diff --name-status "${LAST_TAG}..HEAD"
+            else
+              echo "No tags found."
+              echo
+              echo "== Last 50 commits =="
+              git log --no-merges --pretty=format:'%s' -50
+              echo
+            fi
+          } > "$CONTEXT"
+          echo "path=${CONTEXT}" >> "$GITHUB_OUTPUT"
+
       - name: Generate changelog via Claude Code
+        id: generate-changelog
+        continue-on-error: true
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -69,12 +102,16 @@ jobs:
             You are generating a changelog entry for a WordPress plugin release.
             Version: ${{ inputs.version }}
 
-            Steps:
-            1. Find the last git tag: run `git describe --tags --abbrev=0` (if no tags exist, use the last 50 commits)
-            2. Read the full diff since that tag: run `git diff <tag>..HEAD` to understand what actually changed in the code
-            3. Read the existing changelog in README.TXT to understand the format (look at the first 3-4 entries after `== Changelog ==`)
-            4. Based on the actual code changes (not just commit messages), write a changelog entry and insert it into README.TXT right after the `== Changelog ==` line
-            5. Remove the oldest changelog entry from the bottom of the changelog section (the last `= x.x.x =` block and its bullet lines). Preserve any trailing links or text after the changelog entries.
+            Use ONLY these sources:
+            1. ${{ steps.changelog-context.outputs.path }} (commits and changed-file summary)
+            2. The existing changelog in README.TXT (first 3-4 entries after `== Changelog ==`)
+
+            Do NOT run a full `git diff` of file contents. The context file is enough.
+            If you need more detail, Read at most a few individual source files named in the context.
+            Do not read binaries, lockfiles, vendor, dist, or generated assets.
+
+            Write a changelog entry and insert it into README.TXT right after the `== Changelog ==` line.
+            Remove the oldest changelog entry from the bottom of the changelog section (the last `= x.x.x =` block and its bullet lines). Preserve any trailing links or text after the changelog entries.
 
             Changelog format rules:
             - First line: = ${{ inputs.version }} =
@@ -85,11 +122,52 @@ jobs:
             - Match the exact formatting style of the existing entries in README.TXT
             - End the entry with an empty line before the next entry
 
-            Only modify README.TXT. Do not touch any other files.
+            Finish in as few turns as possible. Only modify README.TXT.
           claude_args: |
-            --model claude-sonnet-4-6
+            --model claude-haiku-4-5
             --max-turns 10
-            --allowedTools "Read,Edit,Bash(git diff:*),Bash(git describe:*),Bash(git log:*),Bash(git tag:*),Bash(date:*)"
+            --allowedTools "Read,Edit,Write"
+
+      - name: Ensure changelog entry exists
+        run: |
+          set -euo pipefail
+          VERSION="${{ inputs.version }}"
+          rm -f .changelog-context.txt
+          if grep -qE "^= ${VERSION} =" README.TXT; then
+            echo "Changelog entry for ${VERSION} already present."
+            exit 0
+          fi
+          echo "Claude did not add a changelog entry. Inserting a fallback."
+          python3 - "$VERSION" <<'PY'
+          import re
+          import sys
+          from pathlib import Path
+
+          version = sys.argv[1]
+          path = Path("README.TXT")
+          text = path.read_text()
+          marker = "== Changelog ==\n"
+          if marker not in text:
+              raise SystemExit("README.TXT is missing == Changelog ==")
+
+          entry = f"= {version} =\n* Enhancement: Various improvements and fixes.\n\n"
+          text = text.replace(marker, f"{marker}{entry}", 1)
+
+          entries = list(re.finditer(r"^= [^=\n]+ =\n", text, re.MULTILINE))
+          if len(entries) < 2:
+              raise SystemExit("README.TXT does not contain an older changelog entry to remove")
+
+          oldest = entries[-1]
+          trailing = text[oldest.end():].splitlines(keepends=True)
+          entry_end = oldest.end()
+          for line in trailing:
+              if line.startswith("* ") or not line.strip():
+                  entry_end += len(line)
+                  continue
+              break
+          text = text[:oldest.start()] + text[entry_end:]
+          path.write_text(text)
+          PY
 
       - name: Bump version and update assets
         run: |
