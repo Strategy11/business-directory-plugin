@@ -18,3 +18,5 @@ jobs:
         SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
         SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
         SLUG: business-directory-plugin
+        README_NAME: README.TXT
+        IGNORE_OTHER_FILES: true
