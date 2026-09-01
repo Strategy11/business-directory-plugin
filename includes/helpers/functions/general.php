@@ -363,7 +363,7 @@ function wpbdp_user_can( $action, $listing_id = null, $user_id = null ) {
 /**
  * Whether the current request includes a valid listing access-key hash.
  *
- * @since x.x
+ * @since 6.4.27
  *
  * @param int $listing_id Listing ID.
  *
@@ -386,7 +386,7 @@ function wpbdp_request_has_valid_access_key( $listing_id ) {
 /**
  * Whether guests may see listing edit/delete links that lead to access-key login.
  *
- * @since x.x
+ * @since 6.4.27
  *
  * @return bool
  */
@@ -397,7 +397,7 @@ function wpbdp_guest_can_use_access_key() {
 /**
  * Whether the current request includes a valid auto-draft submit token.
  *
- * @since x.x
+ * @since 6.4.27
  *
  * @param int $listing_id Listing ID.
  *
@@ -428,7 +428,7 @@ function wpbdp_request_has_valid_submit_token( $listing_id ) {
  *
  * Logged-in owners and admins pass via edit capability. Guests need the submit token.
  *
- * @since x.x
+ * @since 6.4.27
  *
  * @param int $listing_id Listing ID.
  *
