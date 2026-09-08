@@ -167,6 +167,29 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
 		$this->rows = $this->db->get_results( $sql, ARRAY_A );
 	}
 
+	/**
+	 * Return a trusted column name from a filter key, or an empty string.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $field Filter map key.
+	 * @return string
+	 */
+	private function normalize_filter_column( $field ) {
+		if ( 'pk' === $field ) {
+			$field = $this->model['primary_key'];
+		} elseif ( false !== strpos( $field, '__' ) ) {
+			$field = explode( '__', $field )[0];
+		}
+
+		$columns = array_keys( $this->model['table']['columns'] );
+		if ( ! in_array( $field, $columns, true ) ) {
+			return '';
+		}
+
+		return $field;
+	}
+
 	private function filter_args( $args ) {
 		$args = wp_parse_args( $args );
 		// null is NULL
@@ -186,15 +209,16 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
 		$filters = array();
 
 		foreach ( $args as $f => $v ) {
-			if ( 'pk' == $f ) {
-				$f = $this->model['primary_key'];
+			$column = $this->normalize_filter_column( $f );
+			if ( ! $column ) {
+				continue;
 			}
 
 			$op = '=';
 
 			if ( false !== strpos( $f, '__' ) ) {
 				$parts = explode( '__', $f );
-				$f     = 'LOWER(' . $parts[0] . ')';
+				$f     = 'LOWER(' . $column . ')';
 				$qop   = $parts[1];
 
 				switch ( $qop ) {
@@ -204,6 +228,8 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
 						$v  = '%' . strtolower( $v ) . '%';
 						break;
 				}
+			} else {
+				$f = $column;
 			}
 
 			if ( is_array( $v ) ) {
@@ -217,6 +243,10 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
 			} else {
 				$filters[] = $this->db->prepare( "$f $op %s", $v );
 			}
+		}
+
+		if ( $args && ! $filters ) {
+			return array( '1=0' );
 		}
 
 		return $filters;
