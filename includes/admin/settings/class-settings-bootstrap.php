@@ -1804,7 +1804,6 @@ final class WPBDP__Settings__Bootstrap {
 	 * @since v5.9
 	 */
 	public static function settings_misc() {
-		// Tracking.
 		wpbdp_register_settings_group( 'misc/misc', __( 'Miscellaneous', 'business-directory-plugin' ), 'misc' );
 
 		wpbdp_register_setting(
