@@ -44,8 +44,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 		public $settings_admin;
 
-		public $site_tracking;
-
 		public $displayed_warnings = array();
 
 		public $post_install_migration;
@@ -87,7 +85,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			add_action( 'wp_ajax_wpbdp-create-main-page', array( &$this, 'ajax_create_main_page' ) );
 			add_action( 'wp_ajax_wpbdp-drip_subscribe', array( &$this, 'ajax_drip_subscribe' ) );
-			add_action( 'wp_ajax_wpbdp-set_site_tracking', 'WPBDP_SiteTracking::handle_ajax_response' );
 			add_action( 'wp_ajax_wpbdp_dismiss_notification', array( &$this, 'ajax_dismiss_notification' ) );
 
 			add_action( 'wpbdp_admin_ajax_dismiss_notification_server_requirements', array( $this, 'ajax_dismiss_notification_server_requirements' ) );
@@ -127,10 +124,6 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 
 			add_action( 'wpbdp_settings_subtab_uninstall', array( $this, 'uninstall_plugin' ) );
 
-			if ( wpbdp_get_option( 'tracking-on' ) ) {
-				$this->site_tracking = new WPBDP_SiteTracking();
-			}
-
 			require_once WPBDP_INC . 'admin/controllers/class-onboarding-wizard.php';
 			$this->onboarding_wizard = new WPBDP_Onboarding_Wizard();
 			$this->onboarding_wizard->load_admin_hooks();
@@ -169,15 +162,11 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		 * @return mixed
 		 */
 		private function pointer_callback() {
-			$callback = false;
 			if ( $this->should_show_pointer( 'drip' ) ) {
-				$callback = array( $this, 'drip_pointer' );
-			} elseif ( ! wpbdp_get_option( 'tracking-on', false ) && $this->should_show_pointer( 'tracking' ) ) {
-				// Ask for site tracking if needed.
-				$callback = 'WPBDP_SiteTracking::request_js';
+				return array( $this, 'drip_pointer' );
 			}
 
-			return $callback;
+			return false;
 		}
 
 		/**
@@ -1458,17 +1447,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				// Clear scheduled hooks.
 				wp_clear_scheduled_hook( 'wpbdp_hourly_events' );
 				wp_clear_scheduled_hook( 'wpbdp_daily_events' );
-
-				$tracking = new WPBDP_SiteTracking();
-				$tracking->track_uninstall(
-					wpbdp_get_var(
-						array(
-							'param'   => 'uninstall',
-							'default' => null,
-						),
-						'post'
-					)
-				);
+				wp_clear_scheduled_hook( 'wpbdp_site_tracking' );
 
 				// Deactivate plugin.
 				$real_path = WPBDP_PATH . 'business-directory-plugin.php';
