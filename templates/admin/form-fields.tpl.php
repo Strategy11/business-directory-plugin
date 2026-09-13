@@ -19,6 +19,7 @@
 			'id'      => 'formfields',
 			'sub'     => __( 'Form Fields', 'business-directory-plugin' ),
 			'buttons' => $buttons,
+			'tabs'    => 'settings',
 		)
 	);
 	?>
