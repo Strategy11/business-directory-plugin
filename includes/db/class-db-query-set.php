@@ -173,6 +173,7 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
 	 * @since x.x
 	 *
 	 * @param string $field Filter map key.
+	 *
 	 * @return string
 	 */
 	private function normalize_filter_column( $field ) {
