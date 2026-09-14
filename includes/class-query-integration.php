@@ -270,6 +270,7 @@ class WPBDP__Query_Integration {
 	 * @since x.x
 	 *
 	 * @param WP_Query $query Main query.
+	 *
 	 * @return array
 	 */
 	private function get_child_page_request( $query ) {
@@ -305,6 +306,7 @@ class WPBDP__Query_Integration {
 	 * @since x.x
 	 *
 	 * @param WP_Query $query Main query.
+	 *
 	 * @return string
 	 */
 	private function get_requested_listing_slug( $query ) {
@@ -342,6 +344,7 @@ class WPBDP__Query_Integration {
 	 * @param WP_Query $query Main query.
 	 * @param WP_Post  $page  Child page.
 	 * @param int      $paged Requested page number.
+	 *
 	 * @return void
 	 */
 	private function normalize_child_page_query( $query, $page, $paged ) {
