@@ -60,6 +60,8 @@ class WPBDP__WordPress_Template_Integration {
 		}
 
 		if ( $allow_override ) {
+			$this->maybe_prepare_empty_taxonomy_query( $wp_query );
+
 			if ( WPBDP__Themes_Compat::is_block_theme() && is_tax() ) {
 				add_filter( 'render_block', array( $this, 'block_theme_set_tax_title' ), 10, 2 );
 				add_filter( 'render_block', array( $this, 'block_theme_remove_tax_featured_image' ), 10, 2 );
@@ -93,6 +95,49 @@ class WPBDP__WordPress_Template_Integration {
 		}
 
 		return $templates;
+	}
+
+	/**
+	 * Seed empty category and tag queries with the directory page so the theme loop can render the view.
+	 *
+	 * @since x.x
+	 *
+	 * @param WP_Query $query The main query.
+	 *
+	 * @return void
+	 */
+	private function maybe_prepare_empty_taxonomy_query( $query ) {
+		if ( ! $query->is_main_query() ) {
+			return;
+		}
+
+		if ( empty( $query->wpbdp_is_category ) && empty( $query->wpbdp_is_tag ) ) {
+			return;
+		}
+
+		if ( $query->post_count > 0 || ! empty( $query->posts ) ) {
+			return;
+		}
+
+		$main_page = get_post( wpbdp_get_page_id( 'main' ) );
+		if ( ! $main_page instanceof WP_Post ) {
+			return;
+		}
+
+		$queried_object    = $query->get_queried_object();
+		$queried_object_id = $query->get_queried_object_id();
+
+		$query->posts         = array( $main_page );
+		$query->post          = $main_page;
+		$query->post_count    = 1;
+		$query->found_posts   = 1;
+		$query->max_num_pages = 1;
+		$GLOBALS['post']      = $main_page;
+
+		if ( $queried_object ) {
+			$query->queried_object    = $queried_object;
+			$query->queried_object_id = $queried_object_id;
+		}
 	}
 
 	public function setup_post_hooks( $query ) {
