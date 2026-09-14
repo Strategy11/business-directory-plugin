@@ -244,7 +244,6 @@ final class WPBDP_Onboarding_Wizard {
 		WPBDP_App_Helper::permission_check();
 		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
 
-		update_option( 'wpbdp-show-tracking-pointer', 0, 'no' );
 		wpbdp_set_option( 'tracking-on', true );
 
 		$this->subscribe_to_active_campaign();

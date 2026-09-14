@@ -10,7 +10,7 @@ require_once WPBDP_PATH . 'includes/admin/upgrades/class-migration.php';
  */
 class WPBDP_Installer {
 
-	const DB_VERSION = '18.7';
+	const DB_VERSION = '18.8';
 
 	private $installed_version = null;
 
@@ -44,7 +44,6 @@ class WPBDP_Installer {
 			$wpbdp->settings->set_new_install_settings();
 
 			add_option( 'wpbdp-show-drip-pointer', 1 );
-			add_option( 'wpbdp-show-tracking-pointer', 1 );
 
 			// Create default paid fee.
 			$fee = new WPBDP__Fee_Plan(

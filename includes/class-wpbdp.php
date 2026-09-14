@@ -407,6 +407,7 @@ final class WPBDP {
 	public function plugin_deactivation() {
 		wp_clear_scheduled_hook( 'wpbdp_hourly_events' );
 		wp_clear_scheduled_hook( 'wpbdp_daily_events' );
+		wp_clear_scheduled_hook( 'wpbdp_site_tracking' );
 	}
 
 	/**
