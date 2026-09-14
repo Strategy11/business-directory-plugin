@@ -242,22 +242,129 @@ class WPBDP__Query_Integration {
 			return $posts;
 		}
 
-		// Check for child page.
+		$request = $this->get_child_page_request( $query );
+		if ( ! $request['slug'] ) {
+			return $posts;
+		}
+
 		$is_page = get_posts(
 			array(
 				'post_parent' => wpbdp_get_page_id(),
 				'post_type'   => 'page',
-				'name'        => $query->query_vars['name'],
+				'name'        => $request['slug'],
 			)
 		);
 
-		if ( $is_page ) {
-			global $wp_query;
-			$wp_query->found_posts = 1;
-			$this->set_defaults_on_query( $wp_query );
-			$posts = $is_page;
+		if ( ! $is_page ) {
+			return $posts;
 		}
-		return $posts;
+
+		$this->normalize_child_page_query( $query, $is_page[0], $request['paged'] );
+
+		return $is_page;
+	}
+
+	/**
+	 * Parse the requested child page slug and page number from the main query.
+	 *
+	 * @since x.x
+	 *
+	 * @param WP_Query $query Main query.
+	 * @return array
+	 */
+	private function get_child_page_request( $query ) {
+		$slug = $this->get_requested_listing_slug( $query );
+		if ( ! $slug ) {
+			return array(
+				'slug'  => '',
+				'paged' => 1,
+			);
+		}
+
+		global $wp_rewrite;
+
+		$pagination_base = $wp_rewrite->pagination_base ?? 'page';
+		$pattern         = '#/' . preg_quote( $pagination_base, '#' ) . '/([0-9]+)$#';
+
+		if ( preg_match( $pattern, $slug, $matches ) ) {
+			return array(
+				'slug'  => substr( $slug, 0, -strlen( $matches[0] ) ),
+				'paged' => (int) $matches[1],
+			);
+		}
+
+		return array(
+			'slug'  => $slug,
+			'paged' => 1,
+		);
+	}
+
+	/**
+	 * Prefer the raw rewrite slug before WordPress sanitizes `name`.
+	 *
+	 * @since x.x
+	 *
+	 * @param WP_Query $query Main query.
+	 * @return string
+	 */
+	private function get_requested_listing_slug( $query ) {
+		$candidates = array(
+			$query->query[ WPBDP_POST_TYPE ] ?? '',
+			$query->query['name'] ?? '',
+			$query->get( WPBDP_POST_TYPE ),
+			$query->get( 'name' ),
+		);
+
+		$slug = '';
+		foreach ( $candidates as $candidate ) {
+			if ( ! is_string( $candidate ) || '' === $candidate ) {
+				continue;
+			}
+
+			$candidate = trim( $candidate, '/' );
+			if ( ! $slug ) {
+				$slug = $candidate;
+			}
+
+			if ( false !== strpos( $candidate, '/' ) ) {
+				return $candidate;
+			}
+		}
+
+		return $slug;
+	}
+
+	/**
+	 * Treat a directory child fallback as a normal WordPress page query.
+	 *
+	 * @since x.x
+	 *
+	 * @param WP_Query $query Main query.
+	 * @param WP_Post  $page  Child page.
+	 * @param int      $paged Requested page number.
+	 * @return void
+	 */
+	private function normalize_child_page_query( $query, $page, $paged ) {
+		$this->set_defaults_on_query( $query );
+
+		$query->is_page     = true;
+		$query->is_singular = true;
+		$query->is_single   = false;
+		$query->is_404      = false;
+		$query->is_home     = false;
+		$query->found_posts = 1;
+		$query->post_count  = 1;
+		$query->post        = $page;
+
+		$query->queried_object    = $page;
+		$query->queried_object_id = (int) $page->ID;
+
+		$query->set( 'page_id', (int) $page->ID );
+		$query->set( 'pagename', $page->post_name );
+		$query->set( 'name', $page->post_name );
+		$query->set( 'post_type', 'page' );
+		$query->set( 'paged', $paged );
+		$query->set( WPBDP_POST_TYPE, '' );
 	}
 
 	/**
