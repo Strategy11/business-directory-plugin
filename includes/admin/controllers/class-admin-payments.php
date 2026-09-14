@@ -54,7 +54,9 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 		}
 
 		$payment_id = wpbdp_get_var( array( 'param' => 'payment-id' ) );
-		$payment    = WPBDP_Payment::objects()->get( $payment_id );
+		$payment    = is_numeric( $payment_id )
+			? WPBDP_Payment::objects()->get( absint( $payment_id ) )
+			: false;
 		return compact( 'payment' );
 	}
 
