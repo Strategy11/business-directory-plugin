@@ -103,20 +103,25 @@ function wpbusdirman_post_list_categories() {
 function wpbusdirman_get_the_business_email( $post_id ) {
 	// _deprecated_function( __FUNCTION__, '2.3' );
 
-	$email_mode = wpbdp_get_option( 'listing-email-mode' );
-
+	$email_mode        = wpbdp_get_option( 'listing-email-mode' );
 	$email_field_value = '';
-	if ( $email_field = wpbdp_get_form_fields( 'validators=email&unique=1' ) ) {
-		$email_field_value = trim( $email_field->plain_value( $post_id ) );
+	$email_fields      = wpbdp_get_form_fields( array( 'validators' => 'email' ) );
+
+	foreach ( $email_fields as $email_field ) {
+		$value = trim( $email_field->plain_value( $post_id ) );
+
+		if ( $value && wpbdp_validate_value( $value, 'email' ) ) {
+			$email_field_value = $value;
+			break;
+		}
 	}
 
 	if ( $email_mode === 'field' && ! empty( $email_field_value ) ) {
 		return $email_field_value;
 	}
 
-	$author_email = '';
 	$post         = get_post( $post_id );
-	$author_email = trim( get_the_author_meta( 'user_email', (int) $post->post_author ) );
+	$author_email = $post ? trim( get_the_author_meta( 'user_email', (int) $post->post_author ) ) : '';
 
 	if ( empty( $author_email ) && ! empty( $email_field_value ) ) {
 		return $email_field_value;
