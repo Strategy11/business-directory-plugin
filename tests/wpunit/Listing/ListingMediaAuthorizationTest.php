@@ -437,19 +437,40 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	 * @return int
 	 */
 	private function create_attachment( $author_id, $parent_id, $mime_type ) {
-		$attachment_id = wp_insert_post(
+		$is_image = 0 === strpos( $mime_type, 'image/' );
+		$filename = $is_image ? 'listing-media-test.jpg' : 'listing-media-test.pdf';
+		$contents = $is_image ? $this->get_minimal_jpeg() : "%PDF-1.4\n";
+		$upload   = wp_upload_bits( uniqid( 'listing-media-', true ) . '-' . $filename, null, $contents );
+
+		$this->assertIsArray( $upload );
+		$this->assertEmpty( $upload['error'] );
+
+		$attachment_id = wp_insert_attachment(
 			array(
 				'post_author'    => $author_id,
 				'post_parent'    => $parent_id,
 				'post_status'    => 'inherit',
-				'post_type'      => 'attachment',
 				'post_title'     => 'Listing media attachment',
 				'post_mime_type' => $mime_type,
-				'guid'           => 'https://example.com/listing-media-test',
-			)
+				'guid'           => $upload['url'],
+			),
+			$upload['file'],
+			$parent_id
 		);
 		$this->assertTrue( is_int( $attachment_id ) );
+		$this->assertTrue( $is_image ? wp_attachment_is_image( $attachment_id ) : ! wp_attachment_is_image( $attachment_id ) );
 
 		return $attachment_id;
+	}
+
+	/**
+	 * @since x.x
+	 *
+	 * @return string
+	 */
+	private function get_minimal_jpeg() {
+		return base64_decode(
+			'/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAAEAAQMBIgACEQEDEQH/xAAUAAEAAAAAAAAAAAAAAAAAAAAK/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEAMQAAABkw//xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oACAEBAAE/AH//2Q=='
+		);
 	}
 }
