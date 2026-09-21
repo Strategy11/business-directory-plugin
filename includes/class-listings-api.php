@@ -25,14 +25,15 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
 						$listing->update_plan( $item, array( 'recalculate' => ! empty( $item['is_renewal'] ) ? 0 : 1 ) );
 
 						if ( ! empty( $item['is_renewal'] ) ) {
-							$listing->renew();
-							wpbdp_insert_log(
-								array(
-									'log_type'  => 'listing.renewal',
-									'object_id' => $payment->listing_id,
-									'message'   => __( 'Listing renewed', 'business-directory-plugin' ),
-								)
-							);
+							if ( $listing->renew( 'payment' ) ) {
+								wpbdp_insert_log(
+									array(
+										'log_type'  => 'listing.renewal',
+										'object_id' => $payment->listing_id,
+										'message'   => __( 'Listing renewed', 'business-directory-plugin' ),
+									)
+								);
+							}
 						}
 						break;
 				}

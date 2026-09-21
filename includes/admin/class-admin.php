@@ -1209,12 +1209,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 					break;
 
 				case 'renewlisting':
-					foreach ( $posts as $post_id ) :
-						$listing = WPBDP_Listing::get( $post_id );
-						$listing->renew();
-					endforeach;
-
-					$this->messages[] = _nx( 'Listing was renewed.', 'Listings were renewed.', count( $posts ), 'admin', 'business-directory-plugin' );
+					$this->renew_selected_listings( $posts );
 					break;
 
 				case 'send-renewal-email':
@@ -1257,6 +1252,31 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			}
 
 			$_SERVER['REQUEST_URI'] = remove_query_arg( array( 'wpbdmaction', 'wpbdmfilter', 'transaction_id', 'category_id', 'fee_id', 'u', 'renewal_id', 'flagging_user' ), wpbdp_get_server_value( 'REQUEST_URI' ) );
+		}
+
+		/**
+		 * Renew selected listings from the admin list table.
+		 *
+		 * @since x.x
+		 *
+		 * @param array $posts Listing post IDs.
+		 */
+		private function renew_selected_listings( $posts ) {
+			$renewed = 0;
+
+			foreach ( $posts as $post_id ) {
+				$listing = WPBDP_Listing::get( $post_id );
+				if ( $listing && $listing->renew( 'admin' ) ) {
+					++$renewed;
+				}
+			}
+
+			if ( $renewed ) {
+				$this->messages[] = _nx( 'Listing was renewed.', 'Listings were renewed.', $renewed, 'admin', 'business-directory-plugin' );
+				return;
+			}
+
+			$this->messages[] = array( __( 'Listing could not be renewed.', 'business-directory-plugin' ), 'error' );
 		}
 
 		/**

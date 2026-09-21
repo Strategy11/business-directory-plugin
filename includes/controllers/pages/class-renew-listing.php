@@ -38,7 +38,7 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 
 		$status      = $this->listing->get_status();
 		$not_allowed = array( 'abandoned', 'pending_payment', 'incomplete', 'unknown' );
-		if ( in_array( $status, $not_allowed, true ) ) {
+		if ( in_array( $status, $not_allowed, true ) || ! $this->listing->can_renew( 'owner' ) ) {
 			return wpbdp_render_msg( __( 'That listing cannot yet be renewed.', 'business-directory-plugin' ), 'error' );
 		}
 
@@ -174,7 +174,7 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 		if ( $payment->save() ) {
 			if ( 0.0 === $payment->amount ) {
 				$this->listing->update_plan( $fee, array( 'recalculate' => 0 ) );
-				$this->listing->renew();
+				$this->listing->renew( 'owner' );
 			}
 		}
 

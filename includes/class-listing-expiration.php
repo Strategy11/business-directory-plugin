@@ -36,6 +36,10 @@ class WPBDP__Listing_Expiration {
 
 		foreach ( $listings as $listing_id ) {
 			$l = wpbdp_get_listing( $listing_id );
+			if ( ! $l || $l->is_publication_held() ) {
+				continue;
+			}
+
 			if ( ! $this->maybe_renew_free_listing( $l ) ) {
 				$l->set_status( 'expired' );
 			}
@@ -124,7 +128,7 @@ class WPBDP__Listing_Expiration {
 	private function maybe_renew_free_listing( $listing ) {
 		$plan = $listing->get_fee_plan();
 
-		if ( ! $plan->is_recurring ) {
+		if ( ! $plan || ! $plan->is_recurring ) {
 			return false;
 		}
 
@@ -133,8 +137,6 @@ class WPBDP__Listing_Expiration {
 			return false;
 		}
 
-		$listing->renew();
-
-		return true;
+		return (bool) $listing->renew( 'cron' );
 	}
 }

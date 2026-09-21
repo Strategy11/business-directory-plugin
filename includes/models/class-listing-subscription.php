@@ -146,11 +146,14 @@ class WPBDP__Listing_Subscription {
 
 	public function renew() {
 		$listing = wpbdp_get_listing( $this->listing_id );
-		$listing->update_plan();
-		$listing->set_status( 'complete' );
-		$listing->set_post_status( 'publish' );
+		if ( ! $listing ) {
+			return false;
+		}
 
-		do_action( 'wpbdp_listing_renewed', $listing );
+		$listing->update_plan();
+		$listing->complete_renewal( 'gateway' );
+
+		return true;
 	}
 
 	public function cancel() {

@@ -498,9 +498,7 @@ class WPBDP_Listing {
 
 		switch ( $new_status ) {
 			case 'expired':
-				if ( 'trash' != get_post_status( $this->id ) ) {
-					$this->set_post_status( 'draft' );
-				}
+				$this->unpublish_expired_listing();
 
 				wpbdp_insert_log(
 					array(
@@ -574,10 +572,10 @@ class WPBDP_Listing {
 	/**
 	 * @since 5.0
 	 */
-	public function renew() {
+	public function renew( $context = 'admin' ) {
 		$plan = $this->get_fee_plan();
 
-		if ( ! $plan ) {
+		if ( ! $plan || ! $this->can_renew( $context ) ) {
 			return false;
 		}
 
@@ -600,10 +598,128 @@ class WPBDP_Listing {
 			$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}wpbdp_listings SET expiration_date = NULL WHERE listing_id = %d", $this->id ) );
 		}
 
-		$this->set_status( 'complete' );
-		$this->set_post_status( 'publish' );
+		WPBDP_Utils::cache_delete_group( 'wpbdp_listings' );
 
-		do_action( 'wpbdp_listing_renewed', $this, false, 'admin' );
+		$this->complete_renewal( $context );
+
+		return true;
+	}
+
+	/**
+	 * Whether this listing may be renewed in the given context.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $context Renewal context. One of cron, owner, admin, gateway, payment.
+	 * @return bool
+	 */
+	public function can_renew( $context = 'admin' ) {
+		$allowed = true;
+
+		if ( $this->is_publication_held() && $this->renewal_requires_public_listing( $context ) ) {
+			$allowed = false;
+		}
+
+		return (bool) apply_filters( 'wpbdp_listing_can_renew', $allowed, $this, $context );
+	}
+
+	/**
+	 * Whether an administrator is holding this listing out of public view.
+	 *
+	 * Draft listings that expired from publish are not holds.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	public function is_publication_held() {
+		$post_status = get_post_status( $this->id );
+
+		if ( in_array( $post_status, array( 'pending', 'trash' ), true ) ) {
+			return true;
+		}
+
+		return 'draft' === $post_status && ! $this->has_expiration_provenance();
+	}
+
+	/**
+	 * Whether renewal may restore this listing to publish.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	public function should_publish_on_renewal() {
+		$post_status = get_post_status( $this->id );
+
+		if ( 'publish' === $post_status ) {
+			return true;
+		}
+
+		return 'draft' === $post_status && $this->has_expiration_provenance();
+	}
+
+	/**
+	 * Mark a listing complete after renewal and publish only when allowed.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $context Renewal context.
+	 */
+	public function complete_renewal( $context = 'admin' ) {
+		$this->set_status( 'complete' );
+
+		if ( $this->should_publish_on_renewal() ) {
+			$this->set_post_status( 'publish' );
+		}
+
+		$this->clear_expiration_provenance();
+
+		do_action( 'wpbdp_listing_renewed', $this, false, $context );
+	}
+
+	/**
+	 * Whether the listing expired from a published state.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	public function has_expiration_provenance() {
+		return (bool) get_post_meta( $this->id, '_wpbdp_expired_from_publish', true );
+	}
+
+	/**
+	 * Contexts that must not mutate held listings.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $context Renewal context.
+	 * @return bool
+	 */
+	private function renewal_requires_public_listing( $context ) {
+		return in_array( $context, array( 'cron', 'automatic', 'owner' ), true );
+	}
+
+	/**
+	 * Move a published listing to draft when it expires, preserving admin holds.
+	 *
+	 * @since x.x
+	 */
+	private function unpublish_expired_listing() {
+		if ( 'publish' !== get_post_status( $this->id ) ) {
+			return;
+		}
+
+		update_post_meta( $this->id, '_wpbdp_expired_from_publish', 1 );
+		$this->set_post_status( 'draft' );
+	}
+
+	/**
+	 * @since x.x
+	 */
+	private function clear_expiration_provenance() {
+		delete_post_meta( $this->id, '_wpbdp_expired_from_publish' );
 	}
 
 	public function get_renewal_url( $deprecated = 0 ) {
