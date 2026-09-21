@@ -220,8 +220,9 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	/**
 	 * @since x.x
 	 *
-	 * @param int          $listing_id Listing ID.
-	 * @param int|int[]    $image_ids  Attachment ID or IDs.
+	 * @param int       $listing_id Listing ID.
+	 * @param int|int[] $image_ids  Attachment ID or IDs.
+	 *
 	 * @return array
 	 */
 	private function dispatch_media_image( $listing_id, $image_ids ) {
@@ -246,6 +247,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	 *
 	 * @param int $listing_id Listing ID.
 	 * @param int $image_id   Attachment ID.
+	 *
 	 * @return array
 	 */
 	private function dispatch_image_delete( $listing_id, $image_id ) {
@@ -269,10 +271,13 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	 * @since x.x
 	 *
 	 * @param callable $callback AJAX method.
+	 *
 	 * @return array
 	 */
 	private function dispatch_ajax( $callback ) {
 		add_filter( 'wp_doing_ajax', '__return_true' );
+		add_filter( 'wp_die_ajax_handler', array( $this, 'get_ajax_die_handler' ) );
+		add_filter( 'wp_die_handler', array( $this, 'get_ajax_die_handler' ) );
 		ob_start();
 
 		try {
@@ -282,6 +287,9 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 		}
 
 		remove_filter( 'wp_doing_ajax', '__return_true' );
+		remove_filter( 'wp_die_ajax_handler', array( $this, 'get_ajax_die_handler' ) );
+		remove_filter( 'wp_die_handler', array( $this, 'get_ajax_die_handler' ) );
+
 		$output   = ob_get_clean();
 		$response = json_decode( $output, true );
 
@@ -289,6 +297,30 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 		$this->assertArrayHasKey( 'success', $response );
 
 		return $response;
+	}
+
+	/**
+	 * Return a wp_die handler that throws instead of exiting.
+	 *
+	 * @since x.x
+	 *
+	 * @return callable
+	 */
+	public function get_ajax_die_handler() {
+		return array( $this, 'handle_ajax_die' );
+	}
+
+	/**
+	 * Convert an AJAX wp_die into an exception so the suite can continue.
+	 *
+	 * @since x.x
+	 *
+	 * @param mixed $message Die message.
+	 *
+	 * @return void
+	 */
+	public function handle_ajax_die( $message ) {
+		throw new \WPDieException( is_scalar( $message ) ? (string) $message : '' );
 	}
 
 	/**
@@ -305,6 +337,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	 *
 	 * @param string $role  User role.
 	 * @param string $email User email.
+	 *
 	 * @return int
 	 */
 	private function get_or_create_user( $role, $email ) {
@@ -331,6 +364,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	 * @since x.x
 	 *
 	 * @param int $author_id Listing author.
+	 *
 	 * @return int
 	 */
 	private function create_listing( $author_id ) {
@@ -351,6 +385,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	 * @since x.x
 	 *
 	 * @param int $author_id Post author.
+	 *
 	 * @return int
 	 */
 	private function create_regular_post( $author_id ) {
@@ -373,6 +408,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	 *
 	 * @param int $author_id Attachment author.
 	 * @param int $parent_id Parent post ID.
+	 *
 	 * @return int
 	 */
 	private function create_image_attachment( $author_id, $parent_id ) {
@@ -384,6 +420,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	 *
 	 * @param int $author_id Attachment author.
 	 * @param int $parent_id Parent post ID.
+	 *
 	 * @return int
 	 */
 	private function create_file_attachment( $author_id, $parent_id ) {
@@ -396,6 +433,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	 * @param int    $author_id Attachment author.
 	 * @param int    $parent_id Parent post ID.
 	 * @param string $mime_type Mime type.
+	 *
 	 * @return int
 	 */
 	private function create_attachment( $author_id, $parent_id, $mime_type ) {
