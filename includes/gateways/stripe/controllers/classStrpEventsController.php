@@ -505,6 +505,7 @@ class WPBDPStrpEventsController {
 	 *
 	 * @param WPBDP_Listing $listing     Listing being recovered.
 	 * @param mixed         $failed_data Stored failure metadata.
+	 *
 	 * @return bool
 	 */
 	private function should_restore_listing_after_payment_failure( $listing, $failed_data ) {

@@ -611,6 +611,7 @@ class WPBDP_Listing {
 	 * @since x.x
 	 *
 	 * @param string $context Renewal context. One of cron, owner, admin, gateway, payment.
+	 *
 	 * @return bool
 	 */
 	public function can_renew( $context = 'admin' ) {
@@ -695,6 +696,7 @@ class WPBDP_Listing {
 	 * @since x.x
 	 *
 	 * @param string $context Renewal context.
+	 *
 	 * @return bool
 	 */
 	private function renewal_requires_public_listing( $context ) {
