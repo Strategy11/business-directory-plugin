@@ -150,6 +150,10 @@ class WPBDP__Listing_Subscription {
 			return false;
 		}
 
+		if ( ! $listing->can_renew( 'gateway' ) ) {
+			return false;
+		}
+
 		$listing->update_plan();
 		$listing->complete_renewal( 'gateway' );
 

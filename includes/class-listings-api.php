@@ -18,25 +18,35 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
 				return;
 			}
 
+			$renewal_rejected = false;
+
 			foreach ( $payment->payment_items as $item ) {
 				switch ( $item['type'] ) {
 					case 'recurring_plan':
 					case 'plan':
+						if ( ! empty( $item['is_renewal'] ) && ! $listing->can_renew( 'payment' ) ) {
+							$renewal_rejected = true;
+							break;
+						}
+
 						$listing->update_plan( $item, array( 'recalculate' => ! empty( $item['is_renewal'] ) ? 0 : 1 ) );
 
 						if ( ! empty( $item['is_renewal'] ) ) {
-							if ( $listing->renew( 'payment' ) ) {
-								wpbdp_insert_log(
-									array(
-										'log_type'  => 'listing.renewal',
-										'object_id' => $payment->listing_id,
-										'message'   => __( 'Listing renewed', 'business-directory-plugin' ),
-									)
-								);
-							}
+							$listing->renew( 'payment' );
+							wpbdp_insert_log(
+								array(
+									'log_type'  => 'listing.renewal',
+									'object_id' => $payment->listing_id,
+									'message'   => __( 'Listing renewed', 'business-directory-plugin' ),
+								)
+							);
 						}
 						break;
 				}
+			}
+
+			if ( $renewal_rejected ) {
+				return;
 			}
 
 			$listing->set_status( 'complete' );
