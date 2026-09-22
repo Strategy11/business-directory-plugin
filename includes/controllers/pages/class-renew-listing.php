@@ -38,7 +38,7 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 
 		$status      = $this->listing->get_status();
 		$not_allowed = array( 'abandoned', 'pending_payment', 'incomplete', 'unknown' );
-		if ( in_array( $status, $not_allowed, true ) || ! $this->listing->can_renew( 'owner' ) ) {
+		if ( in_array( $status, $not_allowed, true ) ) {
 			return wpbdp_render_msg( __( 'That listing cannot yet be renewed.', 'business-directory-plugin' ), 'error' );
 		}
 
@@ -74,6 +74,10 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 			} else {
 				return wpbdp_render_msg( _x( 'Could not remove listing from directory.', 'renewal', 'business-directory-plugin' ), 'error' );
 			}
+		}
+
+		if ( ! $this->listing->can_renew( 'owner' ) ) {
+			return wpbdp_render_msg( __( 'That listing cannot yet be renewed.', 'business-directory-plugin' ), 'error' );
 		}
 
 		if ( 'pending_renewal' == $this->listing->get_status() ) {
@@ -135,6 +139,10 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 	}
 
 	private function fee_payment( $payment = null ) {
+		if ( ! $this->listing->can_renew( 'owner' ) ) {
+			return;
+		}
+
 		$listing_plan = wpbdp_get_var(
 			array(
 				'param'    => 'listing_plan',
