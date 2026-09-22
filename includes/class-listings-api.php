@@ -18,21 +18,21 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
 				return;
 			}
 
-			$renewal_rejected = false;
-
 			foreach ( $payment->payment_items as $item ) {
 				switch ( $item['type'] ) {
 					case 'recurring_plan':
 					case 'plan':
 						if ( ! empty( $item['is_renewal'] ) && ! $listing->can_renew( 'payment' ) ) {
-							$renewal_rejected = true;
-							break;
+							return;
 						}
 
 						$listing->update_plan( $item, array( 'recalculate' => ! empty( $item['is_renewal'] ) ? 0 : 1 ) );
 
 						if ( ! empty( $item['is_renewal'] ) ) {
-							$listing->renew( 'payment' );
+							if ( ! $listing->renew( 'payment' ) ) {
+								return;
+							}
+
 							wpbdp_insert_log(
 								array(
 									'log_type'  => 'listing.renewal',
@@ -43,10 +43,6 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
 						}
 						break;
 				}
-			}
-
-			if ( $renewal_rejected ) {
-				return;
 			}
 
 			$listing->set_status( 'complete' );
