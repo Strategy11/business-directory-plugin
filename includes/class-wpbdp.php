@@ -665,6 +665,10 @@ final class WPBDP {
 			$res->send_error();
 		}
 
+		if ( ! $this->can_delete_listing_image( $image_id, $listing_id ) ) {
+			$res->send_error();
+		}
+
 		// Remove from images list.
 		$listing->remove_image( $image_id );
 
@@ -687,6 +691,31 @@ final class WPBDP {
 		}
 
 		return (bool) wpbdp_user_can( 'edit', $listing_id );
+	}
+
+	/**
+	 * Whether the current request may permanently remove a listing image.
+	 *
+	 * Authenticated users need attachment-level delete rights. Guests already
+	 * proved listing access via submit token or access key.
+	 *
+	 * @since x.x
+	 *
+	 * @param int $image_id   Attachment ID.
+	 * @param int $listing_id Listing ID.
+	 *
+	 * @return bool
+	 */
+	private function can_delete_listing_image( $image_id, $listing_id ) {
+		if ( ! WPBDP_Listing_Image::belongs_to_listing( $image_id, $listing_id ) ) {
+			return false;
+		}
+
+		if ( ! is_user_logged_in() ) {
+			return true;
+		}
+
+		return current_user_can( 'delete_post', $image_id );
 	}
 
 	public function ajax_listing_media_image() {
@@ -715,17 +744,19 @@ final class WPBDP {
 			wp_send_json_error( $json_data );
 		}
 
-		if ( ! wpbdp_user_can( 'edit', $listing_id ) ) {
+		if ( ! current_user_can( 'upload_files' ) || ! wpbdp_user_can( 'edit', $listing_id ) ) {
 			$json_data['errors'] = esc_html__( 'You do not have permission to update this listing.', 'business-directory-plugin' );
 			wp_send_json_error( $json_data );
 		}
 
-		$image_ids = wpbdp_get_var(
-			array(
-				'param'   => 'image_ids',
-				'default' => array(),
-			),
-			'request'
+		$image_ids = WPBDP_Listing_Image::normalize_image_ids(
+			wpbdp_get_var(
+				array(
+					'param'   => 'image_ids',
+					'default' => array(),
+				),
+				'request'
+			)
 		);
 
 		if ( ! $image_ids ) {
@@ -733,13 +764,82 @@ final class WPBDP {
 			wp_send_json_error( $json_data );
 		}
 
-		$image_ids = is_array( $image_ids ) ? $image_ids : array( $image_ids );
+		if ( ! $this->can_attach_listing_media_images( $image_ids, $listing_id ) ) {
+			$json_data['errors'] = esc_html__( 'You do not have permission to use one or more of the selected images.', 'business-directory-plugin' );
+			wp_send_json_error( $json_data );
+		}
+
 		WPBDP_Listing_Image::maybe_set_post_parent( $image_ids, $listing_id );
 
+		$image_ids = $this->filter_attached_listing_images( $image_ids, $listing_id );
+		if ( ! $image_ids ) {
+			$json_data['errors'] = esc_html__( 'You do not have permission to use one or more of the selected images.', 'business-directory-plugin' );
+			wp_send_json_error( $json_data );
+		}
+
+		$json_data['html'] = $this->render_listing_media_image_html( $image_ids, $listing_id );
+
+		wp_send_json_success( $json_data );
+	}
+
+	/**
+	 * Whether every selected Media Library image may be attached to a listing.
+	 *
+	 * @since x.x
+	 *
+	 * @param int[] $image_ids  Attachment IDs.
+	 * @param int   $listing_id Listing ID.
+	 *
+	 * @return bool
+	 */
+	private function can_attach_listing_media_images( $image_ids, $listing_id ) {
+		foreach ( $image_ids as $image_id ) {
+			if ( ! WPBDP_Listing_Image::can_attach_from_media_library( $image_id, $listing_id ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Keep only images that are actually parented to the listing.
+	 *
+	 * @since x.x
+	 *
+	 * @param int[] $image_ids  Attachment IDs.
+	 * @param int   $listing_id Listing ID.
+	 *
+	 * @return int[]
+	 */
+	private function filter_attached_listing_images( $image_ids, $listing_id ) {
+		$attached   = array();
+		$listing_id = (int) $listing_id;
+
+		foreach ( $image_ids as $image_id ) {
+			if ( (int) wp_get_post_parent_id( $image_id ) === $listing_id ) {
+				$attached[] = $image_id;
+			}
+		}
+
+		return $attached;
+	}
+
+	/**
+	 * Render listing image rows for a successful Media Library attach.
+	 *
+	 * @since x.x
+	 *
+	 * @param int[] $image_ids  Attachment IDs.
+	 * @param int   $listing_id Listing ID.
+	 *
+	 * @return string
+	 */
+	private function render_listing_media_image_html( $image_ids, $listing_id ) {
 		$listing              = wpbdp_get_listing( $listing_id );
 		$listing_submit_token = $listing ? $listing->get_submit_token() : '';
+		$html                 = '';
 
-		$html = '';
 		foreach ( $image_ids as $id ) {
 			$html .= wpbdp_render(
 				'submit-listing-images-single',
@@ -752,9 +852,7 @@ final class WPBDP {
 			);
 		}
 
-		$json_data['html'] = $html;
-
-		wp_send_json_success( $json_data );
+		return $html;
 	}
 
 	public function frontend_manual_upgrade_msg() {
