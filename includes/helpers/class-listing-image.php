@@ -59,6 +59,94 @@ final class WPBDP_Listing_Image {
 	}
 
 	/**
+	 * Normalize a request image ID list into unique positive integers.
+	 *
+	 * @since x.x
+	 *
+	 * @param mixed $image_ids Raw image IDs from a request.
+	 *
+	 * @return int[]
+	 */
+	public static function normalize_image_ids( $image_ids ) {
+		if ( is_string( $image_ids ) ) {
+			$image_ids = explode( ',', $image_ids );
+		}
+
+		if ( ! is_array( $image_ids ) ) {
+			$image_ids = array( $image_ids );
+		}
+
+		$normalized = array();
+		foreach ( $image_ids as $image_id ) {
+			$image_id = absint( $image_id );
+			if ( $image_id ) {
+				$normalized[] = $image_id;
+			}
+		}
+
+		return array_values( array_unique( $normalized ) );
+	}
+
+	/**
+	 * Whether an attachment may be attached to a listing from the Media Library.
+	 *
+	 * @since x.x
+	 *
+	 * @param int $image_id   Attachment ID.
+	 * @param int $listing_id Listing ID.
+	 *
+	 * @return bool
+	 */
+	public static function can_attach_from_media_library( $image_id, $listing_id ) {
+		$image_id   = absint( $image_id );
+		$listing_id = absint( $listing_id );
+		if ( ! $image_id || ! $listing_id || ! wp_attachment_is_image( $image_id ) ) {
+			return false;
+		}
+
+		$attachment = get_post( $image_id );
+		if ( ! $attachment || 'attachment' !== $attachment->post_type ) {
+			return false;
+		}
+
+		$parent_id = (int) $attachment->post_parent;
+		if ( $parent_id && $parent_id !== $listing_id && WPBDP_POST_TYPE === get_post_type( $parent_id ) ) {
+			return false;
+		}
+
+		return current_user_can( 'edit_post', $image_id ) && current_user_can( 'delete_post', $image_id );
+	}
+
+	/**
+	 * Whether an attachment is already linked to a listing.
+	 *
+	 * @since x.x
+	 *
+	 * @param int $image_id   Attachment ID.
+	 * @param int $listing_id Listing ID.
+	 *
+	 * @return bool
+	 */
+	public static function belongs_to_listing( $image_id, $listing_id ) {
+		$image_id   = absint( $image_id );
+		$listing_id = absint( $listing_id );
+		if ( ! $image_id || ! $listing_id || ! wp_attachment_is_image( $image_id ) ) {
+			return false;
+		}
+
+		if ( (int) wp_get_post_parent_id( $image_id ) === $listing_id ) {
+			return true;
+		}
+
+		$images = get_post_meta( $listing_id, '_wpbdp[images]', true );
+		if ( ! is_array( $images ) ) {
+			return false;
+		}
+
+		return in_array( $image_id, array_map( 'absint', $images ), true );
+	}
+
+	/**
 	 * If images are not assigned to the directory post type, they'll
 	 * be removed from the listing later.
 	 *

@@ -28,15 +28,19 @@ $action = add_query_arg(
 	admin_url( 'admin-ajax.php' )
 );
 
-$media_action = add_query_arg(
-	array_merge(
-		$ajax_args,
-		array(
-			'action' => 'wpbdp-listing-media-image',
-		)
-	),
-	admin_url( 'admin-ajax.php' )
-);
+$can_select_media = is_admin() && ! wpbdp_is_request( 'ajax' ) && current_user_can( 'upload_files' );
+$media_action     = '';
+if ( $can_select_media ) {
+	$media_action = add_query_arg(
+		array_merge(
+			$ajax_args,
+			array(
+				'action' => 'wpbdp-listing-media-image',
+			)
+		),
+		admin_url( 'admin-ajax.php' )
+	);
+}
 ?>
 
 
@@ -52,7 +56,7 @@ $media_action = add_query_arg(
 			<span id="image-slots-available"><?php echo esc_html_x( 'Image slots available', 'templates', 'business-directory-plugin' ); ?>: <span id="image-slots-remaining"><?php echo esc_html( $slots_available ); ?></span></span>
 		</div>
 	<?php endif; ?>
-	<?php if ( is_admin() && ! wpbdp_is_request( 'ajax' ) ) : ?>
+	<?php if ( $can_select_media ) : ?>
 		<div class="media-area-and-conditions cf">
 			<div class="wpbdp_media_images_wrapper">
 				<input type='button' class="button" value="<?php esc_attr_e( 'Select Media', 'business-directory-plugin' ); ?>" id="wpbdp_media_manager" data-action="<?php echo esc_url( wp_nonce_url( $media_action, 'listing-' . $listing_id . '-image-from-media' ) ); ?>" data-admin-nonce="<?php echo $admin ? '1' : ''; ?>"/>
