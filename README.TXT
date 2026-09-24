@@ -222,13 +222,12 @@ Yes, with one restriction: do not "network activate" the plugin, since that woul
 
 == Changelog ==
 = 6.4.28 =
-* Enhancement: Held listings can now manage subscriptions
-* Enhancement: Use the first populated email field for listing contact email
+* Fix: Held listings can now manage subscriptions
+* Fix: Use the first populated email field for listing contact email
 * Fix: Rejected payment renewals no longer complete listings or update subscription plans
 * Fix: Listing renewal now preserves publication holds on pending, draft, or trashed listings
 * Fix: Directory child page pagination links now work correctly in shortcode displays
 * Fix: Directory view displays on empty category pages
-* Fix: Removed legacy tracking calls to data.businessdirectoryplugin.com
 
 = 6.4.27 =
 * Enhancement: Updated plugin banner and screenshots for WordPress.org listing
