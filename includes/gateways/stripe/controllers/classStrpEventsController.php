@@ -501,7 +501,7 @@ class WPBDPStrpEventsController {
 	/**
 	 * Whether a recovered Stripe payment may restore the listing to publish.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param WPBDP_Listing $listing     Listing being recovered.
 	 * @param mixed         $failed_data Stored failure metadata.

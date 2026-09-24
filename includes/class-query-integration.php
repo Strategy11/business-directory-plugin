@@ -267,7 +267,7 @@ class WPBDP__Query_Integration {
 	/**
 	 * Parse the requested child page slug and page number from the main query.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param WP_Query $query Main query.
 	 *
@@ -303,7 +303,7 @@ class WPBDP__Query_Integration {
 	/**
 	 * Prefer the raw rewrite slug before WordPress sanitizes `name`.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param WP_Query $query Main query.
 	 *
@@ -339,7 +339,7 @@ class WPBDP__Query_Integration {
 	/**
 	 * Treat a directory child fallback as a normal WordPress page query.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param WP_Query $query Main query.
 	 * @param WP_Post  $page  Child page.

@@ -4,7 +4,7 @@ Tags: business directory, directory plugin, member directory, listing manager, c
 Requires at least: 5.9
 Requires PHP: 7.4
 Tested up to: 7.1
-Stable tag: 6.4.27
+Stable tag: 6.4.28
 License: GPLv2 or later
 
 Build a business directory or member directory on WordPress, complete with a listing manager and directory website builder. No developer needed.
@@ -221,6 +221,14 @@ See the guide on [translating the Business Directory Plugin into another languag
 Yes, with one restriction: do not "network activate" the plugin, since that would share the database across every site. Activate it only on the sub-sites that need it, under Plugins -> Add New as the Administrator user. Don't activate it as the "super admin."
 
 == Changelog ==
+= 6.4.28 =
+* Fix: Held listings can now manage subscriptions
+* Fix: Use the first populated email field for listing contact email
+* Fix: Rejected payment renewals no longer complete listings or update subscription plans
+* Fix: Listing renewal now preserves publication holds on pending, draft, or trashed listings
+* Fix: Directory child page pagination links now work correctly in shortcode displays
+* Fix: Directory view displays on empty category pages
+
 = 6.4.27 =
 * Enhancement: Updated plugin banner and screenshots for WordPress.org listing
 * Enhancement: Improved documentation and FAQ clarity
@@ -298,7 +306,4 @@ Yes, with one restriction: do not "network activate" the plugin, since that woul
 = 6.4.12 =
 * Fix: Bug with the non-meta multiselect and radio buttons listing fields
 * Fix: Bug with the "Start Import" button
-
-= 6.4.11 =
-* A bug with the front end listing submission form
 

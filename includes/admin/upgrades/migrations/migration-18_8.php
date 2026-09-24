@@ -11,7 +11,7 @@ class WPBDP__Migrations__18_8 extends WPBDP__Migration {
 	/**
 	 * Stop leftover weekly tracking cron events and hide the unused tracking pointer.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 */
 	public function migrate() {
 		wp_clear_scheduled_hook( 'wpbdp_site_tracking' );

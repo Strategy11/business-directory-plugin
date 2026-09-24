@@ -57,7 +57,7 @@ final class WPBDP {
 	}
 
 	private function setup_constants() {
-		define( 'WPBDP_VERSION', '6.4.27' );
+		define( 'WPBDP_VERSION', '6.4.28' );
 
 		define( 'WPBDP_PATH', wp_normalize_path( plugin_dir_path( WPBDP_PLUGIN_FILE ) ) );
 		define( 'WPBDP_INC', trailingslashit( WPBDP_PATH . 'includes' ) );
@@ -699,7 +699,7 @@ final class WPBDP {
 	 * Authenticated users need attachment-level delete rights. Guests already
 	 * proved listing access via submit token or access key.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param int $image_id   Attachment ID.
 	 * @param int $listing_id Listing ID.
@@ -785,7 +785,7 @@ final class WPBDP {
 	/**
 	 * Whether every selected Media Library image may be attached to a listing.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param int[] $image_ids  Attachment IDs.
 	 * @param int   $listing_id Listing ID.
@@ -805,7 +805,7 @@ final class WPBDP {
 	/**
 	 * Keep only images that are actually parented to the listing.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param int[] $image_ids  Attachment IDs.
 	 * @param int   $listing_id Listing ID.
@@ -828,7 +828,7 @@ final class WPBDP {
 	/**
 	 * Render listing image rows for a successful Media Library attach.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param int[] $image_ids  Attachment IDs.
 	 * @param int   $listing_id Listing ID.
