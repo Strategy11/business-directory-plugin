@@ -19,7 +19,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	protected $tester;
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 */
 	public function tearDown(): void {
 		$this->clear_request();
@@ -28,7 +28,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 */
 	public function testContributorCannotAttachForeignMediaLibraryImage() {
 		$admin_id       = $this->get_or_create_user( 'administrator', 'media-admin@example.com' );
@@ -46,7 +46,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 */
 	public function testAuthorCannotAttachAdministratorImage() {
 		$admin_id      = $this->get_or_create_user( 'administrator', 'media-admin@example.com' );
@@ -64,7 +64,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 */
 	public function testMixedSelectionIsRejectedAtomically() {
 		$admin_id      = $this->get_or_create_user( 'administrator', 'media-admin@example.com' );
@@ -83,7 +83,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 */
 	public function testReparentedForeignImageCannotBeDeletedAfterUpgrade() {
 		$admin_id       = $this->get_or_create_user( 'administrator', 'media-admin@example.com' );
@@ -107,7 +107,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 */
 	public function testNonImageAttachmentIsRejected() {
 		$admin_id   = $this->get_or_create_user( 'administrator', 'media-admin@example.com' );
@@ -122,7 +122,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 */
 	public function testCrossListingAttachmentIsRejected() {
 		$admin_id         = $this->get_or_create_user( 'administrator', 'media-admin@example.com' );
@@ -138,7 +138,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 */
 	public function testAdministratorCanAttachOwnUnattachedImage() {
 		$admin_id   = $this->get_or_create_user( 'administrator', 'media-admin@example.com' );
@@ -154,7 +154,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 */
 	public function testGuestCanDeleteOwnedListingImage() {
 		$listing_id = wp_insert_post(
@@ -182,7 +182,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 */
 	public function testContributorWithoutUploadFilesDoesNotReceiveMediaSelector() {
 		$contributor_id = $this->get_or_create_user( 'contributor', 'media-contributor@example.com' );
@@ -210,7 +210,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 */
 	public function testNormalizeImageIdsAcceptsCommaSeparatedValues() {
 		$this->assertSame( array( 12, 34 ), WPBDP_Listing_Image::normalize_image_ids( '12,34' ) );
@@ -218,7 +218,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param int       $listing_id Listing ID.
 	 * @param int|int[] $image_ids  Attachment ID or IDs.
@@ -243,7 +243,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param int $listing_id Listing ID.
 	 * @param int $image_id   Attachment ID.
@@ -268,7 +268,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param callable $callback AJAX method.
 	 *
@@ -302,7 +302,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	/**
 	 * Return a wp_die handler that throws instead of exiting.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @return callable
 	 */
@@ -313,7 +313,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	/**
 	 * Convert an AJAX wp_die into an exception so the suite can continue.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param mixed $message Die message.
 	 *
@@ -324,7 +324,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 */
 	private function clear_request() {
 		$_GET     = array();
@@ -333,7 +333,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param string $role  User role.
 	 * @param string $email User email.
@@ -361,7 +361,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param int $author_id Listing author.
 	 *
@@ -382,7 +382,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param int $author_id Post author.
 	 *
@@ -404,7 +404,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param int $author_id Attachment author.
 	 * @param int $parent_id Parent post ID.
@@ -416,7 +416,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param int $author_id Attachment author.
 	 * @param int $parent_id Parent post ID.
@@ -428,7 +428,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param int    $author_id Attachment author.
 	 * @param int    $parent_id Parent post ID.
@@ -464,7 +464,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @return string
 	 */

@@ -61,7 +61,7 @@ final class WPBDP_Listing_Image {
 	/**
 	 * Normalize a request image ID list into unique positive integers.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param mixed $image_ids Raw image IDs from a request.
 	 *
@@ -90,7 +90,7 @@ final class WPBDP_Listing_Image {
 	/**
 	 * Whether an attachment may be attached to a listing from the Media Library.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param int $image_id   Attachment ID.
 	 * @param int $listing_id Listing ID.
@@ -120,7 +120,7 @@ final class WPBDP_Listing_Image {
 	/**
 	 * Whether an attachment is already linked to a listing.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param int $image_id   Attachment ID.
 	 * @param int $listing_id Listing ID.

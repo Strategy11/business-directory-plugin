@@ -170,7 +170,7 @@ class WPBDP__DB__Query_Set implements IteratorAggregate {
 	/**
 	 * Return a trusted column name from a filter key, or an empty string.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param string $field Filter map key.
 	 *

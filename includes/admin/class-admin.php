@@ -1257,7 +1257,7 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 		/**
 		 * Renew selected listings from the admin list table.
 		 *
-		 * @since x.x
+		 * @since 6.4.28
 		 *
 		 * @param array $posts Listing post IDs.
 		 */

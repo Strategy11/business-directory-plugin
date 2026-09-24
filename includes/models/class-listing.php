@@ -608,7 +608,7 @@ class WPBDP_Listing {
 	/**
 	 * Whether this listing may be renewed in the given context.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param string $context Renewal context. One of cron, owner, admin, gateway, payment.
 	 *
@@ -629,7 +629,7 @@ class WPBDP_Listing {
 	 *
 	 * Draft listings that expired from publish are not holds.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @return bool
 	 */
@@ -646,7 +646,7 @@ class WPBDP_Listing {
 	/**
 	 * Whether renewal may restore this listing to publish.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @return bool
 	 */
@@ -663,7 +663,7 @@ class WPBDP_Listing {
 	/**
 	 * Mark a listing complete after renewal and publish only when allowed.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param string $context Renewal context.
 	 */
@@ -682,7 +682,7 @@ class WPBDP_Listing {
 	/**
 	 * Whether the listing expired from a published state.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @return bool
 	 */
@@ -693,7 +693,7 @@ class WPBDP_Listing {
 	/**
 	 * Contexts that must not mutate held listings.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param string $context Renewal context.
 	 *
@@ -706,7 +706,7 @@ class WPBDP_Listing {
 	/**
 	 * Move a published listing to draft when it expires, preserving admin holds.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 */
 	private function unpublish_expired_listing() {
 		if ( 'publish' !== get_post_status( $this->id ) ) {
@@ -718,7 +718,7 @@ class WPBDP_Listing {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.28
 	 */
 	private function clear_expiration_provenance() {
 		delete_post_meta( $this->id, '_wpbdp_expired_from_publish' );

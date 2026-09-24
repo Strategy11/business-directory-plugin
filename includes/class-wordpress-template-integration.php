@@ -100,7 +100,7 @@ class WPBDP__WordPress_Template_Integration {
 	/**
 	 * Seed empty category and tag queries with the directory page so the theme loop can render the view.
 	 *
-	 * @since x.x
+	 * @since 6.4.28
 	 *
 	 * @param WP_Query $query The main query.
 	 *
