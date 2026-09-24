@@ -234,11 +234,18 @@ class WPBDPStrpEventsController {
 			return true;
 		}
 
+		$was_published = 'publish' === get_post_status( $listing->get_id() );
 		$listing->set_status( 'expired' );
-		$listing->set_post_status( 'draft' );
 
 		// Store metadata to track this was a payment failure (for recovery on successful retry).
-		update_post_meta( $parent_payment->listing_id, '_wpbdp_stripe_payment_failed', time() );
+		update_post_meta(
+			$parent_payment->listing_id,
+			'_wpbdp_stripe_payment_failed',
+			array(
+				'time'          => time(),
+				'was_published' => $was_published ? 1 : 0,
+			)
+		);
 
 		return true;
 	}
@@ -471,8 +478,8 @@ class WPBDPStrpEventsController {
 	 * @return void
 	 */
 	private function maybe_reactivate_listing( $listing_id ) {
-		$failed_timestamp = get_post_meta( $listing_id, '_wpbdp_stripe_payment_failed', true );
-		if ( ! $failed_timestamp ) {
+		$failed_data = get_post_meta( $listing_id, '_wpbdp_stripe_payment_failed', true );
+		if ( ! $failed_data ) {
 			return;
 		}
 
@@ -482,8 +489,31 @@ class WPBDPStrpEventsController {
 		}
 
 		$listing->set_status( 'complete' );
-		$listing->set_post_status( 'publish' );
 
+		if ( $this->should_restore_listing_after_payment_failure( $listing, $failed_data ) ) {
+			$listing->set_post_status( 'publish' );
+		}
+
+		delete_post_meta( $listing_id, '_wpbdp_expired_from_publish' );
 		delete_post_meta( $listing_id, '_wpbdp_stripe_payment_failed' );
+	}
+
+	/**
+	 * Whether a recovered Stripe payment may restore the listing to publish.
+	 *
+	 * @since x.x
+	 *
+	 * @param WPBDP_Listing $listing     Listing being recovered.
+	 * @param mixed         $failed_data Stored failure metadata.
+	 *
+	 * @return bool
+	 */
+	private function should_restore_listing_after_payment_failure( $listing, $failed_data ) {
+		if ( $listing->should_publish_on_renewal() ) {
+			return true;
+		}
+
+		// Legacy scalar timestamps always drafted the listing on failure.
+		return ! is_array( $failed_data ) && 'draft' === get_post_status( $listing->get_id() );
 	}
 }
