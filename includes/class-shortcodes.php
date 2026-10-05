@@ -875,6 +875,11 @@ class WPBDP__Shortcodes {
 			return;
 		}
 
+		if ( ! empty( $vars['id'] ) && WPBDP_POST_TYPE !== get_post_type( $vars['id'] ) ) {
+			$vars['id'] = 0;
+			return;
+		}
+
 		if ( ! is_singular( WPBDP_POST_TYPE ) || ! empty( $vars['id'] ) ) {
 			return;
 		}
