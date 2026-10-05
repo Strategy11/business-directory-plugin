@@ -355,17 +355,20 @@ jQuery(function($) {
             var self = this;
 
             $.post( this.ajax_url, data, function( res ) {
+                self.doing_ajax = false;
                 if ( ! res.success ) {
                     alert( wpbdpSubmitListingL10n.somethingWentWrong );
                     return;
                 }
 
-                self.doing_ajax = false;
 				if ( res.data && res.data.redirect ) {
 					window.location.href = res.data.redirect;
 				}
                 callback.call( self, res.data );
-            }, 'json' );
+            }, 'json' ).fail( function() {
+                self.doing_ajax = false;
+                alert( wpbdpSubmitListingL10n.somethingWentWrong );
+            } );
         },
 
 		// Load the form with ajax to avoid page caching.
@@ -412,7 +415,7 @@ jQuery(function($) {
 
                 self.$form.find('input[name="current_section"]').val('');
                 var data = self.$form.serialize();
-                data += '&action=wpbdp_ajax&handler=submit_listing__reset_plan';
+                data += '&action=wpbdp_ajax&handler=submit_listing__reset_plan&nonce=' + encodeURIComponent( wpbdp_global.nonce );
 
                 self.ajax( data, function( res ) {
                     self.refresh( res );

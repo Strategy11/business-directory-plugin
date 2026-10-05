@@ -416,8 +416,12 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	public function ajax_reset_plan() {
 		$res = new WPBDP_AJAX_Response();
 
-		if ( ! $this->can_submit( $msg ) || empty( $_POST['listing_id'] ) || ! $this->verify_ajax_request() ) {
-			wp_die();
+		if ( ! $this->can_submit( $msg ) || empty( $_POST['listing_id'] ) ) {
+			$res->send_error( $msg );
+		}
+
+		if ( ! $this->verify_ajax_request() ) {
+			$res->send_error( __( 'You do not have permission to perform this action.', 'business-directory-plugin' ) );
 		}
 
 		$this->find_or_create_listing();
