@@ -720,7 +720,7 @@ class WPBDP_Listing {
 	/**
 	 * @since 6.4.28
 	 */
-	private function clear_expiration_provenance() {
+	public function clear_expiration_provenance() {
 		delete_post_meta( $this->id, '_wpbdp_expired_from_publish' );
 	}
 
@@ -1410,7 +1410,7 @@ class WPBDP_Listing {
 
 		// Do not let expired listings be public.
 		if ( $this->get_status() && in_array( $this->get_status(), array( 'expired', 'pending_renewal' ) ) && 'publish' == get_post_status( $this->id ) ) {
-			$this->set_post_status( 'draft' );
+			$this->unpublish_expired_listing();
 		}
 	}
 
