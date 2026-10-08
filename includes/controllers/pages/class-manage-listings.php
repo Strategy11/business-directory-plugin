@@ -104,9 +104,10 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
 			return $buttons;
 		}
 
-		$is_pending_payment = ( 'pending_payment' === $listing_status );
+		$is_pending_payment      = ( 'pending_payment' === $listing_status );
+		$can_manage_subscription = 'expired' !== $listing_status && $listing->has_subscription();
 
-		if ( ! $is_pending_payment && ! $listing->can_renew( 'owner' ) && ! $listing->has_subscription() ) {
+		if ( ! $is_pending_payment && ! $can_manage_subscription && ! $listing->can_renew( 'owner' ) ) {
 			return $buttons . '<span>' . esc_html__( 'Pending', 'business-directory-plugin' ) . '</span> ';
 		}
 
