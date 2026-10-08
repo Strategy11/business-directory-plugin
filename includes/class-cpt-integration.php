@@ -91,6 +91,7 @@ class WPBDP__CPT_Integration {
 		add_action( 'delete_term', array( &$this, 'handle_delete_term' ), 10, 3 );
 
 		add_action( 'save_post', array( $this, 'save_post' ), 10, 3 );
+		add_action( 'transition_post_status', array( $this, 'clear_expiration_provenance_on_hold' ), 10, 3 );
 	}
 
 	public function _category_link( $link, $category, $taxonomy ) {
@@ -368,6 +369,28 @@ class WPBDP__CPT_Integration {
 
 		$listing = wpbdp_get_listing( $post_id );
 		$listing->_after_save( $update ? 'save_post' : 'submit-new' );
+	}
+
+	/**
+	 * Forget that a listing expired from publish once an administrator moves it to pending review.
+	 *
+	 * @since x.x
+	 *
+	 * @param string  $new_status New post status.
+	 * @param string  $old_status Old post status.
+	 * @param WP_Post $post       Post object.
+	 *
+	 * @return void
+	 */
+	public function clear_expiration_provenance_on_hold( $new_status, $old_status, $post ) {
+		if ( WPBDP_POST_TYPE !== $post->post_type || 'pending' !== $new_status || 'pending' === $old_status ) {
+			return;
+		}
+
+		$listing = wpbdp_get_listing( $post->ID );
+		if ( $listing ) {
+			$listing->clear_expiration_provenance();
+		}
 	}
 
 	public function handle_delete_term( $term_id, $tt_id, $taxonomy ) {
