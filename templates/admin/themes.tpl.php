@@ -1,17 +1,24 @@
 <?php
+$theme_buttons = array(
+	'updatetags' => array(
+		'label' => __( 'Manage Theme Tags', 'business-directory-plugin' ),
+		'url'   => admin_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' ),
+	),
+);
+
+if ( wpbdp_user_can_install_themes() ) {
+	$theme_buttons = array(
+		'theme-install' => array(
+			'label' => __( 'Upload Directory Theme', 'business-directory-plugin' ),
+			'url'   => admin_url( 'admin.php?page=wpbdp-themes&action=theme-install' ),
+		),
+	) + $theme_buttons;
+}
+
 wpbdp_admin_header(
 	array(
 		'id'      => 'themes',
-		'buttons' => array(
-			'theme-install' => array(
-				'label' => __( 'Upload Directory Theme', 'business-directory-plugin' ),
-				'url'   => admin_url( 'admin.php?page=wpbdp-themes&action=theme-install' ),
-			),
-			'updatetags'    => array(
-				'label' => __( 'Manage Theme Tags', 'business-directory-plugin' ),
-				'url'   => admin_url( 'admin.php?page=wpbdp_admin_formfields&action=updatetags' ),
-			),
-		),
+		'buttons' => $theme_buttons,
 		'sidebar' => false,
 		'echo'    => true,
 	)

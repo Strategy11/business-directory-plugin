@@ -1452,6 +1452,17 @@ function wpbdp_user_is_admin() {
 }
 
 /**
+ * Whether the current user may install Directory Theme packages.
+ *
+ * @since x.x
+ *
+ * @return bool
+ */
+function wpbdp_user_can_install_themes() {
+	return wpbdp_user_is_admin() && current_user_can( 'install_themes' );
+}
+
+/**
  * Check if user can edit listings.
  * Defaults to edit_others_posts capability for editors.
  *
