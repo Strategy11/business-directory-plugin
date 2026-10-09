@@ -51,6 +51,7 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
 			)
 		);
 
+		wp_reset_postdata();
 		wpbdp_pop_query();
 
 		return $html;
