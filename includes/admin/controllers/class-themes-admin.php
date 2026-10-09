@@ -226,7 +226,7 @@ class WPBDP_Themes_Admin {
 	function upload_theme() {
 		$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
 
-		if ( ! wpbdp_user_is_admin() || ! wp_verify_nonce( $nonce, 'upload theme zip' ) ) {
+		if ( ! wpbdp_user_can_install_themes() || ! wp_verify_nonce( $nonce, 'upload theme zip' ) ) {
 			wp_die();
 		}
 
@@ -264,6 +264,10 @@ class WPBDP_Themes_Admin {
 	}
 
 	function theme_install() {
+		if ( ! wpbdp_user_can_install_themes() ) {
+			wp_die();
+		}
+
 		echo wpbdp_render_page(
 			WPBDP_PATH . 'templates/admin/themes-install.tpl.php',
 			array()
@@ -445,7 +449,7 @@ class WPBDP_Themes_Admin {
 		$nonce    = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'request' );
 		$theme_id = wpbdp_get_var( array( 'param' => 'theme' ), 'request' );
 
-		if ( ! wpbdp_user_is_admin() || ! wp_verify_nonce( $nonce, 'update theme ' . $theme_id ) ) {
+		if ( ! wpbdp_user_can_install_themes() || ! wp_verify_nonce( $nonce, 'update theme ' . $theme_id ) ) {
 			die();
 		}
 
