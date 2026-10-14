@@ -567,21 +567,7 @@ class WPBDP_CSV_Import {
 				continue;
 			}
 
-			$img = array_pop( $field_data );
-
-			if ( ! $img ) {
-				$field_data[]        = $img;
-				$fields[ $field_id ] = $this->maybe_upload_field_image( $field_data );
-				continue;
-			}
-
-			$media_id = $this->upload_image( $img );
-
-			if ( $media_id ) {
-				$field_data[0] = $media_id;
-			}
-
-			$fields[ $field_id ] = $media_id ? $field_data : array();
+			$fields[ $field_id ] = $this->maybe_upload_field_image( $field_data );
 		}
 
 		$state->fields = $fields;
@@ -910,14 +896,15 @@ class WPBDP_CSV_Import {
 	}
 
 	/**
-	 * Upload a single image field value when it is a file name from the images ZIP file.
+	 * Upload the file named in an image field value from the images ZIP file.
+	 * The value is the file name or attachment ID, then an optional caption.
 	 * Numeric values are existing attachment IDs and are kept as they are.
 	 *
 	 * @since x.x
 	 *
-	 * @param array $field_data The image field value from the CSV file, as file name and caption.
+	 * @param array $field_data The image field value from the CSV file.
 	 *
-	 * @return array The field value, with the file name replaced by the new attachment ID when uploaded.
+	 * @return array The field value with the new attachment ID, or an empty array when the file could not be uploaded.
 	 */
 	private function maybe_upload_field_image( $field_data ) {
 		$value = $field_data[0] ?? '';
@@ -926,9 +913,11 @@ class WPBDP_CSV_Import {
 		}
 
 		$media_id = $this->upload_image( $value );
-		if ( $media_id ) {
-			$field_data[0] = $media_id;
+		if ( ! $media_id ) {
+			return array();
 		}
+
+		$field_data[0] = $media_id;
 
 		return $field_data;
 	}
