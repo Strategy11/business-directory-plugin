@@ -6,6 +6,29 @@ if (typeof(window.wpbdp) == 'undefined') {
     window.wpbdp = {};
 }
 
+/**
+ * Give the SelectWoo search inputs the text of the field label.
+ *
+ * @since x.x
+ * @param {jQuery} $selects Select elements initialized with SelectWoo.
+ */
+window.wpbdp.labelSelectWooSearch = function( $selects ) {
+	$selects.each( function() {
+		const instance = jQuery( this ).data( 'select2' );
+		const $label = jQuery( 'label[for="' + this.id + '"]' ).first().clone();
+
+		$label.find( '.wpbdp-form-field-required-indicator' ).remove();
+
+		const labelText = $label.text().trim();
+
+		if ( ! instance || ! labelText ) {
+			return;
+		}
+
+		instance.$container.add( instance.$dropdown ).find( '.select2-search__field' ).attr( 'aria-label', labelText );
+	} );
+};
+
 jQuery(function( $ ) {
     $( '.wpbdp-no-js' ).hide();
 });
@@ -13,6 +36,7 @@ jQuery(function( $ ) {
 jQuery(document).ready(function($){
     if ( $( '.wpbdp-js-select2' ).length > 0 && $.fn.selectWoo ) {
         $( '.wpbdp-js-select2' ).selectWoo();
+		wpbdp.labelSelectWooSearch( $( '.wpbdp-js-select2' ) );
 		document.body.classList.add( 'wpbdp-has-select2' );
     }
 
