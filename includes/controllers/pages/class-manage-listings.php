@@ -94,7 +94,11 @@ class WPBDP__Views__Manage_Listings extends WPBDP__View {
 	 * @return string
 	 */
 	public function maybe_add_renew_button( $buttons, $listing_id ) {
-		$listing        = wpbdp_get_listing( $listing_id );
+		$listing = wpbdp_get_listing( $listing_id );
+		if ( ! $listing ) {
+			return $buttons;
+		}
+
 		$listing_status = $listing->get_status();
 
 		if ( 'complete' === $listing_status ) {
