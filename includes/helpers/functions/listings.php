@@ -82,8 +82,10 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
 	// friends. See #2945.
 	do_action_ref_array( 'WPBDP_Listing::set_field_values', array( &$listing_obj, $fields ) ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.NotLowercase
 
+	$keeps_plan = $editing && 'csv-import' === $context && wpbdp_csv_import_keeps_plan( $listing_obj, $plan_id );
+
 	// Set plan for new listings.
-	if ( $adding || 'csv-import' === $context ) {
+	if ( ( $adding || 'csv-import' === $context ) && ! $keeps_plan ) {
 		$plan = wpbdp_get_fee_plan( $plan_id );
 
 		if ( ! $plan ) {
@@ -98,13 +100,19 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
 	}
 
 	// Update expiration date if necessary.
-	$listing_obj->update_plan(
-		array( 'expiration_date' => $expiration_date ),
-		array(
-			'clear'       => false,
-			'recalculate' => false,
-		)
-	);
+	if ( ! $keeps_plan || $expiration_date ) {
+		$listing_obj->update_plan(
+			array( 'expiration_date' => $expiration_date ),
+			array(
+				'clear'       => false,
+				'recalculate' => false,
+			)
+		);
+	}
+
+	if ( $keeps_plan && $expiration_date ) {
+		$listing_obj->get_status( true );
+	}
 
 	// Force GUIDs to always be <home-url>?post_type=wpbdp_listing&p=<post_id>
 	if ( $adding && ( ! isset( $guid ) || ! $guid ) ) {
@@ -122,6 +130,27 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
 	$listing_obj->_after_save( $adding ? 'submit-new' : 'submit-edit' );
 
 	return $listing_obj;
+}
+
+/**
+ * Check if a CSV import of an existing listing should keep its current plan.
+ * This keeps the subscription and expiration date when the plan is not changed.
+ *
+ * @since x.x
+ *
+ * @param WPBDP_Listing $listing The listing being updated.
+ * @param int           $plan_id The plan ID from the CSV, or 0 if none was given.
+ *
+ * @return bool
+ */
+function wpbdp_csv_import_keeps_plan( $listing, $plan_id ) {
+	$current_plan = $listing->get_fee_plan();
+
+	if ( ! $current_plan || ! $current_plan->fee ) {
+		return false;
+	}
+
+	return ! $plan_id || (int) $current_plan->fee_id === (int) $plan_id;
 }
 
 /**

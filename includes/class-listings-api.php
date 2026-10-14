@@ -12,6 +12,8 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
 		}
 
 		public function update_listing_after_payment( $payment ) {
+			global $wpbdp;
+
 			$listing = $payment->get_listing();
 
 			if ( ! $listing ) {
@@ -47,7 +49,8 @@ if ( ! class_exists( 'WPBDP_Listings_API' ) ) {
 
 			$listing->set_status( 'complete' );
 
-			if ( 'initial' === $payment->payment_type ) {
+			// CSV imports set the post status from the import settings.
+			if ( 'initial' === $payment->payment_type && empty( $wpbdp->_importing_csv ) ) {
 				$new_status = wpbdp_get_option( 'new-post-status' );
 				if ( $new_status !== 'publish' && $payment->amount > 0 ) {
 					// If this was a paid listing, maybe mark as published.
