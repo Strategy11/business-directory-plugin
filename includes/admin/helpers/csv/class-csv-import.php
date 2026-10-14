@@ -570,13 +570,8 @@ class WPBDP_CSV_Import {
 			$img = array_pop( $field_data );
 
 			if ( ! $img ) {
-				$field_data[] = $img;
-
-				$media_id = $this->maybe_upload_field_image( $field_data[0] ?? '' );
-				if ( $media_id ) {
-					$field_data[0]       = $media_id;
-					$fields[ $field_id ] = $field_data;
-				}
+				$field_data[]        = $img;
+				$fields[ $field_id ] = $this->maybe_upload_field_image( $field_data );
 				continue;
 			}
 
@@ -920,16 +915,22 @@ class WPBDP_CSV_Import {
 	 *
 	 * @since x.x
 	 *
-	 * @param string $value The image field value from the CSV file.
+	 * @param array $field_data The image field value from the CSV file, as file name and caption.
 	 *
-	 * @return int|false The new attachment ID, or false when nothing was uploaded.
+	 * @return array The field value, with the file name replaced by the new attachment ID when uploaded.
 	 */
-	private function maybe_upload_field_image( $value ) {
+	private function maybe_upload_field_image( $field_data ) {
+		$value = $field_data[0] ?? '';
 		if ( ! $value || is_numeric( $value ) ) {
-			return false;
+			return $field_data;
 		}
 
-		return $this->upload_image( $value );
+		$media_id = $this->upload_image( $value );
+		if ( $media_id ) {
+			$field_data[0] = $media_id;
+		}
+
+		return $field_data;
 	}
 
 	private function convert_to_date( $value, &$errors ) {
