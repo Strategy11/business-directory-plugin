@@ -17,9 +17,15 @@ jQuery(document).ready(function($){
     }
 
     // Move the featured badge to the theme h1.
-    var sticky = $( '.wpbdp-listing-single .wpbdp-sticky-tag' );
+    // Keep the badge link (sticky-image-link-to) when one wraps the badge.
+    const sticky = $( '.wpbdp-listing-single' ).find( '.wpbdp-sticky-tag, .stickytag' ).first();
     if ( sticky.length ) {
-        $( 'h1:first' ).append( sticky );
+        // Prefer the listing's own title over a site-title h1 in the header.
+        const titleSelectors = [ '.wpbdp-listing-single .show-listing-title h1', 'h1.entry-title', 'h1.wp-block-post-title', 'h1:visible' ];
+        const listingTitle = titleSelectors.map( ( selector ) => $( selector ).first() ).find( ( title ) => title.length );
+        if ( listingTitle ) {
+            listingTitle.append( sticky.parent( 'a' ).length ? sticky.parent( 'a' ) : sticky );
+        }
     }
 
     /**

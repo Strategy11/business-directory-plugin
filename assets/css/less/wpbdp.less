@@ -176,9 +176,24 @@ form#wpbdmsearchform a.wpbdp-advanced-search-link {
 }
 
 .wpbdp-listing-single .stickytag {
-	position: absolute;
-	right: 0;
-	bottom: 0;
+	margin-top: 0;
+}
+
+/* Image badge moved into the theme title by wpbdp.js. */
+.wpbdp-listing-single h1 .stickytag,
+h1 .stickytag {
+	display: inline-block;
+	float: none;
+	margin: 0 @padding-md;
+	vertical-align: middle;
+
+	img {
+		max-height: 102px;
+		border: 0;
+		background: transparent;
+		box-shadow: none;
+		vertical-align: middle;
+	}
 }
 
 .wpbdp-sticky-tag {
