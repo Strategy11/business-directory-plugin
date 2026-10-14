@@ -112,6 +112,21 @@ class WPBDP__Themes_Compat {
 		if ( $wpbdp->template_integration ) {
 			add_filter( 'astra_featured_image_markup', array( $wpbdp->template_integration, 'remove_tax_thumbnail' ) );
 		}
+
+		add_filter( 'astra_primary_class', array( $this, 'theme_astra_remove_blog_grid_classes' ), 20 );
+	}
+
+	/**
+	 * Show directory categories and tags at full width when Astra uses a grid blog layout.
+	 *
+	 * @since x.x
+	 *
+	 * @param array $classes The classes for the primary content area.
+	 *
+	 * @return array
+	 */
+	public function theme_astra_remove_blog_grid_classes( $classes ) {
+		return array_values( preg_grep( '/^ast-grid-\d+$|^ast-blog-layout-\d+-grid$/', $classes, PREG_GREP_INVERT ) );
 	}
 
 	public function theme_genesis() {
