@@ -387,6 +387,9 @@ jQuery(function($) {
                     const selectFields = $( '.wpbdp-js-select2' );
                     if ( selectFields.length > 0 && $.fn.selectWoo ) {
                         selectFields.selectWoo();
+                        if ( typeof wpbdp.labelSelectWooSearch === 'function' ) {
+                            wpbdp.labelSelectWooSearch( selectFields );
+                        }
                         document.body.classList.add( 'wpbdp-has-select2' );
                     }
 				}
