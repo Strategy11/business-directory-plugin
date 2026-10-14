@@ -571,6 +571,12 @@ class WPBDP_CSV_Import {
 
 			if ( ! $img ) {
 				$field_data[] = $img;
+
+				$media_id = $this->maybe_upload_field_image( $field_data[0] ?? '' );
+				if ( $media_id ) {
+					$field_data[0]       = $media_id;
+					$fields[ $field_id ] = $field_data;
+				}
 				continue;
 			}
 
@@ -906,6 +912,24 @@ class WPBDP_CSV_Import {
 		// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions
 		rename( $filepath . '.backup', $filepath );
 		return $media_id;
+	}
+
+	/**
+	 * Upload a single image field value when it is a file name from the images ZIP file.
+	 * Numeric values are existing attachment IDs and are kept as they are.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $value The image field value from the CSV file.
+	 *
+	 * @return int|false The new attachment ID, or false when nothing was uploaded.
+	 */
+	private function maybe_upload_field_image( $value ) {
+		if ( ! $value || is_numeric( $value ) ) {
+			return false;
+		}
+
+		return $this->upload_image( $value );
 	}
 
 	private function convert_to_date( $value, &$errors ) {
