@@ -153,10 +153,26 @@ class WPBDP__CPT_Compat_Mode {
 			case 'show_listing':
 			case 'show_category':
 			case 'show_tag':
-				$wp_query = $this->data['wp_query'];
+				$this->data['archive_query'] = $wp_query;
+				$wp_query                    = $this->data['wp_query'];
 				wp_reset_postdata();
 				break;
 		}
+	}
+
+	/**
+	 * Archive or listing query built for this request.
+	 *
+	 * @since x.x
+	 *
+	 * @return WP_Query|null
+	 */
+	public function get_archive_query_object() {
+		if ( empty( $this->data['archive_query'] ) || ! $this->data['archive_query'] instanceof WP_Query ) {
+			return null;
+		}
+
+		return $this->data['archive_query'];
 	}
 
 	/**
