@@ -112,9 +112,39 @@ class WPBDP__Listing_Email_Notification {
 		}
 
 		// When a listing is submitted.
-		if ( 'incomplete' === $old_status && in_array( $new_status, array( 'complete', 'pending_payment' ) ) ) {
+		if ( $this->is_new_listing_completed( $listing, $old_status, $new_status ) ) {
 			$this->send_new_listing_email( $listing );
 		}
+	}
+
+	/**
+	 * Whether a newly submitted listing just became complete.
+	 * Listings waiting for payment are only announced once the payment completes.
+	 *
+	 * @since x.x
+	 *
+	 * @param object $listing    An instance of WPBDP_Listing.
+	 * @param string $old_status The previous listing status.
+	 * @param string $new_status The new listing status.
+	 *
+	 * @return bool
+	 */
+	private function is_new_listing_completed( $listing, $old_status, $new_status ) {
+		if ( 'complete' !== $new_status ) {
+			return false;
+		}
+
+		if ( 'incomplete' === $old_status ) {
+			return true;
+		}
+
+		if ( 'pending_payment' !== $old_status ) {
+			return false;
+		}
+
+		$payment = $listing->get_latest_payment();
+
+		return ! $payment || 'csv-import' !== $payment->context;
 	}
 
 	/**
