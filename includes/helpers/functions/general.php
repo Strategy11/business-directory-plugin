@@ -1421,9 +1421,48 @@ function wpbdp_get_return_link() {
 		$msg = __( 'Go back', 'business-directory-plugin' );
 	}
 
+	if ( ! $msg && wpbdp_is_main_page_referer( $referer, $referer_vars ) ) {
+		$msg = __( 'Go back', 'business-directory-plugin' );
+	}
+
 	if ( $msg ) {
 		echo '<span class="wpbdp-goback"><a href="' . esc_url( $referer ) . '" >' . esc_html( $msg ) . '</a></span>';
 	}
+}
+
+/**
+ * Checks if the referer is the main directory page, including its paginated pages.
+ *
+ * @since x.x
+ *
+ * @param string $referer      The referer URL.
+ * @param array  $referer_vars The referer query vars.
+ *
+ * @return bool
+ */
+function wpbdp_is_main_page_referer( $referer, $referer_vars ) {
+	if ( isset( $referer_vars['wpbdp_view'] ) ) {
+		return false;
+	}
+
+	$main_page = wpbdp_url( '/' );
+	if ( wp_parse_url( $referer, PHP_URL_HOST ) !== wp_parse_url( $main_page, PHP_URL_HOST ) ) {
+		return false;
+	}
+
+	global $wp_rewrite;
+	$pagination_base = $wp_rewrite->pagination_base ?? 'page';
+	$referer_path    = untrailingslashit( rawurldecode( (string) wp_parse_url( $referer, PHP_URL_PATH ) ) );
+	$referer_path    = preg_replace( '#/' . preg_quote( $pagination_base, '#' ) . '/\d+$#', '', $referer_path );
+
+	if ( $referer_path !== untrailingslashit( rawurldecode( (string) wp_parse_url( $main_page, PHP_URL_PATH ) ) ) ) {
+		return false;
+	}
+
+	$main_vars = array();
+	wp_parse_str( (string) wp_parse_url( $main_page, PHP_URL_QUERY ), $main_vars );
+
+	return array_intersect_assoc( $main_vars, $referer_vars ) === $main_vars;
 }
 
 /**
