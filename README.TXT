@@ -4,7 +4,7 @@ Tags: business directory, directory plugin, member directory, listing manager, c
 Requires at least: 5.9
 Requires PHP: 7.4
 Tested up to: 7.1
-Stable tag: 6.4.28
+Stable tag: 6.4.29
 License: GPLv2 or later
 
 Build a business directory or member directory on WordPress, complete with a listing manager and directory website builder. No developer needed.
@@ -221,6 +221,24 @@ See the guide on [translating the Business Directory Plugin into another languag
 Yes, with one restriction: do not "network activate" the plugin, since that would share the database across every site. Activate it only on the sub-sites that need it, under Plugins -> Add New as the Administrator user. Don't activate it as the "super admin."
 
 == Changelog ==
+= 6.4.29 =
+* Enhancement: Featured image badge now displays in listing titles
+* Enhancement: Directory categories and tags display full width in Astra grid layouts
+* Enhancement: Added "Go back" link when viewing listings from the directory
+* Fix: Search values with + no longer get double-decoded
+* Fix: Social field icons maintain their size when links wrap to new rows
+* Fix: CSV imports now preserve plans, subscriptions, and post status
+* Fix: CSV image field uploads use file names instead of captions
+* Fix: New listing emails send after checkout completes, not before
+* Fix: Search input labels improve form accessibility
+* Fix: Guest account creation works when WP Armour is active
+* Fix: Listings without subscriptions no longer appear on the manage recurring page
+* Fix: Renew buttons display correctly with valid listing details
+* Fix: Directory page pagination is maintained after viewing listing details
+* Fix: Expired held listings no longer show renew button when subscription is active
+* Fix: Listing owners can now renew listings that expired in the past
+* Fix: Single listing shortcodes handle invalid page IDs without errors
+
 = 6.4.28 =
 * Fix: Held listings can now manage subscriptions
 * Fix: Use the first populated email field for listing contact email
@@ -302,8 +320,3 @@ Yes, with one restriction: do not "network activate" the plugin, since that woul
 
 = 6.4.13 =
 * Fix: Enqueue error for csv import
-
-= 6.4.12 =
-* Fix: Bug with the non-meta multiselect and radio buttons listing fields
-* Fix: Bug with the "Start Import" button
-

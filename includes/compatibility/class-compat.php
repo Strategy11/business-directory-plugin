@@ -127,7 +127,7 @@ class WPBDP_Compat {
 	/**
 	 * Point Yoast at the category or tag archive query.
 	 *
-	 * @since x.x
+	 * @since 6.4.29
 	 *
 	 * @return void
 	 */
@@ -158,7 +158,7 @@ class WPBDP_Compat {
 	/**
 	 * Taxonomy archive query built while the directory shortcode rendered.
 	 *
-	 * @since x.x
+	 * @since 6.4.29
 	 *
 	 * @return WP_Query|null
 	 */
@@ -183,7 +183,7 @@ class WPBDP_Compat {
 	/**
 	 * Drop a Yoast page context built before the taxonomy query is active.
 	 *
-	 * @since x.x
+	 * @since 6.4.29
 	 *
 	 * @return void
 	 */
@@ -228,7 +228,7 @@ class WPBDP_Compat {
 	/**
 	 * Put the directory page query back after Yoast restores the archive query.
 	 *
-	 * @since x.x
+	 * @since 6.4.29
 	 *
 	 * @return void
 	 */

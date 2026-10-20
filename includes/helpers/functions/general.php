@@ -1433,7 +1433,7 @@ function wpbdp_get_return_link() {
 /**
  * Checks if the referer is the main directory page, including its paginated pages.
  *
- * @since x.x
+ * @since 6.4.29
  *
  * @param string $referer      The referer URL.
  * @param array  $referer_vars The referer query vars.
@@ -1493,7 +1493,7 @@ function wpbdp_user_is_admin() {
 /**
  * Whether the current user may install Directory Theme packages.
  *
- * @since x.x
+ * @since 6.4.29
  *
  * @return bool
  */
