@@ -9,7 +9,7 @@ if (typeof(window.wpbdp) == 'undefined') {
 /**
  * Give the SelectWoo search inputs the text of the field label.
  *
- * @since x.x
+ * @since 6.4.29
  * @param {jQuery} $selects Select elements initialized with SelectWoo.
  */
 window.wpbdp.labelSelectWooSearch = function( $selects ) {

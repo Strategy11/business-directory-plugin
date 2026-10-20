@@ -11,7 +11,7 @@ class WPBDP__Migrations__18_9 extends WPBDP__Migration {
 	/**
 	 * Mark listings that expired before 6.4.28 as expired from publish so owners can renew them.
 	 *
-	 * @since x.x
+	 * @since 6.4.29
 	 */
 	public function migrate() {
 		global $wpdb;

@@ -136,7 +136,7 @@ function wpbdp_save_listing( $args = array(), $error = false, $context = '' ) {
  * Check if a CSV import of an existing listing should keep its current plan.
  * This keeps the subscription and expiration date when the plan is not changed.
  *
- * @since x.x
+ * @since 6.4.29
  *
  * @param WPBDP_Listing $listing The listing being updated.
  * @param int           $plan_id The plan ID from the CSV, or 0 if none was given.

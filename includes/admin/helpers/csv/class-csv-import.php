@@ -900,7 +900,7 @@ class WPBDP_CSV_Import {
 	 * The value is the file name or attachment ID, then an optional caption.
 	 * Numeric values are existing attachment IDs and are kept as they are.
 	 *
-	 * @since x.x
+	 * @since 6.4.29
 	 *
 	 * @param array $field_data The image field value from the CSV file.
 	 *

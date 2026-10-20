@@ -121,7 +121,7 @@ class WPBDP__Listing_Email_Notification {
 	 * Whether a newly submitted listing just became complete.
 	 * Listings waiting for payment are only announced once the payment completes.
 	 *
-	 * @since x.x
+	 * @since 6.4.29
 	 *
 	 * @param object $listing    An instance of WPBDP_Listing.
 	 * @param string $old_status The previous listing status.

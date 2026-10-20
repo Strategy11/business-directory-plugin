@@ -163,7 +163,7 @@ class WPBDP__CPT_Compat_Mode {
 	/**
 	 * Archive or listing query built for this request.
 	 *
-	 * @since x.x
+	 * @since 6.4.29
 	 *
 	 * @return WP_Query|null
 	 */

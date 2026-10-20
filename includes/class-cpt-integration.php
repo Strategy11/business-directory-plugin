@@ -374,7 +374,7 @@ class WPBDP__CPT_Integration {
 	/**
 	 * Forget that a listing expired from publish once an administrator moves it to pending review.
 	 *
-	 * @since x.x
+	 * @since 6.4.29
 	 *
 	 * @param string  $new_status New post status.
 	 * @param string  $old_status Old post status.

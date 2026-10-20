@@ -119,7 +119,7 @@ class WPBDP__Themes_Compat {
 	/**
 	 * Show directory categories and tags at full width when Astra uses a grid blog layout.
 	 *
-	 * @since x.x
+	 * @since 6.4.29
 	 *
 	 * @param array $classes The classes for the primary content area.
 	 *
