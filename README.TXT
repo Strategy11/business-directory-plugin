@@ -236,7 +236,7 @@ Yes, with one restriction: do not "network activate" the plugin, since that woul
 * Fix: Renew buttons display correctly with valid listing details
 * Fix: Directory page pagination is maintained after viewing listing details
 * Fix: Expired held listings no longer show renew button when subscription is active
-* Fix: Listing owners can now renew listings that expired before version 6.4.28
+* Fix: Listing owners can now renew listings that expired in the past
 * Fix: Single listing shortcodes handle invalid page IDs without errors
 
 = 6.4.28 =
