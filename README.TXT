@@ -222,11 +222,11 @@ Yes, with one restriction: do not "network activate" the plugin, since that woul
 
 == Changelog ==
 = 6.4.29 =
-* Fix: Search values with + no longer get double-decoded
-* Fix: Social field icons maintain their size when links wrap to new rows
 * Enhancement: Featured image badge now displays in listing titles
 * Enhancement: Directory categories and tags display full width in Astra grid layouts
 * Enhancement: Added "Go back" link when viewing listings from the directory
+* Fix: Search values with + no longer get double-decoded
+* Fix: Social field icons maintain their size when links wrap to new rows
 * Fix: CSV imports now preserve plans, subscriptions, and post status
 * Fix: CSV image field uploads use file names instead of captions
 * Fix: New listing emails send after checkout completes, not before
@@ -320,4 +320,3 @@ Yes, with one restriction: do not "network activate" the plugin, since that woul
 
 = 6.4.13 =
 * Fix: Enqueue error for csv import
-
