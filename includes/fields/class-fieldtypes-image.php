@@ -7,6 +7,15 @@
 
 class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 
+	/**
+	 * Attachment meta with the listing an image was uploaded for through this field.
+	 *
+	 * @since x.x
+	 *
+	 * @var string
+	 */
+	const UPLOAD_LISTING_META = '_wpbdp_field_upload_listing';
+
 	public function __construct() {
 		parent::__construct( _x( 'Image (file upload)', 'form-fields api', 'business-directory-plugin' ) );
 
@@ -364,6 +373,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 			);
 
 			if ( $media_id ) {
+				update_post_meta( $media_id, self::UPLOAD_LISTING_META, $listing_id );
 
 				echo '<div class="preview" style="display: none;">';
 				echo wp_get_attachment_image( $media_id, 'thumb', false );
@@ -439,7 +449,16 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 			'request'
 		);
 
-		$media_id = is_array( $image_id ) ? $image_id[0] : $image_id;
+		$media_id = absint( is_array( $image_id ) ? $image_id[0] : $image_id );
+
+		if ( ! wp_attachment_is_image( $media_id ) || ! current_user_can( 'edit_post', $media_id ) ) {
+			return wp_send_json_error(
+				array(
+					'errors'       => __( 'You do not have permission to use this image.', 'business-directory-plugin' ),
+					'errorElement' => '.wpbdp-media-widget',
+				)
+			);
+		}
 
 		$html = wp_get_attachment_image( $media_id, 'thumb', false );
 
@@ -471,16 +490,74 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 			$value = null;
 		}
 
-		if ( is_array( $value ) && ! empty( $value[1] ) ) {
-			wp_update_post(
-				array(
-					'ID'           => $value[0],
-					'post_excerpt' => $value[1],
-				)
-			);
+		if ( is_array( $value ) ) {
+			$can_edit_image = $this->can_edit_image( $value[0], $post_id );
+
+			if ( ! $can_edit_image && ! $this->is_stored_image( $field, $post_id, $value[0] ) ) {
+				// Keep the stored value instead of saving an image the user may not use.
+				return;
+			}
+
+			if ( $can_edit_image && ! empty( $value[1] ) ) {
+				wp_update_post(
+					array(
+						'ID'           => $value[0],
+						'post_excerpt' => $value[1],
+					)
+				);
+			}
 		}
 
 		parent::store_field_value( $field, $post_id, $value );
+	}
+
+	/**
+	 * Whether an image is the one already saved in this field for a listing.
+	 * These are kept, so existing listings can still be edited.
+	 *
+	 * @since x.x
+	 *
+	 * @param WPBDP_Form_Field $field    The image field.
+	 * @param int              $post_id  Listing ID.
+	 * @param int|string       $image_id Attachment ID.
+	 *
+	 * @return bool
+	 */
+	private function is_stored_image( $field, $post_id, $image_id ) {
+		$image_id  = absint( $image_id );
+		$stored    = $field->value( $post_id, true );
+		$stored_id = absint( is_array( $stored ) ? ( $stored[0] ?? 0 ) : $stored );
+
+		return $stored_id === $image_id;
+	}
+
+	/**
+	 * Whether the current user may change an image, including its caption.
+	 *
+	 * @since x.x
+	 *
+	 * @param int|string $image_id Attachment ID.
+	 * @param int        $post_id  Listing ID.
+	 *
+	 * @return bool
+	 */
+	private function can_edit_image( $image_id, $post_id ) {
+		$image_id = absint( $image_id );
+		if ( ! wp_attachment_is_image( $image_id ) ) {
+			return false;
+		}
+
+		if ( current_user_can( 'edit_post', $image_id ) ) {
+			return true;
+		}
+
+		if ( (int) get_post_meta( $image_id, self::UPLOAD_LISTING_META, true ) === (int) $post_id ) {
+			return true;
+		}
+
+		$user_id = get_current_user_id();
+
+		return $user_id && (int) get_post_field( 'post_author', $image_id ) === $user_id;
 	}
 
 	public function convert_input( &$field, $input ) {
