@@ -320,7 +320,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 				$img_size = 'medium';
 			}
 
-			$img_id    = $listing->get_thumbnail_id();
+			$img_id    = post_password_required( $listing->get_id() ) ? 0 : $listing->get_thumbnail_id();
 			$permalink = $listing->get_permalink();
 
 			if ( $img_id ) {

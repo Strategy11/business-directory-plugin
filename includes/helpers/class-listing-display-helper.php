@@ -276,7 +276,7 @@ class WPBDP_Listing_Display_Helper {
 			'thumbnail' => false,
 		);
 
-		if ( ! wpbdp_get_option( 'allow-images' ) ) {
+		if ( ! wpbdp_get_option( 'allow-images' ) || post_password_required( $listing_id ) ) {
 			return $vars;
 		}
 
