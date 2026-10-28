@@ -476,7 +476,7 @@ class WPBDP__WordPress_Template_Integration {
 			return false;
 		}
 		$which_thumbnail = wpbdp_get_option( 'which-thumbnail' );
-		return $which_thumbnail !== 'theme';
+		return $which_thumbnail !== 'theme' || post_password_required( get_queried_object() );
 	}
 
 	private function end_query() {
