@@ -225,6 +225,10 @@ class WPBDP_Listing_Display_Helper {
 			return array();
 		}
 
+		if ( post_password_required( $listing_id ) ) {
+			$display_fields = self::only_title_fields( $display_fields );
+		}
+
 		$listing_cats = $listing->get_categories( 'ids' );
 		foreach ( $display_fields as $field ) {
 			if ( ! $field->validate_categories( $listing_cats ) ) {
@@ -243,6 +247,24 @@ class WPBDP_Listing_Display_Helper {
 		return array(
 			'fields'              => $list,
 			'listing_has_excerpt' => $list->has_excerpt(),
+		);
+	}
+
+	/**
+	 * Keep only the title for listings that still need their post password.
+	 *
+	 * @since x.x
+	 *
+	 * @param array $fields Form fields.
+	 *
+	 * @return array
+	 */
+	private static function only_title_fields( $fields ) {
+		return array_filter(
+			$fields,
+			function ( $field ) {
+				return $field->get_association() === 'title';
+			}
 		);
 	}
 

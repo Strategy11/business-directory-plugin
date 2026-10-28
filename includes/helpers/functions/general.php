@@ -1246,6 +1246,8 @@ function wpbdp_render_listing( $listing_id = null, $view = 'single', $echo = fal
 
 	if ( 'excerpt' === $view ) {
 		$html = WPBDP_Listing_Display_Helper::excerpt();
+	} elseif ( post_password_required() ) {
+		$html = get_the_password_form();
 	} else {
 		$html = WPBDP_Listing_Display_Helper::single();
 	}
