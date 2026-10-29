@@ -283,7 +283,9 @@ class WPBDP_FieldTypes_Checkbox extends WPBDP_Form_Field_Type {
 			'_wpbdp[fields][' . $field->get_id() . ']'
 		);
 
-		$pattern             = '(^|\t)(' . implode( '|', $query ) . ')(\t|$)';
+		// Match whole tab-separated values, allowing spaces around each one (CSV imports can store "A\t B").
+		// Use a real tab character: older MySQL REGEXP engines do not support the "\t" escape.
+		$pattern             = "(^|\t)[[:space:]]*(" . implode( '|', $query ) . ")[[:space:]]*(\t|$)";
 		$search_res['where'] = $wpdb->prepare( "{$alias}.meta_value REGEXP %s", $pattern );
 
 		return $search_res;

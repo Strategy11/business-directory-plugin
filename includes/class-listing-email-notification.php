@@ -13,6 +13,7 @@ class WPBDP__Listing_Email_Notification {
 	 */
 	public function __construct() {
 		add_action( 'transition_post_status', array( $this, 'listing_published_notification' ), 10, 3 );
+		add_action( 'save_post', array( $this, 'send_deferred_published_notification' ), PHP_INT_MAX, 2 );
 		add_action( 'wpbdp_listing_status_change', array( $this, 'status_change_notifications' ), 10, 3 );
 		add_action( 'wpbdp_edit_listing', array( $this, 'edit_listing_admin_email' ) );
 
@@ -22,9 +23,7 @@ class WPBDP__Listing_Email_Notification {
 
 		add_action( 'wpbdp_listing_maybe_flagging_notice', array( $this, 'reported_listing_email' ), 10, 2 );
 
-		if ( ! is_admin() ) {
-			add_action( 'WPBDP_Payment::status_change', array( $this, 'payment_completed_email' ), 10, 3 );
-		}
+		add_action( 'WPBDP_Payment::status_change', array( $this, 'payment_completed_email' ), 10, 3 );
 	}
 
 	/**
@@ -53,6 +52,13 @@ class WPBDP__Listing_Email_Notification {
 			return;
 		}
 
+		if ( $this->is_block_editor_save() ) {
+			// Listing fields are saved in the block editor's follow-up meta-box-loader request,
+			// so send the email once they exist.
+			update_post_meta( $post->ID, '_wpbdp_published_notification_pending', time() );
+			return;
+		}
+
 		if ( isset( $_POST['original_post_status'] ) && 'auto-draft' === $_POST['original_post_status'] ) {
 			add_action( 'save_post', array( $this, 'send_listing_published_notification' ), PHP_INT_MAX, 2 );
 			add_action( 'save_post', array( $this, 'try_to_remove_listing_published_notification_action' ), PHP_INT_MAX );
@@ -60,6 +66,54 @@ class WPBDP__Listing_Email_Notification {
 		}
 
 		$this->send_listing_published_notification( $post->ID, $post );
+	}
+
+	/**
+	 * Whether the current request is the block editor saving a post through the REST API.
+	 * The block editor adds `_locale=user` to every request it sends.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private function is_block_editor_save() {
+		if ( ! defined( 'REST_REQUEST' ) || ! REST_REQUEST ) {
+			return false;
+		}
+
+		return 'user' === wpbdp_get_var( array( 'param' => '_locale' ) );
+	}
+
+	/**
+	 * Sends the listing published notification deferred from the block editor's REST save,
+	 * once the meta box request has saved the listing fields.
+	 *
+	 * @since x.x
+	 *
+	 * @param int    $post_id The ID of the saved post.
+	 * @param object $post    An instance of WP_Post.
+	 *
+	 * @return void
+	 */
+	public function send_deferred_published_notification( $post_id, $post ) {
+		if ( ! wpbdp_get_var( array( 'param' => 'meta-box-loader' ) ) || WPBDP_POST_TYPE !== $post->post_type ) {
+			return;
+		}
+
+		$pending = (int) get_post_meta( $post_id, '_wpbdp_published_notification_pending', true );
+
+		if ( ! $pending ) {
+			return;
+		}
+
+		delete_post_meta( $post_id, '_wpbdp_published_notification_pending' );
+
+		// Ignore a flag left behind by a meta box request that never happened.
+		if ( time() - $pending > HOUR_IN_SECONDS ) {
+			return;
+		}
+
+		$this->send_listing_published_notification( $post_id, $post );
 	}
 
 	/**
@@ -74,6 +128,9 @@ class WPBDP__Listing_Email_Notification {
 		if ( 'publish' !== get_post_status( $post_id ) ) {
 			return;
 		}
+
+		// This email is being sent now, so a deferred block editor send is no longer needed.
+		delete_post_meta( $post_id, '_wpbdp_published_notification_pending' );
 
 		$email = wpbdp_email_from_template(
 			'email-templates-listing-published',
@@ -430,6 +487,10 @@ class WPBDP__Listing_Email_Notification {
 	}
 
 	public function payment_completed_email( $payment, $old_status, $new_status ) {
+		if ( ! $this->should_send_payment_completed_email( $payment, $new_status ) ) {
+			return;
+		}
+
 		$listing = wpbdp_get_listing( $payment->listing_id );
 
 		if ( ! $listing || $old_status === $new_status ) {
@@ -506,5 +567,25 @@ class WPBDP__Listing_Email_Notification {
 
 			$email->send();
 		}
+	}
+
+	/**
+	 * Whether a payment status change should send the payment completed emails.
+	 * Gateways may complete payments over admin-ajax, so only status changes made
+	 * by an admin on a wp-admin screen and imported payments are skipped.
+	 *
+	 * @since x.x
+	 *
+	 * @param WPBDP_Payment $payment    The payment.
+	 * @param string        $new_status The new payment status.
+	 *
+	 * @return bool
+	 */
+	private function should_send_payment_completed_email( $payment, $new_status ) {
+		if ( 'completed' !== $new_status || 'csv-import' === $payment->context ) {
+			return false;
+		}
+
+		return ! is_admin() || wp_doing_ajax();
 	}
 }
