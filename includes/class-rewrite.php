@@ -121,6 +121,11 @@ class WPBDP__Rewrite {
 	public function _redirect_canonical( $redirect_url, $requested_url ) {
 		global $wp_query;
 
+		if ( $this->is_non_listing_id_request() ) {
+			// Don't send a listing URL with an ID of another post type to that post.
+			return false;
+		}
+
 		if ( $main_page_id = wpbdp_get_page_id( 'main' ) ) {
 			if ( is_page() && ! is_feed() && isset( $wp_query->queried_object ) &&
 				get_option( 'show_on_front' ) == 'page' &&
@@ -130,6 +135,24 @@ class WPBDP__Rewrite {
 		}
 
 		return $redirect_url;
+	}
+
+	/**
+	 * Check if this is a 404 listing request whose ID belongs to a post that isn't a listing.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private function is_non_listing_id_request() {
+		$post_id = (int) get_query_var( 'p' );
+		if ( ! $post_id || ! is_404() || WPBDP_POST_TYPE !== get_query_var( 'post_type' ) ) {
+			return false;
+		}
+
+		$post_type = get_post_type( $post_id );
+
+		return $post_type && WPBDP_POST_TYPE !== $post_type;
 	}
 
 	public function _template_redirect() {
