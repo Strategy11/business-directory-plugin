@@ -138,6 +138,12 @@ class WPBDP__Listing_Email_Notification {
 			return true;
 		}
 
+		global $wpbdp;
+
+		if ( ! empty( $wpbdp->_importing_csv ) ) {
+			return $this->is_new_imported_listing( $listing, $old_status );
+		}
+
 		if ( 'pending_payment' !== $old_status ) {
 			return false;
 		}
@@ -145,6 +151,27 @@ class WPBDP__Listing_Email_Notification {
 		$payment = $listing->get_latest_payment();
 
 		return ! $payment || 'csv-import' !== $payment->context;
+	}
+
+	/**
+	 * Whether a listing completed during a CSV import was created by that import.
+	 * Re-imported listings only get plan change payments, so they are not announced again.
+	 *
+	 * @since x.x
+	 *
+	 * @param object $listing    An instance of WPBDP_Listing.
+	 * @param string $old_status The previous listing status.
+	 *
+	 * @return bool
+	 */
+	private function is_new_imported_listing( $listing, $old_status ) {
+		if ( ! in_array( $old_status, array( 'unknown', 'pending_payment' ), true ) ) {
+			return false;
+		}
+
+		$payment = $listing->get_latest_payment();
+
+		return $payment && 'initial' === $payment->payment_type;
 	}
 
 	/**
