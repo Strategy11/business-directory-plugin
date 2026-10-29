@@ -121,26 +121,43 @@ jQuery( function( $ ) {
         } else if ( $input.is('#wpbdp-listing-plan-select') && $input.val() ) {
             // Plan changes are handled in a special way.
 			var listing_id = $( 'input[name="post_ID"]' ).val();
+			const planId = $input.val();
 
-			$.ajax(ajaxurl, {
-				data: {
-					action: 'wpbdp-assign-plan-to-listing',
-					nonce: wpbdp_global.nonce,
-					listing_id: listing_id,
-					plan_id: $input.val()
-				},
-				type: 'POST',
-				dataType: 'json',
-				success: function(res) {
-					if ( res.success ) {
-						var plan = res.data;
-						$metabox_tab.find('input[name="listing_plan[fee_id]"]').val(plan.id);
-						$metabox_tab.find('input[name="listing_plan[expiration_date]"]').val(plan.expiration_date);
-						$metabox_tab.find('input[name="listing_plan[fee_images]"]').val(plan.images);
-						updateText( plan );
+			/**
+			 * Assign the selected plan. If the current subscription can't be canceled,
+			 * ask before changing the plan anyway.
+			 *
+			 * @param {number} force 1 to change the plan without canceling the subscription.
+			 */
+			const assignPlan = function( force ) {
+				$.ajax(ajaxurl, {
+					data: {
+						action: 'wpbdp-assign-plan-to-listing',
+						nonce: wpbdp_global.nonce,
+						listing_id: listing_id,
+						plan_id: planId,
+						force
+					},
+					type: 'POST',
+					dataType: 'json',
+					success: function(res) {
+						if ( res.success ) {
+							const plan = res.data;
+							$metabox_tab.find('input[name="listing_plan[fee_id]"]').val(plan.id);
+							$metabox_tab.find('input[name="listing_plan[expiration_date]"]').val(plan.expiration_date);
+							$metabox_tab.find('input[name="listing_plan[fee_images]"]').val(plan.images);
+							updateText( plan );
+						} else if ( ! force && res.data && res.data.error && window.confirm( res.data.error ) ) {
+							assignPlan( 1 );
+						} else {
+							// Keep the selector in sync with the plan that is still assigned.
+							$input.val( $metabox_tab.find( 'input[name="listing_plan[fee_id]"]' ).val() );
+						}
 					}
-				}
-			});
+				});
+			};
+
+			assignPlan( 0 );
 		} else {
 			// Handle updating other fields.
 			$display.html( $input.val() );
