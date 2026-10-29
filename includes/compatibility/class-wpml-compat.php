@@ -48,6 +48,8 @@ class WPBDP_WPML_Compat {
 
 			add_filter( 'wpbdp_form_field_value', array( $this, 'maybe_use_original_field_value' ), 10, 3 );
 			add_filter( 'wpbdp_form_field_html_value', array( $this, 'maybe_use_original_field_html_value' ), 10, 4 );
+		} else {
+			add_filter( 'post_type_link', array( $this, 'admin_listing_link' ), 11, 2 );
 		}
 
 		add_action( 'admin_footer', array( $this, 'maybe_register_some_strings' ) );
@@ -96,6 +98,54 @@ class WPBDP_WPML_Compat {
 		}
 
 		return $trans_id;
+	}
+
+	/**
+	 * In the admin area, build listing links on the directory page in the listing's language.
+	 *
+	 * The language filters for page IDs only run on the front end, so the admin
+	 * would otherwise use whichever directory page was found first.
+	 *
+	 * @since x.x
+	 *
+	 * @param string      $link The listing permalink.
+	 * @param int|WP_Post $post The listing.
+	 *
+	 * @return string
+	 */
+	public function admin_listing_link( $link, $post ) {
+		$post = get_post( $post );
+		if ( ! $post || WPBDP_POST_TYPE !== $post->post_type || ! wpbdp_rewrite_on() ) {
+			return $link;
+		}
+
+		$lang = apply_filters(
+			'wpml_element_language_code',
+			null,
+			array(
+				'element_id'   => $post->ID,
+				'element_type' => WPBDP_POST_TYPE,
+			)
+		);
+		if ( ! $lang ) {
+			return $link;
+		}
+
+		$main_id  = wpbdp_get_page_id( 'main' );
+		$trans_id = $main_id ? apply_filters( 'wpml_object_id', $main_id, 'page', false, $lang ) : 0;
+		if ( ! $trans_id ) {
+			return $link;
+		}
+
+		$base_link = apply_filters( 'wpbdp_url_base_url', _get_page_link( $main_id ), $main_id );
+		if ( false === strpos( $link, $base_link ) ) {
+			return $link;
+		}
+
+		$trans_link = apply_filters( 'wpbdp_url_base_url', get_page_link( $trans_id ), $trans_id );
+		$trans_link = $this->fix_get_page_link( $trans_link, $trans_id );
+
+		return $this->maybe_add_lang_query_arg( str_replace( $base_link, $trans_link, $link ), $lang );
 	}
 
 	public function add_lang_to_link( $link ) {
