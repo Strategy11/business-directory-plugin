@@ -281,15 +281,15 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 * @return string
 	 */
 	private function render_item( $post, $args ) {
-		$listing       = wpbdp_get_listing( $post->ID );
-		$listing_title = sprintf(
-			'<div class="wpbdp-listing-title"><a class="listing-title" href="%s">%s</a></div>',
-			esc_url( $listing->get_permalink() ),
-			esc_html( $listing->get_title() )
+		$listing          = wpbdp_get_listing( $post->ID );
+		$args['can_view'] = wpbdp_user_can( 'view', $listing->get_id() );
+		$listing_title    = sprintf(
+			'<div class="wpbdp-listing-title">%s</div>',
+			$this->maybe_link( esc_html( $listing->get_title() ), $listing, $args['can_view'], 'listing-title', 'listing-title' )
 		);
-		$html_image    = $this->render_image( $listing, $args );
-		$fields        = sprintf( '<div class="wpbdp-listing-fields">%s</div>', $this->render_fields( $listing, $args['fields'] ) );
-		$template      = '<li class="wpbdp-listings-widget-item %1$s"><div class="wpbdp-listings-widget-container">';
+		$html_image       = $this->render_image( $listing, $args );
+		$fields           = sprintf( '<div class="wpbdp-listing-fields">%s</div>', $this->render_fields( $listing, $args['fields'] ) );
+		$template         = '<li class="wpbdp-listings-widget-item %1$s"><div class="wpbdp-listings-widget-container">';
 		if ( ! empty( $html_image ) ) {
 			$template .= '<div class="wpbdp-listings-widget-thumb">%2$s</div>';
 		} else {
@@ -320,25 +320,57 @@ class WPBDP_Listings_Widget extends WP_Widget {
 				$img_size = 'medium';
 			}
 
-			$img_id    = post_password_required( $listing->get_id() ) ? 0 : $listing->get_thumbnail_id();
-			$permalink = $listing->get_permalink();
+			$img_id = post_password_required( $listing->get_id() ) ? 0 : $listing->get_thumbnail_id();
 
 			if ( $img_id ) {
-				$image_link = '<a href="' . esc_url( $permalink ) . '">' .
-					wp_get_attachment_image( $img_id, $img_size, false, array( 'class' => 'listing-image' ) ) .
-					'</a>';
+				$image_link = $this->maybe_link(
+					wp_get_attachment_image( $img_id, $img_size, false, array( 'class' => 'listing-image' ) ),
+					$listing,
+					$args['can_view'],
+					'',
+					'wpbdp-listings-widget-thumb-nolink'
+				);
 			} elseif ( $args['default_image'] ) {
 				$class      = "attachment-$img_size size-$img_size listing-image";
-				$image_link = '<a href="' . esc_url( $permalink ) . '">' .
+				$image_link = $this->maybe_link(
 					'<img src="' . esc_url( $args['coming_soon_image'] ) . '" class="' . esc_attr( $class ) . '" ' .
-					'alt="' . esc_attr( $listing->get_title() ) . '" loading="lazy" />' .
-					'</a>';
+					'alt="' . esc_attr( $listing->get_title() ) . '" loading="lazy" />',
+					$listing,
+					$args['can_view'],
+					'',
+					'wpbdp-listings-widget-thumb-nolink'
+				);
 			} else {
 				// For image spacing.
 				$image_link = '<span></span>';
 			}
 		}
 		return apply_filters( 'wpbdp_listings_widget_render_image', wp_kses_post( $image_link ), $listing );
+	}
+
+	/**
+	 * Wrap the content in a link to the listing, only when the current user can view it.
+	 * This avoids linking to detail pages that would return a 404. When the listing
+	 * can't be viewed, the content is wrapped in a span so it keeps its styling.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $content      Already escaped HTML.
+	 * @param object $listing      The listing object.
+	 * @param bool   $can_view     Whether the current user can view the listing.
+	 * @param string $link_class   Optional CSS class for the link.
+	 * @param string $nolink_class Optional CSS class for the span used instead of the link.
+	 *
+	 * @return string
+	 */
+	private function maybe_link( $content, $listing, $can_view, $link_class = '', $nolink_class = '' ) {
+		if ( ! $can_view ) {
+			return '<span class="' . esc_attr( $nolink_class ) . '">' . $content . '</span>';
+		}
+
+		$class_attr = $link_class ? ' class="' . esc_attr( $link_class ) . '"' : '';
+
+		return '<a' . $class_attr . ' href="' . esc_url( $listing->get_permalink() ) . '">' . $content . '</a>';
 	}
 
 	/**
