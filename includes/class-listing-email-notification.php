@@ -22,9 +22,7 @@ class WPBDP__Listing_Email_Notification {
 
 		add_action( 'wpbdp_listing_maybe_flagging_notice', array( $this, 'reported_listing_email' ), 10, 2 );
 
-		if ( ! is_admin() ) {
-			add_action( 'WPBDP_Payment::status_change', array( $this, 'payment_completed_email' ), 10, 3 );
-		}
+		add_action( 'WPBDP_Payment::status_change', array( $this, 'payment_completed_email' ), 10, 3 );
 	}
 
 	/**
@@ -430,6 +428,10 @@ class WPBDP__Listing_Email_Notification {
 	}
 
 	public function payment_completed_email( $payment, $old_status, $new_status ) {
+		if ( ! $this->should_send_payment_completed_email( $payment, $new_status ) ) {
+			return;
+		}
+
 		$listing = wpbdp_get_listing( $payment->listing_id );
 
 		if ( ! $listing || $old_status === $new_status ) {
@@ -506,5 +508,25 @@ class WPBDP__Listing_Email_Notification {
 
 			$email->send();
 		}
+	}
+
+	/**
+	 * Whether a payment status change should send the payment completed emails.
+	 * Gateways may complete payments over admin-ajax, so only status changes made
+	 * by an admin on a wp-admin screen and imported payments are skipped.
+	 *
+	 * @since x.x
+	 *
+	 * @param WPBDP_Payment $payment    The payment.
+	 * @param string        $new_status The new payment status.
+	 *
+	 * @return bool
+	 */
+	private function should_send_payment_completed_email( $payment, $new_status ) {
+		if ( 'completed' !== $new_status || 'csv-import' === $payment->context ) {
+			return false;
+		}
+
+		return ! is_admin() || wp_doing_ajax();
 	}
 }
