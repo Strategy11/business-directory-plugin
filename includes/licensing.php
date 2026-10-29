@@ -505,7 +505,10 @@ class WPBDP_Licensing {
 		$error_number  = curl_errno( $ch );
 		$error_message = curl_error( $ch );
 
-		curl_close( $ch );
+		if ( PHP_VERSION_ID < 80000 ) {
+			// phpcs:ignore Generic.PHP.DeprecatedFunctions.Deprecated -- No-op since PHP 8.0, deprecated in 8.5.
+			curl_close( $ch );
+		}
 
 		$error_id = 'request-failed';
 
