@@ -708,6 +708,10 @@ class WPBDP_Admin_Listings {
 		}
 
 		if ( ! $current_plan || (int) $current_plan->fee_id != (int) $new_plan['fee_id'] ) {
+			if ( ! $this->cancel_subscription_before_plan_change( $listing, $new_plan['fee_id'] ) ) {
+				return;
+			}
+
 			$payment = $listing->set_fee_plan_with_payment( $new_plan['fee_id'] );
 
 			if ( $payment ) {
@@ -739,6 +743,78 @@ class WPBDP_Admin_Listings {
 		} elseif ( ! $not_expired && $row['expiration_date'] ) {
 			$listing->set_status( 'expired' );
 		}
+	}
+
+	/**
+	 * Cancel the listing's subscription before the plan posted with the listing form replaces it.
+	 * If it can't be canceled, the error is shown after the redirect and the plan is kept.
+	 *
+	 * @since x.x
+	 *
+	 * @param WPBDP_Listing $listing     The listing being saved.
+	 * @param int|string    $new_plan_id The plan ID posted with the form.
+	 *
+	 * @return bool False if the plan change should not continue.
+	 */
+	private function cancel_subscription_before_plan_change( $listing, $new_plan_id ) {
+		if ( ! $listing->get_fee_plan() || ! wpbdp_get_fee_plan( $new_plan_id ) ) {
+			return true;
+		}
+
+		$error = $this->maybe_cancel_subscription( $listing );
+
+		if ( ! $error ) {
+			return true;
+		}
+
+		$transient_key  = 'wpbdp_field_validation_errors_' . $listing->get_id() . '_' . get_current_user_id();
+		$errors         = get_transient( $transient_key );
+		$errors         = is_array( $errors ) ? $errors : array();
+		$errors['plan'] = array(
+			'label'  => __( 'Plan', 'business-directory-plugin' ),
+			'errors' => array( $error ),
+		);
+		set_transient( $transient_key, $errors, 60 );
+
+		return false;
+	}
+
+	/**
+	 * Cancel the listing's gateway subscription, so the customer isn't billed for
+	 * the old plan after the plan is changed.
+	 *
+	 * @since x.x
+	 *
+	 * @param WPBDP_Listing $listing The listing.
+	 *
+	 * @return string An error message if the subscription could not be canceled.
+	 */
+	private function maybe_cancel_subscription( $listing ) {
+		if ( ! $listing->has_subscription() ) {
+			return '';
+		}
+
+		$subscription = $listing->get_subscription();
+
+		if ( ! $subscription || ! $subscription->get_subscription_id() ) {
+			// There is no gateway subscription to cancel.
+			return '';
+		}
+
+		global $wpbdp;
+
+		try {
+			$wpbdp->payments->cancel_subscription( $listing, $subscription );
+		} catch ( Exception $e ) {
+			return html_entity_decode( $e->getMessage(), ENT_QUOTES );
+		}
+
+		if ( $listing->has_subscription() ) {
+			// Some gateways return without an error when the subscription isn't canceled.
+			return __( 'The current subscription could not be canceled with the payment gateway, so the plan was not changed.', 'business-directory-plugin' );
+		}
+
+		return '';
 	}
 
 	public function _add_bulk_actions() {
@@ -861,7 +937,18 @@ class WPBDP_Admin_Listings {
 		$listing      = wpbdp_get_listing( $listing_id );
 		$current_plan = $listing->get_fee_plan();
 
+		if ( ! wpbdp_get_fee_plan( $plan_id ) || ! current_user_can( 'edit_post', $listing_id ) ) {
+			wp_send_json_error();
+		}
+
 		if ( ! $current_plan || (int) $current_plan->fee_id !== (int) $plan_id ) {
+			$error = wpbdp_get_var( array( 'param' => 'force' ), 'post' ) ? '' : $this->maybe_cancel_subscription( $listing );
+
+			if ( $error ) {
+				$error .= ' ' . __( 'Change the plan anyway? The current subscription will not be canceled, so cancel it with your payment processor.', 'business-directory-plugin' );
+				wp_send_json_error( array( 'error' => $error ) );
+			}
+
 			$listing->set_fee_plan( $plan_id );
 		}
 
