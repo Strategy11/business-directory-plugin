@@ -92,6 +92,24 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	}
 
 	/**
+	 * Stripe Checkout collects the payer details, so this form has no billing fields.
+	 * Skip validation for free payments that never go to Stripe.
+	 *
+	 * @since x.x
+	 *
+	 * @param WPBDP_Payment $payment Payment object.
+	 *
+	 * @return array
+	 */
+	public function validate_form( $payment ) {
+		if ( ! $payment->show_payment_options() ) {
+			return array();
+		}
+
+		return parent::validate_form( $payment );
+	}
+
+	/**
 	 * Override this in the individual gateway class.
 	 *
 	 * @since 6.4.9
