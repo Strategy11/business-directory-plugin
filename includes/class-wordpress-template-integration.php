@@ -44,7 +44,7 @@ class WPBDP__WordPress_Template_Integration {
 			return $template;
 		}
 
-		$allow_override = apply_filters( 'wpbdp_allow_template_override', true );
+		$allow_override = apply_filters( 'wpbdp_allow_template_override', ! $this->is_elementor_listing_template( $template ) );
 
 		/**
 		 * Some themes work better without using the page template.
@@ -77,6 +77,25 @@ class WPBDP__WordPress_Template_Integration {
 		}
 
 		return $template;
+	}
+
+	/**
+	 * Check if Elementor set the template for a single listing, like an Elementor Pro
+	 * Theme Builder template or an Elementor page template. BD should not replace it.
+	 * Any template file inside the Elementor plugin folder counts.
+	 *
+	 * @since x.x
+	 *
+	 * @param string $template The template path from earlier template_include callbacks.
+	 *
+	 * @return bool
+	 */
+	private function is_elementor_listing_template( $template ) {
+		if ( ! defined( 'ELEMENTOR_PATH' ) || ! is_string( $template ) || ! is_singular( WPBDP_POST_TYPE ) ) {
+			return false;
+		}
+
+		return strpos( wp_normalize_path( $template ), wp_normalize_path( ELEMENTOR_PATH ) ) === 0;
 	}
 
 	private function get_template_alternatives() {
