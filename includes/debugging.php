@@ -47,7 +47,7 @@ class WPBDP_Debugging {
 		);
 	}
 
-	public static function _php_error_handler( $errno, $errstr, $file, $line, $context ) {
+	public static function _php_error_handler( $errno, $errstr, $file, $line, $context = null ) {
 		static $errno_to_string = array(
 			E_ERROR        => 'error',
 			E_WARNING      => 'warning',
