@@ -238,7 +238,7 @@ class WPBDP_Payment extends WPBDP__DB__Model {
 		foreach ( $map as $key => $fields ) {
 			foreach ( $fields as $field ) {
 				if ( empty( $data[ $key ] ) ) {
-					$data[ $key ] = $this->listing->get_field_value( $field );
+					$data[ $key ] = $this->listing->get_field_plain_value( $field );
 				}
 			}
 		}

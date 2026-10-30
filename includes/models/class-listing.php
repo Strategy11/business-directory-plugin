@@ -14,24 +14,53 @@ class WPBDP_Listing {
 	}
 
 	public function get_field_value( $id ) {
-		$field = null;
-
-		if ( is_numeric( $id ) ) {
-			$field = wpbdp_get_form_field( $id );
-		} else {
-			$field = wpbdp_get_form_fields(
-				array(
-					'association' => $id,
-					'unique'      => true,
-				)
-			);
-			if ( ! $field ) {
-				// Get the field by key.
-				$field = wpbdp_get_form_field( $id );
-			}
-		}
+		$field = $this->find_field( $id );
 
 		return $field ? $field->html_value( $this->id ) : '';
+	}
+
+	/**
+	 * Get a field value as plain text, without display markup.
+	 * Use this when the value is used as data, like payer details at checkout.
+	 *
+	 * @since x.x
+	 *
+	 * @param int|string $id The field ID, association or key.
+	 *
+	 * @return mixed
+	 */
+	public function get_field_plain_value( $id ) {
+		$field = $this->find_field( $id );
+
+		return $field ? $field->plain_value( $this->id ) : '';
+	}
+
+	/**
+	 * Find a form field by ID, association or key.
+	 *
+	 * @since x.x
+	 *
+	 * @param int|string $id The field ID, association or key.
+	 *
+	 * @return WPBDP_Form_Field|null
+	 */
+	private function find_field( $id ) {
+		if ( is_numeric( $id ) ) {
+			return wpbdp_get_form_field( $id );
+		}
+
+		$field = wpbdp_get_form_fields(
+			array(
+				'association' => $id,
+				'unique'      => true,
+			)
+		);
+		if ( ! $field ) {
+			// Get the field by key.
+			$field = wpbdp_get_form_field( $id );
+		}
+
+		return $field;
 	}
 
 	public function get_modified_date() {
