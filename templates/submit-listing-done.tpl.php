@@ -29,7 +29,9 @@
 
 	<p>
 		<?php if ( 'publish' === get_post_status( $listing->get_id() ) ) : ?>
-			<a href="<?php echo esc_url( get_permalink( $listing->get_id() ) ); ?>"><?php esc_html_e( 'Go to your listing', 'business-directory-plugin' ); ?></a> |
+			<?php if ( wpbdp_user_can( 'view', $listing->get_id() ) ) : ?>
+				<a href="<?php echo esc_url( get_permalink( $listing->get_id() ) ); ?>"><?php esc_html_e( 'Go to your listing', 'business-directory-plugin' ); ?></a> |
+			<?php endif; ?>
 		<?php elseif ( ! wpbdp_user_is_admin() ) : ?>
 			<?php echo esc_html_x( 'Your listing requires admin approval. You\'ll be notified once your listing is approved.', 'templates', 'business-directory-plugin' ); ?>
 	</p>
