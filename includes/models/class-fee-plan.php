@@ -381,7 +381,8 @@ final class WPBDP__Fee_Plan {
 
 		// Unset details for categories that are not supported.
 		if ( 'variable' === $this->pricing_model ) {
-			$this->amount = 0.0;
+			$this->amount          = 0.0;
+			$this->pricing_details = array_map( 'floatval', is_array( $this->pricing_details ) ? $this->pricing_details : array() );
 
 			if ( 'all' !== $this->supported_categories ) {
 				$this->pricing_details = wp_array_slice_assoc( $this->pricing_details, $this->supported_categories );
@@ -432,7 +433,7 @@ final class WPBDP__Fee_Plan {
 
 			$error_message = _x( 'To set this plan as "Recurring" you must set a price for your plan. To avoid issues with the listing, please edit the <a>plan</a> appropriately.', 'fees-api', 'business-directory-plugin' );
 
-			if ( 'variable' === $this->pricing_model && 0 === array_sum( $this->pricing_details ) ) {
+			if ( 'variable' === $this->pricing_model && 0.0 === (float) array_sum( $this->pricing_details ) ) {
 				$errors[] = str_replace( '<a>', '<a href="#wpbdp-fee-form-fee-category">', $error_message );
 			}
 

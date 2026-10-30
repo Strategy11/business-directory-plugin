@@ -112,7 +112,10 @@ abstract class AuthorizeNetRequest
             
             file_put_contents($this->_log_file, "----Response----\n$response\n\n", FILE_APPEND);
         }
-        curl_close($curl_request);
+        if (PHP_VERSION_ID < 80000) {
+            // phpcs:ignore Generic.PHP.DeprecatedFunctions.Deprecated -- No-op since PHP 8.0, deprecated in 8.5.
+            curl_close($curl_request);
+        }
         
         return $this->_handleResponse($response);
     }
