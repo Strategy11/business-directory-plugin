@@ -603,11 +603,22 @@ class WPBDP_Form_Field {
 	 * @since 4.1.6
 	 */
 	public function get_schema_org( $post_id ) {
-		if ( $this->has_display_flag( 'private' ) && ! wpbdp_user_is_admin() ) {
+		if ( $this->is_hidden_from_current_user() ) {
 			return array();
 		}
 
 		return $this->type->get_schema_org( $this, $post_id );
+	}
+
+	/**
+	 * Check if this field is limited to admins and the current user is not one.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	public function is_hidden_from_current_user() {
+		return $this->has_display_flag( 'private' ) && ! wpbdp_user_is_admin();
 	}
 
 	/**
