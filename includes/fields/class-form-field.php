@@ -603,6 +603,10 @@ class WPBDP_Form_Field {
 	 * @since 4.1.6
 	 */
 	public function get_schema_org( $post_id ) {
+		if ( $this->has_display_flag( 'private' ) && ! wpbdp_user_is_admin() ) {
+			return array();
+		}
+
 		return $this->type->get_schema_org( $this, $post_id );
 	}
 
