@@ -155,7 +155,7 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 		}
 
 		$fee = wpbdp_get_fee_plan( $listing_plan );
-		if ( ! $fee ) {
+		if ( ! $fee || ! $this->is_renewal_plan( $fee ) ) {
 			return;
 		}
 
@@ -195,10 +195,44 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 		$params = array(
 			'listing'      => $this->listing,
 			'current_plan' => $current_plan,
-			'plans'        => wpbdp_get_fee_plans(),
+			'plans'        => $this->get_renewal_plans(),
 		);
 
 		return wpbdp_render( 'renew-listing', $params );
+	}
+
+	/**
+	 * Get the plans the listing can be renewed with.
+	 *
+	 * @since x.x
+	 *
+	 * @return array
+	 */
+	private function get_renewal_plans() {
+		return wpbdp_get_fee_plans(
+			array(
+				'categories' => $this->listing->get_categories( 'ids' ),
+			)
+		);
+	}
+
+	/**
+	 * Check if a plan is one of the plans offered for this renewal.
+	 *
+	 * @since x.x
+	 *
+	 * @param WPBDP__Fee_Plan $plan The plan posted with the renewal form.
+	 *
+	 * @return bool
+	 */
+	private function is_renewal_plan( $plan ) {
+		foreach ( $this->get_renewal_plans() as $renewal_plan ) {
+			if ( (int) $renewal_plan->id === (int) $plan->id ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	private function fee_confirm( $payment = null ) {

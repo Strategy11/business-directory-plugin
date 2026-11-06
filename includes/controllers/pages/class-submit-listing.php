@@ -1229,7 +1229,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		} elseif ( $categories ) {
 			$plan = wpbdp_get_fee_plan( $plan_id );
 
-			if ( ! $plan || ! $plan->enabled || ! $plan->supports_category_selection( $categories ) ) {
+			if ( ! $plan || ! $plan->enabled || ! $plan->supports_category_selection( $categories ) || ( ! $this->editing && ! $this->is_plan_available( $plan ) ) ) {
 				if ( $this->editing ) {
 					if ( ! $plan->enabled ) {
 						$this->messages( _x( 'Current active plan is disabled. Please select another plan.', 'submit listing', 'business-directory-plugin' ), 'error', 'plan_selection' );
@@ -2000,6 +2000,25 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			$this->set_available_plans();
 		}
 		return $this->available_plans;
+	}
+
+	/**
+	 * Check if a plan is one of the plans the current user can choose.
+	 *
+	 * @since x.x
+	 *
+	 * @param WPBDP__Fee_Plan $plan The plan posted with the form.
+	 *
+	 * @return bool
+	 */
+	private function is_plan_available( $plan ) {
+		foreach ( $this->get_available_plans() as $available_plan ) {
+			if ( (int) $available_plan->id === (int) $plan->id ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**
