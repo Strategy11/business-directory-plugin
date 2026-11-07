@@ -18,7 +18,7 @@ class WPBDP_CSV_Import {
 	const UTF8_BOM     = "\xEF\xBB\xBF";
 	const UTF16_LE_BOM = "\xFF\xFE";
 
-	private static $PERSISTENT = array( 'settings', 'header', 'total_lines', 'processed_lines', 'current_line', 'imported', 'rejected', 'errors', 'done' );
+	private static $PERSISTENT = array( 'settings', 'header', 'total_lines', 'processed_lines', 'current_line', 'current_position', 'imported', 'rejected', 'errors', 'done' );
 
 	private $state_id    = '';
 	private $working_dir = '';
@@ -35,6 +35,15 @@ class WPBDP_CSV_Import {
 	private $total_lines     = 0;
 	private $processed_lines = 0;
 	private $current_line    = 0;
+
+	/**
+	 * Byte offset in the CSV file where the next row starts.
+	 *
+	 * @since x.x
+	 *
+	 * @var int
+	 */
+	private $current_position = 0;
 
 	private $imported = 0;
 	private $rejected = 0;
@@ -55,10 +64,7 @@ class WPBDP_CSV_Import {
 
 			$this->setup_settings( $settings );
 
-			$file = $this->get_csv_file();
-			$file->seek( PHP_INT_MAX );
-			$this->total_lines = absint( $file->key() );
-			$file              = null;
+			$this->total_lines = $this->count_rows();
 		}
 
 		if ( ! $this->header ) {
@@ -99,21 +105,21 @@ class WPBDP_CSV_Import {
 		}
 
 		$file = $this->get_csv_file();
-		$file->seek( $this->current_line );
+		$this->seek_current_row( $file );
 
 		$n = 0;
 		while ( $n < (int) $this->settings['batch-size'] ) {
-			if ( $file->eof() && empty( $file->current() ) ) {
+			$line_data = $this->read_row( $file );
+
+			if ( false === $line_data ) {
 				$this->done = true;
 				break;
 			}
 
-			$line_data = $this->get_current_line( $file );
-
-			$file->next();
 			++$n;
-			$this->current_line = $file->key();
+			++$this->current_line;
 			++$this->processed_lines;
+			$this->current_position = ftell( $file );
 
 			if ( count( $line_data ) < 2 && empty( $line_data[0] ) ) {
 				continue;
@@ -156,22 +162,74 @@ class WPBDP_CSV_Import {
 			++$this->imported;
 		}
 
-		$file = null;
+		fclose( $file );
 		$this->state_persist();
 	}
 
 	private function get_csv_file() {
-		$file = new SplFileObject( $this->csv_file );
-		$file->setFlags( SplFileObject::READ_CSV );
-		$file->setCsvControl( $this->settings['csv-file-separator'], '"', '\\' );
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen
+		$file = fopen( $this->csv_file, 'r' );
+		if ( ! $file ) {
+			throw new Exception( 'Could not open CSV file.' );
+		}
 		return $file;
 	}
-	private function get_current_line( $file ) {
-		$line = $file->current();
-		if ( empty( $line ) ) {
-			return array();
+
+	/**
+	 * Reads the next CSV row. Quoted values can span several lines.
+	 *
+	 * @since x.x
+	 *
+	 * @param resource $file The CSV file handle.
+	 *
+	 * @return array|false The row values, or false at the end of the file.
+	 */
+	private function read_row( $file ) {
+		return fgetcsv( $file, 0, $this->settings['csv-file-separator'], '"', '\\' );
+	}
+
+	/**
+	 * Moves the file handle to the first row that has not been imported yet.
+	 *
+	 * @since x.x
+	 *
+	 * @param resource $file The CSV file handle.
+	 *
+	 * @return void
+	 */
+	private function seek_current_row( $file ) {
+		if ( $this->current_position ) {
+			fseek( $file, $this->current_position );
+			return;
 		}
-		return $line;
+
+		// Imports saved before the byte offset was stored only know how many rows were read, header included.
+		for ( $row = 0; $row < $this->current_line; $row++ ) {
+			if ( false === $this->read_row( $file ) ) {
+				break;
+			}
+		}
+	}
+
+	/**
+	 * Counts the rows after the header.
+	 *
+	 * @since x.x
+	 *
+	 * @return int
+	 */
+	private function count_rows() {
+		$file = $this->get_csv_file();
+		fgets( $file );
+
+		$rows = 0;
+		while ( false !== $this->read_row( $file ) ) {
+			++$rows;
+		}
+
+		fclose( $file );
+
+		return $rows;
 	}
 
 	private function maybe_convert_encoding( $line ) {
@@ -373,19 +431,20 @@ class WPBDP_CSV_Import {
 	}
 
 	private function read_header() {
-		$file = new SplFileObject( $this->csv_file );
+		$file        = $this->get_csv_file();
+		$header_line = (string) fgets( $file );
 
-		$this->detect_encoding_from_header( $file );
-		$this->parse_header( $file );
+		$this->detect_encoding_from_header( $header_line );
+		$this->parse_header( $header_line );
 
-		$file = null;
+		$this->current_line     = 1;
+		$this->current_position = ftell( $file );
+		fclose( $file );
 
 		$this->state_persist();
 	}
 
-	private function detect_encoding_from_header( $file ) {
-		$line = $file->current();
-
+	private function detect_encoding_from_header( $line ) {
 		if ( substr( $line, 0, 3 ) == self::UTF8_BOM ) {
 			$this->settings['encoding'] = 'UTF-8';
 		}
@@ -395,14 +454,11 @@ class WPBDP_CSV_Import {
 		}
 	}
 
-	private function parse_header( $file ) {
-		$header_line = $this->remove_bom( $file->current() );
+	private function parse_header( $header_line ) {
+		$header_line = $this->remove_bom( $header_line );
 		$header_line = $this->maybe_convert_encoding( $header_line );
 
 		$this->set_header( str_getcsv( $header_line, $this->settings['csv-file-separator'], '"', '\\' ) );
-
-		$file->next();
-		$this->current_line = $file->key();
 	}
 
 	private function remove_bom( $str ) {
@@ -467,9 +523,14 @@ class WPBDP_CSV_Import {
 		}
 
 		$state = unserialize( file_get_contents( $this->state_file ) );
+		if ( ! is_array( $state ) ) {
+			throw new Exception( 'Invalid import state' );
+		}
 
 		foreach ( self::$PERSISTENT as $key ) {
-			$this->{$key} = $state[ $key ];
+			if ( array_key_exists( $key, $state ) ) {
+				$this->{$key} = $state[ $key ];
+			}
 		}
 	}
 
