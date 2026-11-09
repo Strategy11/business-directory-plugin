@@ -76,8 +76,8 @@ class WPBDPStrpAppHelper {
 	/**
 	 * Stripe expects amounts in these currencies in whole units.
 	 *
-	 * @see https://docs.stripe.com/currencies#zero-decimal
 	 * @since x.x
+	 * @see https://docs.stripe.com/currencies#zero-decimal
 	 *
 	 * @param string $currency Currency code.
 	 *
