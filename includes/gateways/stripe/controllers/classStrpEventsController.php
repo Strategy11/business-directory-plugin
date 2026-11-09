@@ -457,7 +457,7 @@ class WPBDPStrpEventsController {
 		// An installment.
 		$subscription->record_payment(
 			array(
-				'amount'        => $invoice->total / 100.0,
+				'amount'        => WPBDPStrpAppHelper::amount_from_stripe( $invoice->total, $invoice->currency ?? $parent_payment->currency_code ),
 				'gateway_tx_id' => $invoice->charge,
 				'created_at'    => gmdate( 'Y-m-d H:i:s', $invoice->created ),
 			)

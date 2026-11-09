@@ -435,7 +435,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 				array(
 					'name'        => esc_attr( $checkout_title ? $checkout_title : get_bloginfo( 'name' ) ),
 					'description' => $payment->summary,
-					'amount'      => $this->formated_amount( $payment->amount ),
+					'amount'      => $this->formated_amount( $payment->amount, $payment->currency_code ),
 					'currency'    => strtolower( $payment->currency_code ),
 					'quantity'    => 1,
 				),
@@ -471,7 +471,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 
 		$coupon = WPBDPStrpConnectHelper::create_coupon(
 			array(
-				'amount_off' => abs( (int) $this->formated_amount( $discount['amount'] ) ),
+				'amount_off' => abs( (int) $this->formated_amount( $discount['amount'], $payment->currency_code ) ),
 				'currency'   => $payment->currency_code,
 				'duration'   => 'once',
 			)
@@ -524,7 +524,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	 */
 	private function get_recurring_plan_fingerprint( $recurring, $payment ) {
 		$params = array(
-			'amount'         => $this->formated_amount( $recurring['amount'] ),
+			'amount'         => $this->formated_amount( $recurring['amount'], $payment->currency_code ),
 			'currency'       => strtolower( $payment->currency_code ),
 			'interval'       => 'day',
 			'interval_count' => intval( $recurring['fee_days'] ),
@@ -565,7 +565,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	 */
 	private function create_stripe_plan( $id, $recurring, $payment ) {
 		$plan = array(
-			'amount'         => $this->formated_amount( $recurring['amount'] ),
+			'amount'         => $this->formated_amount( $recurring['amount'], $payment->currency_code ),
 			'currency'       => strtolower( $payment->currency_code ),
 			'interval'       => 'day',
 			'interval_count' => $recurring['fee_days'],
@@ -611,11 +611,21 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	/**
 	 * @since 6.4.9
 	 *
-	 * @param float $amount Amount to be formatted.
+	 * @param float  $amount   Amount to be formatted.
+	 * @param string $currency Currency code.
 	 *
 	 * @return float
 	 */
-	private function formated_amount( $amount ) {
+	private function formated_amount( $amount, $currency ) {
+		if ( WPBDPStrpAppHelper::is_zero_decimal_currency( $currency ) ) {
+			return round( $amount, 0 );
+		}
+
+		if ( in_array( strtoupper( (string) $currency ), array( 'ISK', 'UGX' ), true ) ) {
+			// Stripe takes these as two-decimal values, but without fractions.
+			return round( $amount, 0 ) * 100;
+		}
+
 		return round( $amount * 100, 0 );
 	}
 

@@ -72,4 +72,41 @@ class WPBDPStrpAppHelper {
 		$test_mode = wpbdp_get_option( 'payments-test-mode' );
 		return '_wpbdp_stripe_customer_id' . ( $test_mode ? '_test' : '' );
 	}
+
+	/**
+	 * Stripe expects amounts in these currencies in whole units.
+	 *
+	 * @since x.x
+	 * @see https://docs.stripe.com/currencies#zero-decimal
+	 *
+	 * @param string $currency Currency code.
+	 *
+	 * @return bool
+	 */
+	public static function is_zero_decimal_currency( $currency ) {
+		$zero_decimal = array(
+			'BIF', 'CLP', 'DJF', 'GNF', 'JPY', 'KMF', 'KRW', 'MGA',
+			'PYG', 'RWF', 'VND', 'VUV', 'XAF', 'XOF', 'XPF',
+		);
+
+		return in_array( strtoupper( (string) $currency ), $zero_decimal, true );
+	}
+
+	/**
+	 * Convert an amount in Stripe's smallest currency unit back to a regular amount.
+	 *
+	 * @since x.x
+	 *
+	 * @param int    $amount   Amount from Stripe.
+	 * @param string $currency Currency code.
+	 *
+	 * @return float
+	 */
+	public static function amount_from_stripe( $amount, $currency ) {
+		if ( self::is_zero_decimal_currency( $currency ) ) {
+			return (float) $amount;
+		}
+
+		return $amount / 100.0;
+	}
 }
