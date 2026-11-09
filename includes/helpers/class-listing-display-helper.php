@@ -239,6 +239,10 @@ class WPBDP_Listing_Display_Helper {
 				continue;
 			}
 
+			if ( $field->is_hidden_from_current_user() ) {
+				continue;
+			}
+
 			$fields[] = $field;
 		}
 
