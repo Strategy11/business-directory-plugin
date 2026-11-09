@@ -213,6 +213,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 		}
 
 		$stripe['sessionId'] = $session->id;
+		$stripe['url']       = $session->url ?? '';
 
 		return $stripe;
 	}
