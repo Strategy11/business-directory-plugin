@@ -80,7 +80,7 @@ jQuery(function($) {
 
             const configuration = $.parseJSON( configurationElement.dataset.configuration );
 
-            if ( 'string' === typeof configuration.url && 0 === configuration.url.indexOf( 'https://checkout.stripe.com/' ) ) {
+            if ( 'string' === typeof configuration.url && 0 === configuration.url.indexOf( 'https://' ) ) {
                 window.location.href = configuration.url;
                 return false;
             }
