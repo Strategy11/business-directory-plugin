@@ -146,7 +146,7 @@ module.exports = function( grunt ) {
 
 		grunt.config.set( 'replace.setversion-' + id, {
 			src: [
-				basedir + '/business-directory-' + id + '.php',
+				basedir + '/business-directory-*.php',
 				basedir + '/includes/class-' + id + '.php',
 				basedir + '/includes/class-wpbdp.php',
 				basedir + '/classes/class-wpbdp-premium-module.php',
@@ -243,6 +243,11 @@ module.exports = function( grunt ) {
 
 	grunt.registerTask('default', []);
 	grunt.registerTask('i18n', '', function(t) {
+		// Modules without a translations folder have no makepot target.
+		if ( 'undefined' === typeof grunt.config.get( 'makepot.' + t ) ) {
+			return;
+		}
+
 		grunt.task.run('makepot:' + t);
 		grunt.task.run('potomo:' + t);
 	});
@@ -275,6 +280,12 @@ module.exports = function( grunt ) {
 			grunt.task.run('replace:stabletag-' + t );
 			grunt.task.run('replace:comment-' + t );
 		}
+	});
+
+	// Build the release ZIP only, without touching versions, assets or translations.
+	grunt.registerTask('zip', function(t, v) {
+		grunt.config.set('compress.version', v);
+		grunt.task.run('compress:' + t);
 	});
 
 	grunt.registerTask('release', function(t, v) {
@@ -327,7 +338,6 @@ module.exports = function( grunt ) {
 
 	// Premium modules.
 	grunt.wpbdp.registerModule({path: '../business-directory-2checkout', js: [], i18n: true});
-	grunt.wpbdp.registerModule({path: '../business-directory-attachments', js: ['resources/*.js'], i18n: true});
 	grunt.wpbdp.registerModule({path: '../business-directory-categories', less: ['resources/*.css'], js: ['resources/*.js'], i18n: true});
 	grunt.wpbdp.registerModule({path: '../business-directory-claim-listings', less: ['resources/*.less'], js: ['resources/*.js'], i18n: true});
 	grunt.wpbdp.registerModule({path: '../business-directory-discount-codes', less: ['resources/*.less'], js: ['resources/*.js'], i18n: true});
@@ -336,6 +346,7 @@ module.exports = function( grunt ) {
 	grunt.wpbdp.registerModule({path: '../business-directory-googlemaps', less: ['resources/*.css'], js: ['resources/*.js'], i18n: true});
 	grunt.wpbdp.registerModule({path: '../business-directory-payfast', i18n: true});
 	grunt.wpbdp.registerModule({path: '../business-directory-paypal', i18n: true});
+	grunt.wpbdp.registerModule({path: '../business-directory-servicearea', js: ['*.js'], i18n: true});
 	grunt.wpbdp.registerModule({path: '../business-directory-ratings', less: ['resources/*.css'], js: ['resources/*.js'], i18n: true});
 	grunt.wpbdp.registerModule({path: '../business-directory-regions', less: ['resources/css/*.css'], js: ['resources/js/*.js'], i18n: true});
 	grunt.wpbdp.registerModule({path: '../business-directory-stripe', js: ['resources/*.js'], i18n: true});
