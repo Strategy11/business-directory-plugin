@@ -1,0 +1,349 @@
+name: Add-on Release
+
+# Reusable release workflow for the premium add-ons (business-directory-*).
+#
+# Add-ons have no build tooling of their own: the core Gruntfile registers each
+# one by its sibling path (../business-directory-<module>). This workflow
+# recreates that layout by cloning core next to the add-on checkout, then runs
+# the module's Grunt tasks from core.
+#
+# prepare: changelog, version bump, minify, i18n, release PR (+ ZIP artifact for testing).
+# publish: on release PR merge, build the ZIP and attach it to a GitHub release.
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        description: 'Version (e.g. 5.4.4). Read from the release/<version> branch on merge.'
+        required: false
+        type: string
+      tested_up_to:
+        description: 'WP "Tested up to" version (blank = keep current)'
+        required: false
+        type: string
+      phase:
+        description: 'prepare or publish. Always publish on release PR merge.'
+        required: false
+        type: string
+      core_ref:
+        description: 'Branch of business-directory-plugin to take the Gruntfile from'
+        required: false
+        type: string
+        default: master
+    secrets:
+      GH_TOKEN:
+        required: true
+      ANTHROPIC_API_KEY:
+        required: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+
+    steps:
+      - name: Resolve release
+        id: release
+        env:
+          EVENT: ${{ github.event_name }}
+          MERGED: ${{ github.event.pull_request.merged }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          INPUT_VERSION: ${{ inputs.version }}
+          INPUT_PHASE: ${{ inputs.phase }}
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT" = "pull_request" ]; then
+            if [ "$MERGED" != "true" ] || [[ "$HEAD_REF" != release/* ]]; then
+              echo "Not a merged release PR."
+              exit 1
+            fi
+            VERSION="${HEAD_REF#release/}"
+            PHASE=publish
+          else
+            VERSION="$INPUT_VERSION"
+            PHASE="$INPUT_PHASE"
+          fi
+
+          if ! [[ "$VERSION" =~ ^[0-9]+(\.[0-9]+)+([A-Za-z0-9.-]+)?$ ]]; then
+            echo "Invalid version: '$VERSION'"
+            exit 1
+          fi
+          if [ "$PHASE" != "prepare" ] && [ "$PHASE" != "publish" ]; then
+            echo "Invalid phase: '$PHASE'"
+            exit 1
+          fi
+          if [[ "$REPO_NAME" != business-directory-* ]]; then
+            echo "Expected a business-directory-* repository, got '$REPO_NAME'"
+            exit 1
+          fi
+
+          # Same id the core Gruntfile derives from the module path.
+          MODULE="${REPO_NAME#business-directory-}"
+          # Grunt treats any version containing "b" as a beta.
+          PRERELEASE=false
+          [[ "$VERSION" == *b* ]] && PRERELEASE=true
+
+          {
+            echo "version=$VERSION"
+            echo "phase=$PHASE"
+            echo "module=$MODULE"
+            echo "prerelease=$PRERELEASE"
+            echo "core_dir=$RUNNER_TEMP/bd/business-directory-plugin"
+            echo "zip=$RUNNER_TEMP/bd/$REPO_NAME-$VERSION.zip"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Checkout add-on
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
+
+      - name: Check tag is free
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          if git rev-parse -q --verify "refs/tags/v$VERSION" >/dev/null; then
+            echo "Tag v$VERSION already exists."
+            exit 1
+          fi
+
+      - name: Find README
+        id: readme
+        run: |
+          README=""
+          for f in README.txt README.TXT; do
+            [ -f "$f" ] && README="$f" && break
+          done
+          echo "path=$README" >> "$GITHUB_OUTPUT"
+          [ -n "$README" ] || echo "::warning::No README.txt found; changelog steps are skipped."
+
+      - name: Place core next to the add-on
+        env:
+          CORE_REF: ${{ inputs.core_ref }}
+          CORE_DIR: ${{ steps.release.outputs.core_dir }}
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --branch "$CORE_REF" \
+            https://github.com/Strategy11/business-directory-plugin.git "$CORE_DIR"
+          # The Gruntfile points at ../business-directory-<module>.
+          ln -s "$GITHUB_WORKSPACE" "$(dirname "$CORE_DIR")/$REPO_NAME"
+
+      - name: Install gettext
+        if: steps.release.outputs.phase == 'prepare'
+        run: sudo apt-get update && sudo apt-get install -y gettext
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install core dependencies
+        working-directory: ${{ steps.release.outputs.core_dir }}
+        run: pnpm install --frozen-lockfile
+
+      # ---- prepare ----
+
+      - name: Create release branch
+        if: steps.release.outputs.phase == 'prepare'
+        run: git checkout -b "release/${{ steps.release.outputs.version }}"
+
+      - name: Collect changelog context
+        if: steps.release.outputs.phase == 'prepare' && steps.readme.outputs.path != ''
+        id: changelog-context
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          set -euo pipefail
+          CONTEXT="${GITHUB_WORKSPACE}/.changelog-context.txt"
+          LAST_TAG="$(git describe --tags --abbrev=0 2>/dev/null || true)"
+          {
+            echo "Release version: ${VERSION}"
+            echo
+            if [ -n "$LAST_TAG" ]; then
+              echo "Last tag: ${LAST_TAG}"
+              echo
+              echo "== Commits since ${LAST_TAG} =="
+              git log --no-merges --pretty=format:'%s' "${LAST_TAG}..HEAD"
+              echo
+              echo
+              echo "== Changed files =="
+              git diff --stat "${LAST_TAG}..HEAD"
+              echo
+              echo "== Name status =="
+              git diff --name-status "${LAST_TAG}..HEAD"
+            else
+              echo "No tags found."
+              echo
+              echo "== Last 50 commits =="
+              git log --no-merges --pretty=format:'%s' -50
+              echo
+            fi
+          } > "$CONTEXT"
+          echo "path=${CONTEXT}" >> "$GITHUB_OUTPUT"
+
+      - name: Generate changelog via Claude Code
+        if: steps.release.outputs.phase == 'prepare' && steps.readme.outputs.path != ''
+        continue-on-error: true
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GH_TOKEN }}
+          prompt: |
+            You are generating a changelog entry for a WordPress plugin add-on release.
+            Version: ${{ steps.release.outputs.version }}
+
+            Use ONLY these sources:
+            1. ${{ steps.changelog-context.outputs.path }} (commits and changed-file summary)
+            2. The existing changelog in ${{ steps.readme.outputs.path }} (the first 3-4 entries after `== Changelog ==`)
+
+            Do NOT run a full `git diff` of file contents. The context file is enough.
+            If you need more detail, Read at most a few individual source files named in the context.
+            Do not read binaries, lockfiles, vendor, dist, or generated assets.
+
+            Write a changelog entry and insert it into ${{ steps.readme.outputs.path }} directly above the newest existing entry
+            (or right after `== Changelog ==` if there are none). Do not remove or edit older entries.
+
+            Changelog format rules:
+            - Copy the heading style of the newest existing entry exactly, only changing the version
+              (e.g. `= Version 5.4.3 =` becomes `= Version ${{ steps.release.outputs.version }} =`; `= 5.4.3 =` becomes `= ${{ steps.release.outputs.version }} =`).
+              If there is no existing entry, use `= ${{ steps.release.outputs.version }} =`.
+            - Copy the bullet character of the newest existing entry (`- ` or `* `).
+            - Each bullet starts with New: , Enhancement: , or Fix: followed by a concise user-facing description
+            - Group related changes into single entries
+            - Skip merge commits, CI/tooling changes, dependency updates, and non-user-facing changes
+            - Omit any security-related fixes entirely (auth bypasses, XSS, CSRF, privilege escalation, sanitization/escaping hardening for vulnerabilities, CVEs, etc.). Do not describe them and do not add vague placeholders like "Fix: Security improvements". If a change mixes security and non-security work, include only the non-security user-facing parts.
+            - Keep the file's existing line endings.
+            - End the entry with an empty line before the next entry
+
+            Finish in as few turns as possible. Only modify ${{ steps.readme.outputs.path }}.
+          claude_args: |
+            --model claude-haiku-4-5
+            --max-turns 10
+            --allowedTools "Read,Edit,Write"
+
+      - name: Ensure changelog entry exists
+        if: steps.release.outputs.phase == 'prepare' && steps.readme.outputs.path != ''
+        run: |
+          rm -f .changelog-context.txt
+          python3 -I "${{ steps.release.outputs.core_dir }}/.github/scripts/addon-changelog.py" \
+            ensure "${{ steps.readme.outputs.path }}" "${{ steps.release.outputs.version }}"
+
+      - name: Bump version, minify assets and update translations
+        if: steps.release.outputs.phase == 'prepare'
+        working-directory: ${{ steps.release.outputs.core_dir }}
+        env:
+          MODULE: ${{ steps.release.outputs.module }}
+          VERSION: ${{ steps.release.outputs.version }}
+        run: pnpm exec grunt "setversion:$MODULE:$VERSION" "minify:$MODULE" "i18n:$MODULE"
+
+      - name: Update Tested up to
+        if: steps.release.outputs.phase == 'prepare' && inputs.tested_up_to != '' && steps.readme.outputs.path != ''
+        run: |
+          sed -i "s/^Tested up to: .*/Tested up to: ${{ inputs.tested_up_to }}/" "${{ steps.readme.outputs.path }}"
+
+      # ---- both phases ----
+
+      - name: Verify plugin header version
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          # Catches modules the core Gruntfile does not register, or whose main file it misses.
+          if ! grep -lE "^[ *]*Version:[[:space:]]*${VERSION//./\\.}[[:space:]]*$" ./*.php; then
+            echo "No root PHP file has 'Version: $VERSION'. Check this module's registerModule() entry in the core Gruntfile."
+            exit 1
+          fi
+
+      - name: Build ZIP
+        working-directory: ${{ steps.release.outputs.core_dir }}
+        env:
+          MODULE: ${{ steps.release.outputs.module }}
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          pnpm exec grunt "zip:$MODULE:$VERSION"
+          test -f "${{ steps.release.outputs.zip }}"
+
+      # ---- prepare ----
+
+      - name: Upload ZIP for testing
+        if: steps.release.outputs.phase == 'prepare'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.event.repository.name }}-${{ steps.release.outputs.version }}
+          path: ${{ steps.release.outputs.zip }}
+
+      - name: Commit and push
+        if: steps.release.outputs.phase == 'prepare'
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Prepare release ${VERSION}"
+          git push -u origin "release/${VERSION}"
+
+      - name: Create pull request
+        if: steps.release.outputs.phase == 'prepare'
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          VERSION: ${{ steps.release.outputs.version }}
+          BASE: ${{ github.event.repository.default_branch }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh pr create \
+            --title "Release ${VERSION}" \
+            --base "$BASE" \
+            --body "$(cat <<EOF
+          ## Release ${VERSION}
+
+          Automated release preparation:
+          - Version bumped and \`@since x.x\` replaced (core Gruntfile \`setversion\`)
+          - CSS/JS minified (\`minify\`)
+          - .pot regenerated and .mo files compiled (\`i18n\`)
+          - Changelog generated
+
+          The release ZIP built from this branch is attached to the [workflow run](${RUN_URL}) for testing.
+
+          **Next steps:**
+          1. Review the changes and test the ZIP
+          2. Merge this PR to tag v${VERSION} and publish the GitHub release with the ZIP
+          EOF
+          )"
+
+      # ---- publish ----
+
+      - name: Create GitHub release
+        if: steps.release.outputs.phase == 'publish'
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          VERSION: ${{ steps.release.outputs.version }}
+          README: ${{ steps.readme.outputs.path }}
+          PRERELEASE: ${{ steps.release.outputs.prerelease }}
+        run: |
+          set -euo pipefail
+          NOTES="$RUNNER_TEMP/release-notes.md"
+          if [ -n "$README" ]; then
+            python3 -I "${{ steps.release.outputs.core_dir }}/.github/scripts/addon-changelog.py" \
+              notes "$README" "$VERSION" > "$NOTES"
+          fi
+          ARGS=(--title "v${VERSION}" --target "$(git rev-parse HEAD)")
+          if [ -s "$NOTES" ]; then
+            ARGS+=(--notes-file "$NOTES")
+          else
+            ARGS+=(--generate-notes)
+          fi
+          [ "$PRERELEASE" = "true" ] && ARGS+=(--prerelease)
+          gh release create "v${VERSION}" "${{ steps.release.outputs.zip }}" "${ARGS[@]}"
