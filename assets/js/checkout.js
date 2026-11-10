@@ -79,6 +79,12 @@ jQuery(function($) {
             }
 
             const configuration = $.parseJSON( configurationElement.dataset.configuration );
+
+            if ( 'string' === typeof configuration.url && 0 === configuration.url.indexOf( 'https://' ) ) {
+                window.location.href = configuration.url;
+                return false;
+            }
+
             const stripe        = Stripe( configuration.key, { stripeAccount: configuration.accountId } );
 
             stripe.redirectToCheckout({
