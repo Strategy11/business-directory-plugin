@@ -729,6 +729,7 @@ class WPBDP_Admin_Listings {
 		$row['fee_images']      = absint( $new_plan['fee_images'] );
 
 		$wpdb->update( $wpdb->prefix . 'wpbdp_listings', $row, array( 'listing_id' => $post_id ) );
+		WPBDP_Utils::cache_delete_group( 'wpbdp_listings' );
 
 		$not_expired = false;
 		if ( $row['expiration_date'] ) {
