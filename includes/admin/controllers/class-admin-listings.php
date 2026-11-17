@@ -729,6 +729,8 @@ class WPBDP_Admin_Listings {
 		$row['fee_images']      = absint( $new_plan['fee_images'] );
 
 		$wpdb->update( $wpdb->prefix . 'wpbdp_listings', $row, array( 'listing_id' => $post_id ) );
+		// Delete the plan key directly too, in case it's missing from the group's tracked keys.
+		wp_cache_delete( 'listing_fee_plan' . $post_id, 'wpbdp_listings' );
 		WPBDP_Utils::cache_delete_group( 'wpbdp_listings' );
 
 		$not_expired = false;
