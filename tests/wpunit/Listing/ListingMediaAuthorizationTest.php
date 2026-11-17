@@ -107,6 +107,21 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
+	 * @since 6.4.30
+	 */
+	public function testSubscriberOwnerCanDeleteOwnListingImage() {
+		$subscriber_id = $this->get_or_create_user( 'subscriber', 'media-subscriber@example.com' );
+		$listing_id    = $this->create_listing( $subscriber_id );
+		$image_id      = $this->create_image_attachment( $subscriber_id, $listing_id );
+
+		wp_set_current_user( $subscriber_id );
+		$response = $this->dispatch_image_delete( $listing_id, $image_id );
+
+		$this->assertTrue( $response['success'] );
+		$this->assertNull( get_post( $image_id ) );
+	}
+
+	/**
 	 * @since 6.4.28
 	 */
 	public function testNonImageAttachmentIsRejected() {
