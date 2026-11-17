@@ -696,8 +696,9 @@ final class WPBDP {
 	/**
 	 * Whether the current request may permanently remove a listing image.
 	 *
-	 * Authenticated users need attachment-level delete rights. Guests already
-	 * proved listing access via submit token or access key.
+	 * Authenticated users need attachment-level delete rights or must have
+	 * uploaded the image themselves (Subscribers lack `delete_posts`).
+	 * Guests already proved listing access via submit token or access key.
 	 *
 	 * @since 6.4.28
 	 *
@@ -715,7 +716,7 @@ final class WPBDP {
 			return true;
 		}
 
-		return current_user_can( 'delete_post', $image_id );
+		return current_user_can( 'delete_post', $image_id ) || (int) get_post_field( 'post_author', $image_id ) === get_current_user_id();
 	}
 
 	public function ajax_listing_media_image() {
