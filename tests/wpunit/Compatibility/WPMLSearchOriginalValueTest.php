@@ -31,6 +31,11 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 	private $trid = 0;
 
 	/**
+	 * @var \WP_Screen|null
+	 */
+	private $previous_screen;
+
+	/**
 	 * A real table, created before the per-test transaction: MySQL can't self-join a temporary table.
 	 *
 	 * @since x.x
@@ -79,6 +84,7 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 		$this->field->save();
 
 		// The search filters are front-end only; earlier tests may leave an admin screen set.
+		$this->previous_screen = isset( $GLOBALS['current_screen'] ) ? $GLOBALS['current_screen'] : null;
 		set_current_screen( 'front' );
 		// The compat class only needs the WPML object for URL settings, not used by search.
 		$GLOBALS['sitepress'] = new \stdClass();
@@ -90,6 +96,7 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 	 */
 	public function tearDown() : void {
 		unset( $GLOBALS['sitepress'] );
+		$GLOBALS['current_screen'] = $this->previous_screen;
 		parent::tearDown();
 	}
 
