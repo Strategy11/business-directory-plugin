@@ -36,6 +36,16 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 	private $previous_screen;
 
 	/**
+	 * @var mixed
+	 */
+	private $previous_sitepress;
+
+	/**
+	 * @var bool
+	 */
+	private static $created_table = false;
+
+	/**
 	 * A real table, created before the per-test transaction: MySQL can't self-join a temporary table.
 	 *
 	 * @since x.x
@@ -44,6 +54,7 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 		global $wpdb;
 
 		parent::setUpBeforeClass();
+		self::$created_table = ! $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->prefix . 'icl_translations' ) );
 		$wpdb->query(
 			"CREATE TABLE IF NOT EXISTS {$wpdb->prefix}icl_translations (
 				translation_id bigint(20) NOT NULL AUTO_INCREMENT,
@@ -63,7 +74,9 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 	public static function tearDownAfterClass() : void {
 		global $wpdb;
 
-		$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}icl_translations" );
+		if ( self::$created_table ) {
+			$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}icl_translations" );
+		}
 		parent::tearDownAfterClass();
 	}
 
@@ -87,7 +100,8 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 		$this->previous_screen = isset( $GLOBALS['current_screen'] ) ? $GLOBALS['current_screen'] : null;
 		set_current_screen( 'front' );
 		// The compat class only needs the WPML object for URL settings, not used by search.
-		$GLOBALS['sitepress'] = new \stdClass();
+		$this->previous_sitepress = isset( $GLOBALS['sitepress'] ) ? $GLOBALS['sitepress'] : null;
+		$GLOBALS['sitepress']     = new \stdClass();
 		new WPBDP_WPML_Compat();
 	}
 
@@ -95,7 +109,7 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 	 * @since x.x
 	 */
 	public function tearDown() : void {
-		unset( $GLOBALS['sitepress'] );
+		$GLOBALS['sitepress']      = $this->previous_sitepress;
 		$GLOBALS['current_screen'] = $this->previous_screen;
 		parent::tearDown();
 	}
@@ -148,6 +162,8 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 	}
 
 	/**
+	 * @since x.x
+	 *
 	 * @param string $value Field value, empty for none.
 	 *
 	 * @return int
@@ -169,6 +185,8 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 	}
 
 	/**
+	 * @since x.x
+	 *
 	 * @param int $original    The original (English) listing.
 	 * @param int $translation The Spanish translation.
 	 */
@@ -184,6 +202,8 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 	}
 
 	/**
+	 * @since x.x
+	 *
 	 * @param string $value Value to search the field for.
 	 *
 	 * @return int[]
