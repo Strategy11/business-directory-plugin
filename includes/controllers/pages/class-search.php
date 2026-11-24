@@ -44,7 +44,9 @@ class WPBDP__Views__Search extends WPBDP__View {
 						$value = $field->value_from_GET();
 
 						if ( ! $value || $field->is_empty_value( $value ) ) {
-							$validation_errors[] = sprintf( __( '%s is required.', 'business-directory-plugin' ), $field->get_label() );
+							$label = apply_filters( 'wpbdp_render_field_label', $field->get_label(), $field );
+							/* translators: %s: field label */
+							$validation_errors[] = sprintf( __( '%s is required.', 'business-directory-plugin' ), $label );
 						}
 					}
 				}
