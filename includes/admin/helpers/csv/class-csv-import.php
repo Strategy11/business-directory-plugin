@@ -39,7 +39,7 @@ class WPBDP_CSV_Import {
 	/**
 	 * Byte offset in the CSV file where the next row starts.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @var int
 	 */
@@ -178,7 +178,7 @@ class WPBDP_CSV_Import {
 	/**
 	 * Reads the next CSV row. Quoted values can span several lines.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param resource $file The CSV file handle.
 	 *
@@ -191,7 +191,7 @@ class WPBDP_CSV_Import {
 	/**
 	 * Moves the file handle to the first row that has not been imported yet.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param resource $file The CSV file handle.
 	 *
@@ -214,7 +214,7 @@ class WPBDP_CSV_Import {
 	/**
 	 * Counts the rows after the header.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @return int
 	 */

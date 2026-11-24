@@ -752,7 +752,7 @@ class WPBDP_Admin_Listings {
 	 * Cancel the listing's subscription before the plan posted with the listing form replaces it.
 	 * If it can't be canceled, the error is shown after the redirect and the plan is kept.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param WPBDP_Listing $listing     The listing being saved.
 	 * @param int|string    $new_plan_id The plan ID posted with the form.
@@ -786,7 +786,7 @@ class WPBDP_Admin_Listings {
 	 * Cancel the listing's gateway subscription, so the customer isn't billed for
 	 * the old plan after the plan is changed.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param WPBDP_Listing $listing The listing.
 	 *

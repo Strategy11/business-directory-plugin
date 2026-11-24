@@ -4,7 +4,7 @@ Tags: business directory, directory plugin, member directory, listing manager, c
 Requires at least: 5.9
 Requires PHP: 7.4
 Tested up to: 7.1
-Stable tag: 6.4.29
+Stable tag: 6.4.30
 License: GPLv2 or later
 
 Build a business directory or member directory on WordPress, complete with a listing manager and directory website builder. No developer needed.
@@ -221,6 +221,20 @@ See the guide on [translating the Business Directory Plugin into another languag
 Yes, with one restriction: do not "network activate" the plugin, since that would share the database across every site. Activate it only on the sub-sites that need it, under Plugins -> Add New as the Administrator user. Don't activate it as the "super admin."
 
 == Changelog ==
+= 6.4.30 =
+* Enhancement: WPML multilingual support improvements including language preservation and search translations
+* Enhancement: Listing owners can now delete images they uploaded
+* Enhancement: Elementor templates can now control single listing pages
+* Fix: Listing plan cache updates immediately after admin changes
+* Fix: Payment completion emails send correctly for admin-processed transactions
+* Fix: Listing subscription cancels when admin changes listing plan
+* Fix: Stripe gateway improvements including support for zero-decimal currencies and custom domain redirects
+* Fix: Free Stripe Lite checkouts can complete without billing fields
+* Fix: CSV imports now compatible with PHP 8.6
+* Fix: Checkout uses plain field values without HTML formatting
+* Fix: Checkbox and multiselect search field filtering improved
+* Fix: Admin-only fields no longer appear in frontend listings and schema markup
+
 = 6.4.29 =
 * Enhancement: Featured image badge now displays in listing titles
 * Enhancement: Directory categories and tags display full width in Astra grid layouts
@@ -317,6 +331,3 @@ Yes, with one restriction: do not "network activate" the plugin, since that woul
 
 = 6.4.14 =
 * Fix: Fatal error with translated websites
-
-= 6.4.13 =
-* Fix: Enqueue error for csv import

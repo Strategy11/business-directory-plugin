@@ -10,7 +10,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 	/**
 	 * Attachment meta with the listing an image was uploaded for through this field.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @var string
 	 */
@@ -515,7 +515,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 	 * Whether an image is the one already saved in this field for a listing.
 	 * These are kept, so existing listings can still be edited.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param WPBDP_Form_Field $field    The image field.
 	 * @param int              $post_id  Listing ID.
@@ -534,7 +534,7 @@ class WPBDP_FieldTypes_Image extends WPBDP_Form_Field_Type {
 	/**
 	 * Whether the current user may change an image, including its caption.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param int|string $image_id Attachment ID.
 	 * @param int        $post_id  Listing ID.

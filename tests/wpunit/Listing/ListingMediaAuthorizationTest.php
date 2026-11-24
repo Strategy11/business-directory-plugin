@@ -107,7 +107,7 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.30
 	 */
 	public function testSubscriberOwnerCanDeleteOwnListingImage() {
 		$subscriber_id = $this->get_or_create_user( 'subscriber', 'media-subscriber@example.com' );

@@ -204,7 +204,7 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * Get the plans the listing can be renewed with.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @return array
 	 */
@@ -219,7 +219,7 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * Check if a plan is one of the plans offered for this renewal.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param WPBDP__Fee_Plan $plan The plan posted with the renewal form.
 	 *

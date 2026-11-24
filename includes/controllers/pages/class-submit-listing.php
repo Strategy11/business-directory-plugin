@@ -2005,7 +2005,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 	/**
 	 * Check if a plan is one of the plans the current user can choose.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param WPBDP__Fee_Plan $plan The plan posted with the form.
 	 *
