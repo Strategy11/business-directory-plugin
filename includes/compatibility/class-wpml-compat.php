@@ -208,6 +208,8 @@ class WPBDP_WPML_Compat {
 			case 'all_listings':
 			case 'view_listings':
 			case 'submit_listing':
+			case 'listing_contact':
+			case 'flag_listing':
 				$link = $this->maybe_add_lang_query_arg( $link, $lang );
 				break;
 
