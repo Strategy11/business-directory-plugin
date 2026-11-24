@@ -208,6 +208,8 @@ class WPBDP_WPML_Compat {
 			case 'all_listings':
 			case 'view_listings':
 			case 'submit_listing':
+			case 'listing_contact':
+			case 'flag_listing':
 				$link = $this->maybe_add_lang_query_arg( $link, $lang );
 				break;
 
@@ -219,7 +221,8 @@ class WPBDP_WPML_Compat {
 	}
 
 	private function maybe_add_lang_query_arg( $link, $lang ) {
-		if ( 3 === $this->get_lang_url_type() ) {
+		// WPML redirects ?lang=<default language> to the URL without it, which drops POST data (contact form).
+		if ( 3 === $this->get_lang_url_type() && apply_filters( 'wpml_default_language', null ) !== $lang ) {
 			$link = add_query_arg( 'lang', $lang, $link );
 		}
 
