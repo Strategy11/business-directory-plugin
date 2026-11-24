@@ -48,6 +48,7 @@ class WPBDP_WPML_Compat {
 
 			add_filter( 'wpbdp_form_field_value', array( $this, 'maybe_use_original_field_value' ), 10, 3 );
 			add_filter( 'wpbdp_form_field_html_value', array( $this, 'maybe_use_original_field_html_value' ), 10, 4 );
+			add_filter( 'wpbdp_configure_search', array( $this, 'maybe_search_original_field_value' ), 10, 2 );
 		} else {
 			add_filter( 'post_type_link', array( $this, 'admin_listing_link' ), 11, 2 );
 		}
@@ -672,6 +673,79 @@ class WPBDP_WPML_Compat {
 		}
 
 		return $field->html_value( $original_id, $display_context );
+	}
+
+	/**
+	 * Also match translated listings that show the original listing's value for a field.
+	 *
+	 * Translations with an empty value display the original listing's value
+	 * (see maybe_use_original_field_value()), so the search should find them too.
+	 *
+	 * @since x.x
+	 *
+	 * @param array            $search_res The search query pieces for this field.
+	 * @param WPBDP_Form_Field $field      The field being searched.
+	 *
+	 * @return array
+	 */
+	public function maybe_search_original_field_value( $search_res, $field ) {
+		global $wpdb;
+
+		if ( 'meta' !== $field->get_association() || empty( $search_res['join'] ) || empty( $search_res['where'] ) ) {
+			return $search_res;
+		}
+
+		$translation_ids = $this->get_translations_using_original_value( $search_res, $field );
+
+		if ( $translation_ids ) {
+			$search_res['where'] = '( ' . $search_res['where'] . " OR {$wpdb->posts}.ID IN (" . implode( ',', $translation_ids ) . ') )';
+		}
+
+		return $search_res;
+	}
+
+	/**
+	 * Find translations with an empty field value whose original listing matches the search.
+	 *
+	 * @since x.x
+	 *
+	 * @param array            $search_res The search query pieces for this field.
+	 * @param WPBDP_Form_Field $field      The field being searched.
+	 *
+	 * @return int[]
+	 */
+	private function get_translations_using_original_value( $search_res, $field ) {
+		global $wpdb;
+
+		$element_type = 'post_' . WPBDP_POST_TYPE;
+
+		// One query for all matches: the field's join and where only use the posts table and the field's own meta alias.
+		// Errors are suppressed in case a custom field type's pieces depend on other joins; the search then works as before.
+		$suppress      = $wpdb->suppress_errors();
+		$candidate_ids = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			"SELECT DISTINCT tr.element_id FROM {$wpdb->prefix}icl_translations orig
+			INNER JOIN {$wpdb->prefix}icl_translations tr ON tr.trid = orig.trid AND tr.element_type = orig.element_type AND tr.element_id <> orig.element_id
+			WHERE orig.element_type = '{$element_type}' AND NULLIF( orig.source_language_code, '' ) IS NULL AND tr.element_id > 0
+			AND orig.element_id IN ( SELECT {$wpdb->posts}.ID FROM {$wpdb->posts} {$search_res['join']} WHERE {$wpdb->posts}.post_type = '" . WPBDP_POST_TYPE . "' AND {$search_res['where']} )"
+		);
+		$wpdb->suppress_errors( $suppress );
+
+		if ( ! $candidate_ids ) {
+			return array();
+		}
+
+		$candidate_ids = array_map( 'intval', $candidate_ids );
+		_prime_post_caches( $candidate_ids, false, true );
+
+		$translation_ids = array();
+
+		foreach ( $candidate_ids as $translation_id ) {
+			if ( $field->is_empty_value( $field->value( $translation_id, true ) ) ) {
+				$translation_ids[] = $translation_id;
+			}
+		}
+
+		return $translation_ids;
 	}
 
 	/**
