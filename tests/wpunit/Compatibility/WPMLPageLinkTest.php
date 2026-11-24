@@ -14,6 +14,8 @@ use WPBDP_WPML_Compat;
 class SitePressStub {
 
 	/**
+	 * @since x.x
+	 *
 	 * @param string $key Setting name.
 	 *
 	 * @return mixed
@@ -44,12 +46,18 @@ class WPMLPageLinkTest extends WPUnitTestCase {
 	private $current_lang = 'es';
 
 	/**
+	 * @var mixed
+	 */
+	private $previous_sitepress;
+
+	/**
 	 * @since x.x
 	 */
 	protected function after_setup() {
 		require_once WPBDP_PATH . 'includes/compatibility/class-wpml-compat.php';
 
-		$GLOBALS['sitepress'] = new SitePressStub();
+		$this->previous_sitepress = isset( $GLOBALS['sitepress'] ) ? $GLOBALS['sitepress'] : null;
+		$GLOBALS['sitepress']     = new SitePressStub();
 		$this->compat         = new WPBDP_WPML_Compat();
 
 		add_filter(
@@ -70,11 +78,13 @@ class WPMLPageLinkTest extends WPUnitTestCase {
 	 * @since x.x
 	 */
 	public function tearDown() : void {
-		unset( $GLOBALS['sitepress'] );
+		$GLOBALS['sitepress'] = $this->previous_sitepress;
 		parent::tearDown();
 	}
 
 	/**
+	 * @since x.x
+	 *
 	 * @return array
 	 */
 	public function views_provider() {
