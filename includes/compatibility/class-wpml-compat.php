@@ -48,6 +48,7 @@ class WPBDP_WPML_Compat {
 
 			add_filter( 'wpbdp_form_field_value', array( $this, 'maybe_use_original_field_value' ), 10, 3 );
 			add_filter( 'wpbdp_form_field_html_value', array( $this, 'maybe_use_original_field_html_value' ), 10, 4 );
+			add_filter( 'wpbdp_configure_search', array( $this, 'maybe_search_original_field_value' ), 10, 2 );
 		} else {
 			add_filter( 'post_type_link', array( $this, 'admin_listing_link' ), 11, 2 );
 		}
@@ -669,6 +670,119 @@ class WPBDP_WPML_Compat {
 		}
 
 		return $field->html_value( $original_id, $display_context );
+	}
+
+	/**
+	 * Also match translated listings that show the original listing's value for a field.
+	 *
+	 * Translations with an empty value display the original listing's value
+	 * (see maybe_use_original_field_value()), so the search should find them too.
+	 *
+	 * @since x.x
+	 *
+	 * @param array            $search_res The search query pieces for this field.
+	 * @param WPBDP_Form_Field $field      The field being searched.
+	 *
+	 * @return array
+	 */
+	public function maybe_search_original_field_value( $search_res, $field ) {
+		global $wpdb;
+
+		if ( 'meta' !== $field->get_association() || empty( $search_res['join'] ) || empty( $search_res['where'] ) ) {
+			return $search_res;
+		}
+
+		$translation_ids = $this->get_translations_using_original_value( $search_res, $field );
+
+		if ( $translation_ids ) {
+			$search_res['where'] = '( ' . $search_res['where'] . " OR {$wpdb->posts}.ID IN (" . implode( ',', $translation_ids ) . ') )';
+		}
+
+		return $search_res;
+	}
+
+	/**
+	 * Find translations with an empty field value whose original listing matches the search.
+	 *
+	 * @since x.x
+	 *
+	 * @param array            $search_res The search query pieces for this field.
+	 * @param WPBDP_Form_Field $field      The field being searched.
+	 *
+	 * @return int[]
+	 */
+	private function get_translations_using_original_value( $search_res, $field ) {
+		global $wpdb;
+
+		// The field's join and where only use the posts table and the field's own meta alias, so they work as a query on their own.
+		// Suppress errors in case a custom field type's pieces depend on other joins; the search then works as before.
+		$suppress     = $wpdb->suppress_errors();
+		$matching_ids = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			"SELECT DISTINCT {$wpdb->posts}.ID FROM {$wpdb->posts} {$search_res['join']} WHERE {$wpdb->posts}.post_type = '" . WPBDP_POST_TYPE . "' AND {$search_res['where']}"
+		);
+		$wpdb->suppress_errors( $suppress );
+
+		$candidate_ids = array();
+
+		foreach ( $matching_ids as $original_id ) {
+			$candidate_ids = array_merge( $candidate_ids, $this->get_translation_ids( (int) $original_id ) );
+		}
+
+		if ( ! $candidate_ids ) {
+			return array();
+		}
+
+		$candidate_ids = array_unique( $candidate_ids );
+		update_meta_cache( 'post', $candidate_ids );
+
+		$translation_ids = array();
+
+		foreach ( $candidate_ids as $translation_id ) {
+			if ( $field->is_empty_value( $field->value( $translation_id, true ) ) ) {
+				$translation_ids[] = $translation_id;
+			}
+		}
+
+		return $translation_ids;
+	}
+
+	/**
+	 * Get the IDs of a listing's translations, when the listing is the original.
+	 *
+	 * @since x.x
+	 *
+	 * @param int $listing_id The listing post ID.
+	 *
+	 * @return int[] Empty when the listing isn't the original of a translation group.
+	 */
+	private function get_translation_ids( $listing_id ) {
+		$element_type = 'post_' . WPBDP_POST_TYPE;
+
+		$trid         = apply_filters( 'wpml_element_trid', null, $listing_id, $element_type );
+		$translations = $trid ? apply_filters( 'wpml_get_element_translations', null, $trid, $element_type ) : null;
+
+		if ( ! is_array( $translations ) ) {
+			return array();
+		}
+
+		$ids         = array();
+		$is_original = false;
+
+		foreach ( $translations as $translation ) {
+			$id = (int) $translation->element_id;
+
+			if ( $id === $listing_id ) {
+				$is_original = ! empty( $translation->original );
+				continue;
+			}
+
+			// WPML can list a language with no post yet.
+			if ( $id > 0 ) {
+				$ids[] = $id;
+			}
+		}
+
+		return $is_original ? $ids : array();
 	}
 
 	/**
