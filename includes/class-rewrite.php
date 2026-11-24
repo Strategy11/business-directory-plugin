@@ -140,7 +140,7 @@ class WPBDP__Rewrite {
 	/**
 	 * Check if this is a 404 listing request whose ID belongs to a post that isn't a listing.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @return bool
 	 */

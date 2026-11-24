@@ -48,7 +48,7 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 	/**
 	 * A real table, created before the per-test transaction: MySQL can't self-join a temporary table.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 */
 	public static function setUpBeforeClass() : void {
 		global $wpdb;
@@ -69,7 +69,7 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.30
 	 */
 	public static function tearDownAfterClass() : void {
 		global $wpdb;
@@ -81,7 +81,7 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.30
 	 */
 	protected function after_setup() {
 		require_once WPBDP_PATH . 'includes/compatibility/class-wpml-compat.php';
@@ -106,7 +106,7 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.30
 	 */
 	public function tearDown() : void {
 		$GLOBALS['sitepress']      = $this->previous_sitepress;
@@ -115,7 +115,7 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.30
 	 */
 	public function test_finds_empty_translation_of_matching_original() {
 		$original    = $this->listing( 'VAL-ORIG' );
@@ -129,7 +129,7 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.30
 	 */
 	public function test_translation_with_own_value_is_only_found_by_its_own_value() {
 		$original    = $this->listing( 'VAL-A' );
@@ -141,7 +141,7 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.30
 	 */
 	public function test_matching_translation_does_not_pull_in_the_original() {
 		$original    = $this->listing( '' );
@@ -152,7 +152,7 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.30
 	 */
 	public function test_listing_without_translations_is_unchanged() {
 		$listing = $this->listing( 'VAL-ALONE' );
@@ -162,7 +162,7 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param string $value Field value, empty for none.
 	 *
@@ -185,7 +185,7 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param int $original    The original (English) listing.
 	 * @param int $translation The Spanish translation.
@@ -202,7 +202,7 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param string $value Value to search the field for.
 	 *

@@ -84,7 +84,7 @@ class WPBDP__WordPress_Template_Integration {
 	 * Theme Builder template or an Elementor page template. BD should not replace it.
 	 * Any template file inside the Elementor plugin folder counts.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param string $template The template path from earlier template_include callbacks.
 	 *

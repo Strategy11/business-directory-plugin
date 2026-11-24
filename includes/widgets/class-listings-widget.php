@@ -353,7 +353,7 @@ class WPBDP_Listings_Widget extends WP_Widget {
 	 * This avoids linking to detail pages that would return a 404. When the listing
 	 * can't be viewed, the content is wrapped in a span so it keeps its styling.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param string $content      Already escaped HTML.
 	 * @param object $listing      The listing object.

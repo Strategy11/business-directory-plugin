@@ -72,7 +72,7 @@ class WPBDP__Listing_Email_Notification {
 	 * Whether the current request is the block editor saving a post through the REST API.
 	 * The block editor adds `_locale=user` to every request it sends.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @return bool
 	 */
@@ -88,7 +88,7 @@ class WPBDP__Listing_Email_Notification {
 	 * Sends the listing published notification deferred from the block editor's REST save,
 	 * once the meta box request has saved the listing fields.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param int    $post_id The ID of the saved post.
 	 * @param object $post    An instance of WP_Post.
@@ -214,7 +214,7 @@ class WPBDP__Listing_Email_Notification {
 	 * Whether a listing completed during a CSV import was created by that import.
 	 * Re-imported listings only get plan change payments, so they are not announced again.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param object $listing    An instance of WPBDP_Listing.
 	 * @param string $old_status The previous listing status.
@@ -601,7 +601,7 @@ class WPBDP__Listing_Email_Notification {
 	 * Gateways may complete payments over admin-ajax, so only status changes made
 	 * by an admin on a wp-admin screen and imported payments are skipped.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param WPBDP_Payment $payment    The payment.
 	 * @param string        $new_status The new payment status.

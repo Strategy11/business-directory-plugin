@@ -14,7 +14,7 @@ use WPBDP_WPML_Compat;
 class SitePressStub {
 
 	/**
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param string $key Setting name.
 	 *
@@ -51,7 +51,7 @@ class WPMLPageLinkTest extends WPUnitTestCase {
 	private $previous_sitepress;
 
 	/**
-	 * @since x.x
+	 * @since 6.4.30
 	 */
 	protected function after_setup() {
 		require_once WPBDP_PATH . 'includes/compatibility/class-wpml-compat.php';
@@ -75,7 +75,7 @@ class WPMLPageLinkTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.30
 	 */
 	public function tearDown() : void {
 		$GLOBALS['sitepress'] = $this->previous_sitepress;
@@ -83,7 +83,7 @@ class WPMLPageLinkTest extends WPUnitTestCase {
 	}
 
 	/**
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @return array
 	 */
@@ -98,7 +98,7 @@ class WPMLPageLinkTest extends WPUnitTestCase {
 	/**
 	 * @dataProvider views_provider
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param string $view BD view name.
 	 */
@@ -113,7 +113,7 @@ class WPMLPageLinkTest extends WPUnitTestCase {
 	/**
 	 * @dataProvider views_provider
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param string $view BD view name.
 	 */

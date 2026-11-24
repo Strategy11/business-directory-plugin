@@ -613,7 +613,7 @@ class WPBDP_Form_Field {
 	/**
 	 * Check if this field is limited to admins and the current user is not one.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @return bool
 	 */

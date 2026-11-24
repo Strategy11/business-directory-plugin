@@ -107,7 +107,7 @@ class WPBDP_WPML_Compat {
 	 * The language filters for page IDs only run on the front end, so the admin
 	 * would otherwise use whichever directory page was found first.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param string      $link The listing permalink.
 	 * @param int|WP_Post $post The listing.
@@ -681,7 +681,7 @@ class WPBDP_WPML_Compat {
 	 * Translations with an empty value display the original listing's value
 	 * (see maybe_use_original_field_value()), so the search should find them too.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param array            $search_res The search query pieces for this field.
 	 * @param WPBDP_Form_Field $field      The field being searched.
@@ -707,7 +707,7 @@ class WPBDP_WPML_Compat {
 	/**
 	 * Find translations with an empty field value whose original listing matches the search.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param array            $search_res The search query pieces for this field.
 	 * @param WPBDP_Form_Field $field      The field being searched.

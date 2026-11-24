@@ -76,7 +76,7 @@ class WPBDPStrpAppHelper {
 	/**
 	 * Stripe expects amounts in these currencies in whole units.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 * @see https://docs.stripe.com/currencies#zero-decimal
 	 *
 	 * @param string $currency Currency code.
@@ -95,7 +95,7 @@ class WPBDPStrpAppHelper {
 	/**
 	 * Convert an amount in Stripe's smallest currency unit back to a regular amount.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param int    $amount   Amount from Stripe.
 	 * @param string $currency Currency code.

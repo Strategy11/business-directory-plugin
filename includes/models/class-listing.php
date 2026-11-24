@@ -23,7 +23,7 @@ class WPBDP_Listing {
 	 * Get a field value as plain text, without display markup.
 	 * Use this when the value is used as data, like payer details at checkout.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param int|string $id The field ID, association or key.
 	 *
@@ -38,7 +38,7 @@ class WPBDP_Listing {
 	/**
 	 * Find a form field by ID, association or key.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param int|string $id The field ID, association or key.
 	 *

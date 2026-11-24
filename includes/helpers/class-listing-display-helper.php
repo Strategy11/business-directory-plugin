@@ -257,7 +257,7 @@ class WPBDP_Listing_Display_Helper {
 	/**
 	 * Keep only the title for listings that still need their post password.
 	 *
-	 * @since x.x
+	 * @since 6.4.30
 	 *
 	 * @param array $fields Form fields.
 	 *
