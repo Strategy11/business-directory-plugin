@@ -714,26 +714,25 @@ class WPBDP_WPML_Compat {
 	private function get_translations_using_original_value( $search_res, $field ) {
 		global $wpdb;
 
-		// The field's join and where only use the posts table and the field's own meta alias, so they work as a query on their own.
-		// Suppress errors in case a custom field type's pieces depend on other joins; the search then works as before.
-		$suppress     = $wpdb->suppress_errors();
-		$matching_ids = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-			"SELECT DISTINCT {$wpdb->posts}.ID FROM {$wpdb->posts} {$search_res['join']} WHERE {$wpdb->posts}.post_type = '" . WPBDP_POST_TYPE . "' AND {$search_res['where']}"
+		$element_type = 'post_' . WPBDP_POST_TYPE;
+
+		// One query for all matches: the field's join and where only use the posts table and the field's own meta alias.
+		// Errors are suppressed in case a custom field type's pieces depend on other joins; the search then works as before.
+		$suppress      = $wpdb->suppress_errors();
+		$candidate_ids = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			"SELECT DISTINCT tr.element_id FROM {$wpdb->prefix}icl_translations orig
+			INNER JOIN {$wpdb->prefix}icl_translations tr ON tr.trid = orig.trid AND tr.element_type = orig.element_type AND tr.element_id <> orig.element_id
+			WHERE orig.element_type = '{$element_type}' AND NULLIF( orig.source_language_code, '' ) IS NULL AND tr.element_id > 0
+			AND orig.element_id IN ( SELECT {$wpdb->posts}.ID FROM {$wpdb->posts} {$search_res['join']} WHERE {$wpdb->posts}.post_type = '" . WPBDP_POST_TYPE . "' AND {$search_res['where']} )"
 		);
 		$wpdb->suppress_errors( $suppress );
-
-		$candidate_ids = array();
-
-		foreach ( $matching_ids as $original_id ) {
-			$candidate_ids = array_merge( $candidate_ids, $this->get_translation_ids( (int) $original_id ) );
-		}
 
 		if ( ! $candidate_ids ) {
 			return array();
 		}
 
-		$candidate_ids = array_unique( $candidate_ids );
-		update_meta_cache( 'post', $candidate_ids );
+		$candidate_ids = array_map( 'intval', $candidate_ids );
+		_prime_post_caches( $candidate_ids, false, true );
 
 		$translation_ids = array();
 
@@ -744,45 +743,6 @@ class WPBDP_WPML_Compat {
 		}
 
 		return $translation_ids;
-	}
-
-	/**
-	 * Get the IDs of a listing's translations, when the listing is the original.
-	 *
-	 * @since x.x
-	 *
-	 * @param int $listing_id The listing post ID.
-	 *
-	 * @return int[] Empty when the listing isn't the original of a translation group.
-	 */
-	private function get_translation_ids( $listing_id ) {
-		$element_type = 'post_' . WPBDP_POST_TYPE;
-
-		$trid         = apply_filters( 'wpml_element_trid', null, $listing_id, $element_type );
-		$translations = $trid ? apply_filters( 'wpml_get_element_translations', null, $trid, $element_type ) : null;
-
-		if ( ! is_array( $translations ) ) {
-			return array();
-		}
-
-		$ids         = array();
-		$is_original = false;
-
-		foreach ( $translations as $translation ) {
-			$id = (int) $translation->element_id;
-
-			if ( $id === $listing_id ) {
-				$is_original = ! empty( $translation->original );
-				continue;
-			}
-
-			// WPML can list a language with no post yet.
-			if ( $id > 0 ) {
-				$ids[] = $id;
-			}
-		}
-
-		return $is_original ? $ids : array();
 	}
 
 	/**
