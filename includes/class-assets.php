@@ -329,17 +329,19 @@ class WPBDP__Assets {
 		}
 		$button = $settings['elements']['button'];
 
-		if ( isset( $button['color']['text'] ) ) {
-			$css_vars['--bd-button-text-color'] = $button['color']['text'];
+		$button_text = $this->get_usable_theme_color( $button['color']['text'] ?? '' );
+		if ( $button_text ) {
+			$css_vars['--bd-button-text-color'] = $button_text;
 		}
 
 		if ( isset( $button['color']['background'] ) ) {
-			$css_vars['--bd-button-bg-color'] = $button['color']['background'];
-			if ( $css_vars['--bd-main-color'] === '#569AF6' ) {
+			$button_bg = $this->get_usable_theme_color( $button['color']['background'] );
+			if ( $button_bg && $css_vars['--bd-main-color'] === '#569AF6' ) {
 				// If default color, use theme button color.
-				$css_vars['--bd-main-color'] = $css_vars['--bd-button-bg-color'];
+				$css_vars['--bd-button-bg-color'] = $button_bg;
+				$css_vars['--bd-main-color']      = $button_bg;
 			} else {
-				// If the color is set, use it as the button background.
+				// If the color is set, or the theme color can't be used, use it as the button background.
 				$css_vars['--bd-button-bg-color']   = $css_vars['--bd-main-color'];
 				$css_vars['--bd-button-text-color'] = '#fff';
 			}
@@ -358,6 +360,31 @@ class WPBDP__Assets {
 				$css_vars['--bd-button-padding-top'] = $padding['top'];
 			}
 		}
+	}
+
+	/**
+	 * Get a theme.json color only if it can be used in a CSS variable.
+	 *
+	 * A preset color that the theme references but never defines is invalid CSS,
+	 * which makes buttons using it transparent.
+	 *
+	 * @since x.x
+	 *
+	 * @param mixed $color The color from theme.json.
+	 *
+	 * @return string The color, or an empty string if it isn't a string or references an undefined preset.
+	 */
+	private function get_usable_theme_color( $color ) {
+		if ( ! is_string( $color ) ) {
+			return '';
+		}
+
+		if ( ! preg_match( '/^var\(\s*(--wp--preset--color--[\w-]+)\s*\)$/', $color, $match ) ) {
+			return $color;
+		}
+
+		// Core caches this stylesheet for the request.
+		return false !== strpos( wp_get_global_stylesheet(), $match[1] . ':' ) ? $color : '';
 	}
 
 	/**
