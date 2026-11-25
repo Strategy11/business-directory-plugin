@@ -383,12 +383,8 @@ class WPBDP__Assets {
 			return $color;
 		}
 
-		static $global_stylesheet = null;
-		if ( null === $global_stylesheet ) {
-			$global_stylesheet = wp_get_global_stylesheet();
-		}
-
-		return false !== strpos( $global_stylesheet, $match[1] . ':' ) ? $color : '';
+		// Core caches this stylesheet for the request.
+		return false !== strpos( wp_get_global_stylesheet(), $match[1] . ':' ) ? $color : '';
 	}
 
 	/**
