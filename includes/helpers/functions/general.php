@@ -1219,6 +1219,30 @@ function _wpbdp_template_mode( $template ) {
 
 
 /**
+ * Queries a single listing, limited to the listings the current user may see on the front end.
+ *
+ * Users without backend access only get published listings. Other users rely on
+ * WP_Query's own status and capability checks for single posts.
+ *
+ * @since x.x
+ *
+ * @param int $listing_id Listing ID.
+ *
+ * @return WP_Query
+ */
+function wpbdp_query_viewable_listing( $listing_id ) {
+	$args = array(
+		'post_type' => WPBDP_POST_TYPE,
+		'p'         => $listing_id,
+	);
+	if ( ! wpbdp_user_can_access_backend() ) {
+		$args['post_status'] = 'publish';
+	}
+
+	return new WP_Query( $args );
+}
+
+/**
  * Displays a single listing view taking into account all of the theme overrides.
  *
  * @param mixed  $listing_id listing object or listing id to display.
@@ -1229,15 +1253,7 @@ function _wpbdp_template_mode( $template ) {
 function wpbdp_render_listing( $listing_id = null, $view = 'single', $echo = false ) {
 	$listing_id = $listing_id ? ( is_object( $listing_id ) ? $listing_id->ID : absint( $listing_id ) ) : get_the_ID();
 
-	$args = array(
-		'post_type' => WPBDP_POST_TYPE,
-		'p'         => $listing_id,
-	);
-	if ( ! wpbdp_user_can_access_backend() ) {
-		$args['post_status'] = 'publish';
-	}
-
-	$q = new WP_Query( $args );
+	$q = wpbdp_query_viewable_listing( $listing_id );
 	if ( ! $q->have_posts() ) {
 		return '';
 	}
