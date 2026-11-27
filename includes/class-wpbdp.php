@@ -777,6 +777,7 @@ final class WPBDP {
 		}
 
 		WPBDP_Listing_Image::maybe_set_post_parent( $image_ids, $listing_id );
+		WPBDP_Utils::cache_delete_group( 'wpbdp_listings' );
 
 		$image_ids = $this->filter_attached_listing_images( $image_ids, $listing_id );
 		if ( ! $image_ids ) {
