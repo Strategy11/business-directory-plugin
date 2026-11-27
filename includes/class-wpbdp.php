@@ -549,8 +549,11 @@ final class WPBDP {
 			return $res->send_error( __( 'Please select a plan before uploading images to the listing', 'business-directory-plugin' ) );
 		}
 
+		$current_images = $listing->get_images( 'ids' );
+
+		// The form may also hold picked images that are not saved yet, so use the higher count.
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
-		$images_count    = absint( $_POST['images_count'] ?? 0 );
+		$images_count    = max( count( $current_images ), absint( $_POST['images_count'] ?? 0 ) );
 		$slots_available = absint( $plan->fee_images ) - $images_count;
 		if ( 0 >= $slots_available ) {
 			return $res->send_error( __( 'Can not upload any more images for this listing.', 'business-directory-plugin' ) );
@@ -606,11 +609,10 @@ final class WPBDP {
 			);
 		}
 
-		$has_images = $listing->get_images( 'ids' );
 		$listing->set_images( $attachments, true );
 
 		// Maybe set thumbnail if there aren't already images on this listing.
-		if ( ! $has_images ) {
+		if ( ! $current_images ) {
 			$image_id = reset( $attachments );
 			$listing->set_thumbnail_id( $image_id );
 		}

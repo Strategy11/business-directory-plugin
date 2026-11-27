@@ -286,14 +286,7 @@ class WPBDP_Utils {
 			return $upload;
 		}
 
-		$file_id = self::get_file_id( $file_ );
-		if ( ! $sideload && ! empty( $_FILES[ $file_id ]['name'] ) && is_array( $_FILES[ $file_id ]['name'] ) ) {
-			// Force an array of files to a single file.
-			$file_id            = substr( sha1( (string) rand() ), 0, 5 );
-			$_FILES[ $file_id ] = $file;
-		}
-
-		$attachment_id = $sideload ? media_handle_sideload( $file, 0 ) : media_handle_upload( $file_id, 0 );
+		$attachment_id = $sideload ? media_handle_sideload( $file, 0 ) : self::handle_validated_upload( $file );
 
 		if ( is_wp_error( $attachment_id ) ) {
 			$error_msg = $attachment_id->get_error_message();
@@ -482,21 +475,25 @@ class WPBDP_Utils {
 	}
 
 	/**
-	 * We have the file info, but WP needs the file id.
+	 * Adds an uploaded file to the media library.
 	 *
-	 * @since 5.16
+	 * The file is registered under its own temporary `$_FILES` key, so the stored
+	 * file is always the one that was validated.
+	 *
+	 * @since x.x
+	 *
+	 * @param array $file A single file array in the `$_FILES` format.
+	 *
+	 * @return int|WP_Error Attachment ID on success, WP_Error on failure.
 	 */
-	private static function get_file_id( $_file ) {
-		if ( empty( $_FILES ) ) {
-			return '';
-		}
-		foreach ( $_FILES as $id => $file ) {
-			if ( $file === $_file ) {
-				return esc_attr( $id );
-			}
-		}
-		reset( $_FILES );
-		return esc_attr( key( $_FILES ) );
+	private static function handle_validated_upload( $file ) {
+		$file_id = uniqid( 'wpbdp_upload_' );
+
+		$_FILES[ $file_id ] = $file;
+		$attachment_id      = media_handle_upload( $file_id, 0 );
+		unset( $_FILES[ $file_id ] );
+
+		return $attachment_id;
 	}
 }
 
