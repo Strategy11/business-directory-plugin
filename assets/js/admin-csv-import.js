@@ -303,7 +303,10 @@ jQuery( function ( $ ) {
 		$default_user_field = $form
 			.find( '.wpbdp-user-autocomplete' )
 			.autocomplete( {
-				source: ajaxurl + '?action=wpbdp-autocomplete-user',
+				source:
+					ajaxurl +
+					'?action=wpbdp-autocomplete-user&nonce=' +
+					wpbdp_global.nonce,
 				delay: 500,
 				minLength: 2,
 				select: update_textfield_value,

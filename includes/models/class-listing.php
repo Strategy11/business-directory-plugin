@@ -280,6 +280,7 @@ class WPBDP_Listing {
 			$thumbnail = $thumbnail->ID;
 			$find      = array_search( $thumbnail, $images, true );
 		} else {
+			$find = false;
 			foreach ( $images as $k => $image ) {
 				if ( $image->id === $thumbnail->ID ) {
 					$thumbnail = $image;
@@ -289,10 +290,13 @@ class WPBDP_Listing {
 			}
 		}
 
-		if ( isset( $find ) ) {
-			unset( $images[ $find ] );
+		// The saved thumbnail isn't one of this listing's images.
+		if ( false === $find ) {
+			$images = array_values( $images );
+			return;
 		}
 
+		unset( $images[ $find ] );
 		array_unshift( $images, $thumbnail );
 	}
 
