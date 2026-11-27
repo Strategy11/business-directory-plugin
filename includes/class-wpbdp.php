@@ -770,6 +770,12 @@ final class WPBDP {
 			wp_send_json_error( $json_data );
 		}
 
+		$limit_error = $this->get_media_images_limit_error( $image_ids, $listing_id );
+		if ( $limit_error ) {
+			$json_data['errors'] = esc_html( $limit_error );
+			wp_send_json_error( $json_data );
+		}
+
 		WPBDP_Listing_Image::maybe_set_post_parent( $image_ids, $listing_id );
 
 		$image_ids = $this->filter_attached_listing_images( $image_ids, $listing_id );
@@ -801,6 +807,50 @@ final class WPBDP {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Get the error for Media Library images that need more slots than the listing's plan has free.
+	 *
+	 * Images the listing already has don't use a new slot. Listings without a plan aren't limited.
+	 *
+	 * @since x.x
+	 *
+	 * @param int[] $image_ids  Attachment IDs.
+	 * @param int   $listing_id Listing ID.
+	 *
+	 * @return string Empty when the images fit.
+	 */
+	private function get_media_images_limit_error( $image_ids, $listing_id ) {
+		$listing = wpbdp_get_listing( $listing_id );
+		$plan    = $listing ? $listing->get_fee_plan() : false;
+		if ( ! $plan ) {
+			return '';
+		}
+
+		$current_images  = $listing->get_images( 'ids' );
+		$new_images      = count( array_diff( $image_ids, $current_images ) );
+		$slots_available = absint( $plan->fee_images ) - count( $current_images );
+
+		if ( ! $new_images || $new_images <= $slots_available ) {
+			return '';
+		}
+
+		if ( 0 >= $slots_available ) {
+			return __( 'Can not upload any more images for this listing.', 'business-directory-plugin' );
+		}
+
+		return sprintf(
+			_nx(
+				'You\'re trying to upload %1$d images, but only have %2$d slot available. Please adjust your selection.',
+				'You\'re trying to upload %1$d images, but only have %2$d slots available. Please adjust your selection.',
+				$slots_available,
+				'listing image upload',
+				'business-directory-plugin'
+			),
+			$new_images,
+			$slots_available
+		);
 	}
 
 	/**
