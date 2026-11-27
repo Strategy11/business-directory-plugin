@@ -6,6 +6,9 @@
 namespace Listing;
 
 use WPBDP\Tests\WPUnitTestCase;
+use WPBDP__Fee_Plan;
+use WPBDP__Views__Submit_Listing;
+use WPBDP_Admin_Listings;
 use WPBDP_Listing_Image;
 
 /**
@@ -225,6 +228,170 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 	}
 
 	/**
+	 * @since x.x
+	 */
+	public function testAdminListingSaveIgnoresImageFromAnotherListing() {
+		$admin_id         = $this->get_or_create_user( 'administrator', 'media-admin@example.com' );
+		$contributor_id   = $this->get_or_create_user( 'contributor', 'media-contributor@example.com' );
+		$other_listing_id = $this->create_listing( $admin_id );
+		$listing_id       = $this->create_listing( $contributor_id );
+		$image_id         = $this->create_image_attachment( $admin_id, $other_listing_id );
+
+		update_post_meta( $image_id, '_wpbdp_image_caption', 'Original caption' );
+
+		wp_set_current_user( $contributor_id );
+		$this->save_admin_listing_images(
+			$listing_id,
+			array(
+				'_thumbnail_id' => $image_id,
+				'images_meta'   => array(
+					$image_id => array(
+						'caption' => 'Changed caption',
+						'order'   => 5,
+					),
+				),
+			)
+		);
+
+		$this->assertSame( $other_listing_id, (int) wp_get_post_parent_id( $image_id ) );
+		$this->assertSame( 'Original caption', get_post_meta( $image_id, '_wpbdp_image_caption', true ) );
+		$this->assertNotContains( $image_id, array_map( 'absint', (array) get_post_meta( $listing_id, '_wpbdp[images]', true ) ) );
+
+		wp_delete_post( $listing_id, true );
+		$this->assertNotNull( get_post( $image_id ) );
+	}
+
+	/**
+	 * @since x.x
+	 */
+	public function testAdminListingSaveDoesNotMoveImageListedInImageMeta() {
+		$admin_id         = $this->get_or_create_user( 'administrator', 'media-admin@example.com' );
+		$contributor_id   = $this->get_or_create_user( 'contributor', 'media-contributor@example.com' );
+		$other_listing_id = $this->create_listing( $admin_id );
+		$listing_id       = $this->create_listing( $contributor_id );
+		$image_id         = $this->create_image_attachment( $admin_id, $other_listing_id );
+
+		update_post_meta( $listing_id, '_wpbdp[images]', array( $image_id ) );
+
+		wp_set_current_user( $contributor_id );
+		$this->save_admin_listing_images( $listing_id, array( '_thumbnail_id' => $image_id ) );
+
+		$this->assertSame( $other_listing_id, (int) wp_get_post_parent_id( $image_id ) );
+	}
+
+	/**
+	 * @since x.x
+	 */
+	public function testAdminListingSaveUsesOwnUnattachedImageAsThumbnail() {
+		$admin_id   = $this->get_or_create_user( 'administrator', 'media-admin@example.com' );
+		$listing_id = $this->create_listing( $admin_id );
+		$image_id   = $this->create_image_attachment( $admin_id, 0 );
+
+		wp_set_current_user( $admin_id );
+		$this->save_admin_listing_images(
+			$listing_id,
+			array(
+				'_thumbnail_id' => $image_id,
+				'images_meta'   => array(
+					$image_id => array(
+						'caption' => 'New caption',
+						'order'   => 1,
+					),
+				),
+			)
+		);
+
+		$this->assertSame( $listing_id, (int) wp_get_post_parent_id( $image_id ) );
+		$this->assertSame( $image_id, (int) get_post_meta( $listing_id, '_thumbnail_id', true ) );
+		$this->assertSame( 'New caption', get_post_meta( $image_id, '_wpbdp_image_caption', true ) );
+		$this->assertSame( array( $image_id ), get_post_meta( $listing_id, '_wpbdp[images]', true ) );
+	}
+
+	/**
+	 * @since x.x
+	 */
+	public function testListingFormImagesStepIgnoresImageFromAnotherListing() {
+		$admin_id         = $this->get_or_create_user( 'administrator', 'media-admin@example.com' );
+		$author_id        = $this->get_or_create_user( 'author', 'media-author@example.com' );
+		$other_listing_id = $this->create_listing( $admin_id );
+		$listing_id       = $this->create_listing( $author_id );
+		$foreign_id       = $this->create_image_attachment( $admin_id, $other_listing_id );
+		$own_id           = $this->create_image_attachment( $author_id, $listing_id );
+
+		update_post_meta( $foreign_id, '_wpbdp_image_caption', 'Original caption' );
+
+		wp_set_current_user( $author_id );
+		$this->submit_listing_images_step(
+			$listing_id,
+			array(
+				'_thumbnail_id' => $foreign_id,
+				'images_meta'   => array(
+					$foreign_id => array( 'caption' => 'Changed caption' ),
+					$own_id     => array( 'caption' => 'Own caption' ),
+				),
+			)
+		);
+
+		$this->assertNotSame( $foreign_id, (int) get_post_meta( $listing_id, '_thumbnail_id', true ) );
+		$this->assertSame( 'Original caption', get_post_meta( $foreign_id, '_wpbdp_image_caption', true ) );
+		$this->assertSame( 'Own caption', get_post_meta( $own_id, '_wpbdp_image_caption', true ) );
+	}
+
+	/**
+	 * @since x.x
+	 */
+	public function testListingFormImagesStepSkipsSavedForeignThumbnail() {
+		$admin_id         = $this->get_or_create_user( 'administrator', 'media-admin@example.com' );
+		$author_id        = $this->get_or_create_user( 'author', 'media-author@example.com' );
+		$other_listing_id = $this->create_listing( $admin_id );
+		$listing_id       = $this->create_listing( $author_id );
+		$foreign_id       = $this->create_image_attachment( $admin_id, $other_listing_id );
+
+		$this->create_image_attachment( $author_id, $listing_id );
+
+		update_post_meta( $foreign_id, '_wpbdp_image_caption', 'Original caption' );
+		update_post_meta( $listing_id, '_thumbnail_id', $foreign_id );
+
+		wp_set_current_user( $author_id );
+		$this->submit_listing_images_step(
+			$listing_id,
+			array(
+				'images_meta' => array(
+					$foreign_id => array( 'caption' => 'Changed caption' ),
+				),
+			)
+		);
+
+		$this->assertSame( 'Original caption', get_post_meta( $foreign_id, '_wpbdp_image_caption', true ) );
+	}
+
+	/**
+	 * @since x.x
+	 */
+	public function testListingFormImagesStepSetsOwnImageAsThumbnail() {
+		$author_id  = $this->get_or_create_user( 'author', 'media-author@example.com' );
+		$listing_id = $this->create_listing( $author_id );
+		$first_id   = $this->create_image_attachment( $author_id, $listing_id );
+		$second_id  = $this->create_image_attachment( $author_id, $listing_id );
+
+		wp_set_current_user( $author_id );
+		$this->submit_listing_images_step(
+			$listing_id,
+			array(
+				'_thumbnail_id' => $second_id,
+				'images_meta'   => array(
+					$first_id  => array( 'caption' => 'First caption' ),
+					$second_id => array( 'caption' => 'Second caption' ),
+				),
+			)
+		);
+
+		$this->assertSame( $second_id, (int) get_post_meta( $listing_id, '_thumbnail_id', true ) );
+		$this->assertSame( 'First caption', get_post_meta( $first_id, '_wpbdp_image_caption', true ) );
+		$this->assertSame( 'Second caption', get_post_meta( $second_id, '_wpbdp_image_caption', true ) );
+	}
+
+	/**
 	 * @since 6.4.28
 	 */
 	public function testNormalizeImageIdsAcceptsCommaSeparatedValues() {
@@ -280,6 +447,84 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 				$wpbdp->ajax_listing_submit_image_delete();
 			}
 		);
+	}
+
+	/**
+	 * Run the wp-admin listing field save with the given image data.
+	 *
+	 * @since x.x
+	 *
+	 * @param int   $listing_id Listing ID.
+	 * @param array $post_data  Image fields to post.
+	 *
+	 * @return void
+	 */
+	private function save_admin_listing_images( $listing_id, $post_data ) {
+		$this->clear_request();
+		$_POST = array_merge(
+			array(
+				'wpbdp-admin-listing-fields-nonce' => wp_create_nonce( 'save listing fields' ),
+				'listingfields'                    => array( 0 => '' ),
+			),
+			$post_data
+		);
+
+		set_current_screen( 'edit' );
+		$admin_listings = new WPBDP_Admin_Listings();
+		$admin_listings->maybe_save_fields( $listing_id );
+		set_current_screen( 'front' );
+	}
+
+	/**
+	 * Run the images step of the listing form with the given image data.
+	 *
+	 * @since x.x
+	 *
+	 * @param int   $listing_id Listing ID.
+	 * @param array $post_data  Image fields to post.
+	 *
+	 * @return void
+	 */
+	private function submit_listing_images_step( $listing_id, $post_data ) {
+		require_once WPBDP_PATH . 'includes/controllers/pages/class-submit-listing.php';
+
+		$plan = new WPBDP__Fee_Plan(
+			array(
+				'label'                => 'Listing images plan',
+				'amount'               => 0,
+				'days'                 => 365,
+				'images'               => 5,
+				'enabled'              => 1,
+				'supported_categories' => 'all',
+			)
+		);
+		$plan->save();
+
+		$listing = wpbdp_get_listing( $listing_id );
+		$listing->set_fee_plan( $plan );
+		wpbdp_set_option( 'allow-images', true );
+
+		$this->clear_request();
+		$_POST = $post_data;
+
+		$view  = new \ReflectionClass( WPBDP__Views__Submit_Listing::class );
+		$form  = $view->newInstanceWithoutConstructor();
+		$props = array(
+			'listing'         => $listing,
+			'sections'        => array( 'listing_images' => array() ),
+			'sections_keys'   => array( 'listing_images' ),
+			'current_section' => 'listing_images',
+		);
+
+		foreach ( $props as $name => $value ) {
+			$prop = $view->getProperty( $name );
+			$prop->setAccessible( true );
+			$prop->setValue( $form, $value );
+		}
+
+		$method = $view->getMethod( 'listing_images' );
+		$method->setAccessible( true );
+		$method->invoke( $form );
 	}
 
 	/**
