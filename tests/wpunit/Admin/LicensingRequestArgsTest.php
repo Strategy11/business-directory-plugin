@@ -118,7 +118,7 @@ class LicensingRequestArgsTest extends WPUnitTestCase {
 	 *
 	 * @since x.x
 	 *
-	 * @param false|array|\WP_Error $response Short-circuit value.
+	 * @param array|false|\WP_Error $response Short-circuit value.
 	 * @param array                 $args     Request arguments.
 	 * @param string                $url      Request URL.
 	 *
