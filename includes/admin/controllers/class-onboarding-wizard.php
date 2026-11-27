@@ -241,7 +241,7 @@ final class WPBDP_Onboarding_Wizard {
 	 */
 	public function ajax_consent_tracking() {
 		// Check permission and nonce.
-		WPBDP_App_Helper::permission_check();
+		WPBDP_App_Helper::permission_check( 'manage_options' );
 		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
 
 		wpbdp_set_option( 'tracking-on', true );
