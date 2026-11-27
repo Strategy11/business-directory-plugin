@@ -841,8 +841,15 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$response->send();
 		}
 
+		/**
+		 * Save the front-end plan order from the Plans screen.
+		 *
+		 * @since x.x
+		 *
+		 * @return void
+		 */
 		public function ajax_fees_set_order() {
-			WPBDP_App_Helper::permission_check();
+			WPBDP_App_Helper::permission_check( 'manage_options' );
 
 			$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
 			$order = wpbdp_get_var( array( 'param' => 'fee_order' ), 'post' );
