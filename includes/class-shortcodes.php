@@ -870,22 +870,42 @@ class WPBDP__Shortcodes {
 	 */
 	private function add_current_listing_id( &$vars ) {
 		$vars = (array) $vars;
-		if ( ! empty( $vars['id'] ) && ! is_numeric( $vars['id'] ) ) {
-			$vars['id'] = wpbdp_get_post_by_id_or_slug( $vars['id'], 'slug', 'id' );
+		if ( ! empty( $vars['id'] ) ) {
+			$vars['id'] = $this->get_viewable_listing_id( $vars['id'] );
 			return;
 		}
 
-		if ( ! empty( $vars['id'] ) && WPBDP_POST_TYPE !== get_post_type( $vars['id'] ) ) {
-			$vars['id'] = 0;
-			return;
-		}
-
-		if ( ! is_singular( WPBDP_POST_TYPE ) || ! empty( $vars['id'] ) ) {
+		if ( ! is_singular( WPBDP_POST_TYPE ) ) {
 			return;
 		}
 
 		global $post;
 		$vars['id'] = $post->ID;
+	}
+
+	/**
+	 * Get the listing id from a shortcode id or slug, if the current user may see that listing.
+	 *
+	 * Follows the same rule as [businessdirectory-listing]. The listing shown on the current
+	 * single listing page was already checked by the main query.
+	 *
+	 * @since x.x
+	 *
+	 * @param int|string $id_or_slug Listing id or slug.
+	 *
+	 * @return int The listing id, or 0.
+	 */
+	private function get_viewable_listing_id( $id_or_slug ) {
+		$listing_id = (int) wpbdp_get_post_by_id_or_slug( $id_or_slug, 'id', 'id' );
+		if ( ! $listing_id ) {
+			return 0;
+		}
+
+		if ( is_singular( WPBDP_POST_TYPE ) && get_queried_object_id() === $listing_id ) {
+			return $listing_id;
+		}
+
+		return wpbdp_query_viewable_listing( $listing_id )->have_posts() ? $listing_id : 0;
 	}
 
 	/**

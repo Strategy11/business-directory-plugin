@@ -266,14 +266,16 @@ class WPBDP_Admin_Listings {
 			);
 		}
 
-		add_meta_box(
-			'wpbdp-listing-owner',
-			__( 'Listing Owner', 'business-directory-plugin' ),
-			array( $this, '_metabox_listing_owner' ),
-			WPBDP_POST_TYPE,
-			'normal',
-			'core'
-		);
+		if ( WPBDP__Admin__Listing_Owner::current_user_can_change_owner() ) {
+			add_meta_box(
+				'wpbdp-listing-owner',
+				__( 'Listing Owner', 'business-directory-plugin' ),
+				array( $this, '_metabox_listing_owner' ),
+				WPBDP_POST_TYPE,
+				'normal',
+				'core'
+			);
+		}
 	}
 
 	public function _metabox_listing_info( $post ) {
@@ -648,7 +650,7 @@ class WPBDP_Admin_Listings {
 		$thumbnail_id  = $_thumbnail_id > 0 ? $_thumbnail_id : $thumbnail_id;
 
 		// Update image information.
-		if ( $thumbnail_id > 0 ) {
+		if ( $thumbnail_id > 0 && $this->can_use_listing_image( $thumbnail_id, $post_id ) ) {
 			$listing->set_thumbnail_id( $thumbnail_id );
 			$listing->set_images( array( $thumbnail_id ), true );
 		}
@@ -656,15 +658,53 @@ class WPBDP_Admin_Listings {
 		// Images info.
 		$meta = wpbdp_get_var( array( 'param' => 'images_meta' ), 'post' );
 		if ( ! empty( $meta ) ) {
-			$images = array_keys( $meta );
+			$meta = $this->filter_listing_images_meta( $meta, $post_id );
 
-			update_post_meta( $post_id, '_wpbdp[images]', $images );
+			update_post_meta( $post_id, '_wpbdp[images]', array_keys( $meta ) );
 
 			foreach ( $meta as $img_id => $img_meta ) {
 				update_post_meta( $img_id, '_wpbdp_image_weight', absint( $img_meta['order'] ) );
 				update_post_meta( $img_id, '_wpbdp_image_caption', strval( $img_meta['caption'] ) );
 			}
 		}
+	}
+
+	/**
+	 * Whether an image can be attached to a listing as its thumbnail from the admin.
+	 *
+	 * @since x.x
+	 *
+	 * @param int $image_id   Attachment ID.
+	 * @param int $listing_id Listing ID.
+	 *
+	 * @return bool
+	 */
+	private function can_use_listing_image( $image_id, $listing_id ) {
+		$is_attached = (int) wp_get_post_parent_id( $image_id ) === (int) $listing_id && wp_attachment_is_image( $image_id );
+
+		return $is_attached || WPBDP_Listing_Image::can_attach_from_media_library( $image_id, $listing_id );
+	}
+
+	/**
+	 * Keep only the image meta of images that belong to the listing.
+	 *
+	 * @since x.x
+	 *
+	 * @param array $meta       Image meta from the request, keyed by attachment ID.
+	 * @param int   $listing_id Listing ID.
+	 *
+	 * @return array
+	 */
+	private function filter_listing_images_meta( $meta, $listing_id ) {
+		$listing_meta = array();
+
+		foreach ( $meta as $img_id => $img_meta ) {
+			if ( WPBDP_Listing_Image::belongs_to_listing( $img_id, $listing_id ) ) {
+				$listing_meta[ absint( $img_id ) ] = $img_meta;
+			}
+		}
+
+		return $listing_meta;
 	}
 
 	public function maybe_restore_listing_slug( $post_id ) {

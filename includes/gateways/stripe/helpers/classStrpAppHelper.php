@@ -93,6 +93,29 @@ class WPBDPStrpAppHelper {
 	}
 
 	/**
+	 * Convert an amount to the smallest currency unit Stripe expects.
+	 *
+	 * @since x.x
+	 *
+	 * @param float  $amount   Amount to be formatted.
+	 * @param string $currency Currency code.
+	 *
+	 * @return float
+	 */
+	public static function amount_to_stripe( $amount, $currency ) {
+		if ( self::is_zero_decimal_currency( $currency ) ) {
+			return round( $amount, 0 );
+		}
+
+		if ( in_array( strtoupper( (string) $currency ), array( 'ISK', 'UGX' ), true ) ) {
+			// Stripe takes these as two-decimal values, but without fractions.
+			return round( $amount, 0 ) * 100;
+		}
+
+		return round( $amount * 100, 0 );
+	}
+
+	/**
 	 * Convert an amount in Stripe's smallest currency unit back to a regular amount.
 	 *
 	 * @since 6.4.30

@@ -246,8 +246,36 @@ class WPBDP__Admin__Listing_Owner {
 		return $configuration;
 	}
 
+	/**
+	 * Whether the current user can assign listings to other users.
+	 *
+	 * Matches the rule WordPress core uses for the post author box.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	public static function current_user_can_change_owner() {
+		$post_type = get_post_type_object( WPBDP_POST_TYPE );
+
+		return $post_type && current_user_can( $post_type->cap->edit_others_posts );
+	}
+
+	/**
+	 * Search users for the Listing Owner selector in ajax mode.
+	 *
+	 * @since 5.6.3
+	 *
+	 * @return void
+	 */
 	public function ajax_autocomplete_users() {
-		WPBDP_App_Helper::permission_check();
+		if ( ! self::current_user_can_change_owner() ) {
+			wp_send_json(
+				array(
+					'status' => 'fail',
+				)
+			);
+		}
 
 		global $wpdb;
 

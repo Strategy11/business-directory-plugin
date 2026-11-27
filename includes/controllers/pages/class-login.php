@@ -19,9 +19,13 @@ class WPBDP__Views__Login extends WPBDP__View {
 			'request'
 		);
 
+		$main_url = wpbdp_url( 'main' );
+
 		if ( ! $redirect_to ) {
-			$redirect_to = wpbdp_url( 'main' );
+			$redirect_to = $main_url;
 		}
+
+		$redirect_to = wp_validate_redirect( $redirect_to, $main_url );
 
 		$redirect_to = remove_query_arg( 'access_key_hash', $redirect_to );
 

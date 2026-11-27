@@ -287,6 +287,10 @@ class WPBDP__Listing_Search {
 				continue;
 			}
 			$field_id = intval( $field_id );
+			if ( ! self::can_search_field( $field_id ) ) {
+				continue;
+			}
+
 			wpbdp_sanitize_value( 'sanitize_text_field', $term );
 
 			$search_terms = array();
@@ -317,6 +321,28 @@ class WPBDP__Listing_Search {
 
 			$res[] = $subq;
 		}
+	}
+
+	/**
+	 * Checks whether the current user may filter listings by the given field.
+	 *
+	 * Fields not available in the search form are only allowed when their
+	 * values are already shown on listings.
+	 *
+	 * @since x.x
+	 *
+	 * @param int $field_id The form field ID.
+	 *
+	 * @return bool
+	 */
+	private static function can_search_field( $field_id ) {
+		$field = wpbdp_get_form_field( $field_id );
+
+		if ( ! $field || $field->has_validator( 'email' ) || $field->is_hidden_from_current_user() ) {
+			return false;
+		}
+
+		return $field->display_in( 'search' ) || $field->display_in( 'listing' ) || $field->display_in( 'excerpt' );
 	}
 
 	/**

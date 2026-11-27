@@ -328,9 +328,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				'title' => _x( 'Import & Export', 'admin menu', 'business-directory-plugin' ),
 			);
 			$menu['wpbdp-debug-info']       = array(
-				'title'      => _x( 'Debug', 'admin menu', 'business-directory-plugin' ),
-				'callback'   => array( &$this->debug_page, 'dispatch' ),
-				'capability' => wpbdp_backend_minimim_role(),
+				'title'    => _x( 'Debug', 'admin menu', 'business-directory-plugin' ),
+				'callback' => array( &$this->debug_page, 'dispatch' ),
 			);
 
 			$this->menu = apply_filters( 'wpbdp_admin_menu_items', $menu );
@@ -609,9 +608,9 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$cpt_menu   = 'edit.php?post_type=' . WPBDP_POST_TYPE;
 			$admin_menu = $this->menu_id;
 
-			if ( isset( $submenu[ $cpt_menu ] ) && isset( $submenu[ $admin_menu ] ) ) {
+			if ( isset( $submenu[ $cpt_menu ] ) ) {
 				$this->change_menu_name( $submenu[ $cpt_menu ] );
-				$submenu[ $admin_menu ] = array_merge( $submenu[ $cpt_menu ], $submenu[ $admin_menu ] );
+				$submenu[ $admin_menu ] = array_merge( $submenu[ $cpt_menu ], $submenu[ $admin_menu ] ?? array() );
 			}
 		}
 

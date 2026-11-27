@@ -426,7 +426,6 @@ class WPBDP_Themes_Admin {
 			array(
 				'timeout'    => 15,
 				'user-agent' => wpbdp_http_user_agent(),
-				'sslverify'  => false,
 			)
 		);
 

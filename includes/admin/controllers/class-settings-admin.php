@@ -988,7 +988,7 @@ class WPBDP__Settings_Admin {
 
 		if ( isset( $_FILES['file']['error'] ) && $_FILES['file']['error'] == 0 ) {
 			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-			$file = wp_unslash( $_FILES['file'] );
+			$file = $_FILES['file'];
 			// TODO: we support only images for now but we could use this for anything later
 			$media_id = wpbdp_media_upload(
 				$file,

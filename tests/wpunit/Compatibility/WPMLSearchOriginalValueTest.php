@@ -89,9 +89,10 @@ class WPMLSearchOriginalValueTest extends WPUnitTestCase {
 
 		$this->field = new WPBDP_Form_Field(
 			array(
-				'association' => 'meta',
-				'field_type'  => 'textfield',
-				'label'       => 'WPML search field',
+				'association'   => 'meta',
+				'field_type'    => 'textfield',
+				'label'         => 'WPML search field',
+				'display_flags' => array( 'excerpt', 'listing', 'search' ),
 			)
 		);
 		$this->field->save();

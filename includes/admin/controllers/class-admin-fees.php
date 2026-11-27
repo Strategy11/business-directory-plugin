@@ -221,7 +221,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	 * @since 5.15.3
 	 */
 	public function ajax_update_listing_plan() {
-		WPBDP_App_Helper::permission_check();
+		WPBDP_App_Helper::permission_check( 'manage_options' );
 		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
 
 		$plan_id = wpbdp_get_var(
@@ -309,6 +309,8 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	}
 
 	function toggle_fee() {
+		WPBDP_App_Helper::permission_check( 'manage_categories', array( 'nonce' => 'toggle-fee' ) );
+
 		$fee           = $this->get_or_die();
 		$enabled_plans = WPBDP_Fees_API::get_enabled_plans();
 		if ( $enabled_plans > 1 || ! $fee->enabled ) {

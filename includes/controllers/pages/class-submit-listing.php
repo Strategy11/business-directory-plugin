@@ -117,6 +117,13 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			return $this->show_form_placeholder();
 		}
 
+		if ( ! $this->is_valid_form_post() ) {
+			return wpbdp_render_msg(
+				__( 'Your session has expired. Please reload the page and try again.', 'business-directory-plugin' ),
+				'error'
+			);
+		}
+
 		// At this point, 'editing' is only set if 'wpbdp_view' is 'edit_listing'.
 		$listing_id = wpbdp_get_var(
 			array(
@@ -253,6 +260,40 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		 * @since 6.2.2
 		 */
 		return apply_filters( 'wpbdp_ajax_load_form', $use_ajax );
+	}
+
+	/**
+	 * Check the form nonce when a logged-in user posts listing data.
+	 *
+	 * The first page load needs no nonce, so cached pages keep working.
+	 * Logged-out visitors all share the same nonce, so it isn't checked for them.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private function is_valid_form_post() {
+		if ( ! is_user_logged_in() || ! $this->has_posted_form_data() ) {
+			return true;
+		}
+
+		$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
+
+		return $nonce && wp_verify_nonce( $nonce, 'listing submit' );
+	}
+
+	/**
+	 * Whether the request posts anything beyond the AJAX routing keys used to load the form.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private function has_posted_form_data() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Only the keys are read, to decide if the nonce is needed.
+		$posted = array_diff_key( $_POST, array_flip( array( 'action', 'handler' ) ) );
+
+		return ! empty( $posted );
 	}
 
 	/**
@@ -1573,7 +1614,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			)
 		);
 
-		if ( $thumbnail_id ) {
+		if ( $thumbnail_id && WPBDP_Listing_Image::belongs_to_listing( $thumbnail_id, $listing->get_id() ) ) {
 			$listing->set_thumbnail_id( $thumbnail_id );
 		}
 
@@ -1587,6 +1628,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		if ( $should_validate && ! empty( $_POST['images_meta'] ) ) {
 			$order = 0;
 			foreach ( $images as $img_id ) {
+				if ( ! WPBDP_Listing_Image::belongs_to_listing( $img_id, $listing->get_id() ) ) {
+					continue;
+				}
+
 				$updated_meta = wpbdp_get_var( array( 'param' => 'images_meta' ), 'post' );
 				$updated_meta = ! empty( $updated_meta[ $img_id ] ) ? (array) $updated_meta[ $img_id ] : array();
 

@@ -599,7 +599,6 @@ class WPBDP_Licensing {
 			array(
 				'timeout'    => 15,
 				'user-agent' => wpbdp_http_user_agent(),
-				'sslverify'  => false,
 			)
 		);
 
@@ -1014,7 +1013,6 @@ class WPBDP_Licensing {
 			array(
 				'timeout'    => 15,
 				'user-agent' => wpbdp_http_user_agent(),
-				'sslverify'  => false,
 				'body'       => $args,
 			)
 		);
