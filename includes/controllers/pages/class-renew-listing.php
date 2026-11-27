@@ -69,6 +69,10 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 		}
 
 		if ( isset( $_POST['cancel-renewal'] ) ) {
+			if ( ! $this->can_cancel_renewal() ) {
+				return wpbdp_render_msg( __( 'Your session has expired. Please reload the page and try again.', 'business-directory-plugin' ), 'error' );
+			}
+
 			if ( $this->listing->delete() ) {
 				return wpbdp_render_msg( _x( 'Your listing has been removed from the directory.', 'renewal', 'business-directory-plugin' ) );
 			} else {
@@ -110,6 +114,26 @@ class WPBDP__Views__Renew_Listing extends WPBDP__Authenticated_Listing_View {
 		return $payment
 			? $this->_redirect( $payment->get_checkout_url() )
 			: $this->render_plan_selection( $this->plan );
+	}
+
+	/**
+	 * Check the form nonce before a logged-in user removes the listing.
+	 *
+	 * Logged-out visitors reach this page with an access key from the request,
+	 * so the nonce isn't checked for them.
+	 *
+	 * @since x.x
+	 *
+	 * @return bool
+	 */
+	private function can_cancel_renewal() {
+		if ( ! is_user_logged_in() ) {
+			return true;
+		}
+
+		$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
+
+		return $nonce && wp_verify_nonce( $nonce, 'cancel renewal ' . $this->listing->get_id() );
 	}
 
 	private function render_manage_subscription_page( $listing, $current_plan ) {

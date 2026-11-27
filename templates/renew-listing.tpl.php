@@ -23,6 +23,7 @@
 		</p>
 
 		<form id="wpbdp-renewlisting-form" method="post" action="">
+			<?php wp_nonce_field( 'cancel renewal ' . $listing->get_id() ); ?>
 			<?php
 			echo wpbdp_render(
 				'plan-selection',
