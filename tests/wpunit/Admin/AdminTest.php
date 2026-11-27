@@ -116,11 +116,16 @@ class AdminTest extends WPUnitTestCase {
 		global $submenu;
 		$original_submenu = $submenu;
 
+		// WordPress adds the listing post type submenu before the admin_menu hook runs.
+		$listings_menu             = 'edit.php?post_type=' . WPBDP_POST_TYPE;
+		$submenu[ $listings_menu ] = array( 5 => array( 'Directory Listings', 'edit_posts', $listings_menu ) );
+
 		wp_set_current_user( $user_id );
 		static::$admin->admin_menu();
 		static::$admin->hide_menu();
 
 		$this->assertArrayHasKey( static::$menu_id, $submenu );
+		$this->assertContains( $listings_menu, wp_list_pluck( $submenu[ static::$menu_id ], 2 ) );
 
 		$submenu = $original_submenu;
 	}

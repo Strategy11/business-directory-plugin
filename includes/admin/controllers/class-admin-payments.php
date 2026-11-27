@@ -94,7 +94,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 	}
 
 	public function ajax_add_note() {
-		WPBDP_App_Helper::permission_check();
+		WPBDP_App_Helper::permission_check( 'manage_options' );
 		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
 
 		$payment_id = wpbdp_get_var(
@@ -140,7 +140,7 @@ class WPBDP__Admin__Payments extends WPBDP__Admin__Controller {
 
 	public function ajax_delete_note() {
 		$nonce = array( 'nonce' => 'wpbdp_ajax' );
-		WPBDP_App_Helper::permission_check( wpbdp_backend_minimim_role(), $nonce );
+		WPBDP_App_Helper::permission_check( 'manage_options', $nonce );
 
 		$payment_id = wpbdp_get_var(
 			array(

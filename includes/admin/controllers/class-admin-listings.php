@@ -266,14 +266,16 @@ class WPBDP_Admin_Listings {
 			);
 		}
 
-		add_meta_box(
-			'wpbdp-listing-owner',
-			__( 'Listing Owner', 'business-directory-plugin' ),
-			array( $this, '_metabox_listing_owner' ),
-			WPBDP_POST_TYPE,
-			'normal',
-			'core'
-		);
+		if ( WPBDP__Admin__Listing_Owner::current_user_can_change_owner() ) {
+			add_meta_box(
+				'wpbdp-listing-owner',
+				__( 'Listing Owner', 'business-directory-plugin' ),
+				array( $this, '_metabox_listing_owner' ),
+				WPBDP_POST_TYPE,
+				'normal',
+				'core'
+			);
+		}
 	}
 
 	public function _metabox_listing_info( $post ) {
