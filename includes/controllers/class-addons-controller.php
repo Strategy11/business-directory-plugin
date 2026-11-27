@@ -40,6 +40,9 @@ class WPBDP_Addons_Controller {
 
 		$installed = self::install_addon();
 		if ( is_array( $installed ) && isset( $installed['message'] ) ) {
+			if ( wp_doing_ajax() ) {
+				wp_send_json( $installed );
+			}
 			return $installed;
 		}
 		self::maybe_activate_addon( $installed );
