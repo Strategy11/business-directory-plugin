@@ -328,9 +328,8 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 				'title' => _x( 'Import & Export', 'admin menu', 'business-directory-plugin' ),
 			);
 			$menu['wpbdp-debug-info']       = array(
-				'title'      => _x( 'Debug', 'admin menu', 'business-directory-plugin' ),
-				'callback'   => array( &$this->debug_page, 'dispatch' ),
-				'capability' => wpbdp_backend_minimim_role(),
+				'title'    => _x( 'Debug', 'admin menu', 'business-directory-plugin' ),
+				'callback' => array( &$this->debug_page, 'dispatch' ),
 			);
 
 			$this->menu = apply_filters( 'wpbdp_admin_menu_items', $menu );

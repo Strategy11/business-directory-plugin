@@ -221,7 +221,7 @@ class WPBDP__Admin__Fees extends WPBDP__Admin__Controller {
 	 * @since 5.15.3
 	 */
 	public function ajax_update_listing_plan() {
-		WPBDP_App_Helper::permission_check();
+		WPBDP_App_Helper::permission_check( 'manage_options' );
 		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
 
 		$plan_id = wpbdp_get_var(
