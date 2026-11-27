@@ -829,7 +829,7 @@ final class WPBDP {
 			return '';
 		}
 
-		$current_images  = $listing->get_images( 'ids' );
+		$current_images  = $this->get_all_listing_image_ids( $listing_id );
 		$new_images      = count( array_diff( $image_ids, $current_images ) );
 		$slots_available = absint( $plan->fee_images ) - count( $current_images );
 
@@ -852,6 +852,30 @@ final class WPBDP {
 			$new_images,
 			$slots_available
 		);
+	}
+
+	/**
+	 * Get every image of a listing, without the 50 image cap of WPBDP_Listing::get_images().
+	 *
+	 * @since x.x
+	 *
+	 * @param int $listing_id Listing ID.
+	 *
+	 * @return int[]
+	 */
+	private function get_all_listing_image_ids( $listing_id ) {
+		$attached  = get_posts(
+			array(
+				'numberposts' => -1,
+				'post_type'   => 'attachment',
+				'post_parent' => $listing_id,
+				'fields'      => 'ids',
+			)
+		);
+		$in_meta   = get_post_meta( $listing_id, '_wpbdp[images]', true );
+		$image_ids = array_filter( array_unique( array_map( 'absint', array_merge( (array) $in_meta, $attached ) ) ) );
+
+		return array_values( array_filter( $image_ids, 'wp_attachment_is_image' ) );
 	}
 
 	/**

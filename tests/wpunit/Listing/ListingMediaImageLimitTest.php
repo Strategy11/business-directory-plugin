@@ -100,6 +100,23 @@ class ListingMediaImageLimitTest extends WPUnitTestCase {
 	/**
 	 * @since x.x
 	 */
+	public function testPickerCountsMoreThanFiftyImages() {
+		$admin_id   = $this->login_as_admin();
+		$listing_id = $this->create_listing_with_plan( 51 );
+		for ( $i = 0; $i < 51; $i++ ) {
+			$this->create_image( $admin_id, $listing_id );
+		}
+		$picked = $this->create_image( $admin_id, 0 );
+
+		$response = $this->dispatch_media_image( $listing_id, $picked );
+
+		$this->assertFalse( $response['success'] );
+		$this->assertSame( 0, (int) wp_get_post_parent_id( $picked ) );
+	}
+
+	/**
+	 * @since x.x
+	 */
 	public function testPickingAnImageTheListingAlreadyHasDoesNotUseASlot() {
 		$admin_id   = $this->login_as_admin();
 		$listing_id = $this->create_listing_with_plan( 1 );
