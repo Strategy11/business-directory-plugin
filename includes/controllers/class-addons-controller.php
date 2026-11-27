@@ -19,6 +19,11 @@ class WPBDP_Addons_Controller {
 	public static function ajax_install_addon() {
 		self::install_addon_permissions();
 
+		if ( ! current_user_can( 'install_plugins' ) ) {
+			echo json_encode( true );
+			wp_die();
+		}
+
 		self::download_and_activate();
 
 		// Send back a response.
