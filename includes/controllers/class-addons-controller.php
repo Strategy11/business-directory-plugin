@@ -118,7 +118,7 @@ class WPBDP_Addons_Controller {
 		$plugin = $installer->plugin_info();
 		if ( empty( $plugin ) ) {
 			return array(
-				'message' => 'Plugin was not installed. ' . print_r( $installer->result, true ),
+				'message' => __( 'Plugin was not installed. Please try again or install it manually.', 'business-directory-plugin' ),
 				'success' => false,
 			);
 		}
@@ -165,7 +165,13 @@ class WPBDP_Addons_Controller {
 			// Ignore the invalid header message that shows with nested plugins.
 			if ( $activate->get_error_code() !== 'no_plugin_header' ) {
 				if ( wp_doing_ajax() ) {
-					echo json_encode( array( 'error' => $activate->get_error_message() ) );
+					echo wp_json_encode(
+						array(
+							'error'   => $activate->get_error_message(),
+							'message' => $activate->get_error_message(),
+							'success' => false,
+						)
+					);
 					wp_die();
 				}
 				return array(

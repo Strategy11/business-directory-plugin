@@ -77,22 +77,39 @@ class AddonInstallResponseTest extends WPUnitTestCase {
 		// The package lands outside the plugins folder, so the installer can't find the new plugin.
 		add_filter( 'upgrader_package_options', array( $this, 'install_outside_plugins_folder' ) );
 
-		$response = json_decode( $this->dispatch_install(), true );
+		$response = json_decode( $this->dispatch_request( 'ajax_install_addon', 'https://example.org/sample-addon.zip' ), true );
 
 		$this->assertIsArray( $response );
 		$this->assertFalse( $response['success'] );
 		$this->assertStringContainsString( 'Plugin was not installed', $response['message'] );
+		$this->assertStringNotContainsString( $this->install_dir, $response['message'] );
+	}
+
+	/**
+	 * @since x.x
+	 */
+	public function testActivateRepliesWithAMessageWhenTheAddonCannotBeActivated() {
+		wp_set_current_user( self::factory()->user->create( array( 'role' => 'administrator' ) ) );
+
+		$response = json_decode( $this->dispatch_request( 'ajax_activate_addon', 'wpbdp-missing-addon/wpbdp-missing-addon.php' ), true );
+
+		$this->assertIsArray( $response );
+		$this->assertFalse( $response['success'] ?? null );
+		$this->assertNotEmpty( $response['message'] ?? '' );
 	}
 
 	/**
 	 * @since x.x
 	 *
+	 * @param string $handler Controller AJAX method.
+	 * @param string $plugin  Posted plugin value.
+	 *
 	 * @return string
 	 */
-	private function dispatch_install() {
+	private function dispatch_request( $handler, $plugin ) {
 		$_POST    = array(
 			'nonce'  => wp_create_nonce( 'wpbdp_ajax' ),
-			'plugin' => 'https://example.org/sample-addon.zip',
+			'plugin' => $plugin,
 		);
 		$_REQUEST = $_POST;
 
@@ -103,8 +120,10 @@ class AddonInstallResponseTest extends WPUnitTestCase {
 		$level        = ob_get_level();
 		ob_start( array( $this, 'collect_output' ) );
 
+		$screen = $GLOBALS['current_screen'] ?? null;
+
 		try {
-			WPBDP_Addons_Controller::ajax_install_addon();
+			call_user_func( array( WPBDP_Addons_Controller::class, $handler ) );
 		} catch ( \WPDieException $e ) { // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedCatch
 		}
 
@@ -113,6 +132,7 @@ class AddonInstallResponseTest extends WPUnitTestCase {
 		}
 		remove_filter( 'wp_doing_ajax', '__return_true' );
 		remove_filter( 'wp_die_ajax_handler', array( $this, 'get_die_handler' ) );
+		$GLOBALS['current_screen'] = $screen;
 
 		return $this->output;
 	}
