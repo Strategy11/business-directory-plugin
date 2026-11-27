@@ -893,8 +893,15 @@ class WPBDP_Admin_Listings {
 		}
 	}
 
+	/**
+	 * Delete all payments of a listing from the listing editor.
+	 *
+	 * @since x.x
+	 *
+	 * @return void
+	 */
 	public function ajax_clear_payment_history() {
-		WPBDP_App_Helper::permission_check();
+		WPBDP_App_Helper::permission_check( 'manage_options' );
 		if ( ! check_ajax_referer( 'wpbdp_ajax', 'nonce', false ) ) {
 			wp_send_json_error( array( 'error' => __( 'Invalid nonce.', 'business-directory-plugin' ) ) );
 		}
