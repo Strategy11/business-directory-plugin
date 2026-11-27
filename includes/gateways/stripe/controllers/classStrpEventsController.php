@@ -14,6 +14,15 @@ class WPBDPStrpEventsController {
 	private $invoice;
 
 	/**
+	 * The Checkout session that created the current payment intent, if found.
+	 *
+	 * @since x.x
+	 *
+	 * @var object|null
+	 */
+	private $checkout_session;
+
+	/**
 	 * Tell Stripe Connect API that the request came through by flushing early before processing.
 	 * Flushing early allows the API to end the request earlier.
 	 *
@@ -314,6 +323,10 @@ class WPBDPStrpEventsController {
 			return true;
 		}
 
+		if ( ! $this->paid_amount_covers_payment( $payment ) ) {
+			return true;
+		}
+
 		$payment->gateway = 'stripe';
 		$payment->status  = 'completed';
 
@@ -341,9 +354,12 @@ class WPBDPStrpEventsController {
 	 * @return WPBDP_Payment|null The payment object if found, null otherwise.
 	 */
 	private function find_payment_for_intent() {
+		$this->checkout_session = null;
+
 		$checkout = $this->verify_transaction();
 		if ( $checkout ) {
-			$checkout = array_shift( $checkout );
+			$checkout               = array_shift( $checkout );
+			$this->checkout_session = $checkout->data->object;
 			return wpbdp_get_payment( $checkout->data->object->client_reference_id );
 		}
 
@@ -353,6 +369,103 @@ class WPBDPStrpEventsController {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Check that Stripe charged at least the payment total, in the payment currency.
+	 * Payment items can change while an older Checkout session is still open, so
+	 * the amount paid may not match the current payment.
+	 *
+	 * @since x.x
+	 *
+	 * @param WPBDP_Payment $payment The payment the intent belongs to.
+	 *
+	 * @return bool True if the payment can be completed.
+	 */
+	private function paid_amount_covers_payment( $payment ) {
+		list( $paid, $currency ) = $this->get_paid_amount();
+
+		$due           = (int) WPBDPStrpAppHelper::amount_to_stripe( $payment->amount, $payment->currency_code );
+		$same_currency = strtolower( (string) $payment->currency_code ) === $currency;
+
+		if ( $same_currency && $paid === $due ) {
+			return true;
+		}
+
+		$covered = $same_currency && $paid > $due;
+		$this->log_paid_amount_difference( $payment, $paid, $currency, $covered );
+
+		return $covered;
+	}
+
+	/**
+	 * Add a note to the payment when the amount paid on Stripe differs from the payment total.
+	 *
+	 * @since x.x
+	 *
+	 * @param WPBDP_Payment $payment  The payment the intent belongs to.
+	 * @param int           $paid     Amount paid, in the smallest currency unit.
+	 * @param string        $currency Currency paid.
+	 * @param bool          $covered  Whether the payment is completed anyway.
+	 *
+	 * @return void
+	 */
+	private function log_paid_amount_difference( $payment, $paid, $currency, $covered ) {
+		$note = sprintf(
+			/* translators: %1$s: Stripe payment ID, %2$s: amount paid, %3$s: payment total */
+			__( 'Stripe payment %1$s paid %2$s for a payment total of %3$s.', 'business-directory-plugin' ),
+			$this->invoice->id,
+			wpbdp_currency_format(
+				WPBDPStrpAppHelper::amount_from_stripe( $paid, $currency ),
+				array(
+					'currency'      => strtoupper( $currency ),
+					'force_numeric' => true,
+				)
+			),
+			wpbdp_currency_format( $payment->amount, array( 'currency' => $payment->currency_code ) )
+		);
+
+		if ( ! $covered ) {
+			$note .= ' ' . __( 'The payment was left pending for review.', 'business-directory-plugin' );
+		}
+
+		$payment->log( $note );
+	}
+
+	/**
+	 * Get the amount and currency paid, in the currency the Checkout session was created with.
+	 * With Stripe Adaptive Pricing the customer may be charged in another currency,
+	 * and the session keeps the original amount in currency_conversion.
+	 *
+	 * @since x.x
+	 *
+	 * @return array{0: int, 1: string} Amount in the smallest currency unit and lowercase currency code.
+	 */
+	private function get_paid_amount() {
+		if ( ! $this->checkout_session ) {
+			return $this->amount_and_currency( $this->invoice->amount_received ?? 0, $this->invoice->currency ?? '' );
+		}
+
+		$conversion = $this->checkout_session->currency_conversion ?? null;
+		if ( isset( $conversion->amount_total, $conversion->source_currency ) ) {
+			return $this->amount_and_currency( $conversion->amount_total, $conversion->source_currency );
+		}
+
+		return $this->amount_and_currency( $this->checkout_session->amount_total ?? 0, $this->checkout_session->currency ?? '' );
+	}
+
+	/**
+	 * Normalize a Stripe amount and currency pair for comparison.
+	 *
+	 * @since x.x
+	 *
+	 * @param int|string $amount   Amount in the smallest currency unit.
+	 * @param string     $currency Currency code.
+	 *
+	 * @return array{0: int, 1: string}
+	 */
+	private function amount_and_currency( $amount, $currency ) {
+		return array( (int) $amount, strtolower( (string) $currency ) );
 	}
 
 	/**

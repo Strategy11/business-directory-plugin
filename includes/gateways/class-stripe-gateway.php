@@ -618,16 +618,7 @@ class WPBDPStripeGateway extends WPBDP__Payment_Gateway {
 	 * @return float
 	 */
 	private function formated_amount( $amount, $currency ) {
-		if ( WPBDPStrpAppHelper::is_zero_decimal_currency( $currency ) ) {
-			return round( $amount, 0 );
-		}
-
-		if ( in_array( strtoupper( (string) $currency ), array( 'ISK', 'UGX' ), true ) ) {
-			// Stripe takes these as two-decimal values, but without fractions.
-			return round( $amount, 0 ) * 100;
-		}
-
-		return round( $amount * 100, 0 );
+		return WPBDPStrpAppHelper::amount_to_stripe( $amount, $currency );
 	}
 
 	/**
