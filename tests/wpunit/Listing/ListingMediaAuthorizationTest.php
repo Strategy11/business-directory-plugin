@@ -720,6 +720,18 @@ class ListingMediaAuthorizationTest extends WPUnitTestCase {
 		$this->assertTrue( is_int( $attachment_id ) );
 		$this->assertTrue( $is_image ? wp_attachment_is_image( $attachment_id ) : ! wp_attachment_is_image( $attachment_id ) );
 
+		if ( $is_image ) {
+			// Themes such as Twenty Twenty-One read the image size when the images step renders.
+			wp_update_attachment_metadata(
+				$attachment_id,
+				array(
+					'width'  => 1,
+					'height' => 1,
+					'file'   => _wp_relative_upload_path( $upload['file'] ),
+				)
+			);
+		}
+
 		return $attachment_id;
 	}
 
