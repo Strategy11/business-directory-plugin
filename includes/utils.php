@@ -271,6 +271,10 @@ class WPBDP_Utils {
 			$file = $file_;
 		}
 
+		if ( $check_image ) {
+			$constraints['image'] = true;
+		}
+
 		if ( ! self::is_valid_upload( $file, $constraints, $error_msg ) ) {
 			return false;
 		}
@@ -286,7 +290,9 @@ class WPBDP_Utils {
 			return $upload;
 		}
 
-		$attachment_id = $sideload ? media_handle_sideload( $file, 0 ) : self::handle_validated_upload( $file );
+		// Never let file metadata (like an audio ID3 title) become the attachment description.
+		$post_data     = array( 'post_content' => '' );
+		$attachment_id = $sideload ? media_handle_sideload( $file, 0, null, $post_data ) : self::handle_validated_upload( $file, $post_data );
 
 		if ( is_wp_error( $attachment_id ) ) {
 			$error_msg = $attachment_id->get_error_message();
@@ -415,7 +421,39 @@ class WPBDP_Utils {
 			return false;
 		}
 
+		if ( $constraints['image'] && ! self::is_valid_image( $file ) ) {
+			$error_msg = _x( 'Uploaded file is not an image', 'utils', 'business-directory-plugin' );
+			return false;
+		}
+
 		return true;
+	}
+
+	/**
+	 * Check the file contents are an image type the site allows.
+	 * The client-sent type and file name are not trusted.
+	 *
+	 * @since x.x
+	 *
+	 * @param array $file The uploaded file data, with `tmp_name` and `name`.
+	 *
+	 * @return bool
+	 */
+	private static function is_valid_image( $file ) {
+		$image_mimes = array_filter(
+			get_allowed_mime_types(),
+			function ( $mime ) {
+				// TIFF is not accepted due to compatibility issues.
+				return 0 === strpos( $mime, 'image/' ) && 'image/tiff' !== $mime;
+			}
+		);
+
+		$filetype = wp_check_filetype_and_ext( $file['tmp_name'], $file['name'], $image_mimes );
+		if ( empty( $filetype['type'] ) ) {
+			return false;
+		}
+
+		return in_array( wp_get_image_mime( $file['tmp_name'] ), $image_mimes, true );
 	}
 
 	/**
@@ -482,15 +520,16 @@ class WPBDP_Utils {
 	 *
 	 * @since x.x
 	 *
-	 * @param array $file A single file array in the `$_FILES` format.
+	 * @param array $file      A single file array in the `$_FILES` format.
+	 * @param array $post_data Optional. Attachment post data overrides.
 	 *
 	 * @return int|WP_Error Attachment ID on success, WP_Error on failure.
 	 */
-	private static function handle_validated_upload( $file ) {
+	private static function handle_validated_upload( $file, $post_data = array() ) {
 		$file_id = uniqid( 'wpbdp_upload_' );
 
 		$_FILES[ $file_id ] = $file;
-		$attachment_id      = media_handle_upload( $file_id, 0 );
+		$attachment_id      = media_handle_upload( $file_id, 0, $post_data );
 		unset( $_FILES[ $file_id ] );
 
 		return $attachment_id;
