@@ -1573,7 +1573,7 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 			)
 		);
 
-		if ( $thumbnail_id ) {
+		if ( $thumbnail_id && WPBDP_Listing_Image::belongs_to_listing( $thumbnail_id, $listing->get_id() ) ) {
 			$listing->set_thumbnail_id( $thumbnail_id );
 		}
 
@@ -1587,6 +1587,10 @@ class WPBDP__Views__Submit_Listing extends WPBDP__Authenticated_Listing_View {
 		if ( $should_validate && ! empty( $_POST['images_meta'] ) ) {
 			$order = 0;
 			foreach ( $images as $img_id ) {
+				if ( ! WPBDP_Listing_Image::belongs_to_listing( $img_id, $listing->get_id() ) ) {
+					continue;
+				}
+
 				$updated_meta = wpbdp_get_var( array( 'param' => 'images_meta' ), 'post' );
 				$updated_meta = ! empty( $updated_meta[ $img_id ] ) ? (array) $updated_meta[ $img_id ] : array();
 
