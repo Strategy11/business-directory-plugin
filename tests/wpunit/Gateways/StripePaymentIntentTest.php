@@ -238,11 +238,11 @@ class StripePaymentIntentTest extends WPUnitTestCase {
 	 *
 	 * @since x.x
 	 *
-	 * @param false|array $response Short-circuit response.
+	 * @param array|false $response Short-circuit response.
 	 * @param array       $args     Request arguments.
 	 * @param string      $url      Request URL.
 	 *
-	 * @return false|array
+	 * @return array|false
 	 */
 	public function fake_connect_server( $response, $args, $url ) {
 		if ( 0 !== strpos( $url, 'https://api.businessdirectoryplugin.com/' ) ) {
