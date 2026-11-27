@@ -31,9 +31,11 @@
 				</div>
 			</div>
 			<?php endforeach; ?>
+			<?php if ( wpbdp_user_is_admin() ) : ?>
 			<span class="payment-delete-action" style="font-size: 13px; padding: 2px 0 0;">
 				<a href="#" class="wpbdp-admin-delete-link" name="delete-payments" data-id="<?php echo esc_attr( $listing->get_id() ); ?>">Delete payment history</a>
 			</span>
+			<?php endif; ?>
 		</div>
 	<?php else : ?>
 		<?php esc_html_e( 'No payments available.', 'business-directory-plugin' ); ?>

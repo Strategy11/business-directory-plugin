@@ -840,8 +840,15 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			$response->send();
 		}
 
+		/**
+		 * Save the front-end plan order from the Plans screen.
+		 *
+		 * @since x.x
+		 *
+		 * @return void
+		 */
 		public function ajax_fees_set_order() {
-			WPBDP_App_Helper::permission_check();
+			WPBDP_App_Helper::permission_check( 'manage_options' );
 
 			$nonce = wpbdp_get_var( array( 'param' => '_wpnonce' ), 'post' );
 			$order = wpbdp_get_var( array( 'param' => 'fee_order' ), 'post' );
@@ -1573,9 +1580,16 @@ if ( ! class_exists( 'WPBDP_Admin' ) ) {
 			);
 		}
 
+		/**
+		 * Dismiss the server requirements notice for a week.
+		 *
+		 * @since x.x
+		 *
+		 * @return void
+		 */
 		public function ajax_dismiss_notification_server_requirements() {
-		WPBDP_App_Helper::permission_check();
-		check_ajax_referer( 'wpbdp_ajax', 'nonce' );
+			WPBDP_App_Helper::permission_check( 'manage_options' );
+			check_ajax_referer( 'dismiss notice server_requirements', 'nonce' );
 
 			set_transient( 'wpbdp_server_requirements_warning_dismissed', true, WEEK_IN_SECONDS );
 		}
